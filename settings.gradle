@@ -1,2 +1,5 @@
 rootProject.name = 'demo-authentication'
+include 'demo-authentication-api'
+include 'demo-authentication-impl'
+include 'demo-authentication-web'
 
