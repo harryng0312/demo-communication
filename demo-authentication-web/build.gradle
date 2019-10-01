@@ -34,10 +34,10 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.apache.camel:camel-spring-boot-starter:2.24.0'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.63'
 
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
-    compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.63'
 
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 

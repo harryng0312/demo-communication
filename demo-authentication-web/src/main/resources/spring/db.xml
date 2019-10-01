@@ -6,11 +6,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" order="1"/>
 
     <context:property-placeholder location="classpath:db.properties"/>
 
-    <bean id="publisher_ds" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
+    <bean id="test_ds" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="${db.driver}"/>
         <property name="url" value="${db.url}"/>
         <property name="username" value="${db.username}"/>
@@ -19,10 +19,10 @@
         <property name="maxTotal" value="${db.maxPoolSize}"/>
     </bean>
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="publisher_ds"/>
+        <property name="dataSource" ref="test_ds"/>
     </bean>
     <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg name="dataSource" ref="publisher_ds"/>
+        <constructor-arg name="dataSource" ref="test_ds"/>
     </bean>
 <!--    <bean id="transactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">-->
 <!--        <constructor-arg name="transactionManagers">-->
