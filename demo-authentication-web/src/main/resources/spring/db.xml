@@ -6,7 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" order="1"/>
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" />
 
     <context:property-placeholder location="classpath:db.properties"/>
 
