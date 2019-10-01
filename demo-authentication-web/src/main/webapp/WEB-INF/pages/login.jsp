@@ -10,36 +10,45 @@
 <head>
     <title>Login</title>
     <style type="text/css">
-        body {
-            align-content: center;
+        .center {
+            max-width: 600px;
+            margin: auto;
         }
     </style>
 </head>
 <body>
-<form method="post" action="" enctype="multipart/form-data">
-    <table border="0">
-        <thead>
-        <tr>
-            <td>LOGIN</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Username</td>
-            <td><input id="txtUsername" name="txtUsername" placeholder="Username"/></td>
-
-            <td>Password</td>
-            <td><input id="txtPassword" name="txtPassword" placeholder="Password"/></td>
-
-            <td>&nbsp;</td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td><input type="submit" value="Login" name="submit"/></td>
-        </tr>
-        </tfoot>
-    </table>
-</form>
+<div class="center">
+    <form method="post" action="" enctype="multipart/form-data">
+        <table border="0">
+            <thead>
+            <tr>
+                <td>LOGIN</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Username</td>
+            </tr>
+            <tr>
+                <td><input id="txtUsername" name="txtUsername" placeholder="Username"/></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+            </tr>
+            <tr>
+                <td><input id="txtPassword" name="txtPassword" placeholder="Password"/></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td><input type="submit" value="Login" name="submit"/></td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
 </body>
 </html>
