@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:spring-configured/>
     <context:annotation-config/>
-    <context:component-scan base-package="org.hikarikyou.demo"/>
+    <context:component-scan base-package="org.harryng.demo"/>
     <!-- <import resource="classpath:spring/**/*.xml" /> -->
     <!-- 	<import resource="classpath:spring/*.xml" /> -->
     <!-- 	<import resource="classpath:spring/bean/*.xml" /> -->

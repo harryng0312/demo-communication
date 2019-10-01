@@ -4,43 +4,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-	http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd">
-    <bean id="staticContextAccessor" class="com.videabiz.badgechain.util.SpringContextAccessor" scope="singleton"
-          init-method="registerInstance"/>
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="systemProperties" scope="singleton"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <value>classpath:publisher/*.properties</value>
+                <value>classpath:*.properties</value>
             </list>
         </property>
     </bean>
-    <!-- mapper -->
-    <bean id="mapperBuilder" scope="singleton"
-          class="com.videabiz.badgechain.mapper.MapperFactory">
-        <property name="mappingFiles">
-            <list>
-                <value>classpath:dozer/pReqBadge2eBadge.xml</value>
-                <value>classpath:dozer/pAssertion2eBadgeInfo.xml</value>
-                <value>classpath:dozer/pBadge2eBadge.xml</value>
-                <value>classpath:dozer/pUser2eUser.xml</value>
-            </list>
-        </property>
-    </bean>
-    <bean id="mapper" class="org.dozer.Mapper"
-          factory-bean="mapperBuilder" factory-method="create">
-    </bean>
-    <!-- file route Idempotent -->
-    <bean id="fileStore" class="java.io.File">
-        <constructor-arg name="pathname" value="#{propertiesUtil.systemProperties['os.working.dir']}/work/oldfiles/requests.txt"/>
-    </bean>
-    <bean id="fileIdem" class="org.apache.camel.processor.idempotent.FileIdempotentRepository">
-        <property name="fileStore" ref="fileStore"/>
-    </bean>
-    <!-- common beans -->
-    <bean id="commonProcessor" class="com.videabiz.badgechain.common.processor.CommonProcessor"/>
-    <bean id="jsonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
-    <bean id="propertiesUtil" class="com.videabiz.badgechain.util.PropertiesUtil"/>
+
 </beans>

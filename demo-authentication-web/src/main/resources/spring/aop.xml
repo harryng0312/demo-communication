@@ -8,14 +8,14 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <aop:aspectj-autoproxy/>
     <!-- processor aspect -->
-    <bean id="processorOutputResolver" class="com.videabiz.badgechain.aop.ProcessorOutputResolver"/>
-    <aop:config>
-        <aop:aspect id="aspectProcessorOutputResolver" ref="processorOutputResolver">
-            <aop:pointcut id="resolverOutputResultPointcut"
-                          expression="execution(public * com.videabiz.badgechain.processor..*.*(..))"/>
-            <aop:around method="processOutputResult" pointcut-ref="resolverOutputResultPointcut"/>
-        </aop:aspect>
-    </aop:config>
+<!--    <bean id="processorOutputResolver" class="com.videabiz.badgechain.aop.ProcessorOutputResolver"/>-->
+<!--    <aop:config>-->
+<!--        <aop:aspect id="aspectProcessorOutputResolver" ref="processorOutputResolver">-->
+<!--            <aop:pointcut id="resolverOutputResultPointcut"-->
+<!--                          expression="execution(public * com.videabiz.badgechain.processor..*.*(..))"/>-->
+<!--            <aop:around method="processOutputResult" pointcut-ref="resolverOutputResultPointcut"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
 
     <!-- transaction aspect -->
     <!-- aspectj -->
@@ -27,8 +27,8 @@
             <tx:method name="select*" propagation="SUPPORTS"/>
             <!-- other methods use the default transaction settings (see below) -->
             <tx:method name="*"
-                       rollback-for="java.lang.RuntimeException,com.videabiz.badgechain.exception.SystemException"
-                       no-rollback-for="java.lang.Exception,com.videabiz.badgechain.exception.BusinessException"
+                       rollback-for="java.lang.RuntimeException"
+                       no-rollback-for="java.lang.Exception"
                        propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
@@ -39,8 +39,8 @@
             <tx:method name="get*" propagation="SUPPORTS"/>
             <!-- other methods use the default transaction settings (see below) -->
             <tx:method name="*"
-                       rollback-for="java.lang.RuntimeException,com.videabiz.badgechain.exception.SystemException"
-                       no-rollback-for="java.lang.Exception,com.videabiz.badgechain.exception.BusinessException"
+                       rollback-for="java.lang.RuntimeException"
+                       no-rollback-for="java.lang.Exception"
                        propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
@@ -51,8 +51,8 @@
             <tx:method name="get*" propagation="SUPPORTS"/>
             <!-- other methods use the default transaction settings (see below) -->
             <tx:method name="*"
-                       rollback-for="java.lang.RuntimeException,com.videabiz.badgechain.exception.SystemException"
-                       no-rollback-for="java.lang.Exception,com.videabiz.badgechain.exception.BusinessException"
+                       rollback-for="java.lang.RuntimeException"
+                       no-rollback-for="java.lang.Exception"
                        propagation="SUPPORTS"/>
         </tx:attributes>
     </tx:advice>
@@ -64,8 +64,8 @@
             <tx:method name="get*" propagation="SUPPORTS"/>
             <!-- other methods use the default transaction settings (see below) -->
             <tx:method name="*"
-                       rollback-for="java.lang.RuntimeException,com.videabiz.badgechain.exception.SystemException"
-                       no-rollback-for="java.lang.Exception,com.videabiz.badgechain.exception.BusinessException"
+                       rollback-for="java.lang.RuntimeException"
+                       no-rollback-for="java.lang.Exception"
                        propagation="NOT_SUPPORTED"/>
         </tx:attributes>
     </tx:advice>
@@ -73,8 +73,8 @@
     <!-- ensure that the above transactional advice runs for any execution
       of an operation defined by the FooService interface -->
     <aop:config>
-        <aop:pointcut id="persistenceOperation" expression="within(com.videabiz.badgechain..persistence.*)"/>
-        <aop:pointcut id="serviceOperation" expression="within(com.videabiz.badgechain..service.*) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
+        <aop:pointcut id="persistenceOperation" expression="within(org.harryng..persistence.*)"/>
+        <aop:pointcut id="serviceOperation" expression="within(org.harryng..service.*) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
         <aop:advisor pointcut-ref="persistenceOperation" advice-ref="requiredTxAdvicePersistence"  order="0"/>
         <aop:advisor pointcut-ref="serviceOperation" advice-ref="supportTxAdvice"  order="0"/>
     </aop:config>
