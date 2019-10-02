@@ -18,37 +18,7 @@
 </head>
 <body>
 <div class="center">
-    <form method="post" action="" enctype="multipart/form-data">
-        <table border="0">
-            <thead>
-            <tr>
-                <td>LOGIN</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Username</td>
-            </tr>
-            <tr>
-                <td><input id="txtUsername" name="txtUsername" placeholder="Username"/></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-            </tr>
-            <tr>
-                <td><input id="txtPassword" name="txtPassword" placeholder="Password"/></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td><input type="submit" value="Login" name="submit"/></td>
-            </tr>
-            </tfoot>
-        </table>
-    </form>
+    Welcome
 </div>
 </body>
 </html>
