@@ -4,9 +4,10 @@ var HCrypto = {
     hash: async function (algName, str) {
         var promise = this.subtle.digest({name: algName}, strToArrBuffer(str))
             .then(function (value) {
-                return bufferToHex(value);
+                return arrBufferToBase64(value);
             })
-        return await promise;
+        var rs = await promise;
+        return rs;
     },
     mac: function (algName, key, str) {
 

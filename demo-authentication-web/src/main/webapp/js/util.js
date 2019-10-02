@@ -8,6 +8,15 @@ function base64ToStr(b64){
     return Base64.decode(b64);
 }
 
+function arrBufferToBase64(buffer){
+    var b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)));
+    return b64;
+}
+
+function base64ToArrBuffer(b64) {
+    return atob(b64);
+}
+
 function strToArrBuffer(str){
     var bytes = GTextEncoder.encode(str)
     // var bytes = new Uint8Array(str.length);
