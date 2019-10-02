@@ -12,11 +12,12 @@
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="css/welcome.css"/>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/crypto.js"></script>
 </head>
 <body>
 <div class="center">
-    <form method="post" action="" enctype="multipart/form-data">
+    <form method="post" action="" enctype="multipart/form-data" onsubmit="return false;">
         <table border="0">
             <thead>
             <tr>
@@ -51,8 +52,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#submit').bind("click", function () {
-            alert("User click");
+        $('#submit').bind("click", async function () {
+            var hash = await HCrypto.hash("SHA-256", $('#txtPassword').val());
+            alert(hash);
             return false;
         });
     });

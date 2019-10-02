@@ -3,6 +3,9 @@ plugins {
 }
 
 allprojects {
+    buildscript {
+        ext { }
+    }
     apply plugin: "java"
     repositories {
         mavenCentral()
