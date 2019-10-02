@@ -1,13 +1,15 @@
 package org.harryng.demo.base.persistence;
 
 import org.harryng.demo.base.pojo.entity.BaseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 
-public class AbstractPersistence<Id extends Object, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
+public abstract class AbstractPersistence<Id extends Object, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
 
+    @Autowired
     private EntityManager defaultEntityManager;
-    private Class<T> entityClass;
+    private Class<T> entityClass = null;
 
     public AbstractPersistence(Class<T> entityClass) {
         this.entityClass = entityClass;
