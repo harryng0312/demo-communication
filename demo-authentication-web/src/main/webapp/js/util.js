@@ -30,16 +30,3 @@ function arrBufferToByteArr(buffer) {
     var byteArr = Array.from(new Uint8Array(buffer));
     return byteArr;
 }
-
-function bufferToHex(buffer) {
-    var data_view = new DataView(buffer)
-    var iii, len, hex = '', c;
-    for(iii = 0, len = data_view.byteLength; iii < len; iii += 1){
-        c = data_view.getUint8(iii).toString(16);
-        if(c.length < 2){
-            c = '0' + c;
-        }
-        hex += c;
-    }
-    return hex;
-}

@@ -9,7 +9,27 @@ var HCrypto = {
         var rs = await promise;
         return rs;
     },
-    mac: function (algName, key, str) {
-
+    // HMAC RSA-PSS ECDSA
+    sign: async function (algName, key, str) {
+        var keyBin = base64ToArrBuffer(key);
+        var promise = this.subtle.sign({name: algName}, keyBin, strToArrBuffer(str))
+            .then(function (value) {
+                return arrBufferToBase64(value);
+            }).catch(function(err) {
+                console.error(err);
+            })
+        var rs = await promise;
+        return rs;
+    },
+    verify: async function(algName, key, str){
+        var keyBin = base64ToArrBuffer(key);
+        var promise = this.subtle.verify({name: algName}, keyBin, strToArrBuffer(str))
+            .then(function (value) {
+                return arrBufferToBase64(value);
+            }).catch(function(err) {
+                console.error(err);
+            })
+        var rs = await promise;
+        return rs;
     }
 }
