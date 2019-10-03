@@ -23,11 +23,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
 
-    implementation 'org.springframework:spring-context' + springVersion
-    implementation 'org.springframework:spring-tx' + springVersion
-    implementation 'org.springframework:spring-aop' + springVersion
-
-    implementation 'org.springframework:spring-webmvc' + springVersion
+//    implementation 'org.springframework:spring-context' + springVersion
+//    implementation 'org.springframework:spring-tx' + springVersion
+//    implementation 'org.springframework:spring-aop' + springVersion
+//
+//    implementation 'org.springframework:spring-webmvc' + springVersion
 
     implementation 'org.apache.commons:commons-dbcp2:' + apacheCommonVersion
     implementation 'org.apache.commons:commons-pool2:' + apacheCommonVersion

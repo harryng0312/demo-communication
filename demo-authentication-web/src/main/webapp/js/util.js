@@ -18,11 +18,7 @@ function base64ToArrBuffer(b64) {
 }
 
 function strToArrBuffer(str){
-    var bytes = GTextEncoder.encode(str)
-    // var bytes = new Uint8Array(str.length);
-    // for (var iii = 0; iii < str.length; iii++) {
-    //     bytes[iii] = str.charCodeAt(iii);
-    // }
+    var bytes = GTextEncoder.encode(str);
     return bytes;
 }
 

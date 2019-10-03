@@ -1,5 +1,5 @@
 var HCrypto = {
-    subtle: window.crypto.subtle,
+    subtle: window.crypto.subtle?window.crypto.subtle:widow.msCrypto.subtle,
     // SHA-256
     hash: async function (algName, str) {
         var promise = this.subtle.digest({name: algName}, strToArrBuffer(str))
