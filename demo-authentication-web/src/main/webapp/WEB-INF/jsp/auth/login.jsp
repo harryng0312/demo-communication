@@ -54,7 +54,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#submit').bind("click", function () {
-            return loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val());
+            return Authenticator.loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val());
         });
     });
 </script>

@@ -4,17 +4,17 @@ var HCrypto = {
     hash: async function (algName, str) {
         var promise = this.subtle.digest({name: algName}, strToArrBuffer(str))
             .then(function (value) {
-                return arrBufferToBase64(value);
+                return DataUtil.bytesToBase64(value);
             })
         var rs = await promise;
         return rs;
     },
     // HMAC RSA-PSS ECDSA
     sign: async function (algName, key, str) {
-        var keyBin = base64ToArrBuffer(key);
-        var promise = this.subtle.sign({name: algName}, keyBin, strToArrBuffer(str))
+        var keyBin = DataUtil.base64ToBytes(key);
+        var promise = this.subtle.sign({name: algName}, keyBin, DataUtil.strToBytes(str))
             .then(function (value) {
-                return arrBufferToBase64(value);
+                return DataUtil.bytesToBase64(value);
             }).catch(function(err) {
                 console.error(err);
             })
@@ -22,10 +22,10 @@ var HCrypto = {
         return rs;
     },
     verify: async function(algName, key, str){
-        var keyBin = base64ToArrBuffer(key);
-        var promise = this.subtle.verify({name: algName}, keyBin, strToArrBuffer(str))
+        var keyBin = DataUtil.base64ToBytes(key);
+        var promise = this.subtle.verify({name: algName}, keyBin, DataUtil.strToBytes(str))
             .then(function (value) {
-                return arrBufferToBase64(value);
+                return DataUtil.bytesToBase64(value);
             }).catch(function(err) {
                 console.error(err);
             })

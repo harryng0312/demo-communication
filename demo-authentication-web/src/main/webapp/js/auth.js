@@ -1,4 +1,6 @@
-function loginByUnamePasswd(uname, passwd){
-    var result = false;
-    return result;
+var Authenticator = {
+    loginByUnamePasswd: function (uname, passwd) {
+        var result = false;
+        return result;
+    }
 }
