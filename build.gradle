@@ -4,7 +4,13 @@ plugins {
 
 allprojects {
     buildscript {
-        ext { }
+        ext {
+            springVersion = ''//':4.1.6.RELEASE'
+            apacheCommonVersion = '2.7.0'
+            aspectjVersion = '1.9.4'
+            jstlVersion = '1.2'
+            tomcatVersion = '9.0.24'
+        }
     }
     apply plugin: "java"
     repositories {
