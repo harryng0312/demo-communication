@@ -5,7 +5,7 @@ plugins {
 allprojects {
     buildscript {
         ext {
-            springVersion = ''//':4.1.6.RELEASE'
+            springVersion = ''
             apacheCommonVersion = '2.7.0'
             aspectjVersion = '1.9.4'
             jstlVersion = '1.2'
