@@ -1,6 +1,5 @@
 package org.harryng.demo.util.persistence;
 
-import org.harryng.demo.base.pojo.entity.BaseEntity;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 
@@ -11,10 +10,10 @@ import javax.persistence.criteria.CriteriaQuery;
 public class PersistenceUtil {
 
     public static <T extends Object> PageResult<T> selectObjectByCriteria(EntityManager entityManager, PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws RuntimeException, Exception {
-        PageResult<T> pageResult = new PageResult<>(pageInfo);
         TypedQuery<T> typedQuery = entityManager.createQuery(criteriaQuery);
         typedQuery.setFirstResult((int) pageInfo.getStartRowIndex());
         typedQuery.setMaxResults(pageInfo.getPageSize());
+        PageResult<T> pageResult = new PageResult<>(pageInfo);
         pageResult.getResults().addAll(typedQuery.getResultList());
         return pageResult;
     }
