@@ -27,16 +27,22 @@ dependencies {
 //    implementation 'org.springframework:spring-tx' + springVersion
 //    implementation 'org.springframework:spring-aop' + springVersion
 //
+    implementation 'org.springframework:spring-orm'
 //    implementation 'org.springframework:spring-webmvc' + springVersion
 
     implementation 'org.apache.commons:commons-dbcp2:' + apacheCommonVersion
     implementation 'org.apache.commons:commons-pool2:' + apacheCommonVersion
+
     implementation 'javax.servlet:jstl:' + jstlVersion
+    implementation 'org.springframework:spring-aspects'
     implementation 'org.aspectj:aspectjrt:' + aspectjVersion
     implementation 'org.aspectj:aspectjweaver:' + aspectjVersion
 
+    implementation 'org.eclipse.persistence:eclipselink:' + eclipselinkVersion
+    implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy:' + eclipselinkVersion
+
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'org.bouncycastle:bcprov-jdk15on:1.63'
+    implementation 'org.bouncycastle:bcprov-jdk15on:' + bouncycastleVersion
 
     runtimeOnly 'com.h2database:h2'
 //    runtimeOnly 'org.postgresql:postgresql'

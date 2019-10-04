@@ -1,0 +1,10 @@
+-- db test_db
+create table USER_(
+	ID_ INTEGER not null primary key,
+	USERNAME VARCHAR(70) unique,
+	PASSWD VARCHAR(140),
+	SCREENNAME VARCHAR(70),
+	DOB TIMESTAMP,
+	PASSWD_ENC_METHOD VARCHAR(70)
+);
+

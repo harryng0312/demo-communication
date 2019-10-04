@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="center">
-    <form method="post" action="" enctype="multipart/form-data" onsubmit="return false;">
+    <form id="authForm" method="post" action="">
         <table border="0">
             <thead>
             <tr>
@@ -30,13 +30,13 @@
                 <td>Username</td>
             </tr>
             <tr>
-                <td><input id="txtUsername" name="txtUsername" placeholder="Username"/></td>
+                <td><input id="txtUsername" name="txtUsername" placeholder="Username" autocomplete="off"/></td>
             </tr>
             <tr>
                 <td>Password</td>
             </tr>
             <tr>
-                <td><input type="password" id="txtPassword" name="txtPassword" placeholder="Password"/></td>
+                <td><input type="password" id="txtPassword" name="txtPassword" placeholder="Password" autocomplete="off"/></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -54,7 +54,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#submit').bind("click", function () {
-            return Authenticator.loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val());
+            Authenticator.loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val(), function(result){
+                if(result){
+                    $('#authForm').submit();
+                }
+            });
+            return false;
         });
     });
 </script>

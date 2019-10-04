@@ -4,6 +4,11 @@ import org.harryng.demo.base.pojo.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.Root;
 
 public abstract class AbstractPersistence<Id extends Object, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
 
@@ -32,21 +37,29 @@ public abstract class AbstractPersistence<Id extends Object, T extends BaseEntit
 
     @Override
     public T selectById(Id id) throws RuntimeException, Exception {
-        return null;
+        return getEntityManager().find(getEntityClass(), id);
     }
 
     @Override
     public int insert(T obj) throws RuntimeException, Exception {
-        return 0;
+        getEntityManager().persist(obj);
+        return 1;
     }
 
     @Override
     public int update(T obj) throws RuntimeException, Exception {
-        return 0;
+        getEntityManager().merge(obj);
+        return 1;
     }
 
     @Override
     public int delete(Id id) throws RuntimeException, Exception {
-        return 0;
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaDelete<T> criteriaDelete = cb.createCriteriaDelete(getEntityClass());
+        Root<T> root = criteriaDelete.from(getEntityClass());
+        criteriaDelete.where(cb.equal(root.get("id"), id));
+        Query query = getEntityManager().createQuery(criteriaDelete);
+        int rs = query.executeUpdate();
+        return rs;
     }
 }
