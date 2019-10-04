@@ -31,5 +31,10 @@ var HCrypto = {
             })
         var rs = await promise;
         return rs;
-    }
+    },
+
+    //
+    generateKey: async function(algName, ){
+        this.subtle
+    },
 }

@@ -36,7 +36,8 @@
                 <td>Password</td>
             </tr>
             <tr>
-                <td><input type="password" id="txtPassword" name="txtPassword" placeholder="Password" autocomplete="off"/></td>
+                <td><input type="password" id="txtPassword" name="txtPassword" placeholder="Password"
+                           autocomplete="off"/></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -54,8 +55,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#submit').bind("click", function () {
-            Authenticator.loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val(), function(result){
-                if(result){
+            Authenticator.loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val(), function (result) {
+                if (result) {
                     $('#authForm').submit();
                 }
             });

@@ -4,7 +4,7 @@ buildscript {
     }
 }
 plugins {
-    id 'org.springframework.boot' version '1.5.22.RELEASE'
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'war'
@@ -23,18 +23,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
 
-//    implementation 'org.springframework:spring-context' + springVersion
-//    implementation 'org.springframework:spring-tx' + springVersion
-//    implementation 'org.springframework:spring-aop' + springVersion
-//
-    implementation 'org.springframework:spring-orm'
-//    implementation 'org.springframework:spring-webmvc' + springVersion
-
     implementation 'org.apache.commons:commons-dbcp2:' + apacheCommonVersion
     implementation 'org.apache.commons:commons-pool2:' + apacheCommonVersion
 
     implementation 'javax.servlet:jstl:' + jstlVersion
-    implementation 'org.springframework:spring-aspects'
     implementation 'org.aspectj:aspectjrt:' + aspectjVersion
     implementation 'org.aspectj:aspectjweaver:' + aspectjVersion
 

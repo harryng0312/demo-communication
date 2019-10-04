@@ -6,10 +6,11 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/crypto.js"></script>
+    <script type="text/javascript" src="js/auth.js"></script>
 </head>
 <body>
 <div class="center">
-    <form method="post" action="" enctype="multipart/form-data" onsubmit="return false;">
+    <form method="post" action="">
         <table>
             <thead>
             <tr>
@@ -45,12 +46,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#submit').bind("click", function () {
-            // var hash = await HCrypto.hash("SHA-256", $('#txtPassword').val());
-            // var y = 2**3;
-            // var x = BigInt('5');
-            var x = 5n;
-            var y = x**2n;
-            alert(y);
+            Authenticator.loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val(), function (result) {
+                if (result) {
+                    $('#authForm').submit();
+                }
+            });
             return false;
         });
     });

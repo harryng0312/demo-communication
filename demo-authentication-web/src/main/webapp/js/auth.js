@@ -1,6 +1,6 @@
 var Authenticator = {
-    loginByUnamePasswd: function (uname, passwd, func) {
+    loginByUnamePasswd: function (uname, passwd, callback) {
         var result = false;
-        return result;
+        callback(result);
     }
 }
