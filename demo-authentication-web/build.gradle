@@ -33,7 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.bouncycastle:bcprov-jdk15on:' + bouncycastleVersion
 
-    runtimeOnly 'com.h2database:h2'
+//    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
 
     providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper:' + tomcatVersion
