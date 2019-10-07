@@ -15,7 +15,9 @@ public class PageResult<T extends Object> extends PageInfo {
     }
 
     public List<T> getResults() {
-        List<T> results = new ArrayList<>();
+        if (results == null) {
+            results = new ArrayList<>();
+        }
         return results;
     }
 }

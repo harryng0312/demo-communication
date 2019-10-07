@@ -13,7 +13,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void loginByUsernamePassword(String username, String password) throws RuntimeException, Exception {
         UserImpl user = userService.getByUsername(username);
-        if (password != null) {
+        if (password == null) {
             throw new Exception("Password is not valid");
         }
         if (user != null) {

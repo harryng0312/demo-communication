@@ -32,10 +32,10 @@ public class TestUserService {
     public void testAddUser() throws Exception {
         Date now = Calendar.getInstance().getTime();
         UserImpl user = new UserImpl();
-        user.setId(3L);
-        user.setUsername("username03");
-        user.setPasswd("passwd03");
-        user.setScreenName("screen03");
+        user.setId(1L);
+        user.setUsername("username01");
+        user.setPasswd("passwd01");
+        user.setScreenName("screen01");
         user.setDob(now);
         user.setPasswdEncryptedMethod("plain");
 

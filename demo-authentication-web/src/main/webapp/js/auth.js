@@ -6,6 +6,7 @@ var Authenticator = {
         };
         var success = function (data) {
             var result = (data.result === "0");
+            alert("Login result:" + result);
             callback(result);
         };
         var error = function (err) {
