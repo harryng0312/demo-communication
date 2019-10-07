@@ -23,4 +23,14 @@ public class TextUtil {
     public static byte[] base64ToBytes(String str) {
         return b64Decoder.decode(str);
     }
+
+    public static <T extends Object> String objToJson(Class<T> clazz, T obj) {
+        String result = null;
+        return result;
+    }
+
+    public static <T extends Object> T jsonToObj(String str) {
+        T result = null;
+        return result;
+    }
 }

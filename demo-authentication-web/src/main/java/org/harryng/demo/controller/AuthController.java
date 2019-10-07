@@ -1,6 +1,8 @@
 package org.harryng.demo.controller;
 
+import org.harryng.demo.auth.pojo.text.AuthenticationInfo;
 import org.harryng.demo.auth.service.AuthService;
+import org.harryng.demo.util.TextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,9 @@ public class AuthController {
     public String doLogin(@RequestBody String body) {
         String response = "";
         // TODO: assign values
-        String username = "";
-        String password = "";
+        AuthenticationInfo authenticationInfo = TextUtil.jsonToObj(body);
+        String username = authenticationInfo.getUsername();
+        String password = authenticationInfo.getPassword();
         try {
             authService.loginByUsernamePassword(username, password);
         } catch (Exception e) {
