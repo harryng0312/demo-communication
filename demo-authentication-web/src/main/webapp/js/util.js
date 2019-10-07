@@ -56,4 +56,20 @@ var DataUtil = {
         });
         return BigInt('0x' + hex.join(''));
     }
-}
+};
+var FormUtil = {
+    postJson: function (url, data, success, error) {
+        $.ajax({
+            url: url,
+            crossDomain: false,
+            dataType: "json",
+            method: "POST",
+            mimeType: "application/json",
+            scriptCharset: "utf-8",
+            processData: false,
+            data: data,
+            success:success,
+            error:error,
+        });
+    }
+};
