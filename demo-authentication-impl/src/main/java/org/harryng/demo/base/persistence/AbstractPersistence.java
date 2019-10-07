@@ -2,6 +2,7 @@ package org.harryng.demo.base.persistence;
 
 import org.harryng.demo.base.pojo.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -13,6 +14,7 @@ import javax.persistence.criteria.Root;
 public abstract class AbstractPersistence<Id extends Object, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
 
     @Autowired
+    @Qualifier("entityManagerFactory")
     private EntityManager defaultEntityManager;
     private Class<T> entityClass = null;
 

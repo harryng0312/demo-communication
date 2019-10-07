@@ -1,10 +1,10 @@
 package org.harryng.demo.user.pojo.model;
 
-import org.harryng.demo.base.pojo.entity.AbstractEntity;
+import org.harryng.demo.base.pojo.entity.AbstractStatedEntity;
 
 import java.util.Date;
 
-public class UserModel extends AbstractEntity<Long> {
+public class UserModel extends AbstractStatedEntity<Long> {
     private String username;
     private String passwd;
     private String screenName;

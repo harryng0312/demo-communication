@@ -30,14 +30,11 @@ dependencies {
     implementation 'org.aspectj:aspectjrt:' + aspectjVersion
     implementation 'org.aspectj:aspectjweaver:' + aspectjVersion
 
-//    implementation 'org.eclipse.persistence:eclipselink' + eclipselinkVersion
-//    implementation 'org.eclipse.persistence:org.eclipse.persistence.moxy' + eclipselinkVersion
-
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.bouncycastle:bcprov-jdk15on:' + bouncycastleVersion
 
     runtimeOnly 'com.h2database:h2'
-//    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
 
     providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper:' + tomcatVersion
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'

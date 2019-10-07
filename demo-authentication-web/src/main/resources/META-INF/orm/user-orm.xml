@@ -8,23 +8,23 @@
 				<column name="username" />
 			</basic>
 			<basic name="passwd">
-				<column name="passwd" />
+				<column name="password_" />
+			</basic>
+			<basic name="passwdEncryptedMethod">
+				<column name="passwd_enc_method" />
 			</basic>
 			<basic name="screenName">
-				<column name="screenName" />
+				<column name="screen_name" />
 			</basic>
 			<basic name="dob">
 				<column name="dob" />
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="passwdEncryptedMethod">
-				<column name="passwd_enc_method" />
-			</basic>
 		</attributes>
 	</mapped-superclass>
 
 	<entity class="org.harryng.demo.user.pojo.entity.UserImpl">
-		<table name="user_" />
+		<table name="auth_user" />
 <!--		<attributes>-->
 <!--			<id name="id"/>-->
 <!--		</attributes>-->
