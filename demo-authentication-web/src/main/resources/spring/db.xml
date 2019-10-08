@@ -41,11 +41,11 @@
                 <property name="showSql" value="true"/>
             </bean>
         </property>
-<!--        <property name="jpaPropertyMap">-->
-<!--            <map>-->
-<!--                <entry key="eclipselink.weaving" value="false"/>-->
-<!--            </map>-->
-<!--        </property>-->
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+            </map>
+        </property>
         <property name="loadTimeWeaver">
             <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
         </property>

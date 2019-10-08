@@ -11,7 +11,7 @@ public class AuthServiceImpl implements AuthService {
     private UserService userService;
 
     @Override
-    public void loginByUsernamePassword(String username, String password) throws RuntimeException, Exception {
+    public UserImpl loginByUsernamePassword(String username, String password) throws RuntimeException, Exception {
         UserImpl user = userService.getByUsername(username);
         if (password == null) {
             throw new Exception("Password is not valid");
@@ -32,5 +32,6 @@ public class AuthServiceImpl implements AuthService {
         } else {
             throw new Exception("User is not found");
         }
+        return user;
     }
 }

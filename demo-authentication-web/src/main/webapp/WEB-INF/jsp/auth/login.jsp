@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="center">
-    <form id="authForm" method="post" action="">
+    <form id="authForm" method="post" action="login" onsubmit="return false;">
         <table border="0">
             <thead>
             <tr>
@@ -45,7 +45,8 @@
             </tbody>
             <tfoot>
             <tr>
-                <td><input type="submit" id="submit" value="Login" name="submit"/></td>
+                <td><input type="submit" id="submit" value="Login" name="submit"/><input id="tokenId" name="tokenId"
+                                                                                         type="hidden"/></td>
             </tr>
             </tfoot>
         </table>
@@ -57,7 +58,7 @@
         $('#submit').bind("click", function () {
             Authenticator.loginByUnamePasswd($('#txtUsername').val(), $('#txtPassword').val(), function (result) {
                 if (result) {
-                    $('#authForm').submit();
+                    $(location).prop('href', 'afterLogin?tokenId=' + $('#txtUsername').val());
                 }
             });
             return false;

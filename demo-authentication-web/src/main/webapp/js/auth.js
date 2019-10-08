@@ -14,6 +14,6 @@ var Authenticator = {
             console.log("Error:" + err);
             callback(false);
         };
-        FormUtil.postJson("doLogin", data, success, error);
+        FormUtil.postJson("login", data, success, error);
     }
 }
