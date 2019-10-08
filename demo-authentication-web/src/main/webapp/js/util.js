@@ -19,7 +19,13 @@ var DataUtil = {
         return b64;
     },
     base64ToBytes: function (b64) {
-        return atob(b64);
+        var binStr = atob(b64);
+        var rawLength = binStr.length;
+        var array = new Uint8Array(new ArrayBuffer(rawLength));
+        for(i = 0; i < rawLength; i++) {
+            array[i] = binStr.charCodeAt(i);
+        }
+        return array;
     },
 
     strToBytes: function (str) {
@@ -32,7 +38,7 @@ var DataUtil = {
     },
 
     bigIntToBytes: function (bn) {
-        if (bn != null && bn !== undefined && bn instanceof BigInt) {
+        if (bn != null && bn !== undefined) {
             var hex = bn.toString(16);
             if (hex.length % 2) {
                 hex = '0' + hex;
@@ -59,7 +65,7 @@ var DataUtil = {
             }
             hex.push(h);
         });
-        return BigInt('0x' + hex.join(''));
+        return BigInt(('0x' + hex.join('')));
     }
 };
 var FormUtil = {
