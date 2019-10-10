@@ -25,30 +25,29 @@ var Authenticator = {
             + "3170D04507A33A85521ABDF1CBA64ECFB850458DBEF0A8AEA71575D060C7DB3970F85A6E1E4C7ABF5AE8CDB0933D71E8C94E04A"
             + "25619DCEE3D2261AD2EE6BF12FFA06D98A0864D87602733EC86A64521F2B18177B200CBBE117577A615D6C770988C0BAD946E20"
             + "8E24FA074E5AB3143DB5BFCE0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF");
-        var promise = new Promise(function(val){
-
-        });
-        promise.then(function (val) {
-            
-        });
-        const prime = DataUtil.bigIntToBytes(primeBigInt);
-        const hashPasswd = HCrypto.hash("SHA-256", passwd);
-        hashPasswd.then(function (val) {
-            console.log("Hashed passwd:" + val);
-            var sqrHashedPwd = BigInt(DataUtil.bytesToBigInt(DataUtil.base64ToBytes(val)));
+        const prime = primeBigInt; //DataUtil.bigIntToBytes(primeBigInt);
+        var promise = new Promise(function (resolve, reject) {
+            resolve(passwd)
+        }).then(async function (val) {
+            const hashPasswd = await HCrypto.hash("SHA-256", val);
+            console.log("Hashed passwd:" + hashPasswd);
+            var sqrHashedPwd = BigInt(DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd)));
             console.log("Num passwd:" + sqrHashedPwd);
             sqrHashedPwd = sqrHashedPwd ** BigInt(2);
             console.log("Sqr Num passwd:" + sqrHashedPwd);
-            const g = DataUtil.bigIntToBytes(sqrHashedPwd);
-            const DhParams = {
+            const g = sqrHashedPwd;//DataUtil.bigIntToBytes(sqrHashedPwd);
+            const dhParams = {
                 name: 'DH',
+                // name: "ECDH",
+                // namedCurve: "P-256",
                 prime: prime,
-                generator: g
+                generator: g,
             };
-            const keyPair = HCrypto.generateKey(DhParams,['deriveKey']);
-            return keyPair;
-        }).then(function (val) {
-            return val.then();
+            console.log("G:" + g);
+            const keyPair = await HCrypto.generateKey(dhParams, ["deriveKey", "deriveBits"]);
+            console.log("Key pair:" + keyPair);
+        }).catch(function(err){
+            alert(err);
         });
         console.log(prime);
     },

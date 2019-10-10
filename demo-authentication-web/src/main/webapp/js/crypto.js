@@ -3,10 +3,9 @@ const HCrypto = {
     // SHA-256
     hash: function (algName, str) {
         const promise = this.subtle.digest({name: algName}, DataUtil.strToBytes(str));
-        promise.then(function (value) {
+        return promise.then(function (value) {
             return DataUtil.bytesToBase64(value);
         });
-        return promise;
     },
     // HMAC RSA-PSS ECDSA
     sign: function (param, key, str) {
