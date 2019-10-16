@@ -37,7 +37,11 @@ const HCrypto = {
         return exportedKey;
     },
     importKey: function (type, keyData, alg, keyUsages) {
-        const importedKey = this.subtle.importKey(type, keyData, alg,true, keyUsages);
+        const importedKey = this.subtle.importKey(type, keyData, alg, true, keyUsages);
         return importedKey;
     },
+    deriveKey: function (param, baseKey, derivedKeyType, keyUsages) {
+        const deriveKey = this.subtle.deriveKey(param, baseKey, derivedKeyType, true, keyUsages);
+        return deriveKey;
+    }
 };

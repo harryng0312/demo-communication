@@ -28,13 +28,27 @@ var Authenticator = {
             console.log("Num passwd:" + sqrHashedPwd);
             const dhParams = {
                 name: "ECDH",
-                namedCurve: "P-256",
+                namedCurve: "P-256"
             };
             const keyPair = await HCrypto.generateKey(dhParams, ["deriveKey", "deriveBits"]);
             var priKey = keyPair.privateKey;
             var pubKey = keyPair.publicKey;
-            console.log("Key pair:" + keyPair);
-
+            var priKeyData = await HCrypto.exportKey("jwk", priKey);
+            var pubKeyData = await HCrypto.exportKey("jwk", pubKey);
+            console.log("Pri Key:" + JSON.stringify(priKeyData));
+            console.log("Pub Key:" + JSON.stringify(pubKeyData));
+            var commonSecretKey = await HCrypto.deriveKey({
+                    name: "ECDH",
+                    namedCurve: "P-256",
+                    public: pubKey
+                },
+                priKey,
+                {
+                    name: "AES-CTR",
+                    length: 256
+                }, ["encrypt", "decrypt"]);
+            var keyData = await HCrypto.exportKey("jwk", commonSecretKey);
+            console.log("Common Key:" + JSON.stringify(keyData));
         }).catch(function (err) {
             alert(err);
         });

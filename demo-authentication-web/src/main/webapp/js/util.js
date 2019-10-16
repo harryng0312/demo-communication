@@ -22,7 +22,7 @@ var DataUtil = {
         var binStr = atob(b64);
         var rawLength = binStr.length;
         var array = new Uint8Array(new ArrayBuffer(rawLength));
-        for(i = 0; i < rawLength; i++) {
+        for(var i = 0; i < rawLength; i++) {
             array[i] = binStr.charCodeAt(i);
         }
         return array;
