@@ -1,25 +1,25 @@
 const HCrypto = {
-    subtle: window.crypto.subtle ? window.crypto.subtle : widow.msCrypto.subtle,
+    subtle: window.crypto.subtle ? window.crypto.subtle : window.msCrypto ? window.msCrypto.subtle : null,
     // SHA-256
-    hash: function (algName, str) {
-        const promise = this.subtle.digest({name: algName}, DataUtil.strToBytes(str));
+    hash: function (algName, data) {
+        const promise = this.subtle.digest({name: algName}, data);
         return promise.then(function (value) {
             return DataUtil.bytesToBase64(value);
         });
     },
     // HMAC RSA-PSS ECDSA
-    sign: function (param, key, str) {
+    sign: function (param, key, data) {
         const keyBin = DataUtil.base64ToBytes(key);
-        const promise = this.subtle.sign(param, keyBin, DataUtil.strToBytes(str));
+        const promise = this.subtle.sign(param, keyBin, data);
         return promise.then(function (value) {
             return DataUtil.bytesToBase64(value);
         }).catch(function (err) {
             console.error(err);
         });
     },
-    verify: function (algName, key, str) {
+    verify: function (param, key, signData, data) {
         const keyBin = DataUtil.base64ToBytes(key);
-        const promise = this.subtle.verify(param, keyBin, DataUtil.strToBytes(str));
+        const promise = this.subtle.verify(param, keyBin, signData, data);
         return promise.then(function (value) {
             return DataUtil.bytesToBase64(value);
         }).catch(function (err) {
@@ -27,9 +27,17 @@ const HCrypto = {
         });
     },
 
-    //
+    // key functions
     generateKey: function (param, keyUsages) {
         const keyPair = this.subtle.generateKey(param, true, keyUsages);
         return keyPair;
+    },
+    exportKey: function (type, key) {
+        const exportedKey = this.subtle.exportKey(type, key);
+        return exportedKey;
+    },
+    importKey: function (type, keyData, alg, keyUsages) {
+        const importedKey = this.subtle.importKey(type, keyData, alg,true, keyUsages);
+        return importedKey;
     },
 };

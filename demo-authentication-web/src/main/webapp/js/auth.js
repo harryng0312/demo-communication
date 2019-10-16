@@ -16,6 +16,29 @@ var Authenticator = {
         };
         FormUtil.postJson("login", data, success, error);
     },
+    loginByECDH: function (uname, passwd, callback) {
+        var promise = new Promise(function (resolve, reject) {
+            resolve(passwd)
+        });
+        promise.then(async function (val) {
+            var data = DataUtil.strToBytes(val);
+            const hashPasswd = await HCrypto.hash("SHA-256", data);
+            console.log("Hashed passwd:" + hashPasswd);
+            var sqrHashedPwd = BigInt(DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd)));
+            console.log("Num passwd:" + sqrHashedPwd);
+            const dhParams = {
+                name: "ECDH",
+                namedCurve: "P-256",
+            };
+            const keyPair = await HCrypto.generateKey(dhParams, ["deriveKey", "deriveBits"]);
+            var priKey = keyPair.privateKey;
+            var pubKey = keyPair.publicKey;
+            console.log("Key pair:" + keyPair);
+
+        }).catch(function (err) {
+            alert(err);
+        });
+    },
     loginBySPAEKE: function (uname, passwd, callback) {
         const primeBigInt = BigInt("0xFFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A087"
             + "98E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7"
@@ -28,8 +51,10 @@ var Authenticator = {
         const prime = primeBigInt; //DataUtil.bigIntToBytes(primeBigInt);
         var promise = new Promise(function (resolve, reject) {
             resolve(passwd)
-        }).then(async function (val) {
-            const hashPasswd = await HCrypto.hash("SHA-256", val);
+        });
+        promise.then(async function (val) {
+            var data = DataUtil.strToBytes(val);
+            const hashPasswd = await HCrypto.hash("SHA-256", data);
             console.log("Hashed passwd:" + hashPasswd);
             var sqrHashedPwd = BigInt(DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd)));
             console.log("Num passwd:" + sqrHashedPwd);
@@ -38,15 +63,13 @@ var Authenticator = {
             const g = sqrHashedPwd;//DataUtil.bigIntToBytes(sqrHashedPwd);
             const dhParams = {
                 name: 'DH',
-                // name: "ECDH",
-                // namedCurve: "P-256",
                 prime: prime,
                 generator: g,
             };
             console.log("G:" + g);
             const keyPair = await HCrypto.generateKey(dhParams, ["deriveKey", "deriveBits"]);
             console.log("Key pair:" + keyPair);
-        }).catch(function(err){
+        }).catch(function (err) {
             alert(err);
         });
         console.log(prime);

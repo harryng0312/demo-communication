@@ -46,7 +46,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#submit').bind("click", function () {
-            Authenticator.loginBySPAEKE($('#txtUsername').val(), $('#txtPassword').val(), function (result) {
+            Authenticator.loginByECDH($('#txtUsername').val(), $('#txtPassword').val(), function (result) {
                 alert(result);
             });
             return false;
