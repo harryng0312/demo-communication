@@ -33,10 +33,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.bouncycastle:bcprov-jdk15on:' + bouncycastleVersion
     implementation 'com.fasterxml.jackson.core:jackson-databind:' + jacksonVersion
+    implementation 'com.nimbusds:nimbus-jose-jwt:' + nimbusJoseVersion
 
 //    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
-
     providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper:' + tomcatVersion
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 

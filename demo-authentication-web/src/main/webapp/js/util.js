@@ -65,7 +65,7 @@ var DataUtil = {
             }
             hex.push(h);
         });
-        return BigInt(('0x' + hex.join('')));
+        return bigInt(hex.join(''), 16);
     }
 };
 var FormUtil = {
