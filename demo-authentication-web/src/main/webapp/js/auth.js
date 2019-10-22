@@ -78,7 +78,7 @@ var Authenticator = {
             var data = DataUtil.strToBytes(val);
             const hashPasswd = await HCrypto.hash("SHA-256", data);
             console.log("Hashed passwd:" + hashPasswd);
-            var sqrHashedPwd = BigInt(DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd)));
+            var sqrHashedPwd = DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd));
             console.log("Num passwd:" + sqrHashedPwd);
             sqrHashedPwd = sqrHashedPwd ** BigInt(2);
             console.log("Sqr Num passwd:" + sqrHashedPwd);

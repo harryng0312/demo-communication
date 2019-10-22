@@ -51,8 +51,8 @@ public class TestCryptoService {
     @Test
     public void testGcm() throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, NoSuchProviderException {
         final int GCM_TAG_LENGTH = 16;
-        Cipher cipherGcm = Cipher.getInstance("AES/GCM/NoPadding", "BC");
-        Cipher cipherCtr = Cipher.getInstance("AES/CTR/PKCS5Padding", "BC");
+        Cipher cipherGcm = Cipher.getInstance("AES/GCM/NoPadding");
+        Cipher cipherCtr = Cipher.getInstance("AES/CTR/PKCS5Padding");
         String plainText = "abcdefghijklmnopqrstuvwxyz0123456789";
         byte[] plainTextBytes = plainText.getBytes("UTF-8");
         byte[] keyBin = {(byte) 0xAA, (byte) 0xAA, (byte) 0xAA, (byte) 0xAA,
@@ -95,7 +95,7 @@ public class TestCryptoService {
     public void testECDH() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchProviderException {
         final String engineName = "secp256r1";// secp384r1 secp512r1
         ECGenParameterSpec ecGenParameterSpec = new ECGenParameterSpec(engineName);
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDH", "BC");
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDH");
         keyPairGenerator.initialize(ecGenParameterSpec);
         logger.info("=====");
     }
