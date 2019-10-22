@@ -1,10 +1,5 @@
 package org.harryng.demo.user.service;
 
-import com.nimbusds.jose.jwk.ECKey;
-import com.nimbusds.jose.jwk.JWK;
-import com.nimbusds.jose.jwk.JWKSet;
-import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.jcajce.provider.asymmetric.dh.BCDHPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 import org.harryng.demo.main.Application;
@@ -20,17 +15,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.crypto.*;
-import javax.crypto.interfaces.DHPrivateKey;
-import javax.crypto.interfaces.DHPublicKey;
-import javax.crypto.spec.*;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.security.*;
-import java.security.spec.ECFieldFp;
 import java.security.spec.ECGenParameterSpec;
-import java.security.spec.ECParameterSpec;
-import java.security.spec.EllipticCurve;
-import java.text.ParseException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Calendar;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -96,6 +90,22 @@ public class TestCryptoService {
         ECGenParameterSpec ecGenParameterSpec = new ECGenParameterSpec(engineName);
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDH");
         keyPairGenerator.initialize(ecGenParameterSpec);
+        logger.info("=====");
+    }
+
+    @Test
+    public void testPBKDF2() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        final String passwd = "123456";
+        final int iterator = 10240;
+        final int keyLen = 512;
+        final byte[] salt = "0000".getBytes();
+        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+        KeySpec keySpec = new PBEKeySpec(passwd.toCharArray(), salt, iterator, keyLen);
+        long start = Calendar.getInstance().getTimeInMillis();
+        SecretKey secretKey = secretKeyFactory.generateSecret(keySpec);
+        long finish = Calendar.getInstance().getTimeInMillis();
+        logger.info("Secret Key:" + Hex.toHexString(secretKey.getEncoded()));
+        logger.info("Gen key in: " + (finish - start));
         logger.info("=====");
     }
 }
