@@ -88,7 +88,6 @@ public class TestCryptoService {
         byte[] ctrPlainTextBin = cipherCtr.doFinal(ctrCipherTextBin);
         logger.info("GCM Plain text:" + new String(gcmPlainTextBin));
         logger.info("CBC Plain text:Ø" + new String(ctrPlainTextBin));
-
     }
 
     @Test
