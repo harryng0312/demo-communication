@@ -32,7 +32,7 @@ var Authenticator = {
             var data = DataUtil.strToBytes(val);
             const hashPasswd = await HCrypto.hash("SHA-256", data);
             console.log("Hashed passwd:" + hashPasswd);
-            var sqrHashedPwd = (DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd))**2n);
+            var sqrHashedPwd = (DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd)) ** 2n);
             console.log("Num passwd:" + sqrHashedPwd);
             const dhParams = {
                 name: "ECDH",
@@ -96,4 +96,30 @@ var Authenticator = {
         });
         console.log(prime);
     },
+    loginByPBKDF2: function (uname, passwd, callback) {
+        var salt = HCrypto.crypto.getRandomValues(new Uint8Array(8));
+        var iterations = 10240;
+        var passwdBin = DataUtil.strToBytes(passwd);
+        HCrypto.importKey(
+            "raw",
+            passwdBin,
+            {name: "PBKDF2"},
+            ['deriveBits', 'deriveKey'])
+            .then(function (key) {
+                return HCrypto.deriveKey({
+                        name: "PBKDF2",
+                        salt: salt,
+                        iterations: iterations,
+                        hash: "SHA-256"
+                    }, key,
+                    {name: "AES-CBC", length: 128},
+                    ["encrypt", "decrypt"]);
+            }).then(function (webKey) {
+            return HCrypto.exportKey("raw", webKey);
+        }).then(function (sKey) {
+            console.log(sKey);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    }
 }

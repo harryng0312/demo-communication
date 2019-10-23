@@ -47,7 +47,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#submit').bind("click", function () {
-            Authenticator.loginByECDH($('#txtUsername').val(), $('#txtPassword').val(), function (result) {
+            Authenticator.loginByPBKDF2($('#txtUsername').val(), $('#txtPassword').val(), function (result) {
                 alert(result);
             });
             return false;

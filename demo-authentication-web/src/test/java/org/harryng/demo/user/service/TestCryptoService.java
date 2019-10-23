@@ -97,7 +97,7 @@ public class TestCryptoService {
     public void testPBKDF2() throws NoSuchAlgorithmException, InvalidKeySpecException {
         final String passwd = "123456";
         final int iterator = 10240;
-        final int keyLen = 512;
+        final int keyLen = 256;
         final byte[] salt = "0000".getBytes();
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec keySpec = new PBEKeySpec(passwd.toCharArray(), salt, iterator, keyLen);

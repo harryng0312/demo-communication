@@ -14,6 +14,7 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/crypto.js"></script>
+    <script type="text/javascript" src="js/pbkdf2.js"></script>
     <script type="text/javascript" src="js/auth.js"></script>
 </head>
 <body>

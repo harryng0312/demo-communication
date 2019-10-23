@@ -1,4 +1,5 @@
 const HCrypto = {
+    crypto: window.crypto ? window.crypto : window.msCrypto ? window.msCrypto : null,
     subtle: window.crypto.subtle ? window.crypto.subtle : window.msCrypto ? window.msCrypto.subtle : null,
     // SHA-256
     hash: function (algName, data) {
