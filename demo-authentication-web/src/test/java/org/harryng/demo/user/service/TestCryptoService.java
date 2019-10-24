@@ -24,6 +24,7 @@ import java.security.*;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Base64;
 import java.util.Calendar;
 
 @RunWith(SpringRunner.class)
@@ -95,16 +96,16 @@ public class TestCryptoService {
 
     @Test
     public void testPBKDF2() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final String passwd = "123456";
+        final String passwd = "1234";
         final int iterator = 10240;
-        final int keyLen = 256;
+        final int keyLen = 128;
         final byte[] salt = "0000".getBytes();
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec keySpec = new PBEKeySpec(passwd.toCharArray(), salt, iterator, keyLen);
         long start = Calendar.getInstance().getTimeInMillis();
         SecretKey secretKey = secretKeyFactory.generateSecret(keySpec);
         long finish = Calendar.getInstance().getTimeInMillis();
-        logger.info("Secret Key:" + Hex.toHexString(secretKey.getEncoded()));
+        logger.info("Secret Key:" + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
         logger.info("Gen key in: " + (finish - start));
         logger.info("=====");
     }

@@ -97,7 +97,7 @@ var Authenticator = {
         console.log(prime);
     },
     loginByPBKDF2: function (uname, passwd, callback) {
-        var salt = HCrypto.crypto.getRandomValues(new Uint8Array(8));
+        var salt = DataUtil.strToBytes("0000");
         var iterations = 10240;
         var passwdBin = DataUtil.strToBytes(passwd);
         HCrypto.importKey(
