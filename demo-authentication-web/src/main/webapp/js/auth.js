@@ -104,7 +104,7 @@ var Authenticator = {
             "raw",
             passwdBin,
             {name: "PBKDF2"},
-            ['deriveBits', 'deriveKey'])
+            ['deriveKey', 'deriveBits'])
             .then(function (key) {
                 return HCrypto.deriveKey({
                         name: "PBKDF2",
@@ -114,11 +114,13 @@ var Authenticator = {
                     }, key,
                     {name: "AES-CBC", length: 128},
                     ["encrypt", "decrypt"]);
-            }).then(function (webKey) {
-            return HCrypto.exportKey("raw", webKey);
-        }).then(function (sKey) {
-            console.log(sKey);
-        }).catch(function (err) {
+            })
+            .then(function (webKey) {
+                return HCrypto.exportKey("raw", webKey);
+            })
+            .then(function (sKey) {
+                console.log(DataUtil.bytesToBase64(sKey));
+            }).catch(function (err) {
             console.log(err);
         });
     }
