@@ -44,5 +44,13 @@ const HCrypto = {
     deriveKey: function (param, baseKey, derivedKeyType, keyUsages) {
         const deriveKey = this.subtle.deriveKey(param, baseKey, derivedKeyType, true, keyUsages);
         return deriveKey;
+    },
+    encrypt: function (param, key, data) {
+        const encryptor = this.subtle.encrypt(param, key, data);
+        return encryptor;
+    },
+    decrypt: function (param, key, data) {
+        const decryptor = this.subtle.decrypt(param, key, data);
+        return decryptor;
     }
 };

@@ -116,12 +116,31 @@ var Authenticator = {
                     ["encrypt", "decrypt"]);
             })
             .then(function (webKey) {
-                return HCrypto.exportKey("raw", webKey);
+                // return HCrypto.exportKey("raw", webKey);
+                return webKey;
             })
             .then(function (sKey) {
-                console.log(DataUtil.bytesToBase64(sKey));
-            }).catch(function (err) {
-            console.log(err);
-        });
+                console.log("Key:" + DataUtil.bytesToBase64(sKey));
+                var counter = new Uint8Array(16);
+                for (var i = 0; i < counter.byteLength; i++) {
+                    counter[i] = 0;
+                }
+                counter[counter.byteLength-1] = 1;
+                var data = DataUtil.strToBytes("abcdefghijklmnopqrstuvwxyz0123456789");
+                return HCrypto.encrypt({
+                        name: "AES-CBC",
+                        counter:counter,
+                        length: 128,
+                        iv:counter
+                    },
+                    sKey,
+                    data);
+            })
+            .then(function (val) {
+                console.log("Enc:" + DataUtil.bytesToBase64(val));
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     }
 }
