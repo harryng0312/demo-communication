@@ -21,18 +21,10 @@ var Authenticator = {
             resolve(passwd)
         });
         promise.then(async function (val) {
-            const primeBigInt = bigInt("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A087"
-                + "98E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7"
-                + "EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE45B3DC2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F83655"
-                + "D23DCA3AD961C62F356208552BB9ED529077096966D670C354E4ABC9804F1746C08CA18217C32905E462E36CE3BE39E772C180E"
-                + "86039B2783A2EC07A28FB5C55DF06F4C52C9DE2BCBF6955817183995497CEA956AE515D2261898FA051015728E5A8AAAC42DAD3"
-                + "3170D04507A33A85521ABDF1CBA64ECFB850458DBEF0A8AEA71575D060C7DB3970F85A6E1E4C7ABF5AE8CDB0933D71E8C94E04A"
-                + "25619DCEE3D2261AD2EE6BF12FFA06D98A0864D87602733EC86A64521F2B18177B200CBBE117577A615D6C770988C0BAD946E20"
-                + "8E24FA074E5AB3143DB5BFCE0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF", 16);
             var data = DataUtil.strToBytes(val);
             const hashPasswd = await HCrypto.hash("SHA-256", data);
             console.log("Hashed passwd:" + hashPasswd);
-            var sqrHashedPwd = (DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd)) ** 2n);
+            var sqrHashedPwd = DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd)).pow(2);
             console.log("Num passwd:" + sqrHashedPwd);
             const dhParams = {
                 name: "ECDH",
@@ -61,86 +53,30 @@ var Authenticator = {
             alert(err);
         });
     },
-    loginBySPAEKE: function (uname, passwd, callback) {
-        const primeBigInt = bigInt("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A087"
-            + "98E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7"
-            + "EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE45B3DC2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F83655"
-            + "D23DCA3AD961C62F356208552BB9ED529077096966D670C354E4ABC9804F1746C08CA18217C32905E462E36CE3BE39E772C180E"
-            + "86039B2783A2EC07A28FB5C55DF06F4C52C9DE2BCBF6955817183995497CEA956AE515D2261898FA051015728E5A8AAAC42DAD3"
-            + "3170D04507A33A85521ABDF1CBA64ECFB850458DBEF0A8AEA71575D060C7DB3970F85A6E1E4C7ABF5AE8CDB0933D71E8C94E04A"
-            + "25619DCEE3D2261AD2EE6BF12FFA06D98A0864D87602733EC86A64521F2B18177B200CBBE117577A615D6C770988C0BAD946E20"
-            + "8E24FA074E5AB3143DB5BFCE0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF", 16);
-        const prime = primeBigInt; //DataUtil.bigIntToBytes(primeBigInt);
+    loginByPBKDF2: function (uname, passwd, callback) {
+        var salt = DataUtil.strToBytes("0000");
+        var iterations = 10240;
         var promise = new Promise(function (resolve, reject) {
             resolve(passwd)
         });
         promise.then(async function (val) {
-            var data = DataUtil.strToBytes(val);
-            const hashPasswd = await HCrypto.hash("SHA-256", data);
-            console.log("Hashed passwd:" + hashPasswd);
-            var sqrHashedPwd = DataUtil.bytesToBigInt(DataUtil.base64ToBytes(hashPasswd));
-            console.log("Num passwd:" + sqrHashedPwd);
-            sqrHashedPwd = sqrHashedPwd ** BigInt(2);
-            console.log("Sqr Num passwd:" + sqrHashedPwd);
-            const g = sqrHashedPwd;//DataUtil.bigIntToBytes(sqrHashedPwd);
-            const dhParams = {
-                name: 'DH',
-                prime: prime,
-                generator: g,
-            };
-            console.log("G:" + g);
-            const keyPair = await HCrypto.generateKey(dhParams, ["deriveKey", "deriveBits"]);
-            console.log("Key pair:" + keyPair);
+            var passwdBin = DataUtil.strToBytes(val);
+            var key = await HCrypto.importKey("raw",
+                passwdBin,
+                {name: "PBKDF2"},
+                ['deriveKey', 'deriveBits']);
+            var webKey = await HCrypto.deriveKey({
+                    name: "PBKDF2",
+                    salt: salt,
+                    iterations: iterations,
+                    hash: "SHA-256"
+                }, key,
+                {name: "AES-CBC", length: 128},
+                ["encrypt", "decrypt"]);
+            var sKey = await HCrypto.exportKey("raw", webKey);
+            console.log("Secret key:" + DataUtil.bytesToBase64(sKey));
         }).catch(function (err) {
-            alert(err);
+            console.log(err);
         });
-        console.log(prime);
-    },
-    loginByPBKDF2: function (uname, passwd, callback) {
-        var salt = DataUtil.strToBytes("0000");
-        var iterations = 10240;
-        var passwdBin = DataUtil.strToBytes(passwd);
-        HCrypto.importKey(
-            "raw",
-            passwdBin,
-            {name: "PBKDF2"},
-            ['deriveKey', 'deriveBits'])
-            .then(function (key) {
-                return HCrypto.deriveKey({
-                        name: "PBKDF2",
-                        salt: salt,
-                        iterations: iterations,
-                        hash: "SHA-256"
-                    }, key,
-                    {name: "AES-CBC", length: 128},
-                    ["encrypt", "decrypt"]);
-            })
-            .then(function (webKey) {
-                // return HCrypto.exportKey("raw", webKey);
-                return webKey;
-            })
-            .then(function (sKey) {
-                console.log("Key:" + DataUtil.bytesToBase64(sKey));
-                var counter = new Uint8Array(16);
-                for (var i = 0; i < counter.byteLength; i++) {
-                    counter[i] = 0;
-                }
-                counter[counter.byteLength-1] = 1;
-                var data = DataUtil.strToBytes("abcdefghijklmnopqrstuvwxyz0123456789");
-                return HCrypto.encrypt({
-                        name: "AES-CBC",
-                        counter:counter,
-                        length: 128,
-                        iv:counter
-                    },
-                    sKey,
-                    data);
-            })
-            .then(function (val) {
-                console.log("Enc:" + DataUtil.bytesToBase64(val));
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
     }
 }
