@@ -13,13 +13,13 @@ allprojects {
 //        mavenLocal()
     }
     dependencies {
-        implementation 'org.slf4j:slf4j-api:1.7.28'
-        implementation 'log4j:log4j:1.2.17'
-        testCompile 'junit:junit:4.12'
+        compile "org.slf4j:slf4j-api:${slf4jVersion}"
+        compile "log4j:log4j:${log4jVersion}"
+        testCompile "junit:junit:${junitVersion}"
     }
     group 'org.hikarikyou.demo'
     version '1.0-SNAPSHOT'
-    sourceCompatibility = '1.8'
+    sourceCompatibility = "${jdkVersion}"
 }
 
 

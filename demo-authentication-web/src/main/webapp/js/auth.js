@@ -75,6 +75,17 @@ var Authenticator = {
                 ["encrypt", "decrypt"]);
             var sKey = await HCrypto.exportKey("raw", webKey);
             console.log("Secret key:" + DataUtil.bytesToBase64(sKey));
+            var counter = new Uint8Array(16);
+            counter.fill(0);
+            counter[counter.byteLength-1] = 1;
+            var pDataBin = DataUtil.strToBytes("abcdefghijklmnopqrstuvwxyz0123456789");
+            var cDataBin = await HCrypto.encrypt({
+                name:"AES-CBC",
+                counter: counter,
+                length:128,
+                iv: counter
+            }, webKey, pDataBin);
+            console.log("CData:" + DataUtil.bytesToBase64(cDataBin));
         }).catch(function (err) {
             console.log(err);
         });

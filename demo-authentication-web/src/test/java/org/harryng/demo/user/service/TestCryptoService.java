@@ -109,7 +109,8 @@ public class TestCryptoService {
         logger.info("Secret Key:" + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
         logger.info("Gen key in: " + (finish - start));
         logger.info("=====");
-        Cipher aesCipher = Cipher.getInstance("AES/CTR/NoPadding");
+        Cipher aesCipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+//        Cipher aesCipher = Cipher.getInstance("AES/CTR/NoPadding");
         byte[] ivBin = {0, 0, 0, 0,
                 0, 0, 0, 0,
                 0, 0, 0, 0,
