@@ -3,14 +3,15 @@ package org.harryng.demo.session;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class SessionHolder {
-    private static Map<String, Map<String, Object>> sessionMap = new ConcurrentHashMap<>();
+    private static ConcurrentMap<String, Map<String, Object>> sessionMap = new ConcurrentHashMap<>();
 
     public static final String K_USER = "user";
     public static final String K_AUTH_INFO = "authInfo";
 
-    protected static Map<String, Map<String, Object>> getSessionMap() {
+    protected static ConcurrentMap<String, Map<String, Object>> getSessionMap() {
         return sessionMap;
     }
 

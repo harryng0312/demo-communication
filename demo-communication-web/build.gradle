@@ -4,24 +4,24 @@ buildscript {
     }
 }
 plugins {
-    id 'org.springframework.boot' version '2.1.8.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'java'
-    id 'war'
+    id "org.springframework.boot" version "2.2.6.RELEASE"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "java"
+    id "war"
 }
 
 dependencies {
-    compile project(':demo-communication-api')
-    compile project(':demo-communication-impl')
+    compile project(":demo-communication-api")
+    compile project(":demo-communication-impl")
 
-    implementation 'org.springframework.boot:spring-boot'
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-integration'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation "org.springframework.boot:spring-boot:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jdbc:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-integration:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web-services:${springbootVersion}"
 
     implementation "org.apache.commons:commons-dbcp2:${apacheCommonVersion}"
     implementation "org.apache.commons:commons-pool2:${apacheCommonVersion}"
@@ -30,18 +30,20 @@ dependencies {
     implementation "org.aspectj:aspectjrt:${aspectjVersion}"
     implementation "org.aspectj:aspectjweaver:${aspectjVersion}"
 
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation "org.springframework.boot:spring-boot-starter-websocket:${springbootVersion}"
     implementation "org.bouncycastle:bcprov-jdk15on:${bouncycastleVersion}"
+//    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
+
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.integration:spring-integration-test'
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"
+    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 
-//    testCompile "junit':junit:${junitVersion}"
+//    testCompile "junit":junit:${junitVersion}"
 }
