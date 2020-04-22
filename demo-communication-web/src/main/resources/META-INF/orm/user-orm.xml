@@ -8,13 +8,13 @@
 				<column name="username" />
 			</basic>
 			<basic name="passwd">
-				<column name="password_" />
+				<column name="passwd" />
 			</basic>
 			<basic name="passwdEncryptedMethod">
 				<column name="passwd_enc_method" />
 			</basic>
 			<basic name="screenName">
-				<column name="screen_name" />
+				<column name="screenname" />
 			</basic>
 			<basic name="dob">
 				<column name="dob" />

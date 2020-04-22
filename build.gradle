@@ -9,15 +9,15 @@ allprojects {
     apply plugin: "java"
     repositories {
         mavenCentral()
-//        jcenter()
+        jcenter()
 //        mavenLocal()
     }
     dependencies {
         compile "org.slf4j:slf4j-api:${slf4jVersion}"
-        compile "log4j:log4j:${log4jVersion}"
+//        compile "log4j:log4j:${log4jVersion}"
         testCompile "junit:junit:${junitVersion}"
     }
-    group 'org.hikarikyou.demo'
+    group 'org.harryng.demo'
     version '1.0-SNAPSHOT'
     sourceCompatibility = "${jdkVersion}"
 }

@@ -1,5 +1,5 @@
-rootProject.name = 'demo-authentication'
-include 'demo-authentication-api'
-include 'demo-authentication-impl'
-include 'demo-authentication-web'
+rootProject.name = 'demo-communication'
+include 'demo-communication-api'
+include 'demo-communication-impl'
+include 'demo-communication-web'
 
