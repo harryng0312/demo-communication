@@ -13,8 +13,8 @@ import javax.persistence.criteria.Root;
 
 public abstract class AbstractPersistence<Id extends Object, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
 
-    @Autowired
-    @Qualifier("entityManagerFactory")
+//    @Autowired
+//    @Qualifier("entityManagerFactory")
     private EntityManager defaultEntityManager;
     private Class<T> entityClass = null;
 

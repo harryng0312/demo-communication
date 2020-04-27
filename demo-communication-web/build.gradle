@@ -35,11 +35,13 @@ dependencies {
 //    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
+    implementation 'com.google.code.gson:gson:2.8.0'
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
 
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+//    providedRuntime "org.apache.tomcat.embed:tomcat-websocket:${tomcatVersion}"
     providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"

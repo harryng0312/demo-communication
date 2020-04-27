@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/ws")
-public class WsController {
+@RequestMapping("/websocket")
+public class WebSocketController {
 
-    static Logger logger = LoggerFactory.getLogger(WsController.class);
+    static Logger logger = LoggerFactory.getLogger(WebSocketController.class);
 
     @Autowired
     protected HttpServletRequest request;
@@ -22,8 +22,8 @@ public class WsController {
     @Autowired
     protected AuthService authService;
 
-    @RequestMapping(value = "/socketio", method = RequestMethod.GET)
+    @RequestMapping(value = "/websocket", method = RequestMethod.GET)
     public String initForm() {
-        return "ws/socketio";
+        return "ws/websocket";
     }
 }
