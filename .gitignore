@@ -5,3 +5,4 @@
 build
 /**/build
 /db/**
+/demo-communication-web/src/main/webapp/js/socket.io.js.map
