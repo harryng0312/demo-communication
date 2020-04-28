@@ -8,7 +8,7 @@
     <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint"/>
 
     <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>
-    <bean id="chatInterceptor" class="org.harryng.demo.endpoint.ChatEndpoint"/>
+    <bean id="chatInterceptor" class="org.harryng.demo.endpoint.ChatInterceptor"/>
     <!--    <aop:config>-->
     <!--        <aop:pointcut id="userServiceOperation"-->
     <!--                      expression="execution(* com.videabiz.badgechain.publisher.user.service.UserServiceImpl.add(..))"/>-->
