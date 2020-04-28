@@ -4,10 +4,10 @@ buildscript {
     }
 }
 plugins {
-    id "org.springframework.boot" version "2.2.6.RELEASE"
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
     id "java"
     id "war"
+    id "org.springframework.boot" version "2.2.6.RELEASE"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
 }
 
 dependencies {
@@ -40,8 +40,9 @@ dependencies {
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
 
+    providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-//    providedRuntime "org.apache.tomcat.embed:tomcat-websocket:${tomcatVersion}"
+    providedRuntime "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
     providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"

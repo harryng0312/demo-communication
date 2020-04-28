@@ -49,7 +49,7 @@ public class ChatEndpoint {
     @OnMessage
     public void onMessage(Session session, ChatMessage message) throws IOException, EncodeException {
         message.setFrom(users.get(session.getId()));
-        logger.info("from: ");
+        logger.info("from: " + message.getContent());
         broadcast(message);
     }
 

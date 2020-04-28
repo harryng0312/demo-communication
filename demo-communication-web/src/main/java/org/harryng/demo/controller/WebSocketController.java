@@ -22,7 +22,7 @@ public class WebSocketController {
     @Autowired
     protected AuthService authService;
 
-    @RequestMapping(value = "/websocket", method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String initForm() {
         return "ws/websocket";
     }
