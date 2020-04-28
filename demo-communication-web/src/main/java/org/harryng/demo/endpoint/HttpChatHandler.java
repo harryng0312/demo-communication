@@ -33,6 +33,7 @@ public class HttpChatHandler extends TextWebSocketHandler {
     }
 
     @Override
+//    @DestinationVariable
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         Object token = session.getAttributes().get("username");
         if (token != null) {
