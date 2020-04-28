@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint(value = "/ws/chat/{username}",
+@ServerEndpoint(value = "/ws/chat-basic/{username}",
         encoders = {ChatMessageEncoder.class}, decoders = {ChatMessageDecoder.class}
 )
 public class ChatEndpoint {

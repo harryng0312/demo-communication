@@ -22,8 +22,8 @@ public class WebSocketController {
     @Autowired
     protected AuthService authService;
 
-    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/", "/ws-basic"}, method = RequestMethod.GET)
     public String initForm() {
-        return "ws/websocket";
+        return "ws/ws-basic";
     }
 }
