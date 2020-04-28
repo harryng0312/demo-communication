@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint"/>
 
     <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>
-    <bean id="chatInterceptor" class="org.harryng.demo.endpoint.ChatInterceptor"/>
+    <bean id="chatInterceptor" class="org.harryng.demo.endpoint.HttpChatInterceptor"/>
+    <websocket:handlers>
+        <websocket:mapping path="ws/chat-handler" handler="httpChatHandler"/>
+        <websocket:handshake-interceptors>
+            <ref bean="chatInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
+    <!--    <bean id="webSocketConfig" class="org.harryng.demo.config.WebSocketConfig"/>-->
     <!--    <aop:config>-->
     <!--        <aop:pointcut id="userServiceOperation"-->
     <!--                      expression="execution(* com.videabiz.badgechain.publisher.user.service.UserServiceImpl.add(..))"/>-->

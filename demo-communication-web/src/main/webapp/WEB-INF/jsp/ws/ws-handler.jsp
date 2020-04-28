@@ -44,7 +44,7 @@
         let username = document.getElementById("username").value;
         let host = document.location.host;
         let pathname = document.location.pathname;
-        ws = new WebSocket("ws://" +host + "/web/ws/chat/" + username);
+        ws = new WebSocket("ws://" +host + "/web/ws/chat-handler?username=" + username);
         // ws = new WebSocket("ws://" + host + "/web/ws/chat");
         ws.onmessage = function(event) {
             let log = document.getElementById("log");

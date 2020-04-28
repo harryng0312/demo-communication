@@ -5,12 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class WsSessionManager {
     static Logger logger = LoggerFactory.getLogger(WsSessionManager.class);
     private static ConcurrentMap<String, WebSocketSession> SESSION_POOL = new ConcurrentHashMap<>();
+
+    public static Map<String, WebSocketSession> getSessionPool(){
+        return SESSION_POOL;
+    }
 
     public static void add(String key, WebSocketSession session) {
         // Add session

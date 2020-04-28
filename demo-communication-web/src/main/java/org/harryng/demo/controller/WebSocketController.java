@@ -23,7 +23,12 @@ public class WebSocketController {
     protected AuthService authService;
 
     @RequestMapping(value = {"", "/", "/ws-basic"}, method = RequestMethod.GET)
-    public String initForm() {
+    public String initWsBasic() {
         return "ws/ws-basic";
+    }
+
+    @RequestMapping(value = {"/ws-handler"}, method = RequestMethod.GET)
+    public String initWsHandler() {
+        return "ws/ws-handler";
     }
 }
