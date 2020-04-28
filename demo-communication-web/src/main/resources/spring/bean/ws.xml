@@ -6,6 +6,9 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint"/>
+
+    <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>
+    <bean id="chatInterceptor" class="org.harryng.demo.endpoint.ChatEndpoint"/>
     <!--    <aop:config>-->
     <!--        <aop:pointcut id="userServiceOperation"-->
     <!--                      expression="execution(* com.videabiz.badgechain.publisher.user.service.UserServiceImpl.add(..))"/>-->
