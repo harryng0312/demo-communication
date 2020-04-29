@@ -9,4 +9,12 @@ public class OutputChatMessage extends ChatMessage{
         this.setContent(content);
         this.time = time;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

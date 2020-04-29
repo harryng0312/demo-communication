@@ -41,6 +41,7 @@
     let sockEndpoint    = "/web/ws/chat";
     let sendEndpoint    = "/app/ws/chat";
     let listenEndpoint  = "/topic/messages";
+
     function setConnected(connected) {
         document.getElementById('connect').disabled = connected;
         document.getElementById('disconnect').disabled = !connected;
@@ -74,6 +75,7 @@
         let text = document.getElementById('text').value;
         stompClient.send(sendEndpoint, {},
             JSON.stringify({'from': from, "to": "ALL", 'content': text}));
+        document.getElementById("text").value = "";
     }
 
     function showMessageOutput(messageOutput) {
