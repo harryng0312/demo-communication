@@ -1,4 +1,4 @@
-package org.harryng.demo.endpoint;
+package org.harryng.demo.model;
 
 import com.google.gson.Gson;
 

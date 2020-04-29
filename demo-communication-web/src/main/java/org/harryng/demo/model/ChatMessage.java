@@ -1,4 +1,4 @@
-package org.harryng.demo.endpoint;
+package org.harryng.demo.model;
 
 public class ChatMessage {
     private String from;

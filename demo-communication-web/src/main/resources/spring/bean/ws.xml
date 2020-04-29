@@ -11,6 +11,7 @@
 
     <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>
     <bean id="chatInterceptor" class="org.harryng.demo.endpoint.HttpChatInterceptor"/>
+
     <websocket:handlers>
         <websocket:mapping path="ws/chat-handler" handler="httpChatHandler"/>
         <websocket:handshake-interceptors>
@@ -19,11 +20,20 @@
     </websocket:handlers>
 
     <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">
-        <websocket:stomp-endpoint path="/portfolio">
+        <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*"/>
+        <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*">
             <websocket:sockjs websocket-enabled="true" />
         </websocket:stomp-endpoint>
-        <websocket:simple-broker prefix="/topic, /queue"/>
+        <websocket:simple-broker prefix="/topic, /user"/>
     </websocket:message-broker>
+
+<!--    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">-->
+<!--        <websocket:stomp-endpoint path="/portfolio">-->
+<!--            <websocket:sockjs websocket-enabled="true" />-->
+<!--        </websocket:stomp-endpoint>-->
+<!--        <websocket:simple-broker prefix="/topic, /queue"/>-->
+<!--    </websocket:message-broker>-->
+
     <!--    <bean id="webSocketConfig" class="org.harryng.demo.config.WebSocketConfig"/>-->
     <!--    <aop:config>-->
     <!--        <aop:pointcut id="userServiceOperation"-->

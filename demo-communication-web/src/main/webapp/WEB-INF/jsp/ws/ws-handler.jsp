@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Socket.IO chat</title>
+    <title>Web Socket handler chat</title>
 <%--    <link href="<c:url value='/css/socketio.css'/>" rel="stylesheet" type="text/css"/>--%>
     <script src="<c:url value='/js/jquery-3.4.1.min.js'/>"></script>
 <%--    <script src="<c:url value='/js/socket.io.js'/>"></script>--%>
@@ -60,7 +60,7 @@
             "content":content
         });
         ws.send(json);
-
+        document.getElementById("msg").value = "";
     }
 </script>
 </body>

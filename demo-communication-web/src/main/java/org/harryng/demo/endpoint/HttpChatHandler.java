@@ -1,5 +1,8 @@
 package org.harryng.demo.endpoint;
 
+import org.harryng.demo.model.ChatMessage;
+import org.harryng.demo.model.ChatMessageDecoder;
+import org.harryng.demo.model.ChatMessageEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;

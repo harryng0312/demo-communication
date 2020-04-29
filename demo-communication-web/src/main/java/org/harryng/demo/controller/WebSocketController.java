@@ -1,14 +1,22 @@
 package org.harryng.demo.controller;
 
 import org.harryng.demo.auth.service.AuthService;
+import org.harryng.demo.model.ChatMessage;
+import org.harryng.demo.model.OutputChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Controller
 @RequestMapping("/websocket")
@@ -22,6 +30,9 @@ public class WebSocketController {
     @Autowired
     protected AuthService authService;
 
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     @RequestMapping(value = {"", "/", "/ws-basic"}, method = RequestMethod.GET)
     public String initWsBasic() {
         return "ws/ws-basic";
@@ -31,4 +42,32 @@ public class WebSocketController {
     public String initWsHandler() {
         return "ws/ws-handler";
     }
+
+    @RequestMapping(value = "/ws-stomp", method = RequestMethod.GET)
+    public String test() {
+        return "ws/ws-stomp";
+    }
+
+    @MessageMapping("/ws/chat")
+    @SendTo("/topic/messages")
+    public OutputChatMessage send(ChatMessage message) throws Exception {
+        String time = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        return new OutputChatMessage(message.getFrom(), message.getTo(), message.getContent(), time);
+    }
+
+    @RequestMapping(value = "/sendMsgByUser", method = RequestMethod.GET)
+    @ResponseBody
+    public Object sendMsgByUser(String token, String msg) {
+        simpMessagingTemplate.convertAndSendToUser(token, "/msg", msg);
+        return "success";
+    }
+
+    @RequestMapping(value = "/sendMsgByAll", method = RequestMethod.GET)
+    @ResponseBody
+    public Object sendMsgByAll(String msg) {
+        simpMessagingTemplate.convertAndSend("/topic", msg);
+        return "success";
+    }
+
+
 }
