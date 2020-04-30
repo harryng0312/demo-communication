@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -53,8 +54,29 @@ public class WebSocketController {
     }
 
     @RequestMapping(value = "/ws-stomp", method = RequestMethod.GET)
-    public String test() {
+    public String initWsStomp() {
         return "ws/ws-stomp";
+    }
+
+    @RequestMapping(value = "/ws-stomp2", method = RequestMethod.GET)
+    public String initWsStomp2() {
+        return "ws/ws-stomp2";
+    }
+
+    @EventListener(SessionConnectedEvent.class)
+    protected void handleSessionConnectedEvent(SessionConnectedEvent event) {
+        // Get Accessor
+        StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
+//        Principal user = new StompPrincipal("");
+//        sha.setUser();
+    }
+
+    @EventListener(SessionDisconnectEvent.class)
+    protected void handleSessionDisconnectEvent(SessionDisconnectEvent event) {
+        // Get Accessor
+        StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
+//        Principal user = new StompPrincipal("");
+//        sha.setUser();
     }
 
     @MessageMapping("/ws/chat")
@@ -64,13 +86,15 @@ public class WebSocketController {
         return new OutputChatMessage(message.getFrom(), message.getTo(), message.getContent(), time);
     }
 
-    @EventListener
-    void handleSessionConnectedEvent(SessionConnectedEvent event) {
-        // Get Accessor
-        StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
-        Principal user = new StompPrincipal("");
-//        sha.setUser();
+    @MessageMapping("/ws/chat/user")
+//    @SendTo("/topic/messages")
+    public void sendToUser(SimpMessageHeaderAccessor headerAccessor, @Payload ChatMessage message) throws Exception {
+        String time = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        OutputChatMessage oMsg = new OutputChatMessage(message.getFrom(), message.getTo(), message.getContent(), time);
+        String dest = String.format("/topic/messages%s%s", (message.getTo() != null && !"".equals(message.getTo().trim())?"/":""), message.getTo());
+        simpMessagingTemplate.convertAndSend(dest, oMsg);
     }
+
 //    @RequestMapping(value = "/sendMsgByUser", method = RequestMethod.GET)
 //    @ResponseBody
 //    public Object sendMsgByUser(String token, String msg) {
