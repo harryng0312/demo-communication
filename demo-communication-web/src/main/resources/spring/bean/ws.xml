@@ -12,11 +12,16 @@
     <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>
     <bean id="chatInterceptor" class="org.harryng.demo.endpoint.HttpChatInterceptor"/>
 
+    <bean id="webRtcChatHandler" class="org.harryng.demo.endpoint.WebRtcChatHandler"/>
+
     <websocket:handlers>
         <websocket:mapping path="ws/chat-handler" handler="httpChatHandler"/>
         <websocket:handshake-interceptors>
             <ref bean="chatInterceptor"/>
         </websocket:handshake-interceptors>
+    </websocket:handlers>
+    <websocket:handlers>
+        <websocket:mapping path="ws/socket" handler="webRtcChatHandler"/>
     </websocket:handlers>
 
     <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">

@@ -2,7 +2,18 @@
 // let conn = new WebSocket('ws://localhost:9090/socket');
 let add = $.trim($("#add").prop("innerHTML"));
 let protocol = $.trim($("#protocol").prop("innerHTML"));
-let conn = new WebSocket(protocol + "://" + add + "/ws/chat-basic");
+let conn = new WebSocket(protocol + "://" + add + "/ws/socket");
+let stunAdds = [
+    "stun:iphone-stun.strato-iphone.de:3478",
+    // "stun:numb.viagenie.ca:3478",
+    // "stun:s1.taraba.net:3478",
+    // "stun:s2.taraba.net:3478",
+    // "stun:stun.12connect.com:3478"
+];
+let peerConnection;
+let sendDataChannel;
+let receiveDataChannel;
+let input = document.getElementById("messageInput");
 
 conn.onopen = function () {
     console.log("Connected to the signaling server");
@@ -34,20 +45,9 @@ function send(message) {
     conn.send(JSON.stringify(message));
 }
 
-let peerConnection;
-let dataChannel;
-let input = document.getElementById("messageInput");
-
 function initialize() {
-    let configuration = {
-        "iceServers": [
-            {"url": "stun.l.google.com:19302"},
-            {"url": "stun1.l.google.com:19302"},
-            {"url": "stun2.l.google.com:19302"},
-            {"url": "stun3.l.google.com:19302"},
-            {"url": "stun4.l.google.com:19302"}
-        ]
-    };
+    // let configuration = {"iceServers": [{"urls": stunAdds}]};
+    let configuration = null;
 
     // peerConnection = new RTCPeerConnection(configuration, {
     //     optional: [{
@@ -66,23 +66,49 @@ function initialize() {
         }
     };
 
+    peerConnection.onicecandidateerror = function (evt) {
+        console.log("ICE Candidate err:" + evt);
+    }
+
     // creating data channel
-    dataChannel = peerConnection.createDataChannel("dataChannel", {
-        reliable: true
-    });
-
-    dataChannel.onerror = function (error) {
-        console.log("Error occured on datachannel:", error);
+    // dataChannel = peerConnection.createDataChannel("dataChannel", {
+    //     reliable: true
+    // });
+    // let dataChannelOptions = {
+    //     reliable: true,
+    //     maxRetransmitTime: "2000"
+    // };
+    // dataChannel = peerConnection.createDataChannel("dataChannel");
+    let handleChannelCallback = function (event) {
+        receiveDataChannel = event.channel;
+        receiveDataChannel.onopen = dataChannelOpen;
+        receiveDataChannel.onclose = dataChannelClose;
+        receiveDataChannel.onmessage = dataChannelMessage;
+        receiveDataChannel.onerror = dataChannelError;
     };
+    peerConnection.ondatachannel = handleChannelCallback;
+    sendDataChannel = peerConnection.createDataChannel("dataChannel");
+    sendDataChannel.onopen = dataChannelOpen;
+    sendDataChannel.onclose = dataChannelClose;
+    sendDataChannel.onmessage = dataChannelMessage;
+    sendDataChannel.onerror = dataChannelError;
+}
 
-    // when we receive a message from the other peer, printing it on the console
-    dataChannel.onmessage = function (event) {
-        console.log("message:", event.data);
-    };
+function dataChannelOpen(evt) {
+    console.log("data channel is opened");
+}
 
-    dataChannel.onclose = function () {
-        console.log("data channel is closed");
-    };
+function dataChannelError(error) {
+    console.log("Error occured on datachannel:", error);
+}
+
+// when we receive a message from the other peer, printing it on the console
+function dataChannelMessage(event) {
+    console.log("message:", event.data);
+}
+
+function dataChannelClose() {
+    console.log("data channel is closed");
 }
 
 function createOffer() {
@@ -115,6 +141,7 @@ function handleOffer(offer) {
 
 function handleCandidate(candidate) {
     peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+    console.log("Candidate:" + JSON.stringify(candidate));
 };
 
 function handleAnswer(answer) {
@@ -123,6 +150,6 @@ function handleAnswer(answer) {
 };
 
 function sendMessage() {
-    dataChannel.send(input.value);
+    sendDataChannel.send(input.value);
     input.value = "";
 }
