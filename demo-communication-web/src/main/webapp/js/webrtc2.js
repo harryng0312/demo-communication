@@ -20,35 +20,37 @@ conn.onopen = function () {
     initialize();
 };
 
-conn.onmessage = function (msg) {
+conn.onmessage = async function (msg) {
     console.log("Got message", msg.data);
     let content = JSON.parse(msg.data);
     let data = content.data;
     switch (content.event) {
         // when somebody wants to call us
         case "offer":
-            handleOffer(data);
+            await handleOffer(data);
             break;
         case "answer":
-            handleAnswer(data);
+            await handleAnswer(data);
             break;
         // when a remote peer sends an ice candidate to us
         case "candidate":
-            handleCandidate(data);
+            await handleCandidate(data);
             break;
         default:
             break;
     }
-};
+}
 
 function send(message) {
     conn.send(JSON.stringify(message));
 }
 
 function initialize() {
-    // let configuration = {"iceServers": [{"urls": stunAdds}]};
+    // let configuration = {
+    //     "iceServers": [{"urls": stunAdds}]
+    // };
     let configuration = null;
-
+    let RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
     // peerConnection = new RTCPeerConnection(configuration, {
     //     optional: [{
     //         RtpDataChannels: true
@@ -78,7 +80,6 @@ function initialize() {
     //     reliable: true,
     //     maxRetransmitTime: "2000"
     // };
-    // dataChannel = peerConnection.createDataChannel("dataChannel");
     let handleChannelCallback = function (event) {
         receiveDataChannel = event.channel;
         receiveDataChannel.onopen = dataChannelOpen;
@@ -111,41 +112,59 @@ function dataChannelClose() {
     console.log("data channel is closed");
 }
 
-function createOffer() {
-    peerConnection.createOffer(function (offer) {
-        send({
-            event: "offer",
-            data: offer
-        });
-        peerConnection.setLocalDescription(offer);
-    }, function (error) {
-        alert("Error creating an offer");
+async function createOffer() {
+    // peerConnection.createOffer(function (offer) {
+    //     send({
+    //         event: "offer",
+    //         data: offer
+    //     });
+    //     peerConnection.setLocalDescription(offer);
+    // }, function (error) {
+    //     alert("Error creating an offer");
+    // }, {
+    //     offerToReceiveAudio: true,
+    //     offerToReceiveVideo:true
+    // });
+
+    let offer = await peerConnection.createOffer({
+        offerToReceiveAudio: true,
+        offerToReceiveVideo: true
+    });
+    send({
+        event: "offer",
+        data: offer
+    });
+    await peerConnection.setLocalDescription(offer);
+}
+
+async function handleOffer(offer) {
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+    // create and send an answer to an offer
+    // peerConnection.createAnswer(function (answer) {
+    //     peerConnection.setLocalDescription(answer);
+    //     send({
+    //         event: "answer",
+    //         data: answer
+    //     });
+    // }, function (error) {
+    //     alert("Error creating an answer");
+    // });
+
+    let answer = await peerConnection.createAnswer();
+    await peerConnection.setLocalDescription(answer);
+    send({
+        event: "answer",
+        data: answer
     });
 }
 
-function handleOffer(offer) {
-    peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-
-    // create and send an answer to an offer
-    peerConnection.createAnswer(function (answer) {
-        peerConnection.setLocalDescription(answer);
-        send({
-            event: "answer",
-            data: answer
-        });
-    }, function (error) {
-        alert("Error creating an answer");
-    });
-
-};
-
-function handleCandidate(candidate) {
-    peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+async function handleCandidate(candidate) {
+    await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     console.log("Candidate:" + JSON.stringify(candidate));
-};
+}
 
-function handleAnswer(answer) {
-    peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+async function handleAnswer(answer) {
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
     console.log("connection established successfully!!");
 };
 
