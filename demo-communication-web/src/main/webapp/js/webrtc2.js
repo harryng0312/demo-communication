@@ -3,13 +3,12 @@
 let add = $.trim($("#add").prop("innerHTML"));
 let protocol = $.trim($("#protocol").prop("innerHTML"));
 let conn = new WebSocket(protocol + "://" + add + "/ws/socket");
-let stunAdds = [
-    "stun:iphone-stun.strato-iphone.de:3478",
-    // "stun:numb.viagenie.ca:3478",
-    // "stun:s1.taraba.net:3478",
-    // "stun:s2.taraba.net:3478",
-    // "stun:stun.12connect.com:3478"
-];
+let stunAdds = [//{"urls": ["stun:iphone-stun.strato-iphone.de:3478"]},
+    {
+        "urls": ["stun:rhel-php:3478", "turn:rhel-php:3478"],
+        "username": "username",
+        "credential": "password"
+    }];
 let peerConnection;
 let sendDataChannel;
 let receiveDataChannel;
@@ -46,8 +45,8 @@ function send(message) {
 }
 
 function initialize() {
-    // let configuration = {"iceServers": [{"urls": stunAdds}]};
-    let configuration = null;
+    let configuration = {"iceServers": stunAdds};
+    // let configuration = null;
     let RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
     // peerConnection = new RTCPeerConnection(configuration, {
     //     optional: [{
