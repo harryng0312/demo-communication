@@ -18,7 +18,7 @@ let input = document.getElementById("messageInput");
 conn.onopen = function () {
     console.log("Connected to the signaling server");
     initialize();
-};
+}
 
 conn.onmessage = async function (msg) {
     console.log("Got message", msg.data);
@@ -46,9 +46,7 @@ function send(message) {
 }
 
 function initialize() {
-    // let configuration = {
-    //     "iceServers": [{"urls": stunAdds}]
-    // };
+    // let configuration = {"iceServers": [{"urls": stunAdds}]};
     let configuration = null;
     let RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
     // peerConnection = new RTCPeerConnection(configuration, {
@@ -72,6 +70,14 @@ function initialize() {
         console.log("ICE Candidate err:" + evt);
     }
 
+    peerConnection.onnegotiationneeded = async evt => {
+        // await createOffer();
+        // let offer = await peerConnection.createOffer({
+        //     offerToReceiveAudio: true,
+        //     offerToReceiveVideo: true
+        // })
+        // await peerConnection.setLocalDescription(offer);
+    }
     // creating data channel
     // dataChannel = peerConnection.createDataChannel("dataChannel", {
     //     reliable: true
@@ -113,19 +119,6 @@ function dataChannelClose() {
 }
 
 async function createOffer() {
-    // peerConnection.createOffer(function (offer) {
-    //     send({
-    //         event: "offer",
-    //         data: offer
-    //     });
-    //     peerConnection.setLocalDescription(offer);
-    // }, function (error) {
-    //     alert("Error creating an offer");
-    // }, {
-    //     offerToReceiveAudio: true,
-    //     offerToReceiveVideo:true
-    // });
-
     let offer = await peerConnection.createOffer({
         offerToReceiveAudio: true,
         offerToReceiveVideo: true
@@ -139,17 +132,6 @@ async function createOffer() {
 
 async function handleOffer(offer) {
     await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-    // create and send an answer to an offer
-    // peerConnection.createAnswer(function (answer) {
-    //     peerConnection.setLocalDescription(answer);
-    //     send({
-    //         event: "answer",
-    //         data: answer
-    //     });
-    // }, function (error) {
-    //     alert("Error creating an answer");
-    // });
-
     let answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
     send({
