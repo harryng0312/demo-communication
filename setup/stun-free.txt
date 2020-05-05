@@ -2,9 +2,9 @@
 yum install -y make gcc cc gcc-c++ wget
 yum install -y openssl-devel libevent libevent-devel mysql-devel mysql-server
 
-wget https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-tar xvfz libevent-2.0.21-stable.tar.gz
-cd libevent-2.0.21-stable && ./configure
+wget https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz
+tar -xvfz libevent-2.1.11-stable.tar.gz
+cd libevent-2.1.11-stable && ./configure
 make && make install && cd ..
 
 wget http://turnserver.open-sys.org/downloads/v3.2.4.1/turnserver-3.2.4.1.tar.gz
@@ -15,4 +15,4 @@ make && make install
 
 2. run
 nohup turnserver -v -r 127.1.1:2222 -a -b turnuserdb.conf -c turnserver.conf -u baophan -r 127.1.1:2222 -p blablabla &
-sudo ./bin/turnserver -a -u username:password
+sudo /usr/local/bin/turnserver -a -u username:password
