@@ -1,0 +1,28 @@
+1. nginx.conf
+upstream load_balancer {
+    server localhost:9090;
+}
+
+2. conf.d/demo.conf
+server {
+    listen       80;
+    server_name  rhel-php;
+
+    #charset koi8-r;
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        set $target load_balancer;
+        proxy_pass $scheme://$target;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        #proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
