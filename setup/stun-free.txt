@@ -15,4 +15,4 @@ make && make install
 
 2. run
 nohup turnserver -v -r 127.1.1:2222 -a -b turnuserdb.conf -c turnserver.conf -u baophan -r 127.1.1:2222 -p blablabla &
-sudo /usr/local/bin/turnserver -a -u username:password -L 0.0.0.0
+sudo /usr/local/bin/turnserver -a -u username:password -L localhost -p 12345
