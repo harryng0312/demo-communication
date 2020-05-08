@@ -1,0 +1,6 @@
+1. create the root ca:
+openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -keyout root-key.key -out root-cert.crt
+2. create the request:
+openssl req -out web-cert.csr -new -newkey rsa:2048 -nodes -keyout web-key.key
+3. trust:
+openssl x509 -req -in web.csr -CA root-cert.crt -CAkey root-key.key -CAcreateserial -out web.crt -days 1825 -sha256 -extfile dev.mergebot.com.ext
