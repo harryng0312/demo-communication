@@ -2,5 +2,14 @@
 openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -keyout root-key.key -out root-cert.crt
 2. create the request:
 openssl req -out web-cert.csr -new -newkey rsa:2048 -nodes -keyout web-key.key
+
+openssl genrsa -out web-key.key 2048
+openssl req -new -sha256 -out web-cert.csr -key web-key.key -config ssl.conf
+openssl req -text -noout -in web-cert.csr
+
 3. trust:
-openssl x509 -req -in web.csr -CA root-cert.crt -CAkey root-key.key -CAcreateserial -out web.crt -days 1825 -sha256 -extfile dev.mergebot.com.ext
+openssl x509 -req -in web-cert.csr -CA root-cert.crt -CAkey root-key.key -CAcreateserial -out web-cert.crt -days 365 -sha256 -extfile dev.mergebot.com.ext
+openssl x509 -req -sha256 -days 365 -in web-cert.csr -signkey web-key.key -out web-cert.crt -extensions req_ext -extfile ssl.conf
+
+openssl x509 -req -in web-cert.csr -CA root-cert.crt -CAkey root-key.key -CAcreateserial -out web-cert.crt -days 365 -sha256 -extensions req_ext -extfile ssl.conf
+openssl x509 -req -in web-cert.csr -CA root-cert.crt -CAkey root-key.key -CAcreateserial -out web-cert.crt -days 365 -sha256
