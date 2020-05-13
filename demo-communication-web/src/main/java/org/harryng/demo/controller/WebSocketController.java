@@ -3,12 +3,10 @@ package org.harryng.demo.controller;
 import org.harryng.demo.auth.service.AuthService;
 import org.harryng.demo.model.ChatMessage;
 import org.harryng.demo.model.OutputChatMessage;
-import org.harryng.demo.model.StompPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -18,13 +16,11 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -48,6 +44,7 @@ public class WebSocketController {
         return "ws/ws-basic";
     }
 
+
     @RequestMapping(value = {"/ws-handler"}, method = RequestMethod.GET)
     public String initWsHandler() {
         return "ws/ws-handler";
@@ -69,6 +66,12 @@ public class WebSocketController {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
 //        Principal user = new StompPrincipal("");
 //        sha.setUser();
+    }
+
+    @EventListener(SessionConnectEvent.class)
+    protected void handleSessionConnectEvent(SessionConnectEvent event){
+        StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
+        logger.info("User " + sha.getNativeHeader("user") + " connected");
     }
 
     @EventListener(SessionDisconnectEvent.class)

@@ -53,7 +53,7 @@
     function connect() {
         let socket = new SockJS(sockEndpoint);
         stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
+        stompClient.connect({"user":document.getElementById('from').value}, function (frame) {
             setConnected(true);
             let from = document.getElementById('from').value;
             console.log('Connected: ' + frame);
