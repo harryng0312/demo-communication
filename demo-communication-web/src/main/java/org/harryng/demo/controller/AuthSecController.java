@@ -1,7 +1,9 @@
 package org.harryng.demo.controller;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,5 +37,11 @@ public class AuthSecController {
             model.addAttribute("message", "Login Failed!");
         }
         return "auth-sec/login";
+    }
+
+    @RequestMapping("/demo/{name}")
+    public String demo(Model model, @PathVariable("name") @DefaultValue("") String name) {
+        model.addAttribute("name", name);
+        return "auth-sec/demo";
     }
 }

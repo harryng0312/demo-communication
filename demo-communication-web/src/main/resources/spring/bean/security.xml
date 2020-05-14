@@ -21,6 +21,7 @@
                         username-parameter="username" password-parameter="password"/>
         <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/logout" delete-cookies="JSESSIONID"
                     invalidate-session="true"/>
+        <sec:csrf disabled="false"/>
     </sec:http>
     <!--    <sec:http auto-config="true" pattern="/user/**" authentication-manager-ref="authManager">-->
     <!--        <sec:intercept-url pattern="/user/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
