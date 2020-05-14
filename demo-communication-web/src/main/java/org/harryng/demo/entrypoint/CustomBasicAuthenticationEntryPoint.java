@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class MyBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
-    static Logger logger = LoggerFactory.getLogger(MyBasicAuthenticationEntryPoint.class);
+public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
+    static Logger logger = LoggerFactory.getLogger(CustomBasicAuthenticationEntryPoint.class);
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {

@@ -14,7 +14,12 @@
     <!--        <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/logout" delete-cookies="JSESSIONID"-->
     <!--                    invalidate-session="true"/>-->
     <!--    </sec:http>-->
-    <bean id="myBasicAuthenticationEntryPoint" class="org.harryng.demo.entrypoint.MyBasicAuthenticationEntryPoint"/>
+    <bean id="customBasicAuthenticationEntryPoint"
+          class="org.harryng.demo.entrypoint.CustomBasicAuthenticationEntryPoint"/>
+    <bean id="customAuthenticationProvider" class="org.harryng.demo.entrypoint.CustomAuthenticationProvider"
+          init-method="init"/>
+<!--    <bean id="customUserService" class="org.harryng.demo.entrypoint.CustomUserService"/>-->
+
     <sec:http pattern="/admin/**" authentication-manager-ref="authManager">
         <sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <sec:form-login login-page="/login" login-processing-url="/j_spring_security_login" default-target-url="/admin"
@@ -25,7 +30,7 @@
                     invalidate-session="true"/>
         <sec:csrf disabled="false"/>
     </sec:http>
-    <sec:http authentication-manager-ref="authManager" entry-point-ref="myBasicAuthenticationEntryPoint">
+    <sec:http authentication-manager-ref="authManager" entry-point-ref="customBasicAuthenticationEntryPoint">
         <!--        <sec:intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
         <!--        <sec:http-basic/>-->
         <sec:intercept-url pattern="/user/**" access="permitAll"/>
@@ -34,18 +39,19 @@
     </sec:http>
 
     <sec:authentication-manager id="authManager">
-        <sec:authentication-provider>
-            <sec:user-service>
-                <sec:user name="admin" password="{noop}123456" authorities="ROLE_ADMIN"/>
-                <sec:user name="user" password="{noop}123456" authorities="ROLE_USER"/>
-            </sec:user-service>
-            <!--            <sec:user-service>-->
-            <!--                <sec:user name="admin" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori"-->
-            <!--                          authorities="ROLE_ADMIN"/>-->
-            <!--                <sec:user name="user" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori"-->
-            <!--                          authorities="ROLE_USER"/>-->
-            <!--            </sec:user-service>-->
-            <!--            <sec:password-encoder hash="bcrypt"/>-->
-        </sec:authentication-provider>
+        <sec:authentication-provider ref="customAuthenticationProvider"/>
+        <!--        <sec:authentication-provider>-->
+        <!--            <sec:user-service>-->
+        <!--                <sec:user name="admin" password="{noop}123456" authorities="ROLE_ADMIN"/>-->
+        <!--                <sec:user name="user" password="{noop}123456" authorities="ROLE_USER"/>-->
+        <!--            </sec:user-service>-->
+        <!--            <sec:user-service>-->
+        <!--                <sec:user name="admin" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori"-->
+        <!--                          authorities="ROLE_ADMIN"/>-->
+        <!--                <sec:user name="user" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori"-->
+        <!--                          authorities="ROLE_USER"/>-->
+        <!--            </sec:user-service>-->
+        <!--            <sec:password-encoder hash="bcrypt"/>-->
+        <!--        </sec:authentication-provider>-->
     </sec:authentication-manager>
 </beans>
