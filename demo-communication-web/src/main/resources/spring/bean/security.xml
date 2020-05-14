@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <!--    <sec:http auto-config="true" create-session="never" authentication-manager-ref="authManager">-->
+    <!--        <sec:intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>-->
+    <!--        <sec:http-basic/>-->
+    <!--        <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/logout" delete-cookies="JSESSIONID"-->
+    <!--                    invalidate-session="true"/>-->
+    <!--    </sec:http>-->
+    <!--    <sec:http pattern="/**" create-session="never" authentication-manager-ref="authManager">-->
+    <!--        <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/logout" delete-cookies="JSESSIONID"-->
+    <!--                    invalidate-session="true"/>-->
+    <!--    </sec:http>-->
+    <sec:http auto-config="true" authentication-manager-ref="authManager">
+        <sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <sec:form-login login-page="/login" login-processing-url="/j_spring_security_login" default-target-url="/admin"
+                        authentication-failure-url="/login?error" always-use-default-target="true"
+                        username-parameter="username" password-parameter="password"/>
+        <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/logout" delete-cookies="JSESSIONID"
+                    invalidate-session="true"/>
+    </sec:http>
+    <!--    <sec:http auto-config="true" pattern="/user/**" authentication-manager-ref="authManager">-->
+    <!--        <sec:intercept-url pattern="/user/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
+    <!--        <sec:http-basic/>-->
+    <!--    </sec:http>-->
+
+    <sec:authentication-manager id="authManager">
+        <sec:authentication-provider>
+            <sec:user-service>
+                <sec:user name="admin" password="{noop}123456" authorities="ROLE_ADMIN"/>
+                <sec:user name="user" password="{noop}123456" authorities="ROLE_USER"/>
+            </sec:user-service>
+            <!--            <sec:user-service>-->
+            <!--                <sec:user name="admin" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori"-->
+            <!--                          authorities="ROLE_ADMIN"/>-->
+            <!--                <sec:user name="user" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori"-->
+            <!--                          authorities="ROLE_USER"/>-->
+            <!--            </sec:user-service>-->
+            <!--            <sec:password-encoder hash="bcrypt"/>-->
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+</beans>
