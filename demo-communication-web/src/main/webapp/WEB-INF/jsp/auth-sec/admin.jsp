@@ -14,7 +14,7 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="submit" value="Goto Demo Page1"/>
 </form>
-<form action="<c:url value="/demo/demo1" />" method="post">
+<form action="<c:url value="/demo/2" />" method="post">
     <input type="submit" value="Goto Demo Page2"/>
 </form>
 </body>
