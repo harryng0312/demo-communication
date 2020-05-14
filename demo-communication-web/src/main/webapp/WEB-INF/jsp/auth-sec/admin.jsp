@@ -6,7 +6,7 @@
 <body>
 <h1>Admin Page</h1>
 <h2>Welcome: ${pageContext.request.userPrincipal.name}</h2>
-<form action="<c:url value='/admin/j_spring_security_logout' />" method="post">
+<form action="<c:url value='/j_spring_security_logout' />" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="submit" value="Logout"/>
 </form>

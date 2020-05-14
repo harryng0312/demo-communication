@@ -25,15 +25,15 @@
         <sec:form-login login-page="/login" login-processing-url="/j_spring_security_login" default-target-url="/admin"
                         authentication-failure-url="/login?error" always-use-default-target="true"
                         username-parameter="username" password-parameter="password"/>
-        <sec:logout logout-url="/admin/j_spring_security_logout" logout-success-url="/logout"
-                    delete-cookies="JSESSIONID"
-                    invalidate-session="true"/>
+<!--        <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/logout"-->
+<!--                    delete-cookies="JSESSIONID"-->
+<!--                    invalidate-session="true"/>-->
         <sec:csrf disabled="false"/>
     </sec:http>
     <sec:http authentication-manager-ref="authManager" entry-point-ref="customBasicAuthenticationEntryPoint">
         <!--        <sec:intercept-url pattern="/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
         <!--        <sec:http-basic/>-->
-        <sec:intercept-url pattern="/user/**" access="permitAll"/>
+<!--        <sec:intercept-url pattern="/user/**" access="permitAll"/>-->
         <sec:logout logout-url="/j_spring_security_logout" logout-success-url="/logout" delete-cookies="JSESSIONID"
                     invalidate-session="true"/>
     </sec:http>
