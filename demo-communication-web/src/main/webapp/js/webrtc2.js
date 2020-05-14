@@ -141,7 +141,6 @@ async function handleOffer(offer) {
 
 async function handleCandidate(candidate) {
     await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
-    console.log("Candidate:" + JSON.stringify(candidate));
 }
 
 async function handleAnswer(answer) {

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<WEB-INF%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -41,10 +41,11 @@
 <body>
 <c:set var="req" value="${pageContext.request}"/>
 <div id="protocol" style="display: none">
-    <c:out value="ws"/>
+    <c:out value="wss"/>
 </div>
 <div id="add" style="display: none">
-    <c:out value="${req.serverName}:${req.serverPort}${req.contextPath}"/>
+<%--    <c:out value="${req.serverName}:${req.serverPort}${req.contextPath}"/>--%>
+    <c:out value="${req.serverName}:443${req.contextPath}"/>
 </div>
 <div class="container">
     <h1>A Demo for messaging in WebRTC</h1>
