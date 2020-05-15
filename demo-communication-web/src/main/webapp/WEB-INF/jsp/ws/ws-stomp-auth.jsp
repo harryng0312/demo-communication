@@ -57,7 +57,7 @@
             setConnected(true);
             let from = document.getElementById('from').value;
             console.log('Connected: ' + frame);
-            stompClient.subscribe(listenEndpoint, receivedMessage);
+            stompClient.subscribe(listenEndpoint + "/", receivedMessage);
             stompClient.subscribe(listenEndpoint + "/" + from, receivedMessage);
         });
     }
