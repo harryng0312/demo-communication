@@ -55,10 +55,10 @@
         stompClient = Stomp.over(socket);
         stompClient.connect({"user": document.getElementById('from').value}, frame => {
             setConnected(true);
-            // let from = document.getElementById('from').value;
+            let from = document.getElementById('from').value;
             console.log('Connected: ' + frame);
             stompClient.subscribe(listenEndpoint, receivedMessage);
-            stompClient.subscribe("/user" + listenEndpoint, receivedMessage);
+            stompClient.subscribe(listenEndpoint + "/" + from, receivedMessage);
         });
     }
 
