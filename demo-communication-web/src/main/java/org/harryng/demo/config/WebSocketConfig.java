@@ -3,7 +3,6 @@ package org.harryng.demo.config;
 import org.harryng.demo.endpoint.HttpChatHandler;
 import org.harryng.demo.endpoint.HttpChatInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
