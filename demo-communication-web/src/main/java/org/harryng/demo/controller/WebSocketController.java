@@ -13,7 +13,12 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
@@ -22,6 +27,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 @Controller
@@ -60,6 +66,11 @@ public class WebSocketController {
         return "ws/ws-stomp2";
     }
 
+    @RequestMapping(value = "/ws-stomp/{name}", method = RequestMethod.GET)
+    public String initWsStompAuth(@PathVariable("name") String name) {
+        return "ws/ws-stomp-" + name;
+    }
+
     @EventListener(SessionConnectedEvent.class)
     protected void handleSessionConnectedEvent(SessionConnectedEvent event) {
         // Get Accessor
@@ -71,15 +82,17 @@ public class WebSocketController {
     @EventListener(SessionConnectEvent.class)
     protected void handleSessionConnectEvent(SessionConnectEvent event){
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
-        logger.info("User " + sha.getNativeHeader("user") + " connected");
+        String username = sha.getFirstNativeHeader("user");
+        logger.info("User " + username + " connected");
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "", new ArrayList<>());
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
     }
 
     @EventListener(SessionDisconnectEvent.class)
     protected void handleSessionDisconnectEvent(SessionDisconnectEvent event) {
         // Get Accessor
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
-//        Principal user = new StompPrincipal("");
-//        sha.setUser();
     }
 
     @MessageMapping("/ws/chat")
@@ -89,13 +102,27 @@ public class WebSocketController {
         return new OutputChatMessage(message.getFrom(), message.getTo(), message.getContent(), time);
     }
 
-    @MessageMapping("/ws/chat/user")
+//    @MessageMapping("/ws/chat/user")
 //    @SendTo("/topic/messages")
     public void sendToUser(SimpMessageHeaderAccessor headerAccessor, @Payload ChatMessage message) throws Exception {
         String time = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        String to = message.getTo();
         OutputChatMessage oMsg = new OutputChatMessage(message.getFrom(), message.getTo(), message.getContent(), time);
-        String dest = String.format("/topic/messages%s%s", (message.getTo() != null && !"".equals(message.getTo().trim())?"/":""), message.getTo());
+        String dest = String.format("/topic/messages/%s", to);
         simpMessagingTemplate.convertAndSend(dest, oMsg);
+    }
+
+    @MessageMapping("/ws/chat/user")
+//    @SendToUser("/topic/messages")
+    public ChatMessage sendToUserAuth(SimpMessageHeaderAccessor headerAccessor, @Payload ChatMessage message) throws Exception {
+        String time = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        String to = message.getTo();
+        OutputChatMessage oMsg = new OutputChatMessage(message.getFrom(), message.getTo(), message.getContent(), time);
+        String origin = String.format("/topic/messages/%s", message.getFrom());
+        String dest = String.format("/topic/messages/%s", to);
+        simpMessagingTemplate.convertAndSend(origin, oMsg);
+        simpMessagingTemplate.convertAndSend(dest, oMsg);
+        return oMsg;
     }
 
 //    @RequestMapping(value = "/sendMsgByUser", method = RequestMethod.GET)

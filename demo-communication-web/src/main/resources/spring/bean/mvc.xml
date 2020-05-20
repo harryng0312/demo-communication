@@ -3,12 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="systemProperties" scope="singleton"
-          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="locations">
-            <list>
-                <value>classpath:*.properties</value>
-            </list>
-        </property>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <constructor-arg name="prefix" value="/WEB-INF/jsp/"/>
+        <constructor-arg name="suffix" value=".jsp"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
     </bean>
 </beans>

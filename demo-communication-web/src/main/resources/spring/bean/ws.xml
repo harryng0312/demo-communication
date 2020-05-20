@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:websocket="http://www.springframework.org/schema/websocket"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+
     http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint"/>
@@ -33,7 +32,7 @@
         <websocket:stomp-endpoint path="/ws/chat/user" allowed-origins="*">
             <websocket:sockjs websocket-enabled="true" heartbeat-time="20000"/>
         </websocket:stomp-endpoint>
-        <websocket:simple-broker prefix="/topic, /user"/>
+        <websocket:simple-broker prefix="/topic, /queue"/>
     </websocket:message-broker>
 
     <!--    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">-->
