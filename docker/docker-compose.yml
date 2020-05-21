@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  #demo-communication
+  app:
+    # build: .
+    image: openjdk
+    container_name: demo-comm
+    read_only: true
+#    env_file:
+#      - ./docker-compose.env
+    environment:
+      DEMO_HOME: ${DEMO_HOME}
+#      DEMO_HOME: /opt/demo-communication
+    ports:
+      - 80:9090
+    volumes:
+      - /docker/demo-communication/tmp:/tmp:rw
+      - /docker/demo-communication/opt:/opt/demo-communication:rw
+#    depends_on:
+#      - db
+    command: java -jar ${DEMO_HOME}/demo-communication-web-1.0-SNAPSHOT.war
+#    entrypoint: java -jar ${DEMO_HOME}/demo-communication-web-1.0-SNAPSHOT.war
+#  db:
+#    build: .
+
