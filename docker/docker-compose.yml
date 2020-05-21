@@ -23,7 +23,7 @@ services:
       demo-bridge:
         ipv4_address: "172.16.238.2"
         ipv6_address: "2001:3984:3989::2"
-#      external-net:
+      external-net:
   #demo-communication
   app:
     # build: ./app
