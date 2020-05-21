@@ -2,19 +2,20 @@ version: "3.8"
 services:
   proxy:
 #    build: ./nginx
-    image: nginx
+    image: ${nginxImg}
     container_name: proxy
     read_only: true
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - /docker/tmp:/tmp
-      - /docker/nginx/cache:/var/cache/nginx
-      - /docker/nginx/run:/var/run
-      - /docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - /docker/nginx/log:/var/log
-      - /docker/nginx/cert:/etc/nginx/cert
+      - ${TMP_DIR}:/tmp
+      - ${PROXY_DIR}/cache:/var/cache/nginx
+      - ${PROXY_DIR}/run:/var/run
+      - ${PROXY_DIR}/nginx.conf:/etc/nginx/nginx.conf
+#      - ${PROXY_DIR}/log:/var/log
+      - ${PROXY_DIR}/log/nginx:/var/log/nginx
+      - ${PROXY_DIR}/cert:/etc/nginx/cert
 #    links:
 #      - "app"
 #    network_mode: bridge
@@ -22,11 +23,11 @@ services:
       demo-bridge:
         ipv4_address: "172.16.238.2"
         ipv6_address: "2001:3984:3989::2"
-      external-net:
+#      external-net:
   #demo-communication
   app:
-    # build: .
-    image: openjdk
+    # build: ./app
+    image: ${openjdkImg}
     container_name: demo-comm
     read_only: true
     environment:
@@ -34,8 +35,8 @@ services:
 #    ports:
 #      - 9090:9090
     volumes:
-      - /docker/tmp:/tmp
-      - /docker/demo-communication/opt:/opt/demo-communication
+      - ${TMP_DIR}:/tmp
+      - ${APP_DIR}/opt:/opt/demo-communication
     depends_on:
       - proxy
 #    network_mode: bridge
