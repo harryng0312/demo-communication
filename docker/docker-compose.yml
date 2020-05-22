@@ -23,8 +23,11 @@ services:
   app:
     # build: ./app
     image: ${openjdkImg}
-    container_name: demo-comm
+    container_name: demo-app
     read_only: true
+    hostname: demo-app
+    domainname: demo-app
+
     environment:
       DEMO_HOME: ${DEMO_HOME}
 #    ports:
@@ -34,12 +37,13 @@ services:
       - ${APP_DIR}/opt:/opt/demo-communication
     depends_on:
       - proxy
-#    network_mode: bridge
     networks:
       internal-net:
         ipv4_address: "172.16.239.10"
         ipv6_address: "2001:3984:3990::10"
       dmz-net:
+        aliases:
+          - demo-app
         ipv4_address: "172.16.238.10"
         ipv6_address: "2001:3984:3989::10"
     command: java -jar ${DEMO_HOME}/demo-communication-web-1.0-SNAPSHOT.war
