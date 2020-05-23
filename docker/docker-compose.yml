@@ -9,6 +9,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ${TMP_DIR}:/tmp
       - ${PROXY_DIR}/cache:/var/cache/nginx
       - ${PROXY_DIR}/run:/var/run
@@ -33,6 +35,8 @@ services:
 #    ports:
 #      - 9090:9090
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ${TMP_DIR}:/tmp
       - ${APP_DIR}/opt:/opt/demo-communication
     depends_on:

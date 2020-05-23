@@ -4,6 +4,8 @@ services:
 #    build: ./nginx
     image: nginx:latest
     container_name: proxy
+    hostname: proxy
+    domainname: proxy
     read_only: true
     env_file:
       - ./docker-compose-mac.env
@@ -11,6 +13,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+#      - /private/etc/localtime:/etc/localtime:ro
+#      - /etc/timezone:/etc/timezone:ro
       - /Volumes/WORKING/training/docker/demo-communication/tmp:/tmp
       - /Volumes/WORKING/training/docker/demo-communication/proxy/cache:/var/cache/nginx
       - /Volumes/WORKING/training/docker/demo-communication/proxy/run:/var/run
@@ -36,6 +40,8 @@ services:
 #    ports:
 #      - 9090:9090
     volumes:
+#      - /private/etc/localtime:/etc/localtime:ro
+#      - /etc/timezone:/etc/timezone:ro
       - /Volumes/WORKING/training/docker/demo-communication/tmp:/tmp
       - /Volumes/WORKING/training/docker/demo-communication/app/opt:/opt/demo-communication
     depends_on:
