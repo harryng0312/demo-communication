@@ -24,6 +24,8 @@ services:
     image: openjdk:11.0.7-jdk
     read_only: true
     hostname: app
+    expose:
+      - 9090
     environment:
       DEMO_HOME: /opt/demo-communication
       TZ: Asia/Ho_Chi_Minh
