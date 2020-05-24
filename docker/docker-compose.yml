@@ -8,9 +8,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      TZ: Asia/Ho_Chi_Minh
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       - ${TMP_DIR}:/tmp
       - ${PROXY_DIR}/cache:/var/cache/nginx
       - ${PROXY_DIR}/run:/var/run
@@ -29,14 +29,12 @@ services:
     read_only: true
     hostname: demo-app
     domainname: demo-app
-
     environment:
       DEMO_HOME: ${DEMO_HOME}
+      TZ: Asia/Ho_Chi_Minh
 #    ports:
 #      - 9090:9090
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       - ${TMP_DIR}:/tmp
       - ${APP_DIR}/opt:/opt/demo-communication
     depends_on:
