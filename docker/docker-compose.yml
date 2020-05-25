@@ -4,6 +4,8 @@ services:
 #    build: ./nginx
     image: ${nginxImg}
     container_name: proxy
+    hostname: proxy
+    domainname: proxy
     read_only: true
     ports:
       - "80:80"
@@ -19,16 +21,20 @@ services:
       - ${PROXY_DIR}/cert:/etc/nginx/cert
     networks:
       dmz-net:
+        aliases:
+          - proxy
         ipv4_address: "172.16.238.2"
         ipv6_address: "2001:3984:3989::2"
       external-net:
+        aliases:
+          - proxy
   app:
     # build: ./app
     image: ${openjdkImg}
-    container_name: demo-app
+    container_name: app
     read_only: true
-    hostname: demo-app
-    domainname: demo-app
+    hostname: app
+    domainname: app
     environment:
       DEMO_HOME: ${DEMO_HOME}
       TZ: Asia/Ho_Chi_Minh
@@ -41,13 +47,13 @@ services:
       - proxy
     networks:
       internal-net:
-        ipv4_address: "172.16.239.10"
-        ipv6_address: "2001:3984:3990::10"
+#        ipv4_address: "172.16.239.10"
+#        ipv6_address: "2001:3984:3990::10"
       dmz-net:
         aliases:
-          - demo-app
-        ipv4_address: "172.16.238.10"
-        ipv6_address: "2001:3984:3989::10"
+          - app
+#        ipv4_address: "172.16.238.10"
+#        ipv6_address: "2001:3984:3989::10"
     command: java -jar ${DEMO_HOME}/demo-communication-web-1.0-SNAPSHOT.war
 networks:
   internal-net:
