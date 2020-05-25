@@ -47,12 +47,14 @@ services:
       - proxy
     networks:
       internal-net:
-#        ipv4_address: "172.16.239.10"
+        aliases:
+          - app
+        ipv4_address: "172.16.239.10"
 #        ipv6_address: "2001:3984:3990::10"
       dmz-net:
         aliases:
           - app
-#        ipv4_address: "172.16.238.10"
+        ipv4_address: "172.16.238.10"
 #        ipv6_address: "2001:3984:3989::10"
     command: java -jar ${DEMO_HOME}/demo-communication-web-1.0-SNAPSHOT.war
 networks:
