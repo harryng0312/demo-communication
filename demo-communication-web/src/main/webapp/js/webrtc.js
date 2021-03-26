@@ -2,11 +2,12 @@ let gStream = null;
 let userMedia = null;
 
 function hasUserMedia() {
-    userMedia = navigator.getUserMedia
+    userMedia = navigator.mediaDevices
+        || navigator.getUserMedia
+        || MediaDevices.getUserMedia
         || navigator.webkitGetUserMedia
         || navigator.mozGetUserMedia
-        || navigator.msGetUserMedia
-        || navigator.mediaDevices;
+        || navigator.msGetUserMedia;
     return !!userMedia;
 }
 
@@ -91,11 +92,13 @@ $("#btnGetVideoTracks").on("click", function () {
 
 $("#btnRemoveAudioTrack").on("click", function () {
     console.log("removeAudioTrack()");
+    gStream.getAudioTracks()[0].stop();
     gStream.removeTrack(gStream.getAudioTracks()[0]);
 });
 
 $("#btnRemoveVideoTrack").on("click", function () {
     console.log("removeVideoTrack()");
+    gStream.getVideoTracks()[0].stop();
     gStream.removeTrack(gStream.getVideoTracks()[0]);
 });
 
