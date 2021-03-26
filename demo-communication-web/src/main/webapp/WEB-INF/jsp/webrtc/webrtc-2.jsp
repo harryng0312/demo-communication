@@ -52,8 +52,8 @@
 <script src="<c:url value='/js/webrtc.js'/>"></script>
 <script type="text/javascript">
     $(document).ready(evt => {
-        // initUserMedia();
-        // initRTCConnection();
+        initUserMedia();
+        initRTCConnection();
     });
 </script>
 </body>

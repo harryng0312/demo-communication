@@ -1,43 +1,21 @@
 let gStream = null;
-let userMedia = null;
-
 function hasUserMedia() {
-    userMedia = navigator.getUserMedia
+    navigator.getUserMedia = navigator.getUserMedia
         || navigator.webkitGetUserMedia
         || navigator.mozGetUserMedia
-        || navigator.msGetUserMedia
-        || navigator.mediaDevices;
-    return !!userMedia;
-}
-
-function successCallback(stream) {
-    gStream = stream;
-    // // Create an AudioNode from the stream
-    // const mediaStreamSource = audioContext.createMediaStreamSource(stream);
-    // mediaStreamSource.connect(filterNode);
-    // filterNode.connect(gainNode);
-    // // connect the gain node to the destination (i.e. play the sound)
-    // gainNode.connect(audioContext.destination);
-
-    let video = document.getElementById('video');
-    //insert stream into the video tag
-    // video.src = window.URL.createObjectURL(stream);
-
-    // const videoTracks = stream.getVideoTracks();
-    // console.log('Got stream with constraints:', constraints);
-    // console.log("Using video device: ${videoTracks[0].label}");
-    // window.stream = stream; // make variable available to browser console
-    video.srcObject = stream;
-}
-
-function errorCallback(error) {
-    console.log("navigator.getUserMedia error: ", error);
+        || navigator.msGetUserMedia;
+    return !!navigator.getUserMedia;
 }
 
 function initUserMedia() {
     if (hasUserMedia()) {
+        navigator.getUserMedia = navigator.getUserMedia
+            || navigator.webkitGetUserMedia
+            || navigator.mozGetUserMedia
+            || navigator.msGetUserMedia;
+
         // create a filter node
-        let audioContext = null;
+        let audioContext;
         if (typeof AudioContext === 'function') {
             audioContext = new AudioContext();
         } else if (typeof webkitAudioContext === 'function') {
@@ -58,12 +36,28 @@ function initUserMedia() {
         gainNode.gain.value = 0.5;
 
         //get both video and audio streams from user's camera
-        let constraints = {video: {width: 320, height: 240, frameRate: 5}, audio: true};
-        if (typeof userMedia?.getUserMedia === 'function') {
-            userMedia.getUserMedia(constraints).then(successCallback).catch(errorCallback);
-        } else {
-            userMedia(constraints, successCallback, errorCallback);
-        }
+        navigator.getUserMedia({video: { width: 320, height: 240, frameRate: 5 }, audio: true},
+                stream => {
+            gStream = stream;
+            // // Create an AudioNode from the stream
+            // const mediaStreamSource = audioContext.createMediaStreamSource(stream);
+            // mediaStreamSource.connect(filterNode);
+            // filterNode.connect(gainNode);
+            // // connect the gain node to the destination (i.e. play the sound)
+            // gainNode.connect(audioContext.destination);
+
+            let video = document.getElementById('video');
+            //insert stream into the video tag
+            // video.src = window.URL.createObjectURL(stream);
+
+            // const videoTracks = stream.getVideoTracks();
+            // console.log('Got stream with constraints:', constraints);
+            // console.log("Using video device: ${videoTracks[0].label}");
+            // window.stream = stream; // make variable available to browser console
+            video.srcObject = stream;
+        }, err => {
+        });
+
     } else {
         alert("Error. WebRTC is not supported!");
     }
@@ -99,7 +93,7 @@ $("#btnRemoveVideoTrack").on("click", function () {
     gStream.removeTrack(gStream.getVideoTracks()[0]);
 });
 
-$("#btnStartUserMedia").on("click", e => {
+$("#btnStartUserMedia").on("click", e=>{
     initUserMedia();
 });
 
@@ -112,8 +106,4 @@ function initRTCConnection() {
     // let dataChannel = peerConn.createDataChannel("myChannel", dataChannelOptions);
 
     // here we can start sending direct messages to another peer
-}
-
-function disconnect(){
-    console.log("===== Disconnected =====");
 }
