@@ -14,9 +14,9 @@ allprojects {
 //        mavenLocal()
     }
     dependencies {
-        compile "org.slf4j:slf4j-api:${slf4jVersion}"
+        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
 //        compile "log4j:log4j:${log4jVersion}"
-        testCompile "junit:junit:${junitVersion}"
+        testImplementation "junit:junit:${junitVersion}"
     }
     group 'org.harryng.demo'
     version '1.0-SNAPSHOT'
