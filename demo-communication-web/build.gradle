@@ -53,5 +53,5 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"
     testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 
-//    testCompile "junit":junit:${junitVersion}"
+//    testImplementation "junit":junit:${junitVersion}"
 }

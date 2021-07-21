@@ -1,0 +1,6 @@
+web add: 0.0.0.0:9090
+management add: 0.0.0.0:9091
+
+/web/
+/web/hello?name=
+/web/login
