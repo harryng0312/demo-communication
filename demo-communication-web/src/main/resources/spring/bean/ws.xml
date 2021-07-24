@@ -6,7 +6,7 @@
 
     http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
-    <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint"/>
+    <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint" init-method="postConstruct"/>
 
     <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>
     <bean id="chatInterceptor" class="org.harryng.demo.endpoint.HttpChatInterceptor"/>

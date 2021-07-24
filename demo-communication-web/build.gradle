@@ -24,6 +24,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${springbootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web-services:${springbootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-security:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-websocket:${springbootVersion}"
 
 //    implementation "org.springframework.security:spring-security-web:${springVersion}"
 //    implementation "org.springframework.security:spring-security-config:${springVersion}"
@@ -35,7 +36,6 @@ dependencies {
     implementation "org.aspectj:aspectjrt:${aspectjVersion}"
     implementation "org.aspectj:aspectjweaver:${aspectjVersion}"
 
-    implementation "org.springframework.boot:spring-boot-starter-websocket:${springbootVersion}"
     implementation "org.bouncycastle:bcprov-jdk15on:${bouncycastleVersion}"
 //    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
@@ -44,6 +44,8 @@ dependencies {
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
+
+//    implementation "org.springframework:spring-websocket:${springVersion}"
 
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"

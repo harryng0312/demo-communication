@@ -6,6 +6,7 @@ import org.harryng.demo.model.ChatMessageEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
@@ -36,6 +37,10 @@ public class ChatEndpoint {
         });
     }
 
+    public void postConstruct(){
+        logger.info("Chat Endpoint is created!");
+    }
+
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username) throws IOException, EncodeException {
         logger.info("session id: " + session.getId());
@@ -49,11 +54,18 @@ public class ChatEndpoint {
         broadcast(message);
     }
 
+//    @OnMessage(maxMessageSize=1024*1024*100)
+//    public void onJsonMessage(Session session, ChatMessage message) throws IOException, EncodeException {
+//        message.setFrom(users.get(session.getId()));
+//        logger.info("from: " + message.getContent());
+//        broadcast(message);
+//    }
+
     @OnMessage
-    public void onMessage(Session session, ChatMessage message) throws IOException, EncodeException {
-        message.setFrom(users.get(session.getId()));
-        logger.info("from: " + message.getContent());
-        broadcast(message);
+    public void onTextMessage(Session session, String message) throws IOException, EncodeException {
+//        message.setFrom(users.get(session.getId()));
+        logger.info("from: " + message);
+//        broadcast(message);
     }
 
     @OnClose
