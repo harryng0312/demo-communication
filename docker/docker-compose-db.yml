@@ -19,7 +19,6 @@ services:
       - ${pg_run_dir}:/var/run/postgresql
     ports:
       - 5432:5432
-      - 8080:8080
     networks:
       external-net:
         aliases:
