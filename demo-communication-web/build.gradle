@@ -57,3 +57,4 @@ dependencies {
 
 //    testImplementation "junit":junit:${junitVersion}"
 }
+targetCompatibility = JavaVersion.VERSION_1_9

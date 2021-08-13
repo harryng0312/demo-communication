@@ -1,0 +1,17 @@
+###
+POST http://localhost:8180/auth/realms/test-realm/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=account&username=user01&password=user01&grant_type=password
+
+###
+POST http://localhost:8180/auth/realms/test-realm/protocol/openid-connect/logout
+Content-Type: application/x-www-form-urlencoded
+
+client_id=account&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmZGUyNGMzZC02YWM2LTRlOGUtYmE5Ny1kYmJkZWNjNjBkM2EifQ.eyJleHAiOjE2Mjg4NTQ1MTcsImlhdCI6MTYyODg1MjcxNywianRpIjoiYzQ2ZTYwMTctN2NkNC00OWUxLTk4NGMtODM0ZTE2MmRiZDcyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3Rlc3QtcmVhbG0iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgxODAvYXV0aC9yZWFsbXMvdGVzdC1yZWFsbSIsInN1YiI6ImIwN2U3NGNkLTc4NGEtNGQ5ZC05YTRkLTc0YWU4MDE1ZTM4MCIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJhY2NvdW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImUwNjYxNzhmLTA1YzYtNDZmOS1hYzY3LWIxYzc3ODg5MmVhMyIsInNjb3BlIjoicHJvZmlsZSB0ZXN0LWNsaWVudC1zY29wZSBlbWFpbCIsInNpZCI6ImUwNjYxNzhmLTA1YzYtNDZmOS1hYzY3LWIxYzc3ODg5MmVhMyJ9.AXA7OLcsm7U9VW9sl7q7J8hTisgtw8MszCahMcyiam4
+
+###
+GET http://localhost:9090/web/api/heroes
+Accept: application/json
+
+###

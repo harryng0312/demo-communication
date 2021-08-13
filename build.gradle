@@ -7,11 +7,11 @@ allprojects {
         ext {}
     }
     apply plugin: "java"
-//    apply plugin: "idea"
+    apply plugin: "idea"
     repositories {
         mavenCentral()
-        jcenter()
-//        mavenLocal()
+//        jcenter()
+        mavenLocal()
     }
     dependencies {
         implementation "org.slf4j:slf4j-api:${slf4jVersion}"
@@ -20,7 +20,7 @@ allprojects {
     }
     group 'org.harryng.demo'
     version '1.0-SNAPSHOT'
-    sourceCompatibility = "${jdkVersion}"
+    sourceCompatibility = "1.9"
 }
 
 
