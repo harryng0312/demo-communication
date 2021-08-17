@@ -68,9 +68,7 @@ public class TestAuthService {
                 } catch (InterruptedException e) {
                     logger.error("", e);
                 }
-
-                System.out.println("Exiting...");
-
+                logger.info("Exiting...");
             });
         } catch (IOException e) {
             logger.error("", e);

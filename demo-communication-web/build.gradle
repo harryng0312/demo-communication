@@ -6,11 +6,13 @@ buildscript {
 plugins {
     id "java"
     id "war"
-    id "org.springframework.boot" version "2.2.6.RELEASE"
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "org.springframework.boot" version "${springbootVersion}"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
 }
 
 dependencies {
+
+    implementation 'junit:junit:4.13.1'
     implementation project(":demo-communication-api")
     implementation project(":demo-communication-impl")
 
@@ -44,18 +46,29 @@ dependencies {
     implementation "org.keycloak:keycloak-servlet-filter-adapter:${keycloakVer}"
     implementation "org.keycloak:keycloak-installed-adapter:${keycloakVer}"
 
+//    implementation "org.springframework:spring-core:${springVersion}"
+//    implementation "org.springframework:spring-context:${springVersion}"
+//    implementation "org.springframework:spring-context-support:${springVersion}"
+
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
 
 //    implementation "org.springframework:spring-websocket:${springVersion}"
 
+    // for war
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
     providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
 
+    // for jar
+//    implementation "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
+//    implementation "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+//    implementation "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
+//    implementation "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
+
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"
     testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 
-//    testImplementation "junit":junit:${junitVersion}"
+//    testImplementation "junit:junit:${junitVersion}"
 }

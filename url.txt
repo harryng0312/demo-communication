@@ -8,6 +8,8 @@ management add: 0.0.0.0:9091
 Web Socket:
 /web/ws/chat-basic/{username}       --> not working with jar mode
 
+===== sso =====
+Direct grant enable: for direct auth by password
 Keycloak setup:
 - setup auth: credential
 - gen the key for client
@@ -24,3 +26,6 @@ Keycloak setup:
   Cấu hình Client Mappers:
   Clients > Client ID > Mappers
   Bao gồm các giá trị trong hàm get_user_details: preferred_username, email, name, given_name, family_name. Có thể click vào “Add builtin” để thêm nhanh các userproperty này.
+
+url:
+/web/api/heroes

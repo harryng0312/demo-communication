@@ -20,7 +20,7 @@ allprojects {
     }
     group 'org.harryng.demo'
     version '1.0-SNAPSHOT'
-    sourceCompatibility = "1.9"
+    sourceCompatibility = "1.8"
 }
 
 
