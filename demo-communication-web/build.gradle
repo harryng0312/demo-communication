@@ -42,6 +42,7 @@ dependencies {
     implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation "org.keycloak:keycloak-servlet-filter-adapter:${keycloakVer}"
+    implementation "org.keycloak:keycloak-installed-adapter:${keycloakVer}"
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"

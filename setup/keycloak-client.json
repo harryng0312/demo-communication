@@ -1,0 +1,24 @@
+{
+  "realm": "test-realm",
+  "auth-server-url": "http://localhost:8180/auth/",
+  "ssl-required": "external",
+  "resource": "account",
+  "public-client": true,
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0,
+  "credentials": {
+    "jwt": {
+      "client-keystore-file": "../setup/keystore.p12",
+      "client-keystore-type": "PKCS12",
+      "client-keystore-password": "account",
+      "client-key-password": "account",
+      "client-key-alias": "account",
+      "token-expiration": 10
+    },
+    "secret-jwt": {
+      "secret": "19666a4f-32dd-4049-b082-684c74115f28",
+      "algorithm": "HS512"
+    }
+  }
+}

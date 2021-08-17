@@ -7,3 +7,20 @@ management add: 0.0.0.0:9091
 
 Web Socket:
 /web/ws/chat-basic/{username}       --> not working with jar mode
+
+Keycloak setup:
+- setup auth: credential
+- gen the key for client
+- Tạo Keycloak client trong Clients section.
+  Cấu hình client như sau:
+  Settings > Client ID => lấy làm giá trị của KEY trong setting
+  Credentials > Client Authenticator > Secret => lấy làm giá trị của SECRET trong setting
+  Cấu hình token:
+  Settings > Access Type > confidential
+  Settings > Fine Grain OpenID Connect Configuration > User Info Signed Response Algorithm > RS256
+  Settings > Fine Grain OpenID Connect Configuration > Request Object Signature Algorithm > RS256
+  Lấy public key :
+  Realm Settings > Keys > Public key
+  Cấu hình Client Mappers:
+  Clients > Client ID > Mappers
+  Bao gồm các giá trị trong hàm get_user_details: preferred_username, email, name, given_name, family_name. Có thể click vào “Add builtin” để thêm nhanh các userproperty này.
