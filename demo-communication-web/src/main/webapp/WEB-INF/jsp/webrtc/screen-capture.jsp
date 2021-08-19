@@ -19,7 +19,7 @@
 
     <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
     <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="<c:url value='/css/main.css'/>">
     <link rel="stylesheet" href="<c:url value='/css/styles.css'/>" />
     <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
@@ -39,9 +39,9 @@
     <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/getdisplaymedia" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
 </div>
 
-<script src="js/main.js" type="module"></script>
+<script src="<c:url value='/js/main.js'/>" type="module"></script>
 
-<script src="../../../js/lib/ga.js"></script>
+<script src="<c:url value='/js/lib/ga.js'/>"></script>
 
 </body>
 </html>

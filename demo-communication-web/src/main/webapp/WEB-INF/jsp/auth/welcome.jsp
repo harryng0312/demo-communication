@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Login</title>
-    <style type="text/css">
+    <style>
         .center {
             max-width: 600px;
             margin: auto;

@@ -5,7 +5,7 @@ buildscript {
 }
 plugins {
     id "java"
-//    id "war"
+    id "war"
     id "org.springframework.boot" version "${springbootVersion}"
     id "io.spring.dependency-management" version "1.0.11.RELEASE"
 }
@@ -74,3 +74,30 @@ dependencies {
 
 //    testImplementation "junit:junit:${junitVersion}"
 }
+
+//tasks.register("copyWebApp", Copy){
+//    if(type)
+//    from "${projectDir}/src/main/webapps"
+//    into "${buildDir}/resources/META-INF/resources"
+//}
+def copyWebApps(){
+    copy {
+        from "${projectDir}/src/main/webapp"
+        into "${buildDir}/resources/main/META-INF/resources"
+    }
+}
+task runAll {
+    doLast {
+        copyWebApps()
+    }
+}
+jar.finalizedBy(runAll)
+
+//war {
+//    webAppDirectory = file('src/main/webapp')
+//    from 'src/rootContent' // adds a file-set to the root of the archive
+//    webInf { from 'src/additionalWebInf' } // adds a file-set to the WEB-INF dir.
+//    classpath fileTree('additionalLibs') // adds a file-set to the WEB-INF/lib dir.
+//    classpath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.
+//    webXml = file('src/someWeb.xml') // copies a file to WEB-INF/web.xml
+//}

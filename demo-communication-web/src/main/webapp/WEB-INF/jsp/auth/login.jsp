@@ -5,18 +5,20 @@
   Time: 09:37
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/welcome.css"/>
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/jose.min.js"></script>
-    <script type="text/javascript" src="js/util.js"></script>
-    <script type="text/javascript" src="js/crypto.js"></script>
-    <script type="text/javascript" src="js/pbkdf2.js"></script>
-    <script type="text/javascript" src="js/auth.js"></script>
+<%--    ${pageContext.request.contextPath}--%>
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/welcome.css'/>"/>
+    <script type="text/javascript" src="<c:url value='/js/jquery-3.4.1.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/jose.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/util.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/crypto.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/pbkdf2.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/auth.js'/>"></script>
 </head>
 <body>
 <div class="center">
