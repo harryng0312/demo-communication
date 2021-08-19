@@ -1,5 +1,6 @@
 web add: 0.0.0.0:9090
 management add: 0.0.0.0:9091
+NOT WORKING IN JAR MODE - because JSPs are not working - should use Themeleaf instead
 
 /web/
 /web/hello?name=

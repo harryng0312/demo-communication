@@ -80,19 +80,6 @@ dependencies {
 //    from "${projectDir}/src/main/webapps"
 //    into "${buildDir}/resources/META-INF/resources"
 //}
-def copyWebApps(){
-    copy {
-        from "${projectDir}/src/main/webapp"
-        into "${buildDir}/resources/main/META-INF/resources"
-    }
-}
-task runAll {
-    doLast {
-        copyWebApps()
-    }
-}
-jar.finalizedBy(runAll)
-
 //war {
 //    webAppDirectory = file('src/main/webapp')
 //    from 'src/rootContent' // adds a file-set to the root of the archive
@@ -101,3 +88,25 @@ jar.finalizedBy(runAll)
 //    classpath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.
 //    webXml = file('src/someWeb.xml') // copies a file to WEB-INF/web.xml
 //}
+
+def copyWebApp(){
+    copy {
+        from "${projectDir}/src/main/webapp"
+        into "${projectDir}/src/main/resources/META-INF/resources"
+    }
+}
+def delWebApp(){
+    delete "${projectDir}/src/main/resources/META-INF/resources"
+}
+task deleteWebApp {
+    doLast {
+        delWebApp()
+    }
+}
+task copyWebAppForJar {
+    doLast {
+        copyWebApp()
+    }
+}
+//compileJava.finalizedBy(runDeleteWebApp)
+//jar.finalizedBy(copyForJar)
