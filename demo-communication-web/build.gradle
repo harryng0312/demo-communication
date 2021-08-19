@@ -5,7 +5,7 @@ buildscript {
 }
 plugins {
     id "java"
-    id "war"
+//    id "war"
     id "org.springframework.boot" version "${springbootVersion}"
     id "io.spring.dependency-management" version "1.0.11.RELEASE"
 }
@@ -27,6 +27,8 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web-services:${springbootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-security:${springbootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-websocket:${springbootVersion}"
+
+    implementation "org.springframework.boot:spring-boot-starter-validation:${springbootVersion}"
 
 //    implementation "org.springframework.security:spring-security-web:${springVersion}"
 //    implementation "org.springframework.security:spring-security-config:${springVersion}"
@@ -56,16 +58,16 @@ dependencies {
 //    implementation "org.springframework:spring-websocket:${springVersion}"
 
     // for war
-    providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
-    providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-    providedRuntime "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
-    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
+//    providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
+//    providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+//    providedRuntime "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
+//    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
 
     // for jar
-//    implementation "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
-//    implementation "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-//    implementation "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
-//    implementation "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
+    implementation "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+    implementation "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"
     testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"

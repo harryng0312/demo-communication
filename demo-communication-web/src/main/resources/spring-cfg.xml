@@ -10,8 +10,8 @@
     <context:annotation-config/>
     <mvc:annotation-driven />
 <!--    <context:component-scan base-package="org.harryng.demo"/>-->
-<!--    <context:component-scan base-package="org.harryng.demo.controller, org.harryng.demo.endpoint, org.harryng.demo.config"/>-->
-    <context:component-scan base-package="org.harryng.demo.controller, org.harryng.demo.endpoint"/>
+    <context:component-scan base-package="org.harryng.demo.controller, org.harryng.demo.endpoint, org.harryng.demo.config"/>
+<!--    <context:component-scan base-package="org.harryng.demo.controller, org.harryng.demo.endpoint"/>-->
     <!-- <import resource="classpath:spring/**/*.xml" /> -->
     <!-- 	<import resource="classpath:spring/*.xml" /> -->
     <!-- 	<import resource="classpath:spring/bean/*.xml" /> -->
@@ -19,5 +19,5 @@
 <!--    <import resource="classpath*:spring/aop.xml" />-->
 
     <import resource="classpath*:spring/bean/*.xml" />
-    <import resource="classpath*:spring/mvc.xml" />
+<!--    <import resource="classpath*:spring/mvc.xml" />-->
 </beans>

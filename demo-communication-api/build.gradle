@@ -1,6 +1,6 @@
-//plugins {
-//    id 'java'
-//}
+plugins {
+    id 'java-library'
+}
 //group 'org.harryng.demo'
 //version '1.0-SNAPSHOT'
 //

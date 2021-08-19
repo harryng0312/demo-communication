@@ -23,7 +23,7 @@ public class FilterConfig {
         Filter keycloakOIDCFilter = new KeycloakOIDCFilter();
         filterRegistrationBean.setName("kl-filter");
         filterRegistrationBean.setFilter(keycloakOIDCFilter);
-        filterRegistrationBean.addInitParameter(KeycloakOIDCFilter.CONFIG_FILE_PARAM, "/WEB-INF/auth/keycloak.json");
+        filterRegistrationBean.addInitParameter(KeycloakOIDCFilter.CONFIG_PATH_PARAM, "/WEB-INF/auth/keycloak.json");
         filterRegistrationBean.getUrlPatterns().add("/api");
         return filterRegistrationBean;
     }
