@@ -30,3 +30,6 @@ Keycloak setup:
 
 url:
 /web/api/heroes
+
+cmd:
+java -Dhttp.proxyHost=localhost -Dhttp.proxyPort=8000 -jar demo-communication-web/build/libs/demo-communication-web-1.0-SNAPSHOT.war

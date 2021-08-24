@@ -1,9 +1,12 @@
 # Project exclude paths
 /.gradle/
 /.idea/
+/**/.settings/
 /gradle/
 /build/
 /**/build
+/**/.classpath
+/**/.project
 /db/**
 /**/node_modules/
 /**/META-INF/resources
