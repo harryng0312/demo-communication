@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    compile project(":demo-communication-api")
+    implementation project(":demo-communication-api")
     implementation "org.springframework:spring-context:${springVersion}"
     implementation "org.springframework:spring-beans:${springVersion}"
     implementation "javax.persistence:javax.persistence-api:2.2"
