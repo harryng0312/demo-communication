@@ -23,7 +23,7 @@
         <websocket:mapping path="ws/socket" handler="webRtcChatHandler" />
     </websocket:handlers>
 
-    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">
+    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user" >
         <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*"/>
         <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*">
             <websocket:sockjs websocket-enabled="true" heartbeat-time="20000"/>
