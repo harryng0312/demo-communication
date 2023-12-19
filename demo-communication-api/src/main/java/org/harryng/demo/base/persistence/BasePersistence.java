@@ -1,8 +1,8 @@
 package org.harryng.demo.base.persistence;
 
+import jakarta.persistence.EntityManager;
 import org.harryng.demo.base.pojo.entity.BaseEntity;
 
-import javax.persistence.EntityManager;
 
 public interface BasePersistence<Id extends Object, T extends BaseEntity<Id>> {
     EntityManager getEntityManager();

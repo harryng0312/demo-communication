@@ -10,17 +10,19 @@ allprojects {
 //    apply plugin: "idea"
     repositories {
         mavenCentral()
-        jcenter()
+//        jcenter()
 //        mavenLocal()
     }
     dependencies {
         implementation "org.slf4j:slf4j-api:${slf4jVersion}"
 //        compile "log4j:log4j:${log4jVersion}"
-        testImplementation "junit:junit:${junitVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     }
     group 'org.harryng.demo'
     version '1.0-SNAPSHOT'
-    sourceCompatibility = "${jdkVersion}"
+//    sourceCompatibility = "${jdkVersion}"
+    java.sourceCompatibility="${jdkVersion}"
+    java.targetCompatibility="${jdkVersion}"
 }
 
 

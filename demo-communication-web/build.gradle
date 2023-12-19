@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.8.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springbootPluginVer}")
     }
 }
 plugins {
@@ -36,11 +36,10 @@ dependencies {
     implementation "org.aspectj:aspectjweaver:${aspectjVersion}"
 
     implementation "org.springframework.boot:spring-boot-starter-websocket:${springbootVersion}"
-    implementation "org.bouncycastle:bcprov-jdk15on:${bouncycastleVersion}"
+    implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
 //    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
-    implementation 'com.google.code.gson:gson:2.8.0'
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
@@ -51,7 +50,7 @@ dependencies {
     providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"
-    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
+//    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 
 //    testCompile "junit":junit:${junitVersion}"
 }

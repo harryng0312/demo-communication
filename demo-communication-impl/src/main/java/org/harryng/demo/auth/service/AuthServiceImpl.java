@@ -1,13 +1,13 @@
 package org.harryng.demo.auth.service;
 
+import jakarta.annotation.Resource;
 import org.harryng.demo.user.pojo.entity.UserImpl;
 import org.harryng.demo.user.service.UserService;
 import org.harryng.demo.util.SecurityUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @Override

@@ -1,11 +1,11 @@
 package org.harryng.demo.base.service;
 
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.harryng.demo.base.persistence.BaseSearchablePersistence;
 import org.harryng.demo.base.pojo.entity.BaseEntity;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 
-import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class AbstractSearchableService<Id extends Object, T extends BaseEntity<Id>> extends AbstractService<Id, T> implements BaseSearchableService<Id, T> {
 

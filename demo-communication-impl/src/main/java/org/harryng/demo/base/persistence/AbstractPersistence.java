@@ -1,12 +1,11 @@
 package org.harryng.demo.base.persistence;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.Root;
 import org.harryng.demo.base.pojo.entity.BaseEntity;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.Root;
 
 public abstract class AbstractPersistence<Id extends Object, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
 
@@ -53,12 +52,11 @@ public abstract class AbstractPersistence<Id extends Object, T extends BaseEntit
 
     @Override
     public int delete(Id id) throws RuntimeException, Exception {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaDelete<T> criteriaDelete = cb.createCriteriaDelete(getEntityClass());
-        Root<T> root = criteriaDelete.from(getEntityClass());
+        final CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        final CriteriaDelete<T> criteriaDelete = cb.createCriteriaDelete(getEntityClass());
+        final Root<T> root = criteriaDelete.from(getEntityClass());
         criteriaDelete.where(cb.equal(root.get("id"), id));
-        Query query = getEntityManager().createQuery(criteriaDelete);
-        int rs = query.executeUpdate();
-        return rs;
+        final Query query = getEntityManager().createQuery(criteriaDelete);
+        return query.executeUpdate();
     }
 }
