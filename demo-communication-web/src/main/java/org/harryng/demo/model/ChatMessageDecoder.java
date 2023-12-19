@@ -2,13 +2,13 @@ package org.harryng.demo.model;
 
 import com.google.gson.Gson;
 
-import javax.websocket.DecodeException;
-import javax.websocket.Decoder;
-import javax.websocket.EndpointConfig;
+import jakarta.websocket.DecodeException;
+import jakarta.websocket.Decoder;
+import jakarta.websocket.EndpointConfig;
 
 public class ChatMessageDecoder implements Decoder.Text<ChatMessage> {
 
-    private static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     @Override
     public ChatMessage decode(String s) throws DecodeException {

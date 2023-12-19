@@ -40,6 +40,7 @@ dependencies {
 //    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
+    implementation "com.google.code.gson:gson:${gsonVer}"
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"

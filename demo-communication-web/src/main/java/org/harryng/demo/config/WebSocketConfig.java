@@ -1,17 +1,17 @@
 package org.harryng.demo.config;
 
+import jakarta.annotation.Resource;
 import org.harryng.demo.endpoint.HttpChatHandler;
 import org.harryng.demo.endpoint.HttpChatInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 //@EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    @Autowired
+    @Resource
     private HttpChatHandler httpAuthHandler;
-    @Autowired
+    @Resource
     private HttpChatInterceptor chatInterceptor;
 
     @Override

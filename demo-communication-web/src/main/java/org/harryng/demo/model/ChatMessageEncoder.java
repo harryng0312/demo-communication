@@ -1,14 +1,13 @@
 package org.harryng.demo.model;
 
 import com.google.gson.Gson;
-
-import javax.websocket.EncodeException;
-import javax.websocket.Encoder;
-import javax.websocket.EndpointConfig;
+import jakarta.websocket.EncodeException;
+import jakarta.websocket.Encoder;
+import jakarta.websocket.EndpointConfig;
 
 public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
 
-    private static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     @Override
     public String encode(ChatMessage message) throws EncodeException {

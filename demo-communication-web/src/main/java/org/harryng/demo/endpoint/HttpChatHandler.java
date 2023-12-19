@@ -11,7 +11,7 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import javax.websocket.EncodeException;
+import jakarta.websocket.EncodeException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 

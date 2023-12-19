@@ -1,11 +1,12 @@
 package org.harryng.demo.controller;
 
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.harryng.demo.auth.service.AuthService;
 import org.harryng.demo.model.ChatMessage;
 import org.harryng.demo.model.OutputChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -25,7 +26,6 @@ import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,13 +36,13 @@ public class WebSocketController {
 
     static Logger logger = LoggerFactory.getLogger(WebSocketController.class);
 
-    @Autowired
+    @Resource
     protected HttpServletRequest request;
 
-    @Autowired
+    @Resource
     protected AuthService authService;
 
-    @Autowired
+    @Resource
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @RequestMapping(value = {"", "/", "/ws-basic"}, method = RequestMethod.GET)
