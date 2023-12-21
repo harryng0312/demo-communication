@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id "java"
 }
 
 allprojects {
@@ -21,8 +21,8 @@ allprojects {
     group 'org.harryng.demo'
     version '1.0-SNAPSHOT'
 //    sourceCompatibility = "${jdkVersion}"
-    java.sourceCompatibility="${jdkVersion}"
-    java.targetCompatibility="${jdkVersion}"
+    java.sourceCompatibility = "${jdkVersion}"
+    java.targetCompatibility = "${jdkVersion}"
 }
 
 

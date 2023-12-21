@@ -1,0 +1,45 @@
+logging:
+  config: "classpath:logback.xml"
+
+# server
+server:
+  port: 8080
+  address: 0.0.0.0
+  servlet:
+    context-path: /web
+  error:
+    whitelabel:
+      enabled: false
+
+# management:
+management:
+  server:
+    port: 9090
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true
+    shutdown:
+      enabled: true
+
+# spring:
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    view:
+      prefix: /WEB-INF/pages
+      suffix: .html
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
+      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
+      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
+
+
+
+
