@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/rtc")
 public class WebRTCController {
 
-//    static Logger logger = LoggerFactory.getLogger(WebRTCController.class);
-
     @Resource
     protected HttpServletRequest request;
 

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/socketio")
 public class SocketIOController {
 
-    static Logger logger = LoggerFactory.getLogger(SocketIOController.class);
-
     @Resource
     protected HttpServletRequest request;
 
