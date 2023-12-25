@@ -14,9 +14,13 @@ allprojects {
 //        mavenLocal()
     }
     dependencies {
+
         implementation "org.slf4j:slf4j-api:${slf4jVersion}"
 //        compile "log4j:log4j:${log4jVersion}"
         testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+
+        compileOnly "org.projectlombok:lombok:${lombokVer}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVer}"
     }
     group 'org.harryng.demo'
     version '1.0-SNAPSHOT'

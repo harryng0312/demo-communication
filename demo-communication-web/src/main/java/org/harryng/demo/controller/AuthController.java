@@ -3,6 +3,7 @@ package org.harryng.demo.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.auth.pojo.text.AuthenticationInfo;
 import org.harryng.demo.auth.service.AuthService;
 import org.harryng.demo.session.SessionHolder;
@@ -14,10 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 public class AuthController {
-
-    static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Resource
     protected HttpServletRequest request;
@@ -50,9 +50,9 @@ public class AuthController {
             try {
                 response = TextUtil.objToJson(authenticationInfoErr);
             } catch (JsonProcessingException ex) {
-                logger.info("", ex);
+                log.info("", ex);
             }
-            logger.error("", e);
+            log.error("", e);
         }
         return response;
     }
