@@ -1,0 +1,34 @@
+logging:
+  level:
+    root: info
+  file:
+    path: ./log
+
+# server
+server:
+  error:
+    whitelabel:
+      enabled: true
+
+# management:
+management:
+  server:
+    port: 9090
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true
+    shutdown:
+      enabled: true
+
+# config
+test-array:
+  - id1
+  - id2
+  - ${env}
+spring.thymeleaf:
+  cache: false

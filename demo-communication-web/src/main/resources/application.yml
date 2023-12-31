@@ -1,5 +1,8 @@
+
 logging:
   config: "classpath:logback.xml"
+  file:
+    name: demo-communication.log
 
 # server
 server:
@@ -10,7 +13,21 @@ server:
   error:
     whitelabel:
       enabled: false
-
+# spring:
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .html
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
+      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
+      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
+  profiles:
+    active: ${env}
 # management:
 management:
   server:
@@ -25,21 +42,5 @@ management:
       enabled: true
     shutdown:
       enabled: true
-
-# spring:
-spring:
-  main:
-    allow-bean-definition-overriding: true
-  mvc:
-    view:
-      prefix: /WEB-INF/pages
-      suffix: .html
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
-      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
-      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
-      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
-
-
 
 

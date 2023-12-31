@@ -1,15 +1,19 @@
 package org.harryng.demo.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 public class HelloController {
+    @Value("test-value")
+    private String[] testValues;
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @ResponseBody
     public String hello(@RequestParam(name = "name", required = false, defaultValue = "World") String name) {
-        return "Hello " + name;
+        log.info("into /hello:{}", name);
+        return "Hello " + name+ " " + testValues.length;
     }
 
 }

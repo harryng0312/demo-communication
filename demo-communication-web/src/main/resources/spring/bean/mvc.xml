@@ -2,10 +2,33 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <constructor-arg name="prefix" value="/WEB-INF/jsp/"/>
-        <constructor-arg name="suffix" value=".jsp"/>
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    <import resource="./common.xml" />
+    <!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--        <constructor-arg name="prefix" value="/WEB-INF/jsp/"/>-->
+    <!--        <constructor-arg name="suffix" value=".jsp"/>-->
+    <!--        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />-->
+    <!--    </bean>-->
+    <!-- SpringResourceTemplateResolver automatically integrates with Spring's own -->
+    <!-- resource resolution infrastructure, which is highly recommended.          -->
+    <bean id="templateResolver" class="org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".html"/>
+        <!-- HTML is the default value, added here for the sake of clarity.          -->
+        <property name="templateMode" value="HTML"/>
+        <!-- Template cache is true by default. Set to false if you want             -->
+        <!-- templates to be automatically updated when modified.                    -->
+        <property name="cacheable" value="${spring.thymeleaf.cache}"/>
     </bean>
+
+    <!-- SpringTemplateEngine automatically applies SpringStandardDialect and      -->
+    <!-- enables Spring's own MessageSource message resolution mechanisms.         -->
+    <bean id="templateEngine" class="org.thymeleaf.spring6.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+        <!-- Enabling the SpringEL compiler can speed up execution in most           -->
+        <!-- scenarios, but might be incompatible with specific cases when           -->
+        <!-- expressions in one template are reused across different data types, so  -->
+        <!-- this flag is "false" by default for safer backwards compatibility.      -->
+        <property name="enableSpringELCompiler" value="true"/>
+    </bean>
+
 </beans>

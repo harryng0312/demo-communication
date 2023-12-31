@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="systemProperties" scope="singleton"
-          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="locations">
-            <list>
-                <value>classpath:*.properties</value>
-            </list>
+<!--    <bean id="systemProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">-->
+<!--        <property name="locations">-->
+<!--            <list>-->
+<!--                <value>classpath:*.properties</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+    <bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">
+<!--        <property name="resources" value="classpath:application.yml"/>-->
+        <property name="resources">
+            <array>
+                <value>classpath:application.yml</value>
+            </array>
         </property>
     </bean>
+    <context:property-placeholder properties-ref="yamlProperties"/>
+
+<!--    <context:property-placeholder location="classpath:db.properties"/>-->
 </beans>

@@ -14,16 +14,19 @@ dependencies {
     implementation project(":demo-communication-api")
     implementation project(":demo-communication-impl")
 
-    implementation "org.springframework.boot:spring-boot:${springbootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter:${springbootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-actuator:${springbootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-data-jdbc:${springbootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot"
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-data-jdbc"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 
-    implementation "org.springframework.boot:spring-boot-starter-integration:${springbootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-web:${springbootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-web-services:${springbootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-security:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-integration"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-web-services"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.session:spring-session-core'
 
 //    implementation "org.springframework.security:spring-security-web:${springVersion}"
 //    implementation "org.springframework.security:spring-security-config:${springVersion}"
@@ -35,7 +38,7 @@ dependencies {
     implementation "org.aspectj:aspectjrt:${aspectjVersion}"
     implementation "org.aspectj:aspectjweaver:${aspectjVersion}"
 
-    implementation "org.springframework.boot:spring-boot-starter-websocket:${springbootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
 //    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
@@ -48,10 +51,28 @@ dependencies {
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
     providedRuntime "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
-    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springbootVersion}"
+    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
 
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springbootVersion}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 //    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 
 //    testCompile "junit":junit:${junitVersion}"
 }
+
+test{
+    useJUnitPlatform()
+}
+processResources {
+    filesMatching('*.yml') {
+        expand(project.properties)
+    }
+}
+//bootJar { archiveFileName = "${archiveBaseName.get()}-${project.getProperties().get('env')}-${appVersion}.${archiveExtension.get()}" }
+//bootWar { archiveFileName = "${archiveBaseName.get()}-${project.getProperties().get('env')}-${appVersion}.${archiveExtension.get()}" }
+//final def env = "${System.getProperty('spring.profiles.active')}"
+final def env = "${project.getProperties().get('env')}"
+
+bootJar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
+bootWar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
