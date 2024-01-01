@@ -29,6 +29,5 @@ management:
 test-array:
   - id1
   - id2
-  - ${env}
 spring.thymeleaf:
   cache: false
