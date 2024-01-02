@@ -61,18 +61,22 @@ dependencies {
 //    testCompile "junit":junit:${junitVersion}"
 }
 
-test{
+test {
     useJUnitPlatform()
 }
+//final def env = "${System.getProperty('spring.profiles.active')}"
+//final def env = "${project.getProperties().get('env')}"
+final def env = "${System.getProperty('env')}"
 processResources {
+//    filesMatching('*.yml') {
+//        expand(project.properties)
+//    }
     filesMatching('*.yml') {
-        expand(project.properties)
+        expand(System.properties)
     }
 }
 //bootJar { archiveFileName = "${archiveBaseName.get()}-${project.getProperties().get('env')}-${appVersion}.${archiveExtension.get()}" }
 //bootWar { archiveFileName = "${archiveBaseName.get()}-${project.getProperties().get('env')}-${appVersion}.${archiveExtension.get()}" }
-//final def env = "${System.getProperty('spring.profiles.active')}"
-final def env = "${project.getProperties().get('env')}"
 
 bootJar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
 bootWar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
