@@ -10,13 +10,13 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/welcome.css"/>
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/jose.min.js"></script>
-    <script type="text/javascript" src="js/util.js"></script>
-    <script type="text/javascript" src="js/crypto.js"></script>
-    <script type="text/javascript" src="js/pbkdf2.js"></script>
-    <script type="text/javascript" src="js/auth.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../resources/META-INF/resources/css/welcome.css"/>
+    <script type="text/javascript" src="../../../../resources/META-INF/resources/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../../../../resources/META-INF/resources/js/jose.min.js"></script>
+    <script type="text/javascript" src="../../../../resources/META-INF/resources/js/util.js"></script>
+    <script type="text/javascript" src="../../../../resources/META-INF/resources/js/crypto.js"></script>
+    <script type="text/javascript" src="../../../../resources/META-INF/resources/js/pbkdf2.js"></script>
+    <script type="text/javascript" src="../../../../resources/META-INF/resources/js/auth.js"></script>
 </head>
 <body>
 <div class="center">

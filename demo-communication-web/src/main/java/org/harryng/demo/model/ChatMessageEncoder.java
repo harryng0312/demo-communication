@@ -1,17 +1,20 @@
 package org.harryng.demo.model;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Encoder;
 import jakarta.websocket.EndpointConfig;
+import org.harryng.demo.util.TextUtil;
 
 public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
 
-    private static final Gson gson = new Gson();
-
     @Override
     public String encode(ChatMessage message) throws EncodeException {
-        return gson.toJson(message);
+        try {
+            return TextUtil.objToJson(message);
+        } catch (JsonProcessingException e) {
+            throw new EncodeException(message, e.getMessage(), e);
+        }
     }
 
     @Override

@@ -1,5 +1,13 @@
 package org.harryng.demo.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class OutputChatMessage extends ChatMessage{
     private String time = "";
 
@@ -7,14 +15,10 @@ public class OutputChatMessage extends ChatMessage{
         this.setFrom(from);
         this.setTo(to);
         this.setContent(content);
-        this.time = time;
+        this.setTime(time);
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
+//    public void setTime(String time) {
+//        this.time = time;
+//    }
 }

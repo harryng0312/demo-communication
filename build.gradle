@@ -22,7 +22,7 @@ allprojects {
         compileOnly "org.projectlombok:lombok:${lombokVer}"
         annotationProcessor "org.projectlombok:lombok:${lombokVer}"
     }
-    group 'org.harryng.demo'
+    group 'org.harryng.communication'
     version '1.0-SNAPSHOT'
 //    sourceCompatibility = "${jdkVersion}"
     java.sourceCompatibility = "${jdkVersion}"

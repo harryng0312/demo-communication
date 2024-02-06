@@ -11,7 +11,8 @@
     <!-- SpringResourceTemplateResolver automatically integrates with Spring's own -->
     <!-- resource resolution infrastructure, which is highly recommended.          -->
     <bean id="templateResolver" class="org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver">
-        <property name="prefix" value="/WEB-INF/pages/"/>
+<!--        <property name="prefix" value="/WEB-INF/pages/"/>-->
+        <property name="prefix" value="classpath:META-INF/resources/WEB-INF/pages/"/>
         <property name="suffix" value=".html"/>
         <!-- HTML is the default value, added here for the sake of clarity.          -->
         <property name="templateMode" value="HTML"/>

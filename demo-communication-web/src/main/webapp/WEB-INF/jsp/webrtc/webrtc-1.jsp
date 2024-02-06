@@ -12,9 +12,9 @@
 <head>
     <title>Web RTC chat</title>
     <%--    <link href="<c:url value='/css/socketio.css'/>" rel="stylesheet" type="text/css"/>--%>
-    <script src="<c:url value='/js/jquery-3.4.1.min.js'/>"></script>
-    <script src="<c:url value='/js/sockjs.min.js'/>"></script>
-    <script src="<c:url value='/js/stomp.min.js'/>"></script>
+    <script src="<c:url value='/META-INF/js/jquery-3.4.1.min.js'/>"></script>
+    <script src="<c:url value='/META-INF/js/sockjs.min.js'/>"></script>
+    <script src="<c:url value='/META-INF/js/stomp.min.js'/>"></script>
 
 </head>
 <body onload="disconnect()">
@@ -49,7 +49,7 @@
         </button>
     </div>
 </div>
-<script src="<c:url value='/js/webrtc.js'/>"></script>
+<script src="<c:url value='/META-INF/js/webrtc.js'/>"></script>
 <script type="text/javascript">
     $(document).ready(evt => {
         // initUserMedia();

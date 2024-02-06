@@ -29,5 +29,6 @@ management:
 test-array:
   - id1
   - id2
-spring.thymeleaf:
-  cache: false
+spring:
+  thymeleaf:
+    cache: false

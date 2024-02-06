@@ -11,9 +11,9 @@
 <html>
 <head>
     <title>Socket.IO chat</title>
-    <link href="<c:url value='/css/socketio.css'/>" rel="stylesheet" type="text/css"/>
-    <script src="<c:url value='/js/jquery-3.4.1.min.js'/>"></script>
-    <script src="<c:url value='/js/socket.io.js'/>"></script>
+    <link href="<c:url value='/META-INF/css/socketio.css'/>" rel="stylesheet" type="text/css"/>
+    <script src="<c:url value='/META-INF/js/jquery-3.4.1.min.js'/>"></script>
+    <script src="<c:url value='/META-INF/js/socket.io.js'/>"></script>
 </head>
 <body>
 <ul id="messages"></ul>

@@ -19,15 +19,20 @@ spring:
     allow-bean-definition-overriding: true
   mvc:
     view:
-      prefix: /WEB-INF/pages/
+      prefix: template/pages/
       suffix: .html
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
-      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
-      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
-      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+#      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
   profiles:
-    active: ${env}
+    active: ${env:"dev"}
+  threads:
+    virtual:
+      enabled: true
+  thymeleaf:
+    cache: true
 # management:
 management:
   server:

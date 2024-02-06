@@ -6,9 +6,9 @@
 <head>
     <title>WebRTC demo</title>
     <!--Bootstrap only for styling-->
-    <link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>"/>
-    <script src="<c:url value='/js/jquery-3.4.1.min.js'/>"></script>
-    <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+    <link rel="stylesheet" href="<c:url value='/META-INF/css/bootstrap.min.css'/>"/>
+    <script src="<c:url value='/META-INF/js/jquery-3.4.1.min.js'/>"></script>
+    <script src="<c:url value='/META-INF/js/bootstrap.min.js'/>"></script>
     <!--Bootstrap only for styling-->
 </head>
 <style>
@@ -63,7 +63,7 @@
     <input id="messageInput" type="text" class="form-control"
            placeholder="message">
     <button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
-    <script src="<c:url value='/js/webrtc2.js'/>"></script>
+    <script src="<c:url value='/META-INF/js/webrtc2.js'/>"></script>
     <!--WebRTC related code-->
 
 </div>
