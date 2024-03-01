@@ -5,6 +5,8 @@ import org.harryng.demo.user.pojo.entity.UserImpl;
 import org.harryng.demo.user.service.UserService;
 import org.harryng.demo.util.SecurityUtil;
 
+import java.nio.charset.StandardCharsets;
+
 public class AuthServiceImpl implements AuthService {
 
     @Resource
@@ -22,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
                     throw new Exception("Username or Password is not matched");
                 }
             } else {
-                byte[] inputPasswdBin = password.getBytes("UTF-8");
+                byte[] inputPasswdBin = password.getBytes(StandardCharsets.UTF_8);
                 byte[] inputHashedPasswdBin = SecurityUtil.hashMessage(user.getPasswdEncryptedMethod(), inputPasswdBin);
                 String inputHashedPasswd = new String(inputHashedPasswdBin);
                 if (!inputHashedPasswd.equals(user.getPasswd())) {

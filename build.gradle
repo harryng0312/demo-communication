@@ -20,10 +20,12 @@ allprojects {
         testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
 
         compileOnly "org.projectlombok:lombok:${lombokVer}"
+        testCompileOnly "org.projectlombok:lombok:${lombokVer}"
         annotationProcessor "org.projectlombok:lombok:${lombokVer}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVer}"
     }
     group 'org.harryng.communication'
-    version '1.0-SNAPSHOT'
+    version '1.0.0'
 //    sourceCompatibility = "${jdkVersion}"
     java.sourceCompatibility = "${jdkVersion}"
     java.targetCompatibility = "${jdkVersion}"

@@ -1,15 +1,16 @@
 package org.harryng.demo.base.pojo.entity;
 
-public abstract class AbstractEntity<Id extends Object> implements BaseEntity<Id> {
-    private Id id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Data;
 
-    @Override
-    public Id getId() {
-        return id;
-    }
+import java.io.Serializable;
 
-    @Override
-    public void setId(Id id) {
-        this.id = id;
-    }
+@Data
+@MappedSuperclass
+public abstract class AbstractEntity<Idt extends Serializable> implements BaseEntity<Idt> {
+    @Id
+    @Column(name = "id_", unique = true, nullable = false)
+    private Idt id;
 }

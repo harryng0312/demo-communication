@@ -1,5 +1,6 @@
 package org.harryng.demo.user.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.main.Application;
 import org.harryng.demo.user.pojo.entity.UserImpl;
 import org.junit.jupiter.api.Test;
@@ -10,15 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
 
 @SpringBootTest(classes = Application.class)
 @Import(Application.class)
+@Slf4j
 public class TestUserService {
 
-    static Logger logger = LoggerFactory.getLogger(TestUserService.class);
+//    static Logger logger = LoggerFactory.getLogger(TestUserService.class);
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -28,8 +31,8 @@ public class TestUserService {
 
     @Test
     public void testAddUser() throws Exception {
-        Date now = Calendar.getInstance().getTime();
-        UserImpl user = new UserImpl();
+        final LocalDateTime now = LocalDateTime.now();
+        final UserImpl user = new UserImpl();
         user.setId(1L);
         user.setUsername("username01");
         user.setPasswd("passwd01");
@@ -41,12 +44,12 @@ public class TestUserService {
         user.setModifiedDate(now);
         user.setStatus("active");
         int rs = userService.add(user);
-        logger.info("Add " + rs + " record(s)");
+        log.info("Add {} record(s)", rs);
     }
 
     @Test
     public void testGetUser() throws Exception {
-        UserImpl user = userService.getById(1L);
-        logger.info("User:" + user.getUsername());
+        final UserImpl user = userService.getById(1L);
+        log.info("User:" + user.getUsername());
     }
 }

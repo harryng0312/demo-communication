@@ -1,5 +1,6 @@
 package org.harryng.demo.user.service;
 
+import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserServiceImpl extends AbstractSearchableService<Long, UserImpl> implements UserService {
 
-    @Autowired
+    @Resource
     private UserPersistence userPersistence;
 
     @Override

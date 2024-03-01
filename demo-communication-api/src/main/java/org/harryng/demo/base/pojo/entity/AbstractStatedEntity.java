@@ -1,40 +1,29 @@
 package org.harryng.demo.base.pojo.entity;
 
-import java.util.Date;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-public abstract class AbstractStatedEntity<Id extends Object> extends AbstractEntity<Id> implements BaseStatedEntity {
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-    private Date createdDate;
-    private Date modifiedDate;
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@MappedSuperclass
+public abstract class AbstractStatedEntity<Id extends Serializable> extends AbstractEntity<Id> implements BaseStatedEntity {
+
+    @Basic
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+    @Basic
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
+    @Basic
+    @Column(name = "status")
     private String status;
 
-    @Override
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    @Override
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    @Override
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    @Override
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    @Override
-    public String getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

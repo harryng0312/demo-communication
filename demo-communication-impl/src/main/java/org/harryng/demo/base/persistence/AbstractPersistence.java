@@ -1,16 +1,21 @@
 package org.harryng.demo.base.persistence;
 
+import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceUnit;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.Root;
 import org.harryng.demo.base.pojo.entity.BaseEntity;
 
-public abstract class AbstractPersistence<Id extends Object, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
+import java.io.Serializable;
 
-//    @Autowired
-//    @Qualifier("entityManagerFactory")
+public abstract class AbstractPersistence<Id extends Serializable, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
+
+//    @Resource(name = "entityManagerFactory")
+    @PersistenceContext(name = "entityManagerFactory")
     private EntityManager defaultEntityManager;
     private Class<T> entityClass = null;
 

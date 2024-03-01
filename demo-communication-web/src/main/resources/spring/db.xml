@@ -7,8 +7,18 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
+    <import resource="classpath:spring/bean/common.xml"/>
+<!--    <context:property-placeholder location="classpath:db.properties"/>-->
 
-    <context:property-placeholder location="classpath:db.properties"/>
+<!--    <bean id="dbYaml" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">-->
+<!--        &lt;!&ndash;        <property name="resources" value="classpath:application.yml"/>&ndash;&gt;-->
+<!--        <property name="resources">-->
+<!--            <array>-->
+<!--                <value>classpath:db.yml</value>-->
+<!--            </array>-->
+<!--        </property>-->
+<!--    </bean>-->
+    <context:property-placeholder properties-ref="yamlProperties" />
 
     <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="${db.driver}"/>
@@ -17,7 +27,7 @@
         <property name="password" value="${db.password}"/>
         <property name="initialSize" value="${db.minPoolSize}"/>
         <property name="maxTotal" value="${db.maxPoolSize}"/>
-        <property name="maxOpenPreparedStatements" value="5"/>
+        <property name="maxOpenPreparedStatements" value="${db.maxPoolSize}"/>
     </bean>
 <!--    <bean id="dsTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
 <!--        <property name="dataSource" ref="dataSource"/>-->
@@ -27,30 +37,33 @@
 <!--    </bean>-->
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
+<!--        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>-->
         <property name="persistenceUnitName" value="primary"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
+                <value>org.harryng.demo.**.pojo.model</value>
+                <value>org.harryng.demo.**.pojo.entity</value>
                 <value>org.harryng.demo.**.persistence</value>
             </list>
         </property>
         <property name="jpaVendorAdapter">
-            <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <!--<property name="databasePlatform" value="org.eclipse.persistence.platform.database.OraclePlatform" />-->
                 <property name="showSql" value="true"/>
             </bean>
         </property>
         <property name="jpaPropertyMap">
             <map>
-                <entry key="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+                <entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             </map>
         </property>
-        <property name="loadTimeWeaver">
-            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
-        </property>
+<!--        <property name="loadTimeWeaver">-->
+<!--            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>-->
+<!--        </property>-->
     </bean>
-    <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+<!--    <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
         <property name="nestedTransactionAllowed" value="true"/>
         <property name="jpaDialect">
@@ -58,12 +71,12 @@
         </property>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">
-        <constructor-arg name="transactionManagers">
-            <list>
-<!--                <ref bean="dsTransactionManager"/>-->
-                <ref bean="jpaTransactionManager"/>
-            </list>
-        </constructor-arg>
-    </bean>
+<!--    <bean id="transactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">-->
+<!--        <constructor-arg name="transactionManagers">-->
+<!--            <list>-->
+<!--&lt;!&ndash;                <ref bean="dsTransactionManager"/>&ndash;&gt;-->
+<!--                <ref bean="jpaTransactionManager"/>-->
+<!--            </list>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
 </beans>

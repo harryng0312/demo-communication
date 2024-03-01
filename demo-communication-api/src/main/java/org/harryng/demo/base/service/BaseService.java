@@ -3,7 +3,9 @@ package org.harryng.demo.base.service;
 import org.harryng.demo.base.persistence.BasePersistence;
 import org.harryng.demo.base.pojo.entity.BaseEntity;
 
-public interface BaseService<Id extends Object, T extends BaseEntity<Id>> {
+import java.io.Serializable;
+
+public interface BaseService<Id extends Serializable, T extends BaseEntity<Id>> {
     BasePersistence<Id, T> getPersistence();
 
     T getById(Id id) throws RuntimeException, Exception;

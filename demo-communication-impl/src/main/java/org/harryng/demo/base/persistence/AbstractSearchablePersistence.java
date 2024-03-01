@@ -6,8 +6,10 @@ import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 import org.harryng.demo.util.persistence.PersistenceUtil;
 
+import java.io.Serializable;
 
-public abstract class AbstractSearchablePersistence<Id extends Object, T extends BaseEntity<Id>> extends AbstractPersistence<Id, T> implements BaseSearchablePersistence<Id, T> {
+
+public abstract class AbstractSearchablePersistence<Id extends Serializable, T extends BaseEntity<Id>> extends AbstractPersistence<Id, T> implements BaseSearchablePersistence<Id, T> {
 
     public AbstractSearchablePersistence(Class<T> entityClass) {
         super(entityClass);

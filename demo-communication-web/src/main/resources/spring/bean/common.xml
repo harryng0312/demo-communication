@@ -18,6 +18,7 @@
         <property name="resources">
             <array>
                 <value>classpath:application.yml</value>
+                <value>classpath:db.yml</value>
             </array>
         </property>
     </bean>

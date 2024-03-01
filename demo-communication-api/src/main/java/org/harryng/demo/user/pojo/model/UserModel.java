@@ -1,53 +1,29 @@
 package org.harryng.demo.user.pojo.model;
 
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.harryng.demo.base.pojo.entity.AbstractStatedEntity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@MappedSuperclass
 public class UserModel extends AbstractStatedEntity<Long> {
+    @Basic
     private String username;
+    @Basic
     private String passwd;
+    @Basic
+    @Column(name = "screenname")
     private String screenName;
-    private Date dob;
+    @Basic
+    private LocalDateTime dob;
+    @Basic
+    @Column(name = "passwd_enc_method")
     private String passwdEncryptedMethod;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
-
-    public String getScreenName() {
-        return screenName;
-    }
-
-    public void setScreenName(String screenName) {
-        this.screenName = screenName;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getPasswdEncryptedMethod() {
-        return passwdEncryptedMethod;
-    }
-
-    public void setPasswdEncryptedMethod(String passwdEncryptedMethod) {
-        this.passwdEncryptedMethod = passwdEncryptedMethod;
-    }
 }
