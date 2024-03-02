@@ -17,13 +17,13 @@ public abstract class AbstractSearchablePersistence<Id extends Serializable, T e
 
     @Override
     public PageResult<T> selectByConditions(PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws RuntimeException, Exception {
-        PageResult<T> pageResult = PersistenceUtil.selectObjectByCriteria(getEntityManager(), pageInfo, criteriaQuery);
+        PageResult<T> pageResult = PersistenceUtil.selectObjectByCriteria(getStatelessSession(), pageInfo, criteriaQuery);
         return pageResult;
     }
 
     @Override
     public PageResult<T> selectByConditions(PageInfo pageInfo, Class<T> entityClass, String queryStr) throws RuntimeException, Exception {
-        PageResult<T> pageResult = PersistenceUtil.selectObjectByQuery(getEntityManager(), pageInfo, getEntityClass(), queryStr);
+        PageResult<T> pageResult = PersistenceUtil.selectObjectByQuery(getStatelessSession(), pageInfo, getEntityClass(), queryStr);
         return pageResult;
     }
 }

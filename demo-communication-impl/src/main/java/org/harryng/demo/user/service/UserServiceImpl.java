@@ -10,7 +10,6 @@ import org.harryng.demo.user.persistence.UserPersistence;
 import org.harryng.demo.user.pojo.entity.UserImpl;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserServiceImpl extends AbstractSearchableService<Long, UserImpl> implements UserService {
 
@@ -26,7 +25,7 @@ public class UserServiceImpl extends AbstractSearchableService<Long, UserImpl> i
     public UserImpl getByUsername(String username) throws RuntimeException, Exception {
         UserImpl result = null;
         PageInfo pageInfo = new PageInfo();
-        CriteriaBuilder criteriaBuilder = getPersistence().getEntityManager().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getPersistence().getStatelessSession().getCriteriaBuilder();
         CriteriaQuery<UserImpl> criteriaQuery = criteriaBuilder.createQuery(UserImpl.class);
         Root<UserImpl> root = criteriaQuery.from(UserImpl.class);
         criteriaQuery.where(criteriaBuilder.equal(root.get("username"), username));
