@@ -1,5 +1,6 @@
 package org.harryng.demo.user.service;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.main.Application;
 import org.harryng.demo.user.pojo.entity.UserImpl;
@@ -12,8 +13,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.*;
 
 
 @SpringBootTest(classes = Application.class)
@@ -23,10 +27,10 @@ public class TestUserService {
 
 //    static Logger logger = LoggerFactory.getLogger(TestUserService.class);
 
-    @Autowired
+    @Resource
     private ApplicationContext applicationContext;
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @Test
@@ -49,7 +53,31 @@ public class TestUserService {
 
     @Test
     public void testGetUser() throws Exception {
-        final UserImpl user = userService.getById(1L);
-        log.info("User:" + user.getUsername());
+        final var noOfThread = 5;
+        final var noOfReq = 5;
+//        final var executorService = Executors.newFixedThreadPool(noOfThread);
+        final var executorService = Executors.newVirtualThreadPerTaskExecutor();
+        final var futures = new ArrayList<Future<UserImpl>>(noOfReq);
+        for(var i = 0; i < noOfReq; i++){
+            final var fut = executorService.submit(() -> {
+                final var userService1 = applicationContext.getBean(UserService.class);
+                final var reqId = UUID.randomUUID().toString();
+                log.info("Call ID: {}", reqId);
+                final var user = userService1.getById(1L);
+                user.setScreenName(reqId);
+                log.info("Call {} - User:{}", user.getScreenName(), user.getUsername());
+                return user;
+            });
+            futures.add(fut);
+        }
+        futures.forEach(o -> {
+            try {
+                final var user = o.get();
+                log.info("Result {} Username:{}", user.getScreenName(), user.getUsername());
+            } catch (InterruptedException | ExecutionException e) {
+                log.error(e.getMessage(), e);
+            }
+        });
+        executorService.close();
     }
 }

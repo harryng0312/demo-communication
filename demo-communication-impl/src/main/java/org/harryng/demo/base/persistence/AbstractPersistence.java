@@ -1,14 +1,13 @@
 package org.harryng.demo.base.persistence;
 
 import jakarta.annotation.Resource;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.Root;
 import org.harryng.demo.base.pojo.entity.BaseEntity;
 import org.hibernate.StatelessSession;
 import org.hibernate.query.MutationQuery;
+import org.springframework.context.ApplicationContext;
 
 import java.io.Serializable;
 
@@ -17,8 +16,9 @@ public abstract class AbstractPersistence<Id extends Serializable, T extends Bas
 //    @Resource(name = "entityManagerFactory")
 //    @PersistenceContext(name = "entityManagerFactory")
 //    private EntityManager defaultEntityManager;
-
     @Resource
+    protected ApplicationContext applicationContext;
+//    @Resource
     private StatelessSession statelessSession = null;
     private Class<T> entityClass = null;
 
@@ -33,6 +33,9 @@ public abstract class AbstractPersistence<Id extends Serializable, T extends Bas
 
     @Override
     public StatelessSession getStatelessSession() {
+        if(statelessSession == null){
+            statelessSession = applicationContext.getBean(StatelessSession.class);
+        }
         return statelessSession;
     }
 
@@ -40,8 +43,6 @@ public abstract class AbstractPersistence<Id extends Serializable, T extends Bas
     public StatelessSession getStatelessSession(String entityManagerName) {
         return null;
     }
-
-
 
     @Override
     public T selectById(Id id) throws Exception {

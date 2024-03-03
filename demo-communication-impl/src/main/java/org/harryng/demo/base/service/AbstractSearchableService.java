@@ -15,12 +15,12 @@ public abstract class AbstractSearchableService<Id extends Serializable, T exten
     public abstract BaseSearchablePersistence<Id, T> getPersistence();
 
     @Override
-    public PageResult<T> findByConditions(PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws RuntimeException, Exception {
+    public PageResult<T> findByConditions(PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws Exception {
         return getPersistence().selectByConditions(pageInfo, criteriaQuery);
     }
 
     @Override
-    public PageResult<T> findByConditions(PageInfo pageInfo, Class<T> entityClass, String queryStr) throws RuntimeException, Exception {
+    public PageResult<T> findByConditions(PageInfo pageInfo, Class<T> entityClass, String queryStr) throws Exception {
         return getPersistence().selectByConditions(pageInfo, getPersistence().getEntityClass(), queryStr);
     }
 }

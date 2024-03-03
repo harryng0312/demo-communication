@@ -16,11 +16,15 @@
         <property name="username" value="${db.username}"/>
         <property name="password" value="${db.password}"/>
         <property name="initialSize" value="${db.minPoolSize}"/>
+        <property name="minIdle" value="${db.minPoolSize}"/>
+        <property name="maxIdle" value="${db.maxPoolSize}"/>
         <property name="maxTotal" value="${db.maxPoolSize}"/>
-        <property name="maxOpenPreparedStatements" value="${db.maxPoolSize}"/>
+<!--        <property name="maxOpenPreparedStatements" value="${db.maxPoolSize}"/>-->
     </bean>
 
-    <bean id="statelessSession" factory-bean="sessionFactory" factory-method="openStatelessSession" destroy-method="close"/>
+    <bean id="statelessSession" factory-bean="sessionFactory"
+          factory-method="openStatelessSession" destroy-method="close">
+    </bean>
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" destroy-method="destroy">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
@@ -32,8 +36,9 @@
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="show_sql">true</prop>
-                <prop key="dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+<!--                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
             </props>
         </property>
     </bean>

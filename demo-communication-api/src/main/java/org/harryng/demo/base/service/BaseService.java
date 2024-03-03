@@ -8,8 +8,8 @@ import java.io.Serializable;
 public interface BaseService<Id extends Serializable, T extends BaseEntity<Id>> {
     BasePersistence<Id, T> getPersistence();
 
-    T getById(Id id) throws RuntimeException, Exception;
-    int add(T obj) throws RuntimeException, Exception;
-    int edit(T obj) throws RuntimeException, Exception;
-    int remove(Id id) throws RuntimeException, Exception;
+    T getById(Id id) throws Exception;
+    int add(T obj) throws Exception;
+    int edit(T obj) throws Exception;
+    int remove(Id id) throws Exception;
 }

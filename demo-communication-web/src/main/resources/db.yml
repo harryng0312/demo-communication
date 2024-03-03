@@ -2,9 +2,15 @@
 db:
 #  driver: "org.postgresql.Driver"
 #  url: "jdbc:postgresql://localhost:5432/test-db"
-  driver: "org.h2.Driver"
-  url: "jdbc:h2:tcp://localhost/./db/test_db"
-  username: harryng
-  password: harryng
-  minPoolSize: 1
+#  driver: "org.h2.Driver"
+#  url: "jdbc:h2:tcp://localhost/./db/test_db"
+#  username: harryng
+#  password: harryng
+#  minPoolSize: 10
+#  maxPoolSize: 20
+  driver: "org.postgresql.Driver"
+  url: "jdbc:postgresql://localhost:5432/test_db"
+  username: test_db
+  password: test_db
+  minPoolSize: 5
   maxPoolSize: 5
