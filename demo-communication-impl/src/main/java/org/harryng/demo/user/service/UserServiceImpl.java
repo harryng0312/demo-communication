@@ -25,7 +25,7 @@ public class UserServiceImpl extends AbstractSearchableService<Long, UserImpl> i
     public UserImpl getByUsername(String username) throws RuntimeException, Exception {
         UserImpl result = null;
         PageInfo pageInfo = new PageInfo();
-        CriteriaBuilder criteriaBuilder = getPersistence().getStatelessSession().getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = getPersistence().getEntityManager().getCriteriaBuilder();
         CriteriaQuery<UserImpl> criteriaQuery = criteriaBuilder.createQuery(UserImpl.class);
         Root<UserImpl> root = criteriaQuery.from(UserImpl.class);
         criteriaQuery.where(criteriaBuilder.equal(root.get("username"), username));

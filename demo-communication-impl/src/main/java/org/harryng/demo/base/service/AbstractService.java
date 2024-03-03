@@ -13,7 +13,7 @@ public abstract class AbstractService<Id extends Serializable, T extends BaseEnt
     @Override
     public T getById(Id id) throws Exception {
 //        Thread.sleep(Duration.ofMillis(1*1000));
-        System.out.println("StlSession: " + getPersistence().getStatelessSession().hashCode());
+        System.out.println("EntityManager: " + getPersistence().getEntityManager().hashCode());
         return getPersistence().selectById(id);
     }
 
