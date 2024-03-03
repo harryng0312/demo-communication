@@ -4,7 +4,6 @@ import org.harryng.demo.base.persistence.BasePersistence;
 import org.harryng.demo.base.pojo.entity.BaseEntity;
 
 import java.io.Serializable;
-import java.time.Duration;
 public abstract class AbstractService<Id extends Serializable, T extends BaseEntity<Id>> implements BaseService<Id, T> {
 
     @Override

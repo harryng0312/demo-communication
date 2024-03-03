@@ -54,30 +54,29 @@ public class TestUserService {
     @Test
     public void testGetUser() throws Exception {
         final var noOfThread = 5;
-        final var noOfReq = 5;
-//        final var executorService = Executors.newFixedThreadPool(noOfThread);
-        final var executorService = Executors.newVirtualThreadPerTaskExecutor();
-        final var futures = new ArrayList<Future<UserImpl>>(noOfReq);
-        for(var i = 0; i < noOfReq; i++){
-            final var fut = executorService.submit(() -> {
-                final var userService1 = applicationContext.getBean(UserService.class);
-                final var reqId = UUID.randomUUID().toString();
-                log.info("Call ID: {}", reqId);
-                final var user = userService1.getById(1L);
-                user.setScreenName(reqId);
-                log.info("Call {} - User:{}", user.getScreenName(), user.getUsername());
-                return user;
-            });
-            futures.add(fut);
-        }
-        futures.forEach(o -> {
-            try {
-                final var user = o.get();
-                log.info("Result {} Username:{}", user.getScreenName(), user.getUsername());
-            } catch (InterruptedException | ExecutionException e) {
-                log.error(e.getMessage(), e);
+        final var noOfReq = 50;
+        try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
+            final var futures = new ArrayList<Future<UserImpl>>(noOfReq);
+            for (var i = 0; i < noOfReq; i++) {
+                final var fut = executorService.submit(() -> {
+                    final var userService1 = applicationContext.getBean(UserService.class);
+                    final var reqId = UUID.randomUUID().toString();
+                    log.info("Call ID: {}", reqId);
+                    final var user = userService1.getById(1L);
+                    user.setScreenName(reqId);
+                    log.info("Call {} - User:{}", user.getScreenName(), user.getUsername());
+                    return user;
+                });
+                futures.add(fut);
             }
-        });
-        executorService.close();
+            futures.forEach(o -> {
+                try {
+                    final var user = o.get();
+                    log.info("Result {} Username:{}", user.getScreenName(), user.getUsername());
+                } catch (InterruptedException | ExecutionException e) {
+                    log.error(e.getMessage(), e);
+                }
+            });
+        }
     }
 }

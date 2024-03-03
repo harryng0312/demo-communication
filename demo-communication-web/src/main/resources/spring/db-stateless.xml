@@ -2,12 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 <!--    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>-->
 <!--    <tx:annotation-driven transaction-manager="transactionManager" mode="proxy" />-->
+    <jpa:repositories base-package="org.harryng.demo.**.persistence" entity-manager-factory-ref="sessionFactory"/>
     <import resource="classpath:spring/bean/common.xml"/>
     <context:property-placeholder properties-ref="yamlProperties"/>
     <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
@@ -22,7 +25,7 @@
 <!--        <property name="maxOpenPreparedStatements" value="${db.maxPoolSize}"/>-->
     </bean>
 
-    <bean id="statelessSession" factory-bean="sessionFactory"
+    <bean id="statelessSession" factory-bean="sessionFactory" scope="prototype"
           factory-method="openStatelessSession" destroy-method="close">
     </bean>
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" destroy-method="destroy">
