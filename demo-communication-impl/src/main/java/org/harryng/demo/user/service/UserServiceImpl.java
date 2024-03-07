@@ -24,12 +24,12 @@ public class UserServiceImpl extends AbstractSearchableService<Long, UserImpl> i
     @Override
     public UserImpl getByUsername(String username) throws RuntimeException, Exception {
         UserImpl result = null;
-        PageInfo pageInfo = new PageInfo();
-        CriteriaBuilder criteriaBuilder = getPersistence().getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<UserImpl> criteriaQuery = criteriaBuilder.createQuery(UserImpl.class);
-        Root<UserImpl> root = criteriaQuery.from(UserImpl.class);
+        final PageInfo pageInfo = new PageInfo();
+        final CriteriaBuilder criteriaBuilder = getPersistence().getEntityManager().getCriteriaBuilder();
+        final CriteriaQuery<UserImpl> criteriaQuery = criteriaBuilder.createQuery(UserImpl.class);
+        final Root<UserImpl> root = criteriaQuery.from(UserImpl.class);
         criteriaQuery.where(criteriaBuilder.equal(root.get("username"), username));
-        PageResult<UserImpl> pageResult = findByConditions(pageInfo, criteriaQuery);
+        final PageResult<UserImpl> pageResult = findByConditions(pageInfo, criteriaQuery);
         if (!pageResult.getResults().isEmpty()) {
             result = pageResult.getResults().getFirst();
         }
