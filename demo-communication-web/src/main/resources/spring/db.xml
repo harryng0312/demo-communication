@@ -42,8 +42,8 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>org.harryng.demo.**.pojo.model</value>
-                <value>org.harryng.demo.**.pojo.entity</value>
+                <value>org.harryng.demo.**.pojo.data.model</value>
+                <value>org.harryng.demo.**.pojo.data.entity</value>
                 <value>org.harryng.demo.**.persistence</value>
             </list>
         </property>

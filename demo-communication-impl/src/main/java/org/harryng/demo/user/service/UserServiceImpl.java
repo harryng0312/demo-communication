@@ -7,7 +7,7 @@ import jakarta.persistence.criteria.Root;
 import org.harryng.demo.base.persistence.BaseSearchablePersistence;
 import org.harryng.demo.base.service.AbstractSearchableService;
 import org.harryng.demo.user.persistence.UserPersistence;
-import org.harryng.demo.user.pojo.entity.UserImpl;
+import org.harryng.demo.user.pojo.data.entity.UserImpl;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 

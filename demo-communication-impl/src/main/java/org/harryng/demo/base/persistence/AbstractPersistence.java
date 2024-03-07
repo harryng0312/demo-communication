@@ -7,12 +7,12 @@ import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.Root;
-import org.harryng.demo.base.pojo.entity.BaseEntity;
+import org.harryng.demo.base.pojo.data.model.BaseModel;
 import org.springframework.context.ApplicationContext;
 
 import java.io.Serializable;
 
-public abstract class AbstractPersistence<Id extends Serializable, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
+public abstract class AbstractPersistence<Id extends Serializable, T extends BaseModel<Id>> implements BasePersistence<Id, T> {
 
 //    @Resource(name = "entityManagerFactory")
     @PersistenceContext(name = "entityManagerFactory")
