@@ -2,6 +2,7 @@ package org.harryng.demo.user.service;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.harryng.demo.base.pojo.dto.ResponseWrapper;
 import org.harryng.demo.main.Application;
 import org.harryng.demo.user.mapper.UserDtoEntityMapper;
 import org.harryng.demo.user.pojo.data.entity.UserImpl;
@@ -103,6 +104,9 @@ public class TestUserService {
         final var userEntity = mapper.toEntity(userRequest);
         log.info("user entity: {}", userEntity);
         final UserResponse userRes = mapper.toResponseDto(user);
-        log.info("user res: {}", userRes);
+        final var res = ResponseWrapper.<UserResponse>builder()
+                .data(userRes)
+                .build();
+        log.info("user res: {}", res);
     }
 }

@@ -1,18 +1,18 @@
 package org.harryng.demo.base.pojo.dto;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Data
-public abstract class ResponseWrapper<Tbody> implements Serializable {
-    @NonNull
-    private String correlationId = "";
-    @NonNull
-    private String code = "";
-    @NonNull
-    private String msg = "";
+@Builder
+public class ResponseWrapper<Tbody> implements Serializable {
+    @NonNull @Builder.Default
+    private final String correlationId = "";
+    @Builder.Default
+    private final int code = ResponseCode.SUCCESS;
+    @NonNull @Builder.Default
+    private final String msg = "";
 
     private Tbody data;
 }
