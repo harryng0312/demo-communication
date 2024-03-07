@@ -67,7 +67,5 @@ public abstract class AbstractPersistence<Id extends Serializable, T extends Bas
         criteriaDelete.where(cb.equal(root.get("id"), id));
         final Query query = getEntityManager().createQuery(criteriaDelete);
         return query.executeUpdate();
-//        final MutationQuery query = getStatelgetEntityManageressSession().createMutationQuery(criteriaDelete);
-//        return query.executeUpdate();
     }
 }

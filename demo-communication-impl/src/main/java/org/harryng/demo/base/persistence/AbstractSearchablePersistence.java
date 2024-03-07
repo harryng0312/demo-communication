@@ -1,7 +1,7 @@
 package org.harryng.demo.base.persistence;
 
 import jakarta.persistence.criteria.CriteriaQuery;
-import org.harryng.demo.base.pojo.entity.BaseEntity;
+import org.harryng.demo.base.pojo.data.model.BaseModel;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 import org.harryng.demo.util.persistence.PersistenceUtil;
@@ -9,7 +9,7 @@ import org.harryng.demo.util.persistence.PersistenceUtil;
 import java.io.Serializable;
 
 
-public abstract class AbstractSearchablePersistence<Id extends Serializable, T extends BaseEntity<Id>> extends AbstractPersistence<Id, T> implements BaseSearchablePersistence<Id, T> {
+public abstract class AbstractSearchablePersistence<Id extends Serializable, T extends BaseModel<Id>> extends AbstractPersistence<Id, T> implements BaseSearchablePersistence<Id, T> {
 
     public AbstractSearchablePersistence(Class<T> entityClass) {
         super(entityClass);

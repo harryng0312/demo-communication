@@ -1,8 +1,8 @@
-package org.harryng.demo.base.pojo.entity;
+package org.harryng.demo.base.pojo.data.model;
 
 import java.time.LocalDateTime;
 
-public interface BaseStatedEntity {
+public interface BaseStatedModel {
     LocalDateTime getCreatedDate();
     void setCreatedDate(LocalDateTime createdDate);
     LocalDateTime getModifiedDate();

@@ -1,4 +1,4 @@
-package org.harryng.demo.base.pojo.entity;
+package org.harryng.demo.base.pojo.data.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @MappedSuperclass
-public abstract class AbstractEntity<Idt extends Serializable> implements BaseEntity<Idt> {
+public abstract class AbstractModel<Idt extends Serializable> implements BaseModel<Idt> {
     @Id
     @Column(name = "id_", unique = true, nullable = false)
     private Idt id;
