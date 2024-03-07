@@ -1,19 +1,18 @@
-package org.harryng.demo.user.pojo.model;
+package org.harryng.demo.user.pojo.data.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.harryng.demo.base.pojo.entity.AbstractStatedEntity;
+import org.harryng.demo.base.pojo.data.model.AbstractStatedModel;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public class UserModel extends AbstractStatedEntity<Long> {
+public abstract class UserModel extends AbstractStatedModel<Long> {
     @Basic
     private String username;
     @Basic

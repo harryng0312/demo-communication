@@ -1,24 +1,25 @@
 package org.harryng.demo.base.persistence;
 
 import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.Root;
-import org.harryng.demo.base.pojo.entity.BaseEntity;
+import org.harryng.demo.base.pojo.data.model.BaseModel;
 import org.hibernate.StatelessSession;
 import org.hibernate.query.MutationQuery;
 import org.springframework.context.ApplicationContext;
 
 import java.io.Serializable;
 
-public abstract class AbstractPersistence<Id extends Serializable, T extends BaseEntity<Id>> implements BasePersistence<Id, T> {
+public abstract class AbstractPersistence<Id extends Serializable, T extends BaseModel<Id>> implements BasePersistence<Id, T> {
 
-//    @Resource(name = "entityManagerFactory")
+    //    @Resource(name = "entityManagerFactory")
 //    @PersistenceContext(name = "entityManagerFactory")
-//    private EntityManager defaultEntityManager;
+    private EntityManager defaultEntityManager;
     @Resource
     protected ApplicationContext applicationContext;
-//    @Resource
+    @Resource
     private StatelessSession statelessSession = null;
     private Class<T> entityClass = null;
 
@@ -33,9 +34,9 @@ public abstract class AbstractPersistence<Id extends Serializable, T extends Bas
 
     @Override
     public StatelessSession getStatelessSession() {
-        if(statelessSession == null){
-            statelessSession = applicationContext.getBean(StatelessSession.class);
-        }
+//        if(statelessSession == null){
+//            statelessSession = applicationContext.getBean(StatelessSession.class);
+//        }
         return statelessSession;
     }
 
@@ -57,8 +58,11 @@ public abstract class AbstractPersistence<Id extends Serializable, T extends Bas
 
     @Override
     public int update(T obj) throws Exception {
-        getStatelessSession().update(obj);
-        return 1;
+        if (obj.getId() != null) {
+            getStatelessSession().update(obj);
+            return 1;
+        }
+        return 0;
     }
 
     @Override

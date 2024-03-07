@@ -1,10 +1,10 @@
 package org.harryng.demo.base.service;
 
 import org.harryng.demo.base.persistence.BasePersistence;
-import org.harryng.demo.base.pojo.entity.BaseEntity;
+import org.harryng.demo.base.pojo.data.model.BaseModel;
 
 import java.io.Serializable;
-public abstract class AbstractService<Id extends Serializable, T extends BaseEntity<Id>> implements BaseService<Id, T> {
+public abstract class AbstractService<Id extends Serializable, T extends BaseModel<Id>> implements BaseService<Id, T> {
 
     @Override
     public abstract BasePersistence<Id, T> getPersistence();

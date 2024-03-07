@@ -1,4 +1,4 @@
-package org.harryng.demo.base.pojo.entity;
+package org.harryng.demo.base.pojo.data.model;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public abstract class AbstractStatedEntity<Id extends Serializable> extends AbstractEntity<Id> implements BaseStatedEntity {
+public abstract class AbstractStatedModel<Id extends Serializable> extends AbstractModel<Id> implements BaseStatedModel {
 
     @Basic
     @Column(name = "created_date")

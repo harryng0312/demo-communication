@@ -12,5 +12,5 @@ db:
   url: "jdbc:postgresql://localhost:5432/test_db"
   username: test_db
   password: test_db
-  minPoolSize: 5
-  maxPoolSize: 5
+  minPoolSize: 1
+  maxPoolSize: 3

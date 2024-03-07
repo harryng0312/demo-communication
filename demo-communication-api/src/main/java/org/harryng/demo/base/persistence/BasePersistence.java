@@ -1,12 +1,12 @@
 package org.harryng.demo.base.persistence;
 
-import org.harryng.demo.base.pojo.entity.BaseEntity;
+import org.harryng.demo.base.pojo.data.model.BaseModel;
 import org.hibernate.StatelessSession;
 
 import java.io.Serializable;
 
 
-public interface BasePersistence<Id extends Serializable, T extends BaseEntity<Id>> {
+public interface BasePersistence<Id extends Serializable, T extends BaseModel<Id>> {
     StatelessSession getStatelessSession();
     StatelessSession getStatelessSession(String entityManagerName);
     Class<T> getEntityClass();
