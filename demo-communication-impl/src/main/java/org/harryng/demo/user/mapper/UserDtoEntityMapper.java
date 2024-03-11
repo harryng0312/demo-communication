@@ -1,6 +1,6 @@
 package org.harryng.demo.user.mapper;
 
-import org.harryng.demo.base.mapper.AbstractDtoEntityMapper;
+import org.harryng.demo.base.mapper.DtoEntityMapperConfig;
 import org.harryng.demo.user.pojo.data.entity.UserImpl;
 import org.harryng.demo.user.pojo.data.model.UserModel;
 import org.harryng.demo.user.pojo.dto.UserRequest;
@@ -8,7 +8,7 @@ import org.harryng.demo.user.pojo.dto.UserResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(config = AbstractDtoEntityMapper.class)
+@Mapper(config = DtoEntityMapperConfig.class)
 public interface UserDtoEntityMapper {
 
     @Mapping(target = "username", source = "username")

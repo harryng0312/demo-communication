@@ -11,22 +11,23 @@ server:
       enabled: false
 
 # management:
-management:
-  server:
-    port: 9090
-  endpoints:
-    enabled-by-default: false
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      enabled: false
-    shutdown:
-      enabled: false
+#management:
+#  server:
+#    port: 9090
+#  endpoints:
+#    enabled-by-default: false
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      enabled: false
+#    shutdown:
+#      enabled: false
 # config
 test-array:
   - id1
   - id2
-spring.thymeleaf:
-  cache: true
+spring:
+  thymeleaf:
+    cache: true

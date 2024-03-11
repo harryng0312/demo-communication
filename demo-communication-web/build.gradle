@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.session:spring-session-core'
 
+    implementation "org.springframework.boot:spring-boot-docker-compose"
+
 //    implementation "org.springframework.security:spring-security-web:${springVersion}"
 //    implementation "org.springframework.security:spring-security-config:${springVersion}"
 
