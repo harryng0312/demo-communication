@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.base.pojo.dto.ResponseWrapper;
 import org.harryng.demo.main.Application;
-import org.harryng.demo.user.mapper.UserDtoEntityMapper;
+import org.harryng.demo.user.mapper.UserMapper;
 import org.harryng.demo.user.pojo.data.entity.UserImpl;
 import org.harryng.demo.user.pojo.dto.UserRequest;
 import org.harryng.demo.user.pojo.dto.UserResponse;
@@ -53,8 +53,8 @@ public class TestUserService {
     @Test
     public void testGetUser() throws Exception {
         final var timeout = 2 * 1000L;
-        final var noOfThread = 1;
-        final var noOfReq = 1;
+        final var noOfThread = 5;
+        final var noOfReq = 10;
         try (var xService = Executors.newFixedThreadPool(noOfThread)) {
             xService.submit(() -> {
 //                while (!xService.isTerminated() && !xService.isShutdown()) {
@@ -85,7 +85,7 @@ public class TestUserService {
                 }
             });
 //            log.info("waiting...");
-//            Thread.sleep(timeout);
+            Thread.sleep(timeout);
             xService.shutdown();
 //            xService.awaitTermination();
 //            xService.awaitTermination(timeout, TimeUnit.MILLISECONDS);
@@ -94,16 +94,16 @@ public class TestUserService {
 
     @Test
     public void testUserDtoEntityMapper() throws Exception {
-        final UserDtoEntityMapper mapper = applicationContext.getBean(UserDtoEntityMapper.class);
+        final UserMapper mapper = applicationContext.getBean(UserMapper.class);
         final var userService = applicationContext.getBean(UserService.class);
         final var user = userService.getById(1L);
         final UserRequest userRequest = new UserRequest();
         userRequest.setUsername("username 1");
         userRequest.setDob(LocalDateTime.now());
         userRequest.setScreenName("screen name 1");
-        final var userEntity = mapper.toEntity(userRequest);
+        final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        final UserResponse userRes = mapper.toResponseDto(user);
+        final UserResponse userRes = mapper.map(user);
         final var res = ResponseWrapper.<UserResponse>builder()
                 .data(userRes)
                 .build();

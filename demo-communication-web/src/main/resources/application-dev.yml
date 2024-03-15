@@ -33,4 +33,4 @@ spring:
   docker:
     compose:
       enabled: true
-      host: docker-compose-dev.xml
+      host: ./docker/docker-compose-dev.xml
