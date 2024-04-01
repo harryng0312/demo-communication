@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.harryng.demo.base.pojo.dto.ResponseCode;
 import org.harryng.demo.base.pojo.dto.ResponseWrapper;
-import org.harryng.demo.session.SessionHolder;
+import org.harryng.demo.base.pojo.dto.SessionHolder;
 
 @Slf4j
 public class SessionWrapperAspect {
@@ -19,6 +19,9 @@ public class SessionWrapperAspect {
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         if(jp.getArgs().length > 1 && jp.getArgs()[0] instanceof SessionHolder){
             log.info("request:{}", request.getQueryString());
+            final SessionHolder sessionHolder = SessionHolder.ANONYMOUS;
+//            sessionHolder.setUserId();
+            jp.getArgs()[0] = sessionHolder;
             return jp.proceed();
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);

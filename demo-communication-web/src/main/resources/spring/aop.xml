@@ -95,7 +95,7 @@
         <aop:aspect ref="sessionWrapper" order="10">
             <aop:pointcut
                     id="authController"
-                    expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.base.pojo.dto.SessionHolder,..))"/>
+                    expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.base.pojo.dto.SessionHolder,..)) &amp;&amp; !execution(public * org.harryng.demo.controller.AuthController.*(..))"/>
             <aop:around method="around" pointcut-ref="authController"/>
         </aop:aspect>
         <aop:aspect ref="auth" order="20">
