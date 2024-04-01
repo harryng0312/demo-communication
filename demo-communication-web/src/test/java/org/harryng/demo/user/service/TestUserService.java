@@ -114,4 +114,22 @@ public class TestUserService {
                 .build();
         log.info("user res: {}", res);
     }
+
+    @Test
+    public void testUser() throws Exception {
+//        final var mapper = applicationContext.getBean(UserMapper.class);
+//        final var userService = applicationContext.getBean(UserService.class);
+        final var user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
+        final var userRequest = new UserRequest();
+        userRequest.setUsername("username 1");
+        userRequest.setDob(LocalDateTime.now());
+        userRequest.setScreenName("screen name 1");
+        final var userEntity = mapper.map(userRequest);
+        log.info("user entity: {}", userEntity);
+        final var userRes = mapper.map(user);
+        final var res = ResponseWrapper.<UserResponse>builder()
+                .data(userRes)
+                .build();
+        log.info("user res: {}", res);
+    }
 }

@@ -37,4 +37,9 @@ public class AuthServiceImpl implements AuthService {
         }
         return user;
     }
+
+    @Override
+    public boolean isValidSession(Long userId, String sessionId) throws Exception {
+        return false;
+    }
 }

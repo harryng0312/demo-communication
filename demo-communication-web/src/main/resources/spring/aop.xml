@@ -6,17 +6,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <import resource="classpath:spring/db.xml" />
+    <import resource="classpath:spring/db.xml"/>
     <aop:aspectj-autoproxy/>
     <!-- processor aspect -->
-<!--    <bean id="processorOutputResolver" class="com.videabiz.badgechain.aop.ProcessorOutputResolver"/>-->
-<!--    <aop:config>-->
-<!--        <aop:aspect id="aspectProcessorOutputResolver" ref="processorOutputResolver">-->
-<!--            <aop:pointcut id="resolverOutputResultPointcut"-->
-<!--                          expression="execution(public * com.videabiz.badgechain.processor..*.*(..))"/>-->
-<!--            <aop:around method="processOutputResult" pointcut-ref="resolverOutputResultPointcut"/>-->
-<!--        </aop:aspect>-->
-<!--    </aop:config>-->
+    <!--    <bean id="processorOutputResolver" class="com.videabiz.badgechain.aop.ProcessorOutputResolver"/>-->
+    <!--    <aop:config>-->
+    <!--        <aop:aspect id="aspectProcessorOutputResolver" ref="processorOutputResolver">-->
+    <!--            <aop:pointcut id="resolverOutputResultPointcut"-->
+    <!--                          expression="execution(public * com.videabiz.badgechain.processor..*.*(..))"/>-->
+    <!--            <aop:around method="processOutputResult" pointcut-ref="resolverOutputResultPointcut"/>-->
+    <!--        </aop:aspect>-->
+    <!--    </aop:config>-->
 
     <!-- transaction aspect -->
     <!-- aspectj -->
@@ -74,18 +74,38 @@
     <!-- ensure that the above transactional advice runs for any execution
       of an operation defined by the FooService interface -->
     <aop:config>
-        <aop:pointcut id="persistenceOperation" expression="execution(public * org.harryng.demo..persistence.*.*(..)) &amp;&amp; !execution(public * getEntityManager(..)) &amp;&amp; !execution(public * getEntityClass()) "/>
-<!--&lt;!&ndash;        <aop:pointcut id="serviceOperation" expression="within(org.harryng.demo..service.*) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>&ndash;&gt;-->
-        <aop:pointcut id="serviceOperation" expression="execution(public * org.harryng.demo..service.*.*(..)) &amp;&amp; !execution(public * getPersistence(..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
-        <aop:advisor id="persistenceAdvisor" pointcut-ref="persistenceOperation" advice-ref="requiredTxAdvicePersistence" order="1000"/>
+        <aop:pointcut
+                id="persistenceOperation"
+                expression="execution(public * org.harryng.demo..persistence.*.*(..)) &amp;&amp; !execution(public * getEntityManager(..)) &amp;&amp; !execution(public * getEntityClass())"/>
+        <aop:pointcut
+                id="serviceOperation"
+                expression="execution(public * org.harryng.demo..service.*.*(..)) &amp;&amp; !execution(public * getPersistence(..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
+        <aop:advisor
+                id="persistenceAdvisor" pointcut-ref="persistenceOperation"
+                advice-ref="requiredTxAdvicePersistence" order="1000"/>
         <aop:advisor id="serviceAdvisor" pointcut-ref="serviceOperation" advice-ref="notSupportTxAdvice" order="1000"/>
 
         <aop:aspect ref="logging" order="10">
-            <aop:around method="around" pointcut-ref="serviceOperation" />
+            <aop:around method="around" pointcut-ref="serviceOperation"/>
         </aop:aspect>
         <aop:aspect ref="logging" order="10">
-            <aop:around method="around" pointcut-ref="persistenceOperation" />
+            <aop:around method="around" pointcut-ref="persistenceOperation"/>
+        </aop:aspect>
+
+        <aop:aspect ref="sessionWrapper" order="10">
+            <aop:pointcut
+                    id="authController"
+                    expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.base.pojo.dto.SessionHolder,..))"/>
+            <aop:around method="around" pointcut-ref="authController"/>
+        </aop:aspect>
+        <aop:aspect ref="auth" order="20">
+            <aop:pointcut
+                    id="authController"
+                    expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.base.pojo.dto.SessionHolder,..)) &amp;&amp; !execution(public * org.harryng.demo.controller.AuthController.*(..))"/>
+            <aop:around method="around" pointcut-ref="authController"/>
         </aop:aspect>
     </aop:config>
     <bean id="logging" class="org.harryng.demo.aop.LoggingAspect"/>
+    <bean id="auth" class="org.harryng.demo.aop.AuthenticationAspect" />
+    <bean id="sessionWrapper" class="org.harryng.demo.aop.AuthenticationAspect" />
 </beans>

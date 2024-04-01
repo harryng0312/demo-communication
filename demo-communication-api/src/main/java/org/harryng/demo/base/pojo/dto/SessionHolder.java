@@ -19,6 +19,8 @@ public class SessionHolder implements Serializable {
     private LocalDateTime validityAfter = LocalDateTime.MIN;
     @NonNull @Builder.Default
     private LocalDateTime validityBefore = LocalDateTime.MIN;
+    @NonNull @Builder.Default
+    private String sessionId = "";
 
     // permission section
 

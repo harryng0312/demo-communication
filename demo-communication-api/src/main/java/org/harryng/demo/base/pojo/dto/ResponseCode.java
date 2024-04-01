@@ -1,7 +1,5 @@
 package org.harryng.demo.base.pojo.dto;
 
-import lombok.ToString;
-
 public interface ResponseCode {
     int SUCCESS = 0;
     int COMMON_ERROR = -1;
