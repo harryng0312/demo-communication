@@ -3,6 +3,7 @@ package org.harryng.demo.user.service;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.base.pojo.dto.ResponseWrapper;
+import org.harryng.demo.base.pojo.dto.SessionHolder;
 import org.harryng.demo.main.Application;
 import org.harryng.demo.user.mapper.UserMapper;
 import org.harryng.demo.user.pojo.data.entity.UserImpl;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Import;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.*;
 
@@ -32,6 +34,9 @@ public class TestUserService {
     @Resource
     private UserService userService;
 
+    @Resource
+    private UserMapper mapper;
+
     @Test
     public void testAddUser() throws Exception {
         final LocalDateTime now = LocalDateTime.now();
@@ -46,7 +51,7 @@ public class TestUserService {
         user.setCreatedDate(now);
         user.setModifiedDate(now);
         user.setStatus("active");
-        int rs = userService.add(user);
+        int rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
         log.info("Add {} record(s)", rs);
     }
 
@@ -65,7 +70,7 @@ public class TestUserService {
                                 final var userService1 = applicationContext.getBean(UserService.class);
                                 final var reqId = UUID.randomUUID().toString();
                                 log.info("Call ID: {}", reqId);
-                                final var user = userService1.getById(1L);
+                                final var user = userService1.getById(SessionHolder.builder().build(), 1L, Collections.emptyMap());
 //                                userService1.getPersistence().getStatelessSession().close();
                                 user.setScreenName(reqId);
                                 log.info("Call {} - User:{}", user.getScreenName(), user.getUsername());
@@ -94,16 +99,16 @@ public class TestUserService {
 
     @Test
     public void testUserDtoEntityMapper() throws Exception {
-        final UserMapper mapper = applicationContext.getBean(UserMapper.class);
-        final var userService = applicationContext.getBean(UserService.class);
-        final var user = userService.getById(1L);
-        final UserRequest userRequest = new UserRequest();
+//        final var mapper = applicationContext.getBean(UserMapper.class);
+//        final var userService = applicationContext.getBean(UserService.class);
+        final var user = userService.getByUsername("username01", Collections.emptyMap());
+        final var userRequest = new UserRequest();
         userRequest.setUsername("username 1");
         userRequest.setDob(LocalDateTime.now());
         userRequest.setScreenName("screen name 1");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        final UserResponse userRes = mapper.map(user);
+        final var userRes = mapper.map(user);
         final var res = ResponseWrapper.<UserResponse>builder()
                 .data(userRes)
                 .build();

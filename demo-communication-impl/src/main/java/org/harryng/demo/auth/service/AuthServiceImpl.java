@@ -6,6 +6,7 @@ import org.harryng.demo.user.service.UserService;
 import org.harryng.demo.util.SecurityUtil;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 
 public class AuthServiceImpl implements AuthService {
 
@@ -13,8 +14,8 @@ public class AuthServiceImpl implements AuthService {
     private UserService userService;
 
     @Override
-    public UserImpl loginByUsernamePassword(String username, String password) throws RuntimeException, Exception {
-        UserImpl user = userService.getByUsername(username);
+    public UserImpl loginByUsernamePassword(String username, String password) throws Exception {
+        UserImpl user = userService.getByUsername(username, Collections.emptyMap());
         if (password == null) {
             throw new Exception("Password is not valid");
         }
