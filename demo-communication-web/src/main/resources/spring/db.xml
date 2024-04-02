@@ -51,11 +51,12 @@
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <!--<property name="databasePlatform" value="org.eclipse.persistence.platform.database.OraclePlatform" />-->
                 <property name="showSql" value="true"/>
+<!--                <property name="generateDdl" value="true"/>-->
             </bean>
         </property>
         <property name="jpaPropertyMap">
             <map>
-                <entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+                <entry key="hibernate.dialect" value="${db.dialect}"/>
             </map>
         </property>
 <!--        <property name="loadTimeWeaver">-->

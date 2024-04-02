@@ -1,8 +1,5 @@
 package org.harryng.demo.exception;
 
-import lombok.Data;
-
-@Data
 public class CodedException extends Exception {
     public static final int SUCCESS = 0;
     public static final int NO_AUTH = 10;
