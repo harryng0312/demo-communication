@@ -12,7 +12,7 @@ dependencies {
     // for Test sources set
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.2.0.Final"
     implementation "jakarta.persistence:jakarta.persistence-api:${jakartaVer}"
-    implementation "org.hibernate.orm:hibernate-core:${hibernateVer}"
+//    implementation "org.hibernate.orm:hibernate-core:${hibernateVer}"
     implementation "org.springframework.boot:spring-boot-starter:${springbootVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
