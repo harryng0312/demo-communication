@@ -1,4 +1,4 @@
-package org.harryng.demo.base.pojo.data.model;
+package org.harryng.demo.base.entity;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -24,6 +24,6 @@ public abstract class AbstractStatedModel<Id extends Serializable> extends Abstr
     private LocalDateTime modifiedDate;
     @Basic
     @Column(name = "status")
-    private String status;
+    private int status;
 
 }

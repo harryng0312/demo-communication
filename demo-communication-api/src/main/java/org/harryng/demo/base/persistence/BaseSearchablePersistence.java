@@ -1,6 +1,6 @@
 package org.harryng.demo.base.persistence;
 
-import org.harryng.demo.base.pojo.data.model.BaseModel;
+import org.harryng.demo.base.entity.BaseModel;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 

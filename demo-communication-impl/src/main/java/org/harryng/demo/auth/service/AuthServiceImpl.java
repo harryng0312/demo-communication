@@ -1,7 +1,7 @@
 package org.harryng.demo.auth.service;
 
 import jakarta.annotation.Resource;
-import org.harryng.demo.user.pojo.data.entity.UserImpl;
+import org.harryng.demo.user.entity.UserImpl;
 import org.harryng.demo.user.service.UserService;
 import org.harryng.demo.util.SecurityUtil;
 

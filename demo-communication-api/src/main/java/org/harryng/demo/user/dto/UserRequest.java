@@ -1,9 +1,9 @@
-package org.harryng.demo.user.pojo.dto;
+package org.harryng.demo.user.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.harryng.demo.base.pojo.dto.AbstractRequest;
+import org.harryng.demo.base.dto.AbstractRequest;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -4,11 +4,9 @@ import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import org.harryng.demo.base.persistence.BaseSearchablePersistence;
-import org.harryng.demo.base.pojo.dto.SessionHolder;
 import org.harryng.demo.base.service.AbstractSearchableService;
 import org.harryng.demo.user.persistence.UserPersistence;
-import org.harryng.demo.user.pojo.data.entity.UserImpl;
+import org.harryng.demo.user.entity.UserImpl;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 

@@ -1,4 +1,4 @@
-package org.harryng.demo.auth.pojo.text;
+package org.harryng.demo.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

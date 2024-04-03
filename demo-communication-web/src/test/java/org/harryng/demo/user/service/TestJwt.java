@@ -1,7 +1,8 @@
 package org.harryng.demo.user.service;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.main.Application;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.Base64;
+import java.util.Date;
+import java.util.UUID;
 
 @SpringBootTest(classes = Application.class)
 @Import(Application.class)

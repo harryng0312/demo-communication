@@ -1,4 +1,4 @@
-package org.harryng.demo.base.pojo.data.model;
+package org.harryng.demo.base.entity;
 
 import java.io.Serializable;
 

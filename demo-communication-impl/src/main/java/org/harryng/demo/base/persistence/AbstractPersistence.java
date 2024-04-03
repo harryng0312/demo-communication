@@ -7,7 +7,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.Root;
-import org.harryng.demo.base.pojo.data.model.BaseModel;
+import org.harryng.demo.base.entity.BaseModel;
 import org.springframework.context.ApplicationContext;
 
 import java.io.Serializable;

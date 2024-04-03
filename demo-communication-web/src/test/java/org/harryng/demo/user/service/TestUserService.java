@@ -2,13 +2,13 @@ package org.harryng.demo.user.service;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.base.pojo.dto.ResponseWrapper;
-import org.harryng.demo.base.pojo.dto.SessionHolder;
+import org.harryng.demo.base.dto.ResponseWrapper;
+import org.harryng.demo.base.dto.SessionHolder;
 import org.harryng.demo.main.Application;
 import org.harryng.demo.user.mapper.UserMapper;
-import org.harryng.demo.user.pojo.data.entity.UserImpl;
-import org.harryng.demo.user.pojo.dto.UserRequest;
-import org.harryng.demo.user.pojo.dto.UserResponse;
+import org.harryng.demo.user.entity.UserImpl;
+import org.harryng.demo.user.dto.UserRequest;
+import org.harryng.demo.user.dto.UserResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -50,7 +50,7 @@ public class TestUserService {
 
         user.setCreatedDate(now);
         user.setModifiedDate(now);
-        user.setStatus("active");
+        user.setStatus(1);
         int rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
         log.info("Add {} record(s)", rs);
     }

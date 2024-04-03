@@ -1,10 +1,10 @@
 package org.harryng.demo.user.mapper;
 
 import org.harryng.demo.base.mapper.DtoEntityMapperConfig;
-import org.harryng.demo.user.pojo.data.entity.UserImpl;
-import org.harryng.demo.user.pojo.data.model.UserModel;
-import org.harryng.demo.user.pojo.dto.UserRequest;
-import org.harryng.demo.user.pojo.dto.UserResponse;
+import org.harryng.demo.user.entity.UserImpl;
+import org.harryng.demo.user.entity.UserModel;
+import org.harryng.demo.user.dto.UserRequest;
+import org.harryng.demo.user.dto.UserResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(config = DtoEntityMapperConfig.class)

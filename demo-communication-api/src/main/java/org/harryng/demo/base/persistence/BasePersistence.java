@@ -1,7 +1,7 @@
 package org.harryng.demo.base.persistence;
 
 import jakarta.persistence.EntityManager;
-import org.harryng.demo.base.pojo.data.model.BaseModel;
+import org.harryng.demo.base.entity.BaseModel;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
 package org.harryng.demo.base.persistence;
 
 import jakarta.persistence.criteria.CriteriaQuery;
-import org.harryng.demo.base.pojo.data.model.BaseModel;
+import org.harryng.demo.base.entity.BaseModel;
 import org.harryng.demo.util.PageInfo;
 import org.harryng.demo.util.PageResult;
 import org.harryng.demo.util.persistence.PersistenceUtil;

@@ -1,4 +1,4 @@
-package org.harryng.demo.base.pojo.dto;
+package org.harryng.demo.base.dto;
 
 public interface ResponseCode {
     int SUCCESS = 0;
