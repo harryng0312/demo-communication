@@ -45,7 +45,7 @@ public class TestUserService {
         user.setUsername("username01");
         user.setPasswd("passwd01");
         user.setScreenName("screen01");
-        user.setDob(now);
+        user.setDob(now.toLocalDate());
         user.setPasswdEncryptedMethod("plain");
 
         user.setCreatedDate(now);

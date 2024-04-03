@@ -1,5 +1,3 @@
--- db test_db
-
 create table public.user_
 (
     id_               bigint             not null
@@ -18,49 +16,26 @@ create table public.user_
 alter table public.user_
     owner to test_db;
 
-
-
 create table public.asset
 (
-    id_                bigint       not null
+    id_                bigint             not null
         constraint asset_pk
             primary key,
-    name_              integer      not null,
+    name_              integer            not null,
     description        varchar(150),
-    created_date       timestamp    not null,
-    modified_date      timestamp    not null,
-    resource_id        varchar(36)  not null
+    created_date       timestamp          not null,
+    modified_date      timestamp          not null,
+    resource_id        varchar(36)        not null
         constraint asset_resource_id_unq
             unique,
-    resource_tree_path varchar(250) not null
+    resource_tree_path varchar(250)       not null
         constraint asset_resource_tree_path_unq
-            unique
+            unique,
+    status             smallint default 1 not null
 );
 
 alter table public.asset
     owner to test_db;
-
-
-create table if not exists public.asset
-(
-    id_                bigint       not null
-    constraint asset_pk
-    primary key,
-    name_              integer      not null,
-    description        varchar(150),
-    created_date       timestamp    not null,
-    modified_date      timestamp    not null,
-    resource_id        varchar(36)  not null
-    constraint asset_resource_id_unq
-    unique,
-    resource_tree_path varchar(250) not null
-    constraint asset_resource_tree_path_unq
-    unique
-    );
-
-alter table public.asset
-    owner to test_db;
-
 
 create table public.organization
 (
@@ -102,5 +77,19 @@ create table public.user_group
 
 alter table public.user_group
     owner to test_db;
+
+create table public.role_
+(
+    id_         varchar(50)  not null
+        constraint role_pk
+            primary key,
+    name_       varchar(100) not null,
+    description varchar(150),
+    status      smallint default 1
+);
+
+alter table public.role_
+    owner to test_db;
+
 
 
