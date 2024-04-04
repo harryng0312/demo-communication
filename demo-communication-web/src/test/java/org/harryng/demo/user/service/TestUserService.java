@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Import;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.*;
 
@@ -52,7 +53,7 @@ public class TestUserService {
         user.setCreatedDate(now);
         user.setModifiedDate(now);
         user.setStatus(1);
-        int rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
+        final UserImpl rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
         log.info("Add {} record(s)", rs);
     }
 
@@ -64,29 +65,31 @@ public class TestUserService {
         try (var xService = Executors.newFixedThreadPool(noOfThread)) {
             xService.submit(() -> {
 //                while (!xService.isTerminated() && !xService.isShutdown()) {
-                    try (var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
-                        final var futures = new ArrayList<Future<UserImpl>>(noOfReq);
-                        for (var i = 0; i < noOfReq; i++) {
-                            final var fut = executorService.submit(() -> {
-                                final var userService1 = applicationContext.getBean(UserService.class);
-                                final var reqId = UUID.randomUUID().toString();
-                                log.info("Call ID: {}", reqId);
-                                final var user = userService1.getById(SessionHolder.builder().build(), 1L, Collections.emptyMap());
+                final UserImpl userDefault = new UserImpl();
+                try (var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
+                    final var futures = new ArrayList<Future<Optional<UserImpl>>>(noOfReq);
+                    for (var i = 0; i < noOfReq; i++) {
+                        final var fut = executorService.submit(() -> {
+
+                            final var userService1 = applicationContext.getBean(UserService.class);
+                            final var reqId = UUID.randomUUID().toString();
+                            log.info("Call ID: {}", reqId);
+                            final var user = userService1.getById(SessionHolder.builder().build(), 1L, Collections.emptyMap());
 //                                userService1.getPersistence().getStatelessSession().close();
-                                user.setScreenName(reqId);
-                                log.info("Call {} - User:{}", user.getScreenName(), user.getUsername());
-                                return user;
-                            });
-                            futures.add(fut);
-                        }
-                        futures.forEach(o -> {
-                            try {
-                                final var user = o.get(3, TimeUnit.SECONDS);
-                                log.info("Result {} Username:{}", user.getScreenName(), user.getUsername());
-                            } catch (InterruptedException | ExecutionException | TimeoutException e) {
-                                log.error(e.getMessage(), e);
-                            }
+                            user.orElse(userDefault).setScreenName(reqId);
+                            log.info("Call {} - User:{}", user.orElse(userDefault).getScreenName(), user.orElse(userDefault).getUsername());
+                            return user;
                         });
+                        futures.add(fut);
+                    }
+                    futures.forEach(o -> {
+                        try {
+                            final var user = o.get(3, TimeUnit.SECONDS);
+                            log.info("Result {} Username:{}", user.orElse(userDefault).getScreenName(), user.orElse(userDefault).getUsername());
+                        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+                            log.error(e.getMessage(), e);
+                        }
+                    });
 //                    }
                 }
             });
@@ -120,6 +123,7 @@ public class TestUserService {
     public void testUser() throws Exception {
 //        final var mapper = applicationContext.getBean(UserMapper.class);
 //        final var userService = applicationContext.getBean(UserService.class);
+
         final var user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
         final var userRequest = new UserRequest();
         userRequest.setUsername("username 1");
@@ -127,7 +131,7 @@ public class TestUserService {
         userRequest.setScreenName("screen name 1");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        final var userRes = mapper.map(user);
+        final var userRes = mapper.map(user.orElseGet(UserImpl::new));
         final var res = ResponseWrapper.<UserResponse>builder()
                 .data(userRes)
                 .build();

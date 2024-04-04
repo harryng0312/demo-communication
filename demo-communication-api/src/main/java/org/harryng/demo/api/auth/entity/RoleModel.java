@@ -13,7 +13,7 @@ import org.harryng.demo.api.base.entity.BaseStatusModel;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public class RoleModel extends AbstractModel<Long> implements BaseStatusModel {
+public abstract class RoleModel extends AbstractModel<Long> implements BaseStatusModel {
     @Basic
     @Column(name = "name_")
     private String name;

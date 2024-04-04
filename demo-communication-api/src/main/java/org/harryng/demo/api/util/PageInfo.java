@@ -1,24 +1,27 @@
 package org.harryng.demo.api.util;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.io.Serializable;
 
 public class PageInfo implements Serializable {
-    private long startPageIndex = 0;
+    private int startPageIndex = 0;
     private int pageSize = 1;
 
     public PageInfo() {
     }
 
-    public PageInfo(long startPageIndex, int pageSize) {
+    public PageInfo(int startPageIndex, int pageSize) {
         this.startPageIndex = startPageIndex;
         this.pageSize = pageSize;
     }
 
-    public long getStartPageIndex() {
+    public int getStartPageIndex() {
         return startPageIndex;
     }
 
-    public void setStartPageIndex(long startPageIndex) {
+    public void setStartPageIndex(int startPageIndex) {
         startPageIndex = Math.max(0, startPageIndex);
         this.startPageIndex = startPageIndex;
     }
@@ -33,7 +36,10 @@ public class PageInfo implements Serializable {
     }
 
     public long getStartRowIndex() {
-        long pageIndex = getStartPageIndex() * getPageSize();
-        return pageIndex;
+        return (long) getStartPageIndex() * getPageSize();
+    }
+
+    public Pageable toPageable() {
+        return PageRequest.of(getStartPageIndex(), getPageSize());
     }
 }

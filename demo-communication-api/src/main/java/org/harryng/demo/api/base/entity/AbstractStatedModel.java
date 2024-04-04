@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @ToString(callSuper = true)
 @MappedSuperclass
 public abstract class AbstractStatedModel<Id extends Serializable> extends AbstractModel<Id> implements BaseModifiedModel, BaseStatusModel {
-
     @Basic
     @Column(name = "created_date")
     private LocalDateTime createdDate;

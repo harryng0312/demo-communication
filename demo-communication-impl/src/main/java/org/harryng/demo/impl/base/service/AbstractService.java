@@ -7,6 +7,7 @@ import org.harryng.demo.api.base.service.BaseAuthenticatedService;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class AbstractService<T extends BaseModel<Id>, Id extends Serializable> implements BaseAuthenticatedService<T, Id> {
 
@@ -14,24 +15,24 @@ public abstract class AbstractService<T extends BaseModel<Id>, Id extends Serial
     public abstract BasePersistence<T, Id> getPersistence();
 
     @Override
-    public T getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception {
+    public Optional<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra) {
 //        Thread.sleep(Duration.ofMillis(1*1000));
 //        System.out.println("EntityManager: " + getPersistence().getEntityManager().hashCode());
-        return getPersistence().selectById(id);
+        return getPersistence().findById(id);
     }
 
     @Override
-    public int add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
-        return getPersistence().insert(obj);
+    public T add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
+        return getPersistence().save(obj);
     }
 
     @Override
-    public int edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
-        return getPersistence().update(obj);
+    public T edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
+        return getPersistence().save(obj);
     }
 
     @Override
-    public int remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception {
-        return getPersistence().delete(id);
+    public void remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception {
+        getPersistence().deleteById(id);
     }
 }
