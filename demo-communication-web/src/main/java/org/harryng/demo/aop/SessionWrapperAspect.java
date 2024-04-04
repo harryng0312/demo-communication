@@ -5,9 +5,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.harryng.demo.base.dto.ResponseCode;
-import org.harryng.demo.base.dto.ResponseWrapper;
-import org.harryng.demo.base.dto.SessionHolder;
+import org.harryng.demo.api.base.dto.ResponseCode;
+import org.harryng.demo.api.base.dto.ResponseWrapper;
+import org.harryng.demo.api.base.dto.SessionHolder;
 
 @Slf4j
 public class SessionWrapperAspect {

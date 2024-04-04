@@ -2,7 +2,7 @@ package org.harryng.demo.controller;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
-import org.harryng.demo.auth.service.AuthService;
+import org.harryng.demo.api.auth.service.AuthService;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Encoder;
 import jakarta.websocket.EndpointConfig;
-import org.harryng.demo.util.TextUtil;
+import org.harryng.demo.api.util.TextUtil;
 
 public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
 

@@ -10,7 +10,7 @@
     </persistence-unit-metadata>
 
     <mapped-superclass
-            class="org.harryng.demo.base.entity.AbstractModel">
+            class="org.harryng.demo.api.base.entity.AbstractModel">
         <attributes>
             <id name="id">
                 <column name="id_"/>
@@ -22,7 +22,7 @@
         </attributes>
     </mapped-superclass>
     <mapped-superclass
-            class="org.harryng.demo.base.entity.AbstractStatedModel">
+            class="org.harryng.demo.api.base.entity.AbstractStatedModel">
         <attributes>
             <basic name="createdDate">
                 <column name="created_date"/>

@@ -3,7 +3,7 @@
 				 xmlns="https://jakarta.ee/xml/ns/persistence/orm"
 				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm_3_0.xsd">
-	<mapped-superclass class="org.harryng.demo.user.entity.UserModel">
+	<mapped-superclass class="org.harryng.demo.api.user.entity.UserModel">
 		<attributes>
 			<basic name="username">
 				<column name="username" />
@@ -24,7 +24,7 @@
 		</attributes>
 	</mapped-superclass>
 
-	<entity class="org.harryng.demo.user.entity.UserImpl">
+	<entity class="org.harryng.demo.api.user.entity.UserImpl">
 		<table name="auth_user" />
 <!--		<attributes>-->
 <!--			<id name="id"/>-->

@@ -3,9 +3,9 @@ package org.harryng.demo.aop;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.harryng.demo.auth.service.AuthService;
-import org.harryng.demo.base.dto.SessionHolder;
-import org.harryng.demo.exception.CodedException;
+import org.harryng.demo.api.auth.service.AuthService;
+import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.exception.CodedException;
 
 @Slf4j
 public class AuthenticationAspect {

@@ -83,7 +83,7 @@
 
         <aop:pointcut
                 id="authController"
-                expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.base.dto.SessionHolder,..)) &amp;&amp; !execution(public * org.harryng.demo.controller.AuthController.*(..))"/>
+                expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.api.base.dto.SessionHolder,..)) &amp;&amp; !execution(public * org.harryng.demo.controller.AuthController.*(..))"/>
         <aop:advisor
                 id="persistenceAdvisor" pointcut-ref="persistenceOperation"
                 advice-ref="requiredTxAdvicePersistence" order="1000"/>

@@ -3,8 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="userService" class="org.harryng.demo.user.service.UserServiceImpl" />
-    <bean id="userPersistence" class="org.harryng.demo.user.persistence.UserPersistenceImpl" />
+    <bean id="userService" class="org.harryng.demo.impl.user.service.UserServiceImpl" />
+    <bean id="userPersistence" class="org.harryng.demo.impl.user.persistence.UserPersistenceImpl" />
     <!--    <aop:config>-->
     <!--        <aop:pointcut id="userServiceOperation"-->
     <!--                      expression="execution(* com.videabiz.badgechain.publisher.user.service.UserServiceImpl.add(..))"/>-->

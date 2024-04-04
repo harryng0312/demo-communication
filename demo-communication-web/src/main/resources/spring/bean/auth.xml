@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="authService" class="org.harryng.demo.auth.service.AuthServiceImpl"/>
+    <bean id="authService" class="org.harryng.demo.impl.auth.service.AuthServiceImpl"/>
     <!--    <aop:config>-->
     <!--        <aop:pointcut id="userServiceOperation"-->
     <!--                      expression="execution(* com.videabiz.badgechain.publisher.user.service.UserServiceImpl.add(..))"/>-->
