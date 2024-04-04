@@ -1,8 +1,8 @@
 package org.harryng.demo.base.entity;
 
 public interface BaseResourceModel {
-    String getResourceId();
-    void setResourceId(String resourceId);
-    String getResourceTreePath();
-    void setResourceTreePath(String resourceTreePath);
+    long getOrgId();
+    void setOrgId(long orgId);
+    String getOrgTreepath();
+    void setOrgTreepath(String orgTreepath);
 }

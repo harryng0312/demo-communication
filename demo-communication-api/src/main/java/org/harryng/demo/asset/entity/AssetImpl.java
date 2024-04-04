@@ -12,6 +12,6 @@ import org.harryng.demo.organization.entity.OrganizationModel;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "asset")
-public class AssetImpl extends OrganizationModel {
+public class AssetImpl extends AssetModel {
 
 }

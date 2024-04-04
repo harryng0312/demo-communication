@@ -9,7 +9,8 @@ import org.harryng.demo.util.persistence.PersistenceUtil;
 import java.io.Serializable;
 
 
-public abstract class AbstractSearchablePersistence<Id extends Serializable, T extends BaseModel<Id>> extends AbstractPersistence<Id, T> implements BaseSearchablePersistence<Id, T> {
+public abstract class AbstractSearchablePersistence<T extends BaseModel<Id>, Id extends Serializable>
+        extends AbstractPersistence<T, Id> implements BaseSearchablePersistence<T, Id> {
 
     public AbstractSearchablePersistence(Class<T> entityClass) {
         super(entityClass);
@@ -17,13 +18,11 @@ public abstract class AbstractSearchablePersistence<Id extends Serializable, T e
 
     @Override
     public PageResult<T> selectByConditions(PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws RuntimeException, Exception {
-        PageResult<T> pageResult = PersistenceUtil.selectObjectByCriteria(getEntityManager(), pageInfo, criteriaQuery);
-        return pageResult;
+        return PersistenceUtil.selectObjectByCriteria(getEntityManager(), pageInfo, criteriaQuery);
     }
 
     @Override
     public PageResult<T> selectByConditions(PageInfo pageInfo, Class<T> entityClass, String queryStr) throws RuntimeException, Exception {
-        PageResult<T> pageResult = PersistenceUtil.selectObjectByQuery(getEntityManager(), pageInfo, getEntityClass(), queryStr);
-        return pageResult;
+        return PersistenceUtil.selectObjectByQuery(getEntityManager(), pageInfo, getEntityClass(), queryStr);
     }
 }

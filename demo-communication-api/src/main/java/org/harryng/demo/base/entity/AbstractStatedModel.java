@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public abstract class AbstractStatedModel<Id extends Serializable> extends AbstractModel<Id> implements BaseStatedModel {
+public abstract class AbstractStatedModel<Id extends Serializable> extends AbstractModel<Id> implements BaseModifiedModel, BaseStatusModel {
 
     @Basic
     @Column(name = "created_date")
@@ -23,7 +23,7 @@ public abstract class AbstractStatedModel<Id extends Serializable> extends Abstr
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
     @Basic
-    @Column(name = "status")
+    @Column(name = "status_")
     private int status;
 
 }

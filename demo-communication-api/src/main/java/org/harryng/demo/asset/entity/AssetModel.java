@@ -13,7 +13,7 @@ import org.harryng.demo.base.entity.BaseResourceModel;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public abstract class AssetModel extends AbstractStatedModel<String> implements BaseResourceModel {
+public abstract class AssetModel extends AbstractStatedModel<Long> implements BaseResourceModel {
     @Basic
     @Column(name = "name_")
     private String name;
@@ -21,9 +21,9 @@ public abstract class AssetModel extends AbstractStatedModel<String> implements 
     @Column(name = "description")
     private String description;
     @Basic
-    @Column(name = "resource_id")
-    private String resourceId;
+    @Column(name = "org_id")
+    private long orgId;
     @Basic
-    @Column(name = "resource_tree_path")
-    private String resourceTreePath;
+    @Column(name = "org_treepath")
+    private String orgTreepath;
 }

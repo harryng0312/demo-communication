@@ -12,7 +12,7 @@ import org.harryng.demo.util.PageResult;
 
 import java.util.Map;
 
-public class UserServiceImpl extends AbstractSearchableService<Long, UserImpl> implements UserService {
+public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> implements UserService {
 
     @Resource
     private UserPersistence userPersistence;

@@ -1,4 +1,4 @@
-package org.harryng.demo.organization.entity;
+package org.harryng.demo.auth.entity;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -6,16 +6,15 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.harryng.demo.base.entity.AbstractModel;
 import org.harryng.demo.base.entity.AbstractStatedModel;
-import org.harryng.demo.base.entity.BaseCodedModel;
-
-import java.time.LocalDate;
+import org.harryng.demo.base.entity.BaseStatusModel;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public abstract class OrganizationModel extends AbstractStatedModel<Long> implements BaseCodedModel {
+public class RoleModel extends AbstractModel<Long> implements BaseStatusModel {
     @Basic
     @Column(name = "name_")
     private String name;
@@ -26,9 +25,6 @@ public abstract class OrganizationModel extends AbstractStatedModel<Long> implem
     @Column(name = "description")
     private String description;
     @Basic
-    @Column(name = "parent_id")
-    private String parentId;
-    @Basic
-    @Column(name = "tree_path")
-    private String treePath;
+    @Column(name = "status_")
+    private int status;
 }

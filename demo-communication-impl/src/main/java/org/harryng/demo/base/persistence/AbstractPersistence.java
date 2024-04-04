@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 
 import java.io.Serializable;
 
-public abstract class AbstractPersistence<Id extends Serializable, T extends BaseModel<Id>> implements BasePersistence<Id, T> {
+public abstract class AbstractPersistence<T extends BaseModel<Id>, Id extends Serializable> implements BasePersistence<T, Id> {
 
 //    @Resource(name = "entityManagerFactory")
     @PersistenceContext(name = "entityManagerFactory")

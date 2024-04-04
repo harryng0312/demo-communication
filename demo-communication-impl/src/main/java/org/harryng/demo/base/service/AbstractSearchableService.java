@@ -11,11 +11,11 @@ import java.io.Serializable;
 import java.util.Map;
 
 
-public abstract class AbstractSearchableService<Id extends Serializable, T extends BaseModel<Id>> extends AbstractService<Id, T>
-        implements BaseSearchableAuthenticatedService<Id, T> {
+public abstract class AbstractSearchableService<T extends BaseModel<Id>, Id extends Serializable>
+        extends AbstractService<T, Id> implements BaseSearchableAuthenticatedService<T, Id> {
 
     @Override
-    public abstract BaseSearchablePersistence<Id, T> getPersistence();
+    public abstract BaseSearchablePersistence<T, Id> getPersistence();
 
     @Override
     public PageResult<T> findByConditions(

@@ -6,5 +6,5 @@ import org.harryng.demo.user.entity.UserImpl;
 
 import java.util.Map;
 
-public interface OrganizationService extends BaseSearchableAuthenticatedService<String, OrganizationImpl> {
+public interface OrganizationService extends BaseSearchableAuthenticatedService<OrganizationImpl, Long> {
 }

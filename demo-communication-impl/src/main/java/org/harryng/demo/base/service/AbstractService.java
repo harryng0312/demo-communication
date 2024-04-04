@@ -7,10 +7,10 @@ import org.harryng.demo.base.dto.SessionHolder;
 import java.io.Serializable;
 import java.util.Map;
 
-public abstract class AbstractService<Id extends Serializable, T extends BaseModel<Id>> implements BaseAuthenticatedService<Id, T> {
+public abstract class AbstractService<T extends BaseModel<Id>, Id extends Serializable> implements BaseAuthenticatedService<T, Id> {
 
     @Override
-    public abstract BasePersistence<Id, T> getPersistence();
+    public abstract BasePersistence<T, Id> getPersistence();
 
     @Override
     public T getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception {

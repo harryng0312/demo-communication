@@ -6,7 +6,7 @@ import org.harryng.demo.base.entity.BaseModel;
 import java.io.Serializable;
 
 
-public interface BasePersistence<Id extends Serializable, T extends BaseModel<Id>> {
+public interface BasePersistence<T extends BaseModel<Id>, Id extends Serializable> {
     EntityManager getEntityManager();
     EntityManager getEntityManager(String entityManagerName);
     Class<T> getEntityClass();
@@ -16,3 +16,7 @@ public interface BasePersistence<Id extends Serializable, T extends BaseModel<Id
     int update(T obj) throws Exception;
     int delete(Id id) throws Exception;
 }
+
+//public interface BasePersistence<T extends BaseModel<Id>, Id extends Serializable> extends JpaRepository<T, Id> {
+
+//}

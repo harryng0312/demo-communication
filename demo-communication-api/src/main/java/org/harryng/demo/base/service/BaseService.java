@@ -5,8 +5,8 @@ import org.harryng.demo.base.entity.BaseModel;
 
 import java.io.Serializable;
 
-public interface BaseService<Id extends Serializable, T extends BaseModel<Id>> {
-    BasePersistence<Id, T> getPersistence();
+public interface BaseService<T extends BaseModel<Id>, Id extends Serializable> {
+    BasePersistence<T, Id> getPersistence();
 
     T getById(Id id) throws Exception;
     int add(T obj) throws Exception;

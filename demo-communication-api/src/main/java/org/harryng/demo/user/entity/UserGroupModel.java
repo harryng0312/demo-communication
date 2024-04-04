@@ -24,7 +24,7 @@ public class UserGroupModel extends AbstractStatedModel<Long> {
     private String organizationId;
     @Basic
     @Column(name = "parent_id")
-    private String parentId;
+    private long parentId;
     @Basic
     @Column(name = "role_inherited")
     private boolean roleInherited;
