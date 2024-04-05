@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.harryng.demo.api.base.entity.AbstractStatedModel;
+import org.harryng.demo.api.base.entity.BaseHierarchyModel;
+import org.harryng.demo.api.base.entity.BaseResourceModel;
 
 import java.time.LocalDate;
 
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public abstract class UserModel extends AbstractStatedModel<Long> {
+public abstract class UserModel extends AbstractStatedModel<Long> implements BaseResourceModel {
     @Basic
     private String username;
     @Basic
@@ -27,4 +29,10 @@ public abstract class UserModel extends AbstractStatedModel<Long> {
     @Basic
     @Column(name = "passwd_enc_method")
     private String passwdEncryptedMethod;
+    @Basic
+    @Column(name = "org_id")
+    private Long orgId;
+    @Basic
+    @Column(name = "org_treepath")
+    private String orgTreepath;
 }

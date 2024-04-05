@@ -8,12 +8,13 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.harryng.demo.api.base.entity.AbstractStatedModel;
 import org.harryng.demo.api.base.entity.BaseCodedModel;
+import org.harryng.demo.api.base.entity.BaseHierarchyModel;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public abstract class OrganizationModel extends AbstractStatedModel<Long> implements BaseCodedModel {
+public abstract class OrganizationModel extends AbstractStatedModel<Long> implements BaseCodedModel, BaseHierarchyModel<Long> {
     @Basic
     @Column(name = "name_")
     private String name;
@@ -25,8 +26,8 @@ public abstract class OrganizationModel extends AbstractStatedModel<Long> implem
     private String description;
     @Basic
     @Column(name = "parent_id")
-    private String parentId;
+    private Long parentId;
     @Basic
-    @Column(name = "tree_path")
-    private String treePath;
+    @Column(name = "treepath")
+    private String treepath;
 }

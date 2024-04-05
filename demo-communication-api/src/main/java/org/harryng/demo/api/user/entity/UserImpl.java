@@ -1,10 +1,10 @@
 package org.harryng.demo.api.user.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -12,5 +12,9 @@ import lombok.ToString;
 @Entity
 @Table(name = "user_")
 public class UserImpl extends UserModel {
-
+    @ElementCollection
+    @CollectionTable(name = "user_usergroup", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "usergroup_id")
+    @Setter(AccessLevel.NONE)
+    private List<Long> usergroupIds = new ArrayList<>();
 }
