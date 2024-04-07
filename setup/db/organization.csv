@@ -1,0 +1,5 @@
+id_,name_,code_,created_date,modified_date,status_,description,parent_id,sort,treepath
+10001,Root Head,root,2024-04-07 12:00:00.000000,2024-04-07 12:00:00.000000,1,This is Root Head Org,0,0,/10001
+10002,Northern Department,north_dep,2024-04-07 12:00:00.000000,2024-04-07 12:00:00.000000,1,This is Northern Department,10001,0,/10001/10002
+10003,Southern Department,south_dep,2024-04-07 12:00:00.000000,2024-04-07 12:00:00.000000,1,This is Southen Department,10001,1,/10001/10003
+10004,Middle Department,mid_dep,2024-04-07 12:00:00.000000,2024-04-07 12:00:00.000000,1,This is Middle Department,100001,2,/10001/10004
