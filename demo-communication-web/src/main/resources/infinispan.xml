@@ -73,11 +73,12 @@
     </jgroups>
 
     <cache-container name="default" statistics="true">
-        <transport cluster="${infinispan.cluster.name:cluster}" stack="${infinispan.cluster.stack:tcp}"
+        <transport cluster="${infinispan.cluster.name:cluster}" stack="${infinispan.cluster.stack:udp}"
                    node-name="${infinispan.node.name:}"/>
         <security>
             <authorization/>
         </security>
+        <distributed-cache name="default"/>
     </cache-container>
 
 <!--    <cache-container name="crossSite">-->
