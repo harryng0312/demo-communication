@@ -78,7 +78,26 @@
         <security>
             <authorization/>
         </security>
-        <distributed-cache name="default"/>
+<!--        <distributed-cache name="default"/>-->
+        <replicated-cache name="repl" mode="SYNC" />
+        <distributed-cache name="dist" owners="2" mode="SYNC" statistics="true">
+            <encoding media-type="application/x-protostream"/>
+            <locking isolation="READ_COMMITTED"/>
+            <transaction mode="NON_XA" locking="PESSIMISTIC"/>
+            <memory storage="HEAP"/>
+<!--            <persistence passivation="true">-->
+<!--                <file-store>-->
+<!--                    <data path="./cache"/>-->
+<!--                    <index path="./index"/>-->
+<!--                </file-store>-->
+<!--            </persistence>-->
+<!--            <persistence passivation="true">-->
+<!--                <file-store>-->
+<!--                    <data path="./cache"/>-->
+<!--                    <index path="./index"/>-->
+<!--                </file-store>-->
+<!--            </persistence>-->
+        </distributed-cache>
     </cache-container>
 
 <!--    <cache-container name="crossSite">-->
