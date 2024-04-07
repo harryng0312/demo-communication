@@ -64,18 +64,19 @@ alter table public.organization
 
 create table public.usergroup
 (
-    id_            bigint                                    not null
+    id_            bigint                                     not null
         constraint user_group_pk
             primary key,
-    name_          varchar(50)                               not null,
+    name_          varchar(50)                                not null,
     description    varchar(150),
-    status_        smallint    default 0                     not null,
-    created_date   timestamp                                 not null,
-    modified_date  timestamp                                 not null,
-    org_id         varchar(36) default ''::character varying not null,
-    parent_id      bigint      default 0                     not null,
-    role_inherited boolean     default true                  not null,
-    treepath       integer
+    status_        smallint     default 0                     not null,
+    created_date   timestamp                                  not null,
+    modified_date  timestamp                                  not null,
+    parent_id      bigint       default 0                     not null,
+    role_inherited boolean      default true                  not null,
+    treepath       varchar(260) default ''::character varying not null,
+    org_id         bigint       default 0                     not null,
+    org_treepath   varchar(260) default ''::character varying not null
 );
 
 alter table public.usergroup
@@ -105,7 +106,10 @@ create table public.resourcepermission
     resource_type varchar(150) default ''::character varying not null,
     prim_key      bigint       default 0                     not null,
     actionflag    bigint       default 0                     not null,
-    scope         smallint     default 1                     not null
+    scope         smallint     default 1                     not null,
+    role_id       bigint       default 0                     not null,
+    constraint resourcepermission_resourcetype_pkey_scope_roleid_unq
+        unique (resource_type, prim_key, scope, role_id)
 );
 
 alter table public.resourcepermission

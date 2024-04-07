@@ -1,0 +1,5 @@
+id_,name_,description,status_,created_date,modified_date,parent_id,role_inherited,treepath,org_id,org_treepath
+10001,all_of_users,All of Users,1,2024-04-05 12:00:00.000000,2024-04-05 12:00:00.000000,0,true,10001,10001,/10001
+10002,inputter_root,Inputter on root,1,2024-04-05 12:00:00.000000,2024-04-05 12:00:00.000000,0,true,10001,10001,/10001
+10003,approver_root,Approver on root,1,2024-04-05 12:00:00.000000,2024-04-05 12:00:00.000000,0,true,10001,10001,/10001
+10004,manager_root,Manager on root,1,2024-04-05 12:00:00.000000,2024-04-05 12:00:00.000000,0,true,10001,10001,/10001

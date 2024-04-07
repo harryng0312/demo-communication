@@ -25,4 +25,7 @@ public abstract class ResourcePermissionModel extends AbstractModel<Long> {
     @Basic
     @Column(name = "scope")
     private int scope;
+    @Basic
+    @Column(name = "role_id")
+    private int roleId;
 }

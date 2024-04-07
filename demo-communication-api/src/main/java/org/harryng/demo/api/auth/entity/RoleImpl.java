@@ -13,8 +13,9 @@ import java.util.List;
 @Table(name = "role_")
 public class RoleImpl extends RoleModel {
     @ElementCollection
-    @CollectionTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"))
-    @Column(name = "permission_id")
+//    @CollectionTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"))
+    @CollectionTable(name = "resourcepermission", joinColumns = @JoinColumn(name = "role_id"))
+    @Column(name = "id_")
     @Setter(AccessLevel.NONE)
     private List<Long> permissionIds = new ArrayList<>();
 }
