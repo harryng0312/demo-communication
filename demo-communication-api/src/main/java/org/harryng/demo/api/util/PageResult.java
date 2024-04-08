@@ -10,7 +10,7 @@ public class PageResult<T extends Object> extends PageInfo {
         super(pageInfo.getStartPageIndex(), pageInfo.getPageSize());
     }
 
-    public PageResult(long startPageIndex, int pageSize) {
+    public PageResult(int startPageIndex, int pageSize) {
         super(startPageIndex, pageSize);
     }
 

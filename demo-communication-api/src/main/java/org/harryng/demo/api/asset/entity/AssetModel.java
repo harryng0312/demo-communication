@@ -22,7 +22,7 @@ public abstract class AssetModel extends AbstractStatedModel<Long> implements Ba
     private String description;
     @Basic
     @Column(name = "org_id")
-    private long orgId;
+    private Long orgId;
     @Basic
     @Column(name = "org_treepath")
     private String orgTreepath;

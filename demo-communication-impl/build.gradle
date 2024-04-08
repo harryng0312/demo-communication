@@ -16,7 +16,7 @@ dependencies {
 //    implementation "org.hibernate.orm:hibernate-core:${hibernateVer}"
     implementation "org.springframework.boot:spring-boot-starter:${springbootVersion}"
 
-    implementation "org.infinispan:infinispan-core:${infinispanVer}"
+    implementation "org.infinispan:infinispan-core-jakarta:${infinispanVer}"
 
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
