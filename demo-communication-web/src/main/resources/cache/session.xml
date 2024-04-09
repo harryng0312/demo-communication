@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <distributed-cache
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="urn:infinispan:config:14.0 https://infinispan.org/schemas/infinispan-config-fragment-14.0.xsd"
         xmlns="urn:infinispan:config:14.0"
-        name="dist-cache" mode="SYNC" owners="2" statistics="true">
+        name="session" mode="SYNC" owners="2" statistics="true">
     <encoding media-type="application/x-protostream"/>
     <locking isolation="READ_COMMITTED"/>
-
     <transaction mode="FULL_XA" locking="PESSIMISTIC"
                  transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>
     <expiration lifespan="-1" max-idle="1000"/>
