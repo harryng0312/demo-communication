@@ -148,16 +148,16 @@ public class TestCache {
                     final AdvancedCache<String, String> advancedCache = cache.getAdvancedCache();
                     final LockManager lockManager = advancedCache.getLockManager();
                     final TransactionManager txnManager = advancedCache.getTransactionManager();
-//                    txnManager.begin();
+                    txnManager.begin();
 //                    final var cacheVal = advancedCache.withFlags(Flag.FORCE_WRITE_LOCK).get(key);
-                    if (advancedCache.lock(key)) {
-                        final var cacheVal = advancedCache.get(key);
-                        if (cacheVal != null) {
-                            val.set(Integer.parseInt(cacheVal));
-                        }
-                    }
                     int currVal = 0;
                     try {
+                        if (advancedCache.lock(key)) {
+                            final var cacheVal = advancedCache.get(key);
+                            if (cacheVal != null) {
+                                val.set(Integer.parseInt(cacheVal));
+                            }
+                        }
                         currVal = val.incrementAndGet();
                         Thread.sleep(random.nextInt(10));
                         advancedCache.put(key, String.valueOf(currVal), 1000, TimeUnit.SECONDS);

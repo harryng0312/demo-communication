@@ -4,6 +4,5 @@
         xmlns="urn:infinispan:config:14.0"
         configuration="dist-cache-templ" name="dist-cache" mode="SYNC" owners="2" statistics="true">
     <locking isolation="REPEATABLE_READ" />
-    <transaction mode="FULL_XA" locking="PESSIMISTIC" auto-commit="true"
-        transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>
+    <transaction mode="FULL_XA" locking="PESSIMISTIC" auto-commit="true"/>
 </distributed-cache>

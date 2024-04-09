@@ -16,7 +16,7 @@
             <!--    <transaction mode="FULL_XA" locking="OPTIMISTIC" auto-commit="true"-->
             <!--                 transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>-->
             <transaction mode="FULL_XA" locking="OPTIMISTIC" auto-commit="true"
-                         transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>
+                         transaction-manager-lookup="org.infinispan.transaction.lookup.GenericTransactionManagerLookup"/>
             <expiration lifespan="-1" max-idle="1000"/>
             <!--            <persistence passivation="false">-->
             <!--                <file-store shared="false" purge="false" path="./dist-cache">-->
@@ -32,7 +32,7 @@
             <encoding media-type="application/x-protostream"/>
             <locking isolation="READ_COMMITTED"/>
             <transaction mode="NON_XA" locking="PESSIMISTIC"
-                         transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>
+                         transaction-manager-lookup="org.infinispan.transaction.lookup.GenericTransactionManagerLookup"/>
             <expiration lifespan="-1" max-idle="1000"/>
             <!--            <persistence passivation="false">-->
             <!--                <file-store shared="false" purge="false" path="./rep-cache">-->
