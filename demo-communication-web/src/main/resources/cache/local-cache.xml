@@ -1,0 +1,9 @@
+<local-cache
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:infinispan:config:14.0 https://infinispan.org/schemas/infinispan-config-fragment-14.0.xsd"
+        xmlns="urn:infinispan:config:14.0"
+        name="local-cache">
+    <encoding media-type="application/x-protostream"/>
+    <expiration lifespan="-1" max-idle="1000"/>
+    <memory when-full="REMOVE" max-count="2048"/>
+</local-cache>

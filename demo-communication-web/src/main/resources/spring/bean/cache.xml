@@ -17,7 +17,7 @@
     <context:property-placeholder properties-ref="yamlProperties"/>
 
     <bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager" destroy-method="close">
-        <constructor-arg name="configurationFile" value="infinispan.xml"/>
+        <constructor-arg name="configurationFile" value="cache/infinispan.xml"/>
     </bean>
 
 </beans>

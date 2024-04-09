@@ -3,6 +3,7 @@ package org.harryng.demo.cache;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.main.Application;
+import org.infinispan.Cache;
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
@@ -44,7 +45,7 @@ public class TestCache {
     @Test
     public void testCache() {
         log.info("=====");
-
+        final Cache<String, String> cache = cacheManager.getCache("dist-cache");
         for (String cacheName: cacheManager.getCacheNames()){
             log.info("cacheName:{}", cacheName);
         }
