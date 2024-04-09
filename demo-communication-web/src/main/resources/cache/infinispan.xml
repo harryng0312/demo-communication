@@ -22,45 +22,10 @@
     </jgroups>
     <cache-container default-cache="local-cache" statistics="true">
         <transport cluster="my-cluster" stack="my-stack"/>
-<!--        <local-cache name="local-cache" statistics="true">-->
-<!--            <encoding media-type="application/x-protostream"/>-->
-<!--            <expiration lifespan="-1" max-idle="1000"/>-->
-<!--            <memory when-full="REMOVE" max-count="2048"/>-->
-<!--        </local-cache>-->
+
+        <xi:include href="classpath:cache/cache-config-templ.xml" xpointer="xpointer(/{urn:infinispan:config:14.0}:infinispan/{urn:infinispan:config:14.0}:cache-container)/"/>
         <xi:include href="classpath:cache/local-cache.xml"/>
         <xi:include href="classpath:cache/dist-cache.xml"/>
         <xi:include href="classpath:cache/repl-cache.xml"/>
-<!--        <distributed-cache name="dist-cache" mode="SYNC" owners="2" statistics="true">-->
-<!--            <encoding media-type="application/x-protostream"/>-->
-<!--            <locking isolation="READ_COMMITTED"/>-->
-<!--            <transaction mode="FULL_XA" locking="PESSIMISTIC"-->
-<!--                         transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>-->
-<!--            <expiration lifespan="-1" max-idle="1000"/>-->
-<!--&lt;!&ndash;            <persistence passivation="false">&ndash;&gt;-->
-<!--&lt;!&ndash;                <file-store shared="false" purge="false" path="./dist-cache">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <write-behind modification-queue-size="2048"/>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                    <index path="../cache/index"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <data path="../cache/data"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                </file-store>&ndash;&gt;-->
-<!--&lt;!&ndash;            </persistence>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <memory when-full="REMOVE"/>&ndash;&gt;-->
-<!--            <groups enabled="true" />-->
-<!--        </distributed-cache>-->
-<!--        <replicated-cache name="rep-cache" mode="SYNC" >-->
-<!--            <encoding media-type="application/x-protostream"/>-->
-<!--            <locking isolation="READ_COMMITTED"/>-->
-<!--            <transaction mode="NON_XA" locking="PESSIMISTIC"-->
-<!--                         transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>-->
-<!--            <expiration lifespan="-1" max-idle="1000"/>-->
-<!--&lt;!&ndash;            <persistence passivation="false">&ndash;&gt;-->
-<!--&lt;!&ndash;                <file-store shared="false" purge="false" path="./rep-cache">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    <write-behind modification-queue-size="2048"/>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                    <index path="../cache/index"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <data path="../cache/data"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                </file-store>&ndash;&gt;-->
-<!--&lt;!&ndash;            </persistence>&ndash;&gt;-->
-<!--        </replicated-cache>-->
-
     </cache-container>
 </infinispan>

@@ -2,17 +2,5 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="urn:infinispan:config:14.0 https://infinispan.org/schemas/infinispan-config-fragment-14.0.xsd"
         xmlns="urn:infinispan:config:14.0"
-        name="rep-cache" mode="SYNC">
-    <encoding media-type="application/x-protostream"/>
-    <locking isolation="READ_COMMITTED"/>
-    <transaction mode="NON_XA" locking="PESSIMISTIC"
-                 transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>
-    <expiration lifespan="-1" max-idle="1000"/>
-    <!--            <persistence passivation="false">-->
-    <!--                <file-store shared="false" purge="false" path="./rep-cache">-->
-    <!--&lt;!&ndash;                    <write-behind modification-queue-size="2048"/>&ndash;&gt;-->
-    <!--                    <index path="../cache/index"/>-->
-    <!--                    <data path="../cache/data"/>-->
-    <!--                </file-store>-->
-    <!--            </persistence>-->
+        configuration="rep-cache-templ" name="rep-cache" mode="SYNC">
 </replicated-cache>
