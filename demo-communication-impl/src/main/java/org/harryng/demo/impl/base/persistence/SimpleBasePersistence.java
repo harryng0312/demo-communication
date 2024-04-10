@@ -40,7 +40,7 @@ public class SimpleBasePersistence<T extends BaseModel<Id>, Id extends Serializa
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public void deleteById(@NonNull Id id) {
         final CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         final CriteriaDelete<T> criteriaDelete = cb.createCriteriaDelete(getDomainClass());

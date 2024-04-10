@@ -1,6 +1,7 @@
 package org.harryng.demo.user.service;
 
 import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
@@ -120,12 +121,13 @@ public class TestUserService {
     }
 
     @Test
+    @Transactional
     public void testUser() throws Exception {
 //        final var mapper = applicationContext.getBean(UserMapper.class);
 //        final var userService = applicationContext.getBean(UserService.class);
-
         final var user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
         final var userRequest = new UserRequest();
+        log.info("DB user entity: {}", user);
         userRequest.setUsername("username 1");
         userRequest.setDob(LocalDateTime.now());
         userRequest.setScreenName("screen name 1");

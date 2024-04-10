@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <replicated-cache
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="urn:infinispan:config:14.0 https://infinispan.org/schemas/infinispan-config-fragment-14.0.xsd"
         xmlns="urn:infinispan:config:14.0"
-        configuration="rep-cache-templ" name="rep-cache" mode="SYNC">
+        configuration="repl-cache-templ" name="repl-cache" mode="SYNC">
 </replicated-cache>

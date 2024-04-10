@@ -18,13 +18,16 @@ import java.time.LocalDate;
 @MappedSuperclass
 public abstract class UserModel extends AbstractStatedModel<Long> implements BaseResourceModel {
     @Basic
+    @Column(name = "username")
     private String username;
     @Basic
+    @Column(name = "passwd")
     private String passwd;
     @Basic
     @Column(name = "screenname")
     private String screenName;
     @Basic
+    @Column(name = "dob")
     private LocalDate dob;
     @Basic
     @Column(name = "passwd_enc_method")

@@ -135,6 +135,7 @@ public class TestCache {
     public void testCacheTxnLock() {
         // Lock by AdvanceCache must put lock in txn scope
         final Cache<String, String> cache = cacheManager.getCache("dist-cache");
+//        final Cache<String, String> cache = cacheManager.getCache("repl-cache");
         final String key = "k1";
         final AtomicInteger val = new AtomicInteger();
         final String owner = "owner_";

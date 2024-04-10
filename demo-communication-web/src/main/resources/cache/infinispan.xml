@@ -23,7 +23,7 @@
     <cache-container default-cache="local-cache" statistics="true">
         <transport cluster="my-cluster" stack="my-stack"/>
 
-        <xi:include href="classpath:cache/cache-config-templ.xml" xpointer="xpointer(/{urn:infinispan:config:14.0}:infinispan/{urn:infinispan:config:14.0}:cache-container)/"/>
+        <xi:include href="classpath:cache/cache-config-templ.xml" xpointer="xpointer(/{urn:infinispan:config:14.0}:infinispan/{urn:infinispan:config:14.0}:cache-container/)"/>
         <xi:include href="classpath:cache/local-cache.xml"/>
         <xi:include href="classpath:cache/dist-cache.xml"/>
         <xi:include href="classpath:cache/repl-cache.xml"/>

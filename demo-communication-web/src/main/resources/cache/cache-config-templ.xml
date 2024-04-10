@@ -6,6 +6,7 @@
     <cache-container default-cache="local-cache-temp" statistics="true">
         <local-cache-configuration name="local-cache-temp">
             <encoding media-type="application/x-protostream"/>
+            <transaction mode="NONE" auto-commit="true" locking="OPTIMISTIC"/>
             <expiration lifespan="-1" max-idle="1000"/>
             <memory when-full="REMOVE" max-count="2048"/>
         </local-cache-configuration>
@@ -28,7 +29,7 @@
             <!--            <memory when-full="REMOVE"/>-->
             <groups enabled="true"/>
         </distributed-cache-configuration>
-        <replicated-cache-configuration name="rep-cache-templ" mode="SYNC">
+        <replicated-cache-configuration name="repl-cache-templ" mode="SYNC">
             <encoding media-type="application/x-protostream"/>
             <locking isolation="READ_COMMITTED"/>
             <transaction mode="NON_XA" locking="PESSIMISTIC"
