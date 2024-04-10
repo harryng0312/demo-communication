@@ -12,10 +12,11 @@ import java.util.List;
 @Entity
 @Table(name = "role_")
 public class RoleImpl extends RoleModel {
-    @ElementCollection
+//    @ElementCollection
 //    @CollectionTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"))
-    @CollectionTable(name = "resourcepermission", joinColumns = @JoinColumn(name = "role_id"))
-    @Column(name = "id_")
+//    @CollectionTable(name = "resourcepermission", joinColumns = @JoinColumn(name = "role_id"))
+//    @Column(name = "id_")
+    @Transient
     @Setter(AccessLevel.NONE)
-    private List<Long> permissionIds = new ArrayList<>();
+    private List<ResourcePermissionImpl> permissions = new ArrayList<>();
 }

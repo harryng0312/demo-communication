@@ -36,14 +36,14 @@ dependencies {
     implementation "org.apache.commons:commons-dbcp2:${apacheCommonVersion}"
     implementation "org.apache.commons:commons-pool2:${apacheCommonVersion}"
 
-    implementation "javax.servlet:jstl:${jstlVersion}"
-    implementation "org.aspectj:aspectjrt:${aspectjVersion}"
-    implementation "org.aspectj:aspectjweaver:${aspectjVersion}"
+//    implementation "javax.servlet:jstl:${jstlVersion}"
+//    implementation "org.aspectj:aspectjrt:${aspectjVersion}"
+//    implementation "org.aspectj:aspectjweaver:${aspectjVersion}"
 
     implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
 //    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
-    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+//    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
 //    implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
     implementation "io.jsonwebtoken:jjwt-api:${jjwtVer}"
     runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVer}"
@@ -54,7 +54,7 @@ dependencies {
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
     implementation 'com.microsoft.sqlserver:mssql-jdbc:12.6.1.jre11'
 //    implementation "net.sourceforge.jtds:jtds:1.3.1"
-    implementation "org.infinispan:infinispan-core-jakarta:${infinispanVer}"
+    implementation "org.infinispan:infinispan-core-jakarta"
 //    providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
 //    providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 //    providedRuntime "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
@@ -63,7 +63,7 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-    testImplementation "org.infinispan:infinispan-commons-jakarta:${infinispanVer}"
+    testImplementation "org.infinispan:infinispan-commons-jakarta"
 
 //    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 

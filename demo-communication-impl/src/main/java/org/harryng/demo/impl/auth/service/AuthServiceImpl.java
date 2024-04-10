@@ -8,6 +8,7 @@ import org.harryng.demo.api.util.SecurityUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.Optional;
 
 public class AuthServiceImpl implements AuthService {
 
@@ -15,12 +16,13 @@ public class AuthServiceImpl implements AuthService {
     private UserService userService;
 
     @Override
-    public UserImpl loginByUsernamePassword(String username, String password) throws Exception {
-        UserImpl user = userService.getByUsername(username, Collections.emptyMap());
+    public Optional<UserImpl> loginByUsernamePassword(String username, String password) throws Exception {
+        Optional<UserImpl> userOpt = userService.getByUsername(username, Collections.emptyMap());
         if (password == null) {
             throw new Exception("Password is not valid");
         }
-        if (user != null) {
+        if (userOpt.isPresent()) {
+            final UserImpl user = userOpt.get();
             if ("plain".equalsIgnoreCase(user.getPasswdEncryptedMethod())) {
                 if (!password.equals(user.getPasswd())) {
                     throw new Exception("Username or Password is not matched");
@@ -36,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
         } else {
             throw new Exception("User is not found");
         }
-        return user;
+        return userOpt;
     }
 
     @Override

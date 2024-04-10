@@ -1,7 +1,6 @@
 package org.harryng.demo.user.service;
 
 import jakarta.annotation.Resource;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
@@ -116,11 +115,13 @@ public class TestUserService {
         userRequest.setScreenName("screen name 1");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        final var userRes = mapper.map(user);
-        final var res = ResponseWrapper.<UserResponse>builder()
-                .data(userRes)
-                .build();
-        log.info("user res: {}", res);
+        if (user.isPresent()) {
+            final var userRes = mapper.map(user.get());
+            final var res = ResponseWrapper.<UserResponse>builder()
+                    .data(userRes)
+                    .build();
+            log.info("user res: {}", res);
+        }
     }
 
     @Test
@@ -128,13 +129,14 @@ public class TestUserService {
     public void testUser() throws Exception {
 //        final var mapper = applicationContext.getBean(UserMapper.class);
 //        final var userService = applicationContext.getBean(UserService.class);
-        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
+//        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
+        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 2L, true, true, true, Collections.emptyMap());
 //        user.ifPresent(value -> value.getUsergroupIds().addAll(userPersistence.getUsergroupIds(value.getId())));
         final var userRequest = new UserRequest();
         log.info("DB user entity: {}", user);
-        userRequest.setUsername("username 1");
+        userRequest.setUsername("username 2");
         userRequest.setDob(LocalDateTime.now());
-        userRequest.setScreenName("screen name 1");
+        userRequest.setScreenName("screen name 2");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
         final var userRes = mapper.map(user.orElseGet(UserImpl::new));

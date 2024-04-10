@@ -1,0 +1,5 @@
+id_,resource_type,prim_key,actionflag,scope,role_id
+10001,org.harryng.demo.api.asset.entity.AssetImpl,10002,15,2,10005
+10002,org.harryng.demo.api.asset.entity.AssetImpl,10002,65,2,10006
+10003,org.harryng.demo.api.asset.entity.AssetImpl,10002,79,2,10003
+10004,org.harryng.demo.api.asset.entity.AssetImpl,10002,1,2,10004

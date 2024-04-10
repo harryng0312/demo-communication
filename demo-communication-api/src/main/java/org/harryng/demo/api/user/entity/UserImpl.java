@@ -2,6 +2,8 @@ package org.harryng.demo.api.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.harryng.demo.api.auth.entity.ResourcePermissionImpl;
+import org.harryng.demo.api.auth.entity.RoleImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +14,22 @@ import java.util.List;
 @Entity
 @Table(name = "user_")
 public class UserImpl extends UserModel {
-    @ElementCollection
-    @CollectionTable(name = "user_usergroup", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "usergroup_id")
+//    @ElementCollection
+//    @CollectionTable(name = "user_usergroup", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "usergroup_id")
+//    @Transient
+//    @Setter(AccessLevel.NONE)
+//    private List<Long> usergroupIds = new ArrayList<>();
+
+    @Transient
     @Setter(AccessLevel.NONE)
-    private List<Long> usergroupIds = new ArrayList<>();
+    private List<UserGroupImpl> userGroups = new ArrayList<>();
+
+    @Transient
+    @Setter(AccessLevel.NONE)
+    private List<RoleImpl> roles = new ArrayList<>();
+
+    @Transient
+    @Setter(AccessLevel.NONE)
+    private List<ResourcePermissionImpl> permissions = new ArrayList<>();
 }

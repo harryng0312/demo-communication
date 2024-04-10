@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Slf4j
 @Controller
 public class AuthController {
@@ -37,11 +39,14 @@ public class AuthController {
             AuthenticationInfo authenticationInfo = TextUtil.jsonToObj(AuthenticationInfo.class, body);
             String username = authenticationInfo.getUsername();
             String password = authenticationInfo.getPassword();
-            UserImpl user = authService.loginByUsernamePassword(username, password);
+            Optional<UserImpl> userOpt = authService.loginByUsernamePassword(username, password);
             authenticationInfo.setResult("0");
-            SessionHolder.getSession(authenticationInfo.getUsername()).put(SessionHolder.K_USER, user);
-            SessionHolder.getSession(authenticationInfo.getUsername()).put(SessionHolder.K_AUTH_INFO, authenticationInfo);
-            response = TextUtil.objToJson(authenticationInfo);
+            if (userOpt.isPresent()) {
+                final UserImpl user = userOpt.get();
+                SessionHolder.getSession(authenticationInfo.getUsername()).put(SessionHolder.K_USER, user);
+                SessionHolder.getSession(authenticationInfo.getUsername()).put(SessionHolder.K_AUTH_INFO, authenticationInfo);
+                response = TextUtil.objToJson(authenticationInfo);
+            }
         } catch (Exception e) {
             AuthenticationInfo authenticationInfoErr = new AuthenticationInfo();
             authenticationInfoErr.setResult("10");

@@ -20,7 +20,7 @@ public abstract class ResourcePermissionModel extends AbstractModel<Long> {
     @Column(name = "prim_key")
     private long primKey;
     @Basic
-    @Column(name = "action_flag")
+    @Column(name = "actionflag")
     private long actionFlag;
     @Basic
     @Column(name = "scope")

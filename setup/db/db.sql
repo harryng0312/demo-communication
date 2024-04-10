@@ -122,7 +122,9 @@ create table public.resourceaction
             primary key,
     resource_type varchar(100) default ''::character varying not null,
     action_method varchar(50)                                not null,
-    action_bit    bigint       default 0                     not null
+    action_bit    bigint       default 0                     not null,
+    constraint resourceaction_resourcetype_actionmethod_actionbit
+        unique (resource_type, action_method, action_bit)
 );
 
 alter table public.resourceaction
@@ -137,17 +139,6 @@ create table public.user_usergroup
 );
 
 alter table public.user_usergroup
-    owner to test_db;
-
-create table public.role_permission
-(
-    role_id       bigint not null,
-    permission_id bigint not null,
-    constraint role_permission_pk
-        primary key (role_id, permission_id)
-);
-
-alter table public.role_permission
     owner to test_db;
 
 create table public.usergroup_role

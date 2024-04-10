@@ -1,0 +1,5 @@
+id_,resource_type,action_method,action_bit
+10001,org.harryng.demo.api.asset.entity.AssetImpl,AssetService.getById,1
+10004,org.harryng.demo.api.asset.entity.AssetImpl,AssetService.remove,8
+10003,org.harryng.demo.api.asset.entity.AssetImpl,AssetService.edit#1,4
+10002,org.harryng.demo.api.asset.entity.AssetImpl,AssetService.add#1,2

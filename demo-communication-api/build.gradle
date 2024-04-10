@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id "org.springframework.boot" version "${springbootVersion}"
+    id "io.spring.dependency-management" version "${springDependencyVer}"
 }
 //group 'org.harryng.demo'
 //version '1.0-SNAPSHOT'
@@ -10,9 +12,9 @@ plugins {
 //}
 
 dependencies {
-    implementation "jakarta.persistence:jakarta.persistence-api:${jakartaVer}"
+    implementation "jakarta.persistence:jakarta.persistence-api"
 //    implementation "org.hibernate.orm:hibernate-core:${hibernateVer}"
-    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-    compileOnly "org.springframework.boot:spring-boot-starter-data-jpa:${springbootVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    compileOnly "org.springframework.boot:spring-boot-starter-data-jpa"
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
