@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.user.persistence.UserPersistence;
 import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.main.Application;
 import org.harryng.demo.impl.user.mapper.UserMapper;
@@ -36,6 +37,8 @@ public class TestUserService {
 
     @Resource
     private UserService userService;
+    @Resource
+    private UserPersistence userPersistence;
 
     @Resource
     private UserMapper mapper;
@@ -121,11 +124,12 @@ public class TestUserService {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void testUser() throws Exception {
 //        final var mapper = applicationContext.getBean(UserMapper.class);
 //        final var userService = applicationContext.getBean(UserService.class);
-        final var user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
+        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
+//        user.ifPresent(value -> value.getUsergroupIds().addAll(userPersistence.getUsergroupIds(value.getId())));
         final var userRequest = new UserRequest();
         log.info("DB user entity: {}", user);
         userRequest.setUsername("username 1");
