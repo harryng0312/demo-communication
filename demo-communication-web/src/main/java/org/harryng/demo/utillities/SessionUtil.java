@@ -55,8 +55,9 @@ public class SessionUtil {
     }
 
     public static SessionHolder getSessionHolderFromHttpRequest(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final String jwt = request.getHeader(RequestParam.HEADER_AUTHORIZATION);
-        if(jwt !=null && !jwt.isBlank()) {
+        final String hAuth = request.getHeader(RequestParam.HEADER_AUTHORIZATION);
+        if(hAuth !=null && hAuth.startsWith("Bearer ")) {
+            final String jwt = hAuth.substring("Bearer ".length());
             final JwtParser jwtParser = Jwts.parser()
                     .requireIssuer(SystemKey.COMPANY_ID)
                     .clockSkewSeconds(15)
@@ -67,9 +68,9 @@ public class SessionUtil {
                 final String sessionId = (String) claims.getPayload().getOrDefault(RequestParam.HEADER_SESSION_ID, "");
                 final Long userId = Long.valueOf((String) claims.getPayload().getOrDefault(RequestParam.HEADER_USER_ID, "0"));
                 final String username = claims.getPayload().getSubject();
-                final LocalDateTime before = claims.getPayload().getNotBefore() == null? LocalDateTime.MAX:
+                final LocalDateTime before = claims.getPayload().getNotBefore() == null? LocalDateTime.now():
                         claims.getPayload().getNotBefore().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                final LocalDateTime after = claims.getPayload().getExpiration() == null? LocalDateTime.MIN:
+                final LocalDateTime after = claims.getPayload().getExpiration() == null? LocalDateTime.now():
                         claims.getPayload().getExpiration().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
                 return SessionHolder.builder()
                         .sessionId(sessionId)

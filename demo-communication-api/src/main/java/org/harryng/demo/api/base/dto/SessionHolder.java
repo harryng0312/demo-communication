@@ -17,9 +17,9 @@ public class SessionHolder implements Serializable {
     @NonNull @Builder.Default
     private String username = "";
     @NonNull @Builder.Default
-    private LocalDateTime notBefore = LocalDateTime.MAX;
+    private LocalDateTime notBefore = LocalDateTime.now();
     @NonNull @Builder.Default
-    private LocalDateTime validity = LocalDateTime.MIN;
+    private LocalDateTime validity = LocalDateTime.now();
     @NonNull @Builder.Default
     private String sessionId = "";
 
