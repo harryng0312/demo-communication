@@ -21,7 +21,7 @@ public class LoggingAspect {
         log.info("----- {}.{} -----", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
         final Object result = jp.proceed();
         final LocalDateTime finish = LocalDateTime.now();
-        log.info("+++++ {}.{} +++++ {}", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
+        log.info("+++++ {}.{} +++++ {} millisecond(s)", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
                 start.until(finish, ChronoUnit.MILLIS));
         return result;
     }

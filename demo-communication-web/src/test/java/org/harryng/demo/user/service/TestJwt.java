@@ -42,7 +42,7 @@ public class TestJwt {
         final var nowDate = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
         final var expiration = Date.from(now.plusSeconds(durationInSecond).atZone(ZoneId.systemDefault()).toInstant());
 
-        final var privKeyStr = "MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCBZh-f9Lll1zGW5kB1ChO4W-rCUBIL9z04d7N_Hb7D8dA";
+        final var privKeyStr = "MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCAq2yVQNIrvEwtBuenddC11vI3Vsh5gEjRGmGFlvsbb2w";
         System.out.printf("Private Key:%s\n", privKeyStr);
 
         final byte[] privKeyBytes = Base64.getUrlDecoder().decode(privKeyStr);
@@ -66,9 +66,9 @@ public class TestJwt {
 
     @Test
     public void parseJwt() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final var jwt = "eyJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJkZW1vLWNvbW0iLCJpYXQiOjE3MTIwNzYxOTgsInN1YiI6InVzZXJuYW1lIiwibmJmIjoxNzEyMDc2MTk4LCJqdGkiOiJjY2VlMzljYy1kN2Y4LTQyZGUtYjQ5Ni02MzcxYjYyYjRlZmUiLCJleHAiOjE3MTIwNzcxOTh9.GfvwF7k3_pP5UEA0NxY6nzxePIjIGrWwT4rTpZGQqX_lL57BMblJRs6aNa5srp7RzMkRUETDXQTSfKURtPlpAg";
+        final var jwt = "eyJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJkZW1vLWNvbW0iLCJpYXQiOjE3MTI4OTM3NjMsInN1YiI6InVzZXJuYW1lIiwibmJmIjoxNzEyODkzNzYzLCJqdGkiOiJhYmJkYTkzNC04YWNhLTQ2ODItODhmOS1mMmUwZWQ4MDE2MmUiLCJleHAiOjE3MTI4OTQ3NjN9.bCwhwXSqldDGvEvhFy5nnQhHqWvsizipN01o5W9M6KBVRJvADorJDq8DVGy4UnROkp57UPVk0kwv0mOsSL_zQQ";
         System.out.printf("JWT:%s\n", jwt);
-        final String pubKeyStr = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEl02YG2JkyTlefumlPS0Ze-7SwH7_KWFt3IW4Y0bDQSEsmTUN5URGTPQ7R8x0Iz7a96zOrzR3EdCQ-7wwLzcXxA";
+        final String pubKeyStr = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEiAe6CTi3t7dtK1z86KIwKZNdWHiakCFGn93em67k1NQjXt_TqupDdlxXfa-OqW8xZZC7BrmUsib-ODZi4BG4-g";
         final byte[] pubKeyBytes = Base64.getUrlDecoder().decode(pubKeyStr);
         final var pubKeySpec = new X509EncodedKeySpec(pubKeyBytes);
         final var pubKey = KeyFactory.getInstance("EC").generatePublic(pubKeySpec);

@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RolePersistence extends BaseSearchablePersistence<RoleImpl, Long> {
     @Query("select r from RoleImpl r inner join UserGroupRoleImpl ugr on r.id = ugr.roleId " +
-            "where ugr.usergroupId = :id")
+            "where ugr.usergroupId = :id order by r.id")
     List<RoleImpl> getIdsByUsergroupId(Long id);
 }

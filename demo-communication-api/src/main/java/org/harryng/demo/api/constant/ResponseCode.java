@@ -1,4 +1,4 @@
-package org.harryng.demo.api.base.dto;
+package org.harryng.demo.api.constant;
 
 public interface ResponseCode {
     int SUCCESS = 0;

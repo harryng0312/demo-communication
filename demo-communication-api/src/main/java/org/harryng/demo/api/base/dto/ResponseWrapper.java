@@ -1,6 +1,7 @@
 package org.harryng.demo.api.base.dto;
 
 import lombok.*;
+import org.harryng.demo.api.constant.ResponseCode;
 
 import java.io.Serializable;
 

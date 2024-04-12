@@ -14,6 +14,6 @@ public interface UserGroupPersistence extends BaseSearchablePersistence<UserGrou
 
     @Query("select ug from UserUserGroupImpl uug " +
             "inner join UserGroupImpl ug on ug.id = uug.usergroupId " +
-            "where uug.userId = :userId")
+            "where uug.userId = :userId order by uug.usergroupId")
     List<UserGroupImpl> findAllByUserId(@Param("userId") Long userId);
 }
