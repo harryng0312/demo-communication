@@ -6,7 +6,7 @@ import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
 import org.harryng.demo.api.user.persistence.UserPersistence;
 import org.harryng.demo.api.user.service.UserService;
-import org.harryng.demo.main.Application;
+import org.harryng.demo.Application;
 import org.harryng.demo.impl.user.mapper.UserMapper;
 import org.harryng.demo.api.user.entity.UserImpl;
 import org.harryng.demo.api.user.dto.UserRequest;

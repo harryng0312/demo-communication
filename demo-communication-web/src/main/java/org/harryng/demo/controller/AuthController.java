@@ -1,18 +1,12 @@
 package org.harryng.demo.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.api.auth.dto.AuthenticationInfo;
 import org.harryng.demo.api.auth.service.AuthService;
-import org.harryng.demo.api.user.entity.UserImpl;
-import org.harryng.demo.api.util.TextUtil;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @Slf4j
 @Controller

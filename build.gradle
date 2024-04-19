@@ -3,12 +3,20 @@ plugins {
     id "org.springframework.boot" version "${springbootVersion}"
     id "io.spring.dependency-management" version "${springDependencyVer}"
 }
+bootJar {
+    enabled = false
+}
 
+jar {
+    enabled = false
+}
 allprojects {
     buildscript {
         ext {}
     }
     apply plugin: "java"
+//    apply plugin: "org.springframework.boot", version: "${springbootVersion}"
+//    apply plugin: "io.spring.dependency-management", version: "${springDependencyVer}"
 //    apply plugin: "idea"
     repositories {
         mavenCentral()
@@ -33,7 +41,3 @@ allprojects {
     java.sourceCompatibility = "${jdkVersion}"
     java.targetCompatibility = "${jdkVersion}"
 }
-
-
-
-

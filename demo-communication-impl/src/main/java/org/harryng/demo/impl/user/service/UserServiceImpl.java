@@ -8,6 +8,7 @@ import org.harryng.demo.api.auth.entity.RoleImpl;
 import org.harryng.demo.api.auth.persistence.ResourceActionPersistence;
 import org.harryng.demo.api.auth.persistence.ResourcePermissionPersistence;
 import org.harryng.demo.api.auth.persistence.RolePersistence;
+import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
 import org.harryng.demo.api.base.entity.AbstractModel;
 import org.harryng.demo.api.user.entity.UserImpl;
@@ -46,8 +47,8 @@ public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> i
     }
 
     @Override
-    public Optional<UserImpl> getByUsername(String username, Map<String, Object> extra) throws Exception {
-        Optional<UserImpl> result = Optional.empty();
+    public ResponseWrapper<UserImpl> getByUsername(String username, Map<String, Object> extra) throws Exception {
+        final ResponseWrapper.ResponseWrapperBuilder<UserImpl> result = ResponseWrapper.builder();
 //        final PageInfo pageInfo = new PageInfo();
         final CriteriaBuilder criteriaBuilder = getPersistence().getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<UserImpl> criteriaQuery = criteriaBuilder.createQuery(UserImpl.class);
@@ -58,13 +59,13 @@ public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> i
         final Pageable pageable = PageRequest.of(0, 1);
         final Page<UserImpl> page = getPersistence().searchByUsername(username, pageable);
         if (!page.isEmpty()) {
-            result = Optional.of(page.getContent().getFirst());
+            result.data(page.getContent().getFirst());
         }
-        return result;
+        return result.build();
     }
 
     @Override
-    public Optional<UserImpl> getById(
+    public ResponseWrapper<UserImpl> getById(
             SessionHolder sessionHolder, Long id, boolean loadUsergroup, boolean loadRole,
             boolean loadPermission, Map<String, Object> extra) throws Exception {
         final Optional<UserImpl> userOpt = getPersistence().findById(id);
@@ -85,7 +86,8 @@ public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> i
                     });
                 }
             }
+            return ResponseWrapper.<UserImpl>builder().data(user).build();
         }
-        return userOpt;
+        return ResponseWrapper.<UserImpl>builder().build();
     }
 }

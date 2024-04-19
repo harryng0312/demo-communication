@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.text.MessageFormat;
+
 @Controller
 @RequestMapping("/rtc")
 public class WebRTCController {
@@ -24,6 +26,7 @@ public class WebRTCController {
 
     @RequestMapping(value = {"/rtc-web/{index}"}, method = RequestMethod.GET)
     public String initWebRtc(@PathVariable("index") String index) {
-        return "webrtc/webrtc-" + index;
+//        return "webrtc/webrtc-" + index;
+        return MessageFormat.format("webrtc/webrtc-{0}", index);
     }
 }

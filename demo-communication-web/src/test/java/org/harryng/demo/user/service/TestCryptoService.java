@@ -2,7 +2,7 @@ package org.harryng.demo.user.service;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
-import org.harryng.demo.main.Application;
+import org.harryng.demo.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
