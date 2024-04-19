@@ -1,8 +1,10 @@
 package org.harryng.demo.impl.base.service;
 
-import org.harryng.demo.api.base.persistence.BasePersistence;
-import org.harryng.demo.api.base.entity.BaseModel;
+import lombok.NonNull;
+import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.base.entity.BaseModel;
+import org.harryng.demo.api.base.persistence.BasePersistence;
 import org.harryng.demo.api.base.service.BaseAuthenticatedService;
 
 import java.io.Serializable;
@@ -15,24 +17,31 @@ public abstract class AbstractService<T extends BaseModel<Id>, Id extends Serial
     public abstract BasePersistence<T, Id> getPersistence();
 
     @Override
-    public Optional<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra) {
+    public @NonNull ResponseWrapper<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra) {
 //        Thread.sleep(Duration.ofMillis(1*1000));
 //        System.out.println("EntityManager: " + getPersistence().getEntityManager().hashCode());
-        return getPersistence().findById(id);
+        final Optional<T> optional = getPersistence().findById(id);
+        if(optional.isPresent()){
+            return ResponseWrapper.<T>builder().data(optional.get()).build();
+        }
+        return ResponseWrapper.<T>builder().build();
     }
 
     @Override
-    public T add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
-        return getPersistence().save(obj);
+    public @NonNull ResponseWrapper<T> add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
+        final T savedObj = getPersistence().save(obj);
+        return ResponseWrapper.<T>builder().data(savedObj).build();
     }
 
     @Override
-    public T edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
-        return getPersistence().save(obj);
+    public @NonNull ResponseWrapper<T> edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
+        final T savedObj = getPersistence().save(obj);
+        return ResponseWrapper.<T>builder().data(savedObj).build();
     }
 
     @Override
-    public void remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception {
+    public @NonNull ResponseWrapper<Void> remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception {
         getPersistence().deleteById(id);
+        return ResponseWrapper.<Void>builder().build();
     }
 }

@@ -20,4 +20,6 @@ public class CodedException extends Exception {
         super(message, throwable);
         this.code = code;
     }
+
+    public int getCode() {return this.code;}
 }

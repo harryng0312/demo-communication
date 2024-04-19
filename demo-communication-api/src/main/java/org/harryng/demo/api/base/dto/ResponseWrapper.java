@@ -13,7 +13,7 @@ public class ResponseWrapper<Tbody> implements Serializable {
     @Builder.Default
     private final int code = ResponseCode.SUCCESS;
     @NonNull @Builder.Default
-    private final String msg = "";
+    private final String msg = "Success";
 
     private Tbody data;
 }

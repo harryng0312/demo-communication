@@ -5,7 +5,6 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import jakarta.servlet.http.HttpServletRequest;
 import org.harryng.demo.api.base.dto.SessionHolder;
 import org.harryng.demo.api.constant.RequestParam;
 import org.harryng.demo.api.constant.SystemKey;
@@ -21,7 +20,6 @@ import java.security.spec.X509EncodedKeySpec;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.UUID;
 
 public class SessionUtil {
 
@@ -39,11 +37,11 @@ public class SessionUtil {
         return KeyFactory.getInstance("EC").generatePublic(pubKeySpec);
     }
 
-    public static String getJwtToken(SessionHolder sessionHolder, boolean isNew, int sessionDurationInSecond) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static String getJwtToken(SessionHolder sessionHolder, boolean isNew, int sessionDurationInSecond, String jwtId) throws NoSuchAlgorithmException, InvalidKeySpecException {
         final JWTCreator.Builder jwtBuilder = JWT.create();
         if (isNew) {
             final Instant now = Instant.now();
-            jwtBuilder.withJWTId(UUID.randomUUID().toString())
+            jwtBuilder.withJWTId(jwtId)
                     .withIssuedAt(now)
                     .withNotBefore(now)
                     .withExpiresAt(now.plusSeconds(sessionDurationInSecond));
@@ -52,19 +50,25 @@ public class SessionUtil {
         jwtBuilder.withIssuer(SystemKey.COMPANY_ID)
                 .withSubject(sessionHolder.getUsername())
                 .withClaim(RequestParam.HEADER_USER_ID, sessionHolder.getUserId())
-                .withClaim(RequestParam.HEADER_SESSION_ID, sessionHolder.getSessionId())
-                .sign(algorithm);
+                .withClaim(RequestParam.HEADER_SESSION_ID, sessionHolder.getSessionId());
         return jwtBuilder.sign(algorithm);
     }
 
-    public static SessionHolder getSessionHolderFromHttpRequest(HttpServletRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final String hAuth = request.getHeader(RequestParam.HEADER_AUTHORIZATION);
-        if (hAuth != null && hAuth.startsWith("Bearer ")) {
-            final String jwt = hAuth.substring("Bearer ".length());
+    public static SessionHolder getSessionHolderFromHttpRequest(String headerAuth, String paramAccessToken) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        final String jwt;
+        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+            jwt = headerAuth.substring(7);
+        } else if (paramAccessToken != null && !paramAccessToken.isBlank()) {
+            jwt = paramAccessToken;
+        } else {
+            jwt = "";
+        }
+        if (!jwt.isBlank()) {
             final Algorithm algorithm = Algorithm.ECDSA256((ECKey) getPublicKey());
             final JWTVerifier jwtVerifier = JWT.require(algorithm)
                     .withIssuer(SystemKey.COMPANY_ID)
-                    .acceptLeeway(15)
+                    .acceptLeeway(15) // Not Before, Issued At and Expires At
+//                    .acceptExpiresAt(15)
                     .build();
             final DecodedJWT decodedJwt = jwtVerifier.verify(jwt);
 

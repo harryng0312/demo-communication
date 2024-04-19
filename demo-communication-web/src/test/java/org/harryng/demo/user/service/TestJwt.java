@@ -12,8 +12,6 @@ import org.springframework.context.annotation.Import;
 
 import java.security.*;
 import java.security.interfaces.ECKey;
-import java.security.interfaces.ECPrivateKey;
-import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -49,7 +47,7 @@ public class TestJwt {
         final var privKeyStr = "MEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCDyy9UoWTvMAySdQJ4otstKPXeYorPLBbeT5RUu/v7pag==";
         final byte[] privKeyBytes = Base64.getDecoder().decode(privKeyStr);
         final var privKeySpec = new PKCS8EncodedKeySpec(privKeyBytes);
-        final ECPrivateKey privKey = (ECPrivateKey) KeyFactory.getInstance("EC").generatePrivate(privKeySpec);
+        final ECKey privKey = (ECKey) KeyFactory.getInstance("EC").generatePrivate(privKeySpec);
 //        final var pubKeyStr = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEvTfMEjJnAUgGV2/d+cnNf0NjXQOX7MFc/q6OXKm1K4M8teqvQF07kqDxaRenMv5zAEwmUqM9ikgG6D3kBTlvAw==";
 //        final byte[] pubKeyBytes = Base64.getDecoder().decode(pubKeyStr);
 //        final var pubKeySpec = new X509EncodedKeySpec(pubKeyBytes);

@@ -53,8 +53,8 @@ public class TestUserService {
         user.setCreatedDate(now);
         user.setModifiedDate(now);
         user.setStatus(1);
-        final UserImpl rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
-        log.info("Add {} record(s)", rs);
+        final ResponseWrapper<UserImpl> rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
+        log.info("Add {} record(s)", rs.getData());
     }
 
     @Test
@@ -65,19 +65,20 @@ public class TestUserService {
         try (var xService = Executors.newFixedThreadPool(noOfThread)) {
             xService.submit(() -> {
 //                while (!xService.isTerminated() && !xService.isShutdown()) {
-                final UserImpl userDefault = new UserImpl();
+//                final UserImpl userDefault = new UserImpl();
                 try (var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
-                    final var futures = new ArrayList<Future<Optional<UserImpl>>>(noOfReq);
+                    final var futures = new ArrayList<Future<ResponseWrapper<UserImpl>>>(noOfReq);
                     for (var i = 0; i < noOfReq; i++) {
                         final var fut = executorService.submit(() -> {
-
                             final var userService1 = applicationContext.getBean(UserService.class);
                             final var reqId = UUID.randomUUID().toString();
                             log.info("Call ID: {}", reqId);
                             final var user = userService1.getById(SessionHolder.builder().build(), 1L, Collections.emptyMap());
 //                                userService1.getPersistence().getStatelessSession().close();
-                            user.orElse(userDefault).setScreenName(reqId);
-                            log.info("Call {} - User:{}", user.orElse(userDefault).getScreenName(), user.orElse(userDefault).getUsername());
+//                            user.orElse(userDefault).setScreenName(reqId);
+                            if (user.getData() != null) {
+                                log.info("Call {} - User:{}", user.getData().getScreenName(), user.getData().getUsername());
+                            }
                             return user;
                         });
                         futures.add(fut);
@@ -85,7 +86,9 @@ public class TestUserService {
                     futures.forEach(o -> {
                         try {
                             final var user = o.get(3, TimeUnit.SECONDS);
-                            log.info("Result {} Username:{}", user.orElse(userDefault).getScreenName(), user.orElse(userDefault).getUsername());
+                            if (user != null && user.getData() != null) {
+                                log.info("Result {} Username:{}", user.getData().getScreenName(), user.getData().getUsername());
+                            }
                         } catch (InterruptedException | ExecutionException | TimeoutException e) {
                             log.error(e.getMessage(), e);
                         }
@@ -112,8 +115,8 @@ public class TestUserService {
         userRequest.setScreenName("screen name 1");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        if (user.isPresent()) {
-            final var userRes = mapper.map(user.get());
+        if (user.getData() != null) {
+            final var userRes = mapper.map(user.getData());
             final var res = ResponseWrapper.<UserResponse>builder()
                     .data(userRes)
                     .build();
@@ -127,7 +130,7 @@ public class TestUserService {
 //        final var mapper = applicationContext.getBean(UserMapper.class);
 //        final var userService = applicationContext.getBean(UserService.class);
 //        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
-        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 2L, true, true, true, Map.of());
+        final ResponseWrapper<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 2L, true, true, true, Map.of());
 //        user.ifPresent(value -> value.getUsergroupIds().addAll(userPersistence.getUsergroupIds(value.getId())));
         final var userRequest = new UserRequest();
         log.info("DB user entity: {}", user);
@@ -136,10 +139,12 @@ public class TestUserService {
         userRequest.setScreenName("screen name 2");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        final var userRes = mapper.map(user.orElseGet(UserImpl::new));
-        final var res = ResponseWrapper.<UserResponse>builder()
-                .data(userRes)
-                .build();
-        log.info("user res: {}", res);
+        if (user.getData() != null) {
+            final var userRes = mapper.map(user.getData());
+            final var res = ResponseWrapper.<UserResponse>builder()
+                    .data(userRes)
+                    .build();
+            log.info("user res: {}", res);
+        }
     }
 }

@@ -108,14 +108,17 @@
             <aop:around method="around" pointcut-ref="persistenceOperation"/>
         </aop:aspect>
 
-        <aop:aspect ref="sessionWrapper" order="10">
+        <aop:aspect ref="logging" order="10">
             <aop:around method="around" pointcut-ref="authController"/>
         </aop:aspect>
-        <aop:aspect ref="auth" order="20">
+        <aop:aspect ref="sessionWrapper" order="20">
+            <aop:around method="around" pointcut-ref="authController"/>
+        </aop:aspect>
+        <aop:aspect ref="auth" order="50">
             <aop:around method="around" pointcut-ref="authController"/>
         </aop:aspect>
     </aop:config>
     <bean id="logging" class="org.harryng.demo.aop.LoggingAspect"/>
-    <bean id="auth" class="org.harryng.demo.aop.AuthenticationAspect" />
-    <bean id="sessionWrapper" class="org.harryng.demo.aop.AuthenticationAspect" />
+    <bean id="auth" class="org.harryng.demo.aop.AuthenticationAspect"/>
+    <bean id="sessionWrapper" class="org.harryng.demo.aop.AuthenticationAspect"/>
 </beans>
