@@ -126,7 +126,7 @@ public class TestUserService {
 //        final var mapper = applicationContext.getBean(UserMapper.class);
 //        final var userService = applicationContext.getBean(UserService.class);
 //        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
-        final ResponseWrapper<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 2L, true, true, true, Map.of());
+        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 2L, true, true, true, Map.of());
 //        user.ifPresent(value -> value.getUsergroupIds().addAll(userPersistence.getUsergroupIds(value.getId())));
         final var userRequest = new UserRequest();
         log.info("DB user entity: {}", user);
@@ -135,8 +135,8 @@ public class TestUserService {
         userRequest.setScreenName("screen name 2");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        if (user.getData() != null) {
-            final var userRes = mapper.map(user.getData());
+        if (user.isPresent()) {
+            final var userRes = mapper.map(user.get());
             final var res = ResponseWrapper.<UserResponse>builder()
                     .data(userRes)
                     .build();
