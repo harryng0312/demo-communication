@@ -48,7 +48,7 @@ dependencies {
 //    implementation "io.jsonwebtoken:jjwt-api:${jjwtVer}"
 //    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVer}"
 //    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVer}"
-    implementation "com.auth0:java-jwt:${javaJwtVer}"
+//    implementation "com.auth0:java-jwt:${javaJwtVer}"
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"

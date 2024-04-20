@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface UserService extends BaseSearchableAuthenticatedService<UserImpl, Long> {
-    ResponseWrapper<UserImpl> getByUsername(String username, Map<String, Object> extra) throws Exception;
-    ResponseWrapper<UserImpl> getById(
+    Optional<UserImpl> getByUsername(String username, Map<String, Object> extra) throws Exception;
+    Optional<UserImpl> getById(
             SessionHolder sessionHolder, Long id, boolean loadUsergroups, boolean loadRoles,
             boolean loadPermissions, Map<String, Object> extra) throws Exception;
 }

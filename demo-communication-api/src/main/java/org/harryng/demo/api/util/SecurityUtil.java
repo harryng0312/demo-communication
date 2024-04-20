@@ -1,5 +1,6 @@
 package org.harryng.demo.api.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,9 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Slf4j
 public class SecurityUtil {
-    private static Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
-    private static Map<String, MessageDigest> messageDigestMap = null;
+//    private static Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
+    private static final Map<String, MessageDigest> messageDigestMap;
 
     static {
         messageDigestMap = new HashMap<>();
@@ -21,7 +23,7 @@ public class SecurityUtil {
                 MessageDigest md = MessageDigest.getInstance(e);
                 messageDigestMap.put(e, md);
             } catch (NoSuchAlgorithmException ex) {
-                logger.error("", e);
+                log.error("", e);
             }
         });
     }

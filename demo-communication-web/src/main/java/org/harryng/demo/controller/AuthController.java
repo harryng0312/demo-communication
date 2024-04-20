@@ -3,10 +3,18 @@ package org.harryng.demo.controller;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.harryng.demo.api.auth.dto.AuthenticationInfo;
 import org.harryng.demo.api.auth.service.AuthService;
+import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.constant.RequestParams;
+import org.harryng.demo.api.util.TextUtil;
+import org.harryng.demo.impl.util.SessionUtil;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Slf4j
 @Controller
@@ -26,46 +34,28 @@ public class AuthController {
     @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     @ResponseBody
-    public String doLogin(@RequestBody String body) {
-        String response = "";
-//        try {
-//            AuthenticationInfo authenticationInfo = TextUtil.jsonToObj(AuthenticationInfo.class, body);
-//            String username = authenticationInfo.getUsername();
-//            String password = authenticationInfo.getPassword();
-//            Optional<UserImpl> userOpt = authService.loginByUsernamePassword(username, password);
-//            authenticationInfo.setResult("0");
-//            if (userOpt.isPresent()) {
-//                final UserImpl user = userOpt.get();
-//                SessionHolder.getSession(authenticationInfo.getUsername()).put(SessionHolder.K_USER, user);
-//                SessionHolder.getSession(authenticationInfo.getUsername()).put(SessionHolder.K_AUTH_INFO, authenticationInfo);
-//                response = TextUtil.objToJson(authenticationInfo);
-//            }
-//        } catch (Exception e) {
-//            AuthenticationInfo authenticationInfoErr = new AuthenticationInfo();
-//            authenticationInfoErr.setResult("10");
-//            try {
-//                response = TextUtil.objToJson(authenticationInfoErr);
-//            } catch (JsonProcessingException ex) {
-//                log.info("", ex);
-//            }
-//            log.error("", e);
-//        }
-        return response;
+    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password) throws Exception {
+        final AuthenticationInfo authenticationInfo = authService.loginByUsernamePassword(username, password);
+        return TextUtil.objToJson(authenticationInfo);
     }
 
     @RequestMapping(value = "/afterLogin", method = RequestMethod.GET)
-    public String submitLogin(@RequestParam(name = "tokenId", defaultValue = "") String tokenId) {
-        String rs = "auth/login";
+    public String doAfterLogin(@RequestParam(name = RequestParams.PARAM_ACCESS_TOKEN, defaultValue = "") String token) {
+        return "auth/login";
 //        boolean result = false;
 //        result = SessionHolder.getSession(tokenId, false) != null;
 //        if (result) {
 //            rs = String.format("redirect:%s", "welcome");
 //        }
-        return rs;
     }
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String welcome() {
-        return "auth/welcome";
+    public String welcome() throws Exception {
+        final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(request.getHeader(RequestParams.HEADER_AUTHORIZATION),
+                request.getHeader(RequestParams.PARAM_ACCESS_TOKEN));
+        if(!SessionHolder.ANONYMOUS.getUserId().equals(sessionHolder.getUserId())){
+            return "auth/welcome";
+        }
+        return "auth/login";
     }
 }

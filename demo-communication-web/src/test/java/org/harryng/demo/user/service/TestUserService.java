@@ -111,8 +111,8 @@ public class TestUserService {
         userRequest.setScreenName("screen name 1");
         final var userEntity = mapper.map(userRequest);
         log.info("user entity: {}", userEntity);
-        if (user.getData() != null) {
-            final var userRes = mapper.map(user.getData());
+        if (user.isPresent()) {
+            final var userRes = mapper.map(user.get());
             final var res = ResponseWrapper.<UserResponse>builder()
                     .data(userRes)
                     .build();

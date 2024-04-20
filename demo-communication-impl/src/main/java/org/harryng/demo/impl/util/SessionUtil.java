@@ -1,4 +1,4 @@
-package org.harryng.demo.utillities;
+package org.harryng.demo.impl.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import org.harryng.demo.api.base.dto.SessionHolder;
-import org.harryng.demo.api.constant.RequestParam;
+import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.constant.SystemKey;
 
 import java.security.KeyFactory;
@@ -49,12 +49,12 @@ public class SessionUtil {
         final Algorithm algorithm = Algorithm.ECDSA256((ECKey) getPrivateKey());
         jwtBuilder.withIssuer(SystemKey.COMPANY_ID)
                 .withSubject(sessionHolder.getUsername())
-                .withClaim(RequestParam.HEADER_USER_ID, sessionHolder.getUserId())
-                .withClaim(RequestParam.HEADER_SESSION_ID, sessionHolder.getSessionId());
+                .withClaim(RequestParams.HEADER_USER_ID, sessionHolder.getUserId())
+                .withClaim(RequestParams.HEADER_SESSION_ID, sessionHolder.getSessionId());
         return jwtBuilder.sign(algorithm);
     }
 
-    public static SessionHolder getSessionHolderFromHttpRequest(String headerAuth, String paramAccessToken) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static SessionHolder getSessionHolderFromAccessToken(String headerAuth, String paramAccessToken) throws NoSuchAlgorithmException, InvalidKeySpecException {
         final String jwt;
         if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
             jwt = headerAuth.substring(7);
@@ -73,8 +73,8 @@ public class SessionUtil {
             final DecodedJWT decodedJwt = jwtVerifier.verify(jwt);
 
             if (decodedJwt.getPayload() != null && !decodedJwt.getClaims().isEmpty()) {
-                final String sessionId = decodedJwt.getClaim(RequestParam.HEADER_SESSION_ID).asString();
-                final Long userId = decodedJwt.getClaim(RequestParam.HEADER_USER_ID).asLong();
+                final String sessionId = decodedJwt.getClaim(RequestParams.HEADER_SESSION_ID).asString();
+                final Long userId = decodedJwt.getClaim(RequestParams.HEADER_USER_ID).asLong();
                 final String username = decodedJwt.getSubject();
                 final Instant before = decodedJwt.getNotBefore() == null ? Instant.now() : decodedJwt.getNotBeforeAsInstant();
                 final Instant after = decodedJwt.getExpiresAtAsInstant() == null ? Instant.now() : decodedJwt.getExpiresAtAsInstant();

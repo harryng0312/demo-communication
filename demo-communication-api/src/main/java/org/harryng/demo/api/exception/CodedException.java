@@ -6,6 +6,9 @@ public class CodedException extends Exception {
 
     private final int code;
 
+//    @Builder.Default
+//    private final String message;
+
     public CodedException(int code) {
         super();
         this.code = code;
@@ -20,6 +23,6 @@ public class CodedException extends Exception {
         super(message, throwable);
         this.code = code;
     }
-
-    public int getCode() {return this.code;}
+//
+//    public int getCode() {return this.code;}
 }

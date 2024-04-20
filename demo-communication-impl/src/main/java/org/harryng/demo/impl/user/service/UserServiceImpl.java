@@ -47,8 +47,8 @@ public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> i
     }
 
     @Override
-    public ResponseWrapper<UserImpl> getByUsername(String username, Map<String, Object> extra) throws Exception {
-        final ResponseWrapper.ResponseWrapperBuilder<UserImpl> result = ResponseWrapper.builder();
+    public Optional<UserImpl> getByUsername(String username, Map<String, Object> extra) throws Exception {
+        Optional<UserImpl> result = Optional.empty();
 //        final PageInfo pageInfo = new PageInfo();
         final CriteriaBuilder criteriaBuilder = getPersistence().getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<UserImpl> criteriaQuery = criteriaBuilder.createQuery(UserImpl.class);
@@ -59,13 +59,13 @@ public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> i
         final Pageable pageable = PageRequest.of(0, 1);
         final Page<UserImpl> page = getPersistence().searchByUsername(username, pageable);
         if (!page.isEmpty()) {
-            result.data(page.getContent().getFirst());
+            result = Optional.of(page.getContent().getFirst());
         }
-        return result.build();
+        return result;
     }
 
     @Override
-    public ResponseWrapper<UserImpl> getById(
+    public Optional<UserImpl> getById(
             SessionHolder sessionHolder, Long id, boolean loadUsergroup, boolean loadRole,
             boolean loadPermission, Map<String, Object> extra) throws Exception {
         final Optional<UserImpl> userOpt = getPersistence().findById(id);
@@ -86,8 +86,7 @@ public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> i
                     });
                 }
             }
-            return ResponseWrapper.<UserImpl>builder().data(user).build();
         }
-        return ResponseWrapper.<UserImpl>builder().build();
+        return userOpt;
     }
 }

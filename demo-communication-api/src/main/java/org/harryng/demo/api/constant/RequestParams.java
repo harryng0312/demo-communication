@@ -1,6 +1,6 @@
 package org.harryng.demo.api.constant;
 
-public interface RequestParam {
+public interface RequestParams {
     String HEADER_AUTHORIZATION = "Authorization";
     String HEADER_SESSION_ID = "session_id";
     String HEADER_USER_ID = "user_id";
