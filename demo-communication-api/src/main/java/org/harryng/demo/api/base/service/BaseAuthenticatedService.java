@@ -13,8 +13,8 @@ import java.util.Optional;
 public interface BaseAuthenticatedService<T extends BaseModel<Id>, Id extends Serializable> {
     BasePersistence<T, Id> getPersistence();
 
-    ResponseWrapper<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra);
-    ResponseWrapper<T> add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception;
-    ResponseWrapper<T> edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception;
-    ResponseWrapper<Void> remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception;
+    Optional<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra);
+    T add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception;
+    T edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception;
+    void remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception;
 }

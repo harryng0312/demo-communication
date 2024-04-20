@@ -53,8 +53,8 @@ public class TestUserService {
         user.setCreatedDate(now);
         user.setModifiedDate(now);
         user.setStatus(1);
-        final ResponseWrapper<UserImpl> rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
-        log.info("Add {} record(s)", rs.getData());
+        final UserImpl rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
+        log.info("Add {} record(s)", rs);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class TestUserService {
 //                while (!xService.isTerminated() && !xService.isShutdown()) {
 //                final UserImpl userDefault = new UserImpl();
                 try (var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
-                    final var futures = new ArrayList<Future<ResponseWrapper<UserImpl>>>(noOfReq);
+                    final var futures = new ArrayList<Future<Optional<UserImpl>>>(noOfReq);
                     for (var i = 0; i < noOfReq; i++) {
                         final var fut = executorService.submit(() -> {
                             final var userService1 = applicationContext.getBean(UserService.class);
@@ -76,9 +76,7 @@ public class TestUserService {
                             final var user = userService1.getById(SessionHolder.builder().build(), 1L, Collections.emptyMap());
 //                                userService1.getPersistence().getStatelessSession().close();
 //                            user.orElse(userDefault).setScreenName(reqId);
-                            if (user.getData() != null) {
-                                log.info("Call {} - User:{}", user.getData().getScreenName(), user.getData().getUsername());
-                            }
+                            user.ifPresent(value -> log.info("Call {} - User:{}", value.getScreenName(), value.getUsername()));
                             return user;
                         });
                         futures.add(fut);
@@ -86,9 +84,7 @@ public class TestUserService {
                     futures.forEach(o -> {
                         try {
                             final var user = o.get(3, TimeUnit.SECONDS);
-                            if (user != null && user.getData() != null) {
-                                log.info("Result {} Username:{}", user.getData().getScreenName(), user.getData().getUsername());
-                            }
+                            user.ifPresent(value -> log.info("Result {} Username:{}", value.getScreenName(), value.getUsername()));
                         } catch (InterruptedException | ExecutionException | TimeoutException e) {
                             log.error(e.getMessage(), e);
                         }
