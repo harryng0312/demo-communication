@@ -89,4 +89,8 @@ public class SessionUtil {
         }
         return SessionHolder.ANONYMOUS;
     }
+
+    public static boolean isAnonymous(SessionHolder sessionHolder) {
+        return SessionHolder.ANONYMOUS.getUserId().equals(sessionHolder.getUserId());
+    }
 }

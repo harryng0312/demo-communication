@@ -94,7 +94,7 @@
                 expression="execution(public * org.harryng.demo..service.*.*(..)) &amp;&amp; !execution(public * getPersistence(..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
 
         <aop:pointcut
-                id="authController"
+                id="controllerOperation"
                 expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.api.base.dto.SessionHolder,..)) &amp;&amp; !execution(public * org.harryng.demo.controller.AuthController.*(..))"/>
         <aop:advisor
                 id="persistenceAdvisor" pointcut-ref="persistenceOperation"
@@ -109,13 +109,13 @@
         </aop:aspect>
 
         <aop:aspect ref="logging" order="10">
-            <aop:around method="around" pointcut-ref="authController"/>
+            <aop:around method="around" pointcut-ref="controllerOperation"/>
         </aop:aspect>
         <aop:aspect ref="sessionWrapper" order="20">
-            <aop:around method="around" pointcut-ref="authController"/>
+            <aop:around method="around" pointcut-ref="controllerOperation"/>
         </aop:aspect>
         <aop:aspect ref="auth" order="50">
-            <aop:around method="around" pointcut-ref="authController"/>
+            <aop:around method="around" pointcut-ref="controllerOperation"/>
         </aop:aspect>
     </aop:config>
     <bean id="logging" class="org.harryng.demo.aop.LoggingAspect"/>

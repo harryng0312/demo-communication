@@ -64,7 +64,8 @@ dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     testImplementation "org.infinispan:infinispan-commons-jakarta"
-
+    testImplementation "org.assertj:assertj-core"
+    testImplementation "com.auth0:java-jwt:${javaJwtVer}"
 //    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 
 //    testCompile "junit":junit:${junitVersion}"
