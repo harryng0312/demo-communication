@@ -9,14 +9,20 @@ import org.harryng.demo.api.auth.service.AuthService;
 import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
 import org.harryng.demo.api.constant.RequestParams;
+import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.api.util.TextUtil;
+import org.harryng.demo.impl.user.service.UserServiceImpl;
 import org.harryng.demo.impl.util.SessionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -30,6 +36,8 @@ public class AuthController {
 
     @Resource(name = "auth")
     private AuthenticationAspect auth;
+    @Resource
+    private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String initLogin() {
@@ -55,11 +63,13 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String welcome() throws Exception {
-        final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(request.getHeader(RequestParams.HEADER_AUTHORIZATION),
+    public String welcome(Model model) throws Exception {
+        final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(
+                request.getHeader(RequestParams.HEADER_AUTHORIZATION),
                 request.getHeader(RequestParams.PARAM_ACCESS_TOKEN));
-//        if(!SessionHolder.ANONYMOUS.getUserId().equals(sessionHolder.getUserId())){
-        if(SessionUtil.isAnonymous(sessionHolder)) {
+        if(!SessionUtil.isAnonymous(sessionHolder)) {
+            final var userImpl = userService.getById(sessionHolder, sessionHolder.getUserId(), Map.of());
+            userImpl.ifPresent(user -> model.addAttribute("user", user));
             return "auth/welcome";
         }
         return "auth/login";

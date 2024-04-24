@@ -2,7 +2,10 @@ package org.harryng.demo.api.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -17,7 +20,10 @@ public class TextUtil {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
-                .configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false);
+                .configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false)
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.findAndRegisterModules();
+//        objectMapper.registerModule(new JavaTimeModule());
     }
 
     public static String bytesToBase64Url(byte[] arr) {
@@ -42,5 +48,13 @@ public class TextUtil {
 
     public static <T> T jsonToObj(Class<T> clazz, String str) throws JsonProcessingException {
         return objectMapper.readValue(str, clazz);
+    }
+
+    public static JsonNode jsonToNode(String str) throws JsonProcessingException {
+        return objectMapper.readTree(str);
+    }
+
+    public static String noteToJson(JsonNode obj) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(obj);
     }
 }

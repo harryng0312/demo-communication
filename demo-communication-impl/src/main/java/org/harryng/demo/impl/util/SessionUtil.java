@@ -19,6 +19,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Base64;
 
 public class SessionUtil {
@@ -76,14 +77,14 @@ public class SessionUtil {
                 final String sessionId = decodedJwt.getClaim(RequestParams.HEADER_SESSION_ID).asString();
                 final Long userId = decodedJwt.getClaim(RequestParams.HEADER_USER_ID).asLong();
                 final String username = decodedJwt.getSubject();
-                final Instant before = decodedJwt.getNotBefore() == null ? Instant.now() : decodedJwt.getNotBeforeAsInstant();
+                final Instant before = decodedJwt.getNotBeforeAsInstant() == null ? Instant.now() : decodedJwt.getNotBeforeAsInstant();
                 final Instant after = decodedJwt.getExpiresAtAsInstant() == null ? Instant.now() : decodedJwt.getExpiresAtAsInstant();
                 return SessionHolder.builder()
                         .sessionId(sessionId)
                         .userId(userId)
                         .username(username)
-                        .notBefore(LocalDateTime.from(before))
-                        .validity(LocalDateTime.from(after))
+                        .notBefore(LocalDateTime.ofInstant(before, ZoneId.systemDefault()))
+                        .validity(LocalDateTime.ofInstant(after, ZoneId.systemDefault()))
                         .build();
             }
         }
