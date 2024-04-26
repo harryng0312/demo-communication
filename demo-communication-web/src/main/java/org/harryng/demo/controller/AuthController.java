@@ -11,9 +11,7 @@ import org.harryng.demo.api.base.dto.SessionHolder;
 import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.api.util.TextUtil;
-import org.harryng.demo.impl.user.service.UserServiceImpl;
 import org.harryng.demo.impl.util.SessionUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,36 +22,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
-@Slf4j
 @Controller
+//@Path("")
+@Slf4j
 public class AuthController {
 
     @Resource
     protected HttpServletRequest request;
-
     @Resource
     protected AuthService authService;
-
     @Resource(name = "auth")
     private AuthenticationAspect auth;
     @Resource
     private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    @GET
+//    @Path("/login")
     public String initLogin() {
         return "auth/login";
     }
 
     @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+//    @POST
+//    @Path("/login")
+//    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+//    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String doLogin(@RequestParam("username") String username, @RequestParam("password") String password) throws Exception {
+//    public Response doLogin(@FormParam("username") String username, @FormParam("password") String password) throws Exception {
         final AuthenticationInfo authenticationInfo = authService.loginByUsernamePassword(username, password);
         final ResponseWrapper<AuthenticationInfo> res = ResponseWrapper.<AuthenticationInfo>builder().data(authenticationInfo).build();
         return TextUtil.objToJson(res);
+//        return Response.ok().entity(TextUtil.objToJson(res)).build();
     }
 
     @RequestMapping(value = "/afterLogin", method = RequestMethod.GET)
+//    @GET
+//    @Path("/after-login")
     public String doAfterLogin(@RequestParam(name = RequestParams.PARAM_ACCESS_TOKEN, defaultValue = "") String token) {
+//    public String doAfterLogin(@QueryParam(RequestParams.PARAM_ACCESS_TOKEN) @DefaultValue("") String token) {
         return "auth/login";
 //        boolean result = false;
 //        result = SessionHolder.getSession(tokenId, false) != null;
@@ -63,6 +71,8 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+//    @GET
+//    @Path("/welcome")
     public String welcome(Model model) throws Exception {
         final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(
                 request.getHeader(RequestParams.HEADER_AUTHORIZATION),

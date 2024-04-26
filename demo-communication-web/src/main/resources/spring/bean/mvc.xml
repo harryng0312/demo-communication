@@ -34,5 +34,4 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <!-- this flag is "false" by default for safer backwards compatibility.      -->
         <property name="enableSpringELCompiler" value="true"/>
     </bean>
-
 </beans>

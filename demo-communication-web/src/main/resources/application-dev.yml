@@ -30,7 +30,7 @@ server:
 spring:
   thymeleaf:
     cache: false
-  docker:
-    compose:
-      enabled: true
-      host: ./docker/docker-compose-dev.xml
+#  docker:
+#    compose:
+#      enabled: true
+#      host: ./docker/docker-compose-dev.xml
