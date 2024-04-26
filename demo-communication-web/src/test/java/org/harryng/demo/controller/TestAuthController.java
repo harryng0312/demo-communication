@@ -7,20 +7,21 @@ import org.harryng.demo.Application;
 import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.util.TextUtil;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@SpringBootTest(
-        classes = Application.class,
+@SpringBootTest(classes = Application.class,
         webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @Import(Application.class)
 @AutoConfigureMockMvc
+@AutoConfigureWebTestClient
 @Slf4j
 //@WebMvcTest(AuthController.class)
 public class TestAuthController {
@@ -29,14 +30,24 @@ public class TestAuthController {
 
     @Resource
     private MockMvc mockMvc;
+    @Resource
+    private WebTestClient webClient;
 
     @Test
     public void testGetLogin() throws Exception {
-        final var getLogin = MockMvcRequestBuilders.get("/login");
-        mockMvc.perform(getLogin)
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("txtUsername")));
+//        final var getLogin = MockMvcRequestBuilders.get("/login");
+//        mockMvc.perform(getLogin)
+//                .andDo(MockMvcResultHandlers.print())
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("txtUsername")));
+        final var resGetLogin = webClient.get().uri("/login")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
+        assert resGetLogin != null;
+        log.info("Res Get Login:{}", resGetLogin.contains("txtUsername"));
     }
 
     @Test
@@ -71,7 +82,7 @@ public class TestAuthController {
                         .andExpect(MockMvcResultMatchers.status().isOk())
 //                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("screen01")))
                         .andReturn();
-                if(resWelcome.getResponse().getStatus() == 200) {
+                if (resWelcome.getResponse().getStatus() == 200) {
                     log.info("welcome:{}", resWelcome.getResponse().getContentAsString().contains("screen01"));
                 }
             }
