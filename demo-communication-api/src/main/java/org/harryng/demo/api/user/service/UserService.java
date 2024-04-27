@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface UserService extends BaseSearchableAuthenticatedService<UserImpl, Long> {
     Optional<UserImpl> getByUsername(String username, Map<String, Object> extra) throws Exception;
+    Optional<UserImpl> getByMyId(SessionHolder sessionHolder, Map<String, Object> extra) throws Exception;
     Optional<UserImpl> getById(
             SessionHolder sessionHolder, Long id, boolean loadUsergroups, boolean loadRoles,
             boolean loadPermissions, Map<String, Object> extra) throws Exception;

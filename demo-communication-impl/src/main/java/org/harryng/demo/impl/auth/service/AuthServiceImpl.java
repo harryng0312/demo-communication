@@ -68,6 +68,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isValidSession(Long userId, String sessionId) throws Exception {
-        return true;
+        return userId != null && userId > 0;
     }
 }

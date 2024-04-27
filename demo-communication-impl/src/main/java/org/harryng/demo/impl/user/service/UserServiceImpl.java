@@ -63,6 +63,10 @@ public class UserServiceImpl extends AbstractSearchableService<UserImpl, Long> i
         }
         return result;
     }
+    @Override
+    public Optional<UserImpl> getByMyId(SessionHolder sessionHolder, Map<String, Object> extra) throws Exception {
+        return getPersistence().findById(sessionHolder.getUserId());
+    }
 
     @Override
     public Optional<UserImpl> getById(

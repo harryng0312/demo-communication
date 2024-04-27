@@ -18,7 +18,9 @@ public class AuthenticationAspect {
             log.info("----- auth {}.{} -----", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
             final SessionHolder sessionHolder = (SessionHolder) jp.getArgs()[0];
             if(authService.isValidSession(sessionHolder.getUserId(), sessionHolder.getSessionId())) {
-                return jp.proceed();
+                final Object result = jp.proceed();
+                log.info("+++++ auth {}.{} +++++", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
+                return result;
             }
             log.info("+++++ auth {}.{} +++++", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
             throw new CodedException(CodedException.NO_AUTH);

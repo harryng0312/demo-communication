@@ -89,13 +89,16 @@
         <aop:pointcut
                 id="persistenceOperation"
                 expression="execution(public * org.harryng.demo..persistence.*.*(..)) &amp;&amp; !execution(public * getEntityManager(..)) &amp;&amp; !execution(public * getEntityClass())"/>
+<!--        <aop:pointcut-->
+<!--                id="serviceOperation"-->
+<!--                expression="execution(public * org.harryng.demo..service.*.*(org.harryng.demo.api.base.dto.SessionHolder,..)) &amp;&amp; !execution(public * getPersistence(..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>-->
         <aop:pointcut
                 id="serviceOperation"
-                expression="execution(public * org.harryng.demo..service.*.*(..)) &amp;&amp; !execution(public * getPersistence(..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
+                expression="execution(public * org.harryng.demo..service.*.*(org.harryng.demo.api.base.dto.SessionHolder,..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
 
         <aop:pointcut
                 id="controllerOperation"
-                expression="execution(public * org.harryng.demo.controller.*.*(org.harryng.demo.api.base.dto.SessionHolder,..)) &amp;&amp; !execution(public * org.harryng.demo.controller.AuthController.*(..))"/>
+                expression="execution(public * org.harryng.demo.controller.*.*(..)) &amp;&amp; !execution(public * org.harryng.demo.controller.AuthController.*(..))"/>
         <aop:advisor
                 id="persistenceAdvisor" pointcut-ref="persistenceOperation"
                 advice-ref="requiredTxAdvicePersistence" order="1000"/>
@@ -111,14 +114,21 @@
         <aop:aspect ref="logging" order="10">
             <aop:around method="around" pointcut-ref="controllerOperation"/>
         </aop:aspect>
+
+<!--        <aop:aspect ref="sessionWrapper" order="20">-->
+<!--            <aop:around method="around" pointcut-ref="controllerOperation"/>-->
+<!--        </aop:aspect>-->
+<!--        <aop:aspect ref="auth" order="50">-->
+<!--            <aop:around method="around" pointcut-ref="controllerOperation"/>-->
+<!--        </aop:aspect>-->
         <aop:aspect ref="sessionWrapper" order="20">
-            <aop:around method="around" pointcut-ref="controllerOperation"/>
+            <aop:around method="around" pointcut-ref="serviceOperation"/>
         </aop:aspect>
         <aop:aspect ref="auth" order="50">
-            <aop:around method="around" pointcut-ref="controllerOperation"/>
+            <aop:around method="around" pointcut-ref="serviceOperation"/>
         </aop:aspect>
     </aop:config>
     <bean id="logging" class="org.harryng.demo.aop.LoggingAspect"/>
     <bean id="auth" class="org.harryng.demo.aop.AuthenticationAspect"/>
-    <bean id="sessionWrapper" class="org.harryng.demo.aop.AuthenticationAspect"/>
+    <bean id="sessionWrapper" class="org.harryng.demo.aop.SessionWrapperAspect"/>
 </beans>

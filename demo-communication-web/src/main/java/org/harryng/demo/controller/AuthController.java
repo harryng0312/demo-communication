@@ -74,14 +74,17 @@ public class AuthController {
 //    @GET
 //    @Path("/welcome")
     public String welcome(Model model) throws Exception {
-        final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(
-                request.getHeader(RequestParams.HEADER_AUTHORIZATION),
-                request.getHeader(RequestParams.PARAM_ACCESS_TOKEN));
-        if(!SessionUtil.isAnonymous(sessionHolder)) {
-            final var userImpl = userService.getById(sessionHolder, sessionHolder.getUserId(), Map.of());
+//        final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(
+//                request.getHeader(RequestParams.HEADER_AUTHORIZATION),
+//                request.getHeader(RequestParams.PARAM_ACCESS_TOKEN));
+//        if(!SessionUtil.isAnonymous(sessionHolder)) {
+        final SessionHolder sessionHolder = SessionHolder.builder().build();
+        final var userImpl = userService.getByMyId(sessionHolder, Map.of());
+        if(userImpl.isPresent()) {
             userImpl.ifPresent(user -> model.addAttribute("user", user));
             return "auth/welcome";
         }
+//        }
         return "auth/login";
     }
 }

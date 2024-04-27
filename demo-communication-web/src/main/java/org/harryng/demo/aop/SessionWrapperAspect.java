@@ -23,14 +23,16 @@ public class SessionWrapperAspect {
 
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         if (jp.getArgs().length > 1 && jp.getArgs()[0] instanceof SessionHolder) {
-            log.info("request:{}", request.getQueryString());
+//            log.info("request:{}", request.getQueryString());
             final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(
                     request.getHeader(RequestParams.HEADER_AUTHORIZATION),
                     request.getParameter(RequestParams.PARAM_ACCESS_TOKEN)
             );
 //            sessionHolder.setUserId();
             jp.getArgs()[0] = sessionHolder;
-            final Object result = jp.proceed();
+            log.info("----- wrapper {}.{} -----", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
+            final Object result = jp.proceed(jp.getArgs());
+            log.info("+++++ wrapper {}.{} +++++", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
             final String jwt;
             if (jp.getArgs()[0] != null && jp.getArgs()[0] instanceof SessionHolder sessionHolderRes) {
                 final UUID uuid = UUID.randomUUID();
