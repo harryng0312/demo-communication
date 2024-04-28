@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = AssetValidator.class)
 @NotNull
 public @interface AssetConstraint {
-    String message() default "{asset.name.invalid}";
+    String message() default "{asset.invalid}";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 }

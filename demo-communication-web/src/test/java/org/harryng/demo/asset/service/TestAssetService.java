@@ -77,9 +77,9 @@ public class TestAssetService {
         log.info("validation result:{}", violations.size());
         final StringBuilder validationMsg = new StringBuilder();
         for (ConstraintViolation<AssetImpl> violation : violations) {
-            validationMsg.append("\n")
+            validationMsg.append("\n[")
                     .append(violation.getPropertyPath().toString())
-                    .append(":")
+                    .append("]:")
                     .append(violation.getMessage());
         }
         log.info("validation detail:{}", validationMsg);

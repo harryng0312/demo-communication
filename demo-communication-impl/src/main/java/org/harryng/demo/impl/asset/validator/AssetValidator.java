@@ -19,20 +19,27 @@ public class AssetValidator implements ConstraintValidator<AssetConstraint, Asse
     @Override
     public boolean isValid(AssetModel assetModel, ConstraintValidatorContext constraintValidatorContext) {
         boolean result = true;
+        constraintValidatorContext.disableDefaultConstraintViolation();
         if (assetModel.getOrgId() == null) {
-            constraintValidatorContext
-                    .buildConstraintViolationWithTemplate("asset.orgId.empty")
+            constraintValidatorContext.buildConstraintViolationWithTemplate("{asset.orgId.empty}")
+                    .addPropertyNode("org")
+                    .addPropertyNode("id")
                     .addConstraintViolation();
             result = false;
         } else {
             final var orgExisted = organizationPersistence.existsById(assetModel.getOrgId());
             if (!orgExisted) {
-                constraintValidatorContext
-                        .buildConstraintViolationWithTemplate("asset.orgId.invalid")
+                constraintValidatorContext.buildConstraintViolationWithTemplate("{asset.orgId.invalid}")
+                        .addPropertyNode("org")
+                        .addPropertyNode("id")
                         .addConstraintViolation();
                 result = false;
             }
         }
+//        if (!result){
+//            constraintValidatorContext.buildConstraintViolationWithTemplate("{asset.invalid}!!!")
+//                    .addConstraintViolation();
+//        }
         return result;
     }
 }
