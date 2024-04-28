@@ -19,7 +19,7 @@ import org.harryng.demo.api.base.entity.BaseResourceModel;
 public abstract class AssetModel extends AbstractStatedModel<Long> implements BaseResourceModel {
     @Basic
     @Column(name = "name_")
-//    @AssetNameNotEmpty
+    @AssetNameNotEmpty
     private String name;
     @Basic
     @Column(name = "description")

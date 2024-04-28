@@ -13,20 +13,20 @@ dependencies {
 //    implementation "javax.persistence:javax.persistence-api:2.2"
     implementation "org.mapstruct:mapstruct:${mapstructVer}"
     implementation "org.springframework.boot:spring-boot-starter"
-
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "commons-validator:commons-validator:${commonValidatorVer}"
     implementation "org.infinispan:infinispan-core-jakarta"
     implementation "com.auth0:java-jwt:${javaJwtVer}"
     implementation "com.fasterxml.jackson.core:jackson-databind"
     implementation "jakarta.persistence:jakarta.persistence-api"
 
-    implementation "org.springframework.boot:spring-boot-starter-validation"
+
+    compileOnly "org.springframework.boot:spring-boot-starter-data-jpa"
 //    implementation "org.hibernate.validator:hibernate-validator"
 //    implementation "org.hibernate.validator:hibernate-validator-annotation-processor"
 
     // for Test sources set
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVer}"
-    compileOnly "org.springframework.boot:spring-boot-starter-data-jpa"
 //    implementation "org.hibernate.orm:hibernate-core:${hibernateVer}"
 
 //    implementation "org.infinispan:infinispan-core-jakarta:${infinispanVer}"

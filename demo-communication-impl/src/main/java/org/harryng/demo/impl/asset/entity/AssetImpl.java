@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.harryng.demo.api.asset.entity.AssetModel;
-import org.harryng.demo.api.asset.validator.AssetConstraint;
-import org.harryng.demo.api.asset.validator.AssetNameNotEmpty;
+import org.harryng.demo.impl.asset.validator.AssetConstraint;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -73,9 +73,15 @@ public class TestAssetService {
         asset.setStatus(1);
         asset.setName("[assetname]");
 
-
         final Set<ConstraintViolation<AssetImpl>> violations = validator.validate(asset);
         log.info("validation result:{}", violations.size());
-        log.info("validation detail:{}", violations);
+        final StringBuilder validationMsg = new StringBuilder();
+        for (ConstraintViolation<AssetImpl> violation : violations) {
+            validationMsg.append("\n")
+                    .append(violation.getPropertyPath().toString())
+                    .append(":")
+                    .append(violation.getMessage());
+        }
+        log.info("validation detail:{}", validationMsg);
     }
 }

@@ -1,7 +1,8 @@
-package org.harryng.demo.api.asset.validator;
+package org.harryng.demo.impl.asset.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import jakarta.validation.constraints.NotNull;
 
 import java.lang.annotation.*;
 
@@ -9,6 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = AssetValidator.class)
+@NotNull
 public @interface AssetConstraint {
     String message() default "{asset.name.invalid}";
     Class<?>[] groups() default { };
