@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Base64;
+import java.util.Locale;
 
 public class SessionUtil {
 
@@ -51,7 +52,8 @@ public class SessionUtil {
         jwtBuilder.withIssuer(SystemKey.COMPANY_ID)
                 .withSubject(sessionHolder.getUsername())
                 .withClaim(RequestParams.HEADER_USER_ID, sessionHolder.getUserId())
-                .withClaim(RequestParams.HEADER_SESSION_ID, sessionHolder.getSessionId());
+                .withClaim(RequestParams.HEADER_SESSION_ID, sessionHolder.getSessionId())
+                .withClaim(RequestParams.PARAM_LOCALE, sessionHolder.getLocale().getDisplayName());
         return jwtBuilder.sign(algorithm);
     }
 
@@ -76,6 +78,13 @@ public class SessionUtil {
             if (decodedJwt.getPayload() != null && !decodedJwt.getClaims().isEmpty()) {
                 final String sessionId = decodedJwt.getClaim(RequestParams.HEADER_SESSION_ID).asString();
                 final Long userId = decodedJwt.getClaim(RequestParams.HEADER_USER_ID).asLong();
+                final String localeStr = decodedJwt.getClaim(RequestParams.PARAM_LOCALE).asString();
+                final Locale locale;
+                if(localeStr!=null && !localeStr.isBlank()){
+                    locale = Locale.forLanguageTag(localeStr);
+                }else{
+                    locale = Locale.ENGLISH;
+                }
                 final String username = decodedJwt.getSubject();
                 final Instant before = decodedJwt.getNotBeforeAsInstant() == null ? Instant.now() : decodedJwt.getNotBeforeAsInstant();
                 final Instant after = decodedJwt.getExpiresAtAsInstant() == null ? Instant.now() : decodedJwt.getExpiresAtAsInstant();
@@ -83,6 +92,7 @@ public class SessionUtil {
                         .sessionId(sessionId)
                         .userId(userId)
                         .username(username)
+                        .locale(locale)
                         .notBefore(LocalDateTime.ofInstant(before, ZoneId.systemDefault()))
                         .validity(LocalDateTime.ofInstant(after, ZoneId.systemDefault()))
                         .build();

@@ -25,4 +25,16 @@
     <context:property-placeholder properties-ref="yamlProperties"/>
 
 <!--    <context:property-placeholder location="classpath:db.properties"/>-->
+
+    <bean id="globalValidator" primary="true" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="messageInterpolator">
+            <bean class="org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator">
+                <constructor-arg name="userResourceBundleLocator">
+                    <bean class="org.hibernate.validator.resourceloading.PlatformResourceBundleLocator">
+                        <constructor-arg name="bundleName" value="message"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
 </beans>

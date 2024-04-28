@@ -7,4 +7,5 @@ public interface RequestParams {
     String PARAM_GRANT_TYPE = "grant_type";
     String PARAM_REFRESH_TOKEN = "refresh_token";
     String PARAM_ACCESS_TOKEN = "access_token";
+    String PARAM_LOCALE = "locale";
 }

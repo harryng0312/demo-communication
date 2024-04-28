@@ -16,22 +16,22 @@ public abstract class AbstractService<T extends BaseModel<Id>, Id extends Serial
     public abstract BasePersistence<T, Id> getPersistence();
 
     @Override
-    public @NonNull Optional<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra) {
+    public @NonNull Optional<T> getById(@NonNull SessionHolder sessionHolder, @NonNull Id id, Map<String, Object> extra) {
         return getPersistence().findById(id);
     }
 
     @Override
-    public @NonNull T add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
+    public @NonNull T add(@NonNull SessionHolder sessionHolder, @NonNull T obj, Map<String, Object> extra) throws Exception {
         return getPersistence().save(obj);
     }
 
     @Override
-    public @NonNull T edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception {
+    public @NonNull T edit(@NonNull SessionHolder sessionHolder, @NonNull T obj, Map<String, Object> extra) throws Exception {
         return getPersistence().save(obj);
     }
 
     @Override
-    public void remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception {
+    public void remove(@NonNull SessionHolder sessionHolder, @NonNull Id id, @NonNull Map<String, Object> extra) throws Exception {
         getPersistence().deleteById(id);
     }
 }

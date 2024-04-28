@@ -26,7 +26,8 @@ spring:
       org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
       org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
       org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
-      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, \
+      org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration
   jpa:
     open-in-view: false
   profiles:

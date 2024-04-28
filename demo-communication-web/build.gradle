@@ -19,7 +19,7 @@ dependencies {
 //    implementation "org.springframework.boot:spring-boot-starter-actuator"
 //    implementation "org.springframework.boot:spring-boot-starter-data-jdbc"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-starter-integration"
     implementation "org.springframework.boot:spring-boot-starter-web"
 //    implementation "org.springframework.boot:spring-boot-starter-jersey"
@@ -29,6 +29,8 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.session:spring-session-core'
+
+//    implementation "org.hibernate.validator:hibernate-validator"
 
 //    implementation "org.springframework.boot:spring-boot-docker-compose"
 
@@ -69,6 +71,9 @@ dependencies {
     testImplementation "org.assertj:assertj-core"
     testImplementation "com.auth0:java-jwt:${javaJwtVer}"
     testImplementation "org.springframework.boot:spring-boot-starter-webflux"
+//    testImplementation "org.springframework.boot:spring-boot-starter-validation"
+//    testImplementation "org.hibernate.validator:hibernate-validator"
+//    testImplementation "org.hibernate.validator:hibernate-validator-annotation-processor"
 //    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
 
 //    testCompile "junit":junit:${junitVersion}"
