@@ -146,7 +146,7 @@ async function handleCandidate(candidate) {
 async function handleAnswer(answer) {
     await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
     console.log("connection established successfully!!");
-};
+}
 
 function sendMessage() {
     sendDataChannel.send(input.value);

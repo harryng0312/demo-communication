@@ -21,8 +21,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class ChatEndpoint {
     static Logger logger = LoggerFactory.getLogger(ChatEndpoint.class);
     private Session session;
-    private static Set<ChatEndpoint> chatEndpoints = new CopyOnWriteArraySet<>();
-    private static Map<String, String> users = new HashMap<>();
+    private static final Set<ChatEndpoint> chatEndpoints = new CopyOnWriteArraySet<>();
+    private static final Map<String, String> users = new HashMap<>();
 
     private static void broadcast(ChatMessage message) throws IOException, EncodeException {
         chatEndpoints.forEach(endpoint -> {

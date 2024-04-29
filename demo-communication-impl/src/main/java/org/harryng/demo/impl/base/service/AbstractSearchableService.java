@@ -1,9 +1,7 @@
 package org.harryng.demo.impl.base.service;
 
 import org.harryng.demo.api.base.entity.BaseModel;
-import org.harryng.demo.api.base.persistence.BasePersistence;
 import org.harryng.demo.api.base.service.BaseSearchableAuthenticatedService;
-import org.harryng.demo.impl.base.mapper.BaseMapper;
 
 import java.io.Serializable;
 

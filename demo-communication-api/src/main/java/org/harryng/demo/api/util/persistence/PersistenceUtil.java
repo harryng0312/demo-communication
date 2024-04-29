@@ -8,7 +8,7 @@ import org.harryng.demo.api.util.PageResult;
 
 public class PersistenceUtil {
 
-    public static <T extends Object> PageResult<T> selectObjectByCriteria(EntityManager statelessSession, PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws RuntimeException, Exception {
+    public static <T extends Object> PageResult<T> selectObjectByCriteria(EntityManager statelessSession, PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws Exception {
         TypedQuery<T> typedQuery = statelessSession.createQuery(criteriaQuery);
         typedQuery.setFirstResult((int) pageInfo.getStartRowIndex());
         typedQuery.setMaxResults(pageInfo.getPageSize());
@@ -17,7 +17,7 @@ public class PersistenceUtil {
         return pageResult;
     }
 
-    public static <T extends Object> PageResult<T> selectObjectByQuery(EntityManager statelessSession, PageInfo pageInfo, Class<T> typeClass, String queryStr) throws RuntimeException, Exception {
+    public static <T extends Object> PageResult<T> selectObjectByQuery(EntityManager statelessSession, PageInfo pageInfo, Class<T> typeClass, String queryStr) throws Exception {
         PageResult<T> pageResult = new PageResult<>(pageInfo);
         TypedQuery<T> typedQuery = statelessSession.createQuery(queryStr, typeClass);
         typedQuery.setFirstResult((int) pageInfo.getStartRowIndex());

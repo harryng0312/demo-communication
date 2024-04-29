@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 public class HttpChatHandler extends TextWebSocketHandler {
     static Logger logger = LoggerFactory.getLogger(HttpChatHandler.class);
 
-    private ChatMessageDecoder decoder = new ChatMessageDecoder();
-    private ChatMessageEncoder encoder = new ChatMessageEncoder();
+    private final ChatMessageDecoder decoder = new ChatMessageDecoder();
+    private final ChatMessageEncoder encoder = new ChatMessageEncoder();
 
     private static void broadcast(WebSocketMessage<?> message) throws IOException, EncodeException {
         WsSessionManager.getSessionPool().entrySet().forEach(entry -> {
@@ -60,7 +60,7 @@ public class HttpChatHandler extends TextWebSocketHandler {
         chatMsg.setFrom((String)session.getAttributes().get("username"));
         Object token = session.getAttributes().get("username");
         logger.info("server Receive " + token + " Transmitted " + payload);
-        session.sendMessage(new TextMessage("server Send to " + token + " news " + payload + " " + LocalDateTime.now().toString()));
+        session.sendMessage(new TextMessage("server Send to " + token + " news " + payload + " " + LocalDateTime.now()));
         broadcast(new TextMessage(encoder.encode(chatMsg)));
     }
 

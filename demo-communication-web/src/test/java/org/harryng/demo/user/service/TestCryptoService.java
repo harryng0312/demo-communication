@@ -18,6 +18,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECGenParameterSpec;
@@ -47,7 +48,7 @@ public class TestCryptoService {
         Cipher cipherGcm = Cipher.getInstance("AES/GCM/NoPadding");
         Cipher cipherCtr = Cipher.getInstance("AES/CTR/PKCS5Padding");
         String plainText = "abcdefghijklmnopqrstuvwxyz0123456789";
-        byte[] plainTextBytes = plainText.getBytes("UTF-8");
+        byte[] plainTextBytes = plainText.getBytes(StandardCharsets.UTF_8);
         byte[] keyBin = {(byte) 0xAA, (byte) 0xAA, (byte) 0xAA, (byte) 0xAA,
                 (byte) 0xBB, (byte) 0xBB, (byte) 0xBB, (byte) 0xBB,
                 (byte) 0xCC, (byte) 0xCC, (byte) 0xCC, (byte) 0xCC,

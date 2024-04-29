@@ -125,7 +125,6 @@ public class TestCache {
             log.info("Result:{}", val.get());
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
-        } finally {
         }
     }
 
@@ -181,7 +180,6 @@ public class TestCache {
 //            final boolean rs = executor.awaitTermination(3, TimeUnit.SECONDS);
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
-        } finally {
         }
     }
 }

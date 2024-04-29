@@ -3,7 +3,7 @@ package org.harryng.demo.model;
 import java.security.Principal;
 
 public class StompPrincipal implements Principal {
-    private String name;
+    private final String name;
 
     public StompPrincipal(String name) {
         this.name = name;

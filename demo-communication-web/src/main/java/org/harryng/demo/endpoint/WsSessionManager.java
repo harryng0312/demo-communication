@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentMap;
 
 public class WsSessionManager {
     static Logger logger = LoggerFactory.getLogger(WsSessionManager.class);
-    private static ConcurrentMap<String, WebSocketSession> SESSION_POOL = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, WebSocketSession> SESSION_POOL = new ConcurrentHashMap<>();
 
     public static Map<String, WebSocketSession> getSessionPool(){
         return SESSION_POOL;

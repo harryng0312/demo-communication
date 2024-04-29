@@ -14,7 +14,7 @@ import java.util.List;
 public class WebRtcChatHandler extends TextWebSocketHandler {
     static Logger logger = LoggerFactory.getLogger(WebRtcChatHandler.class);
 
-    private List<WebSocketSession> sessions = Collections.synchronizedList(new ArrayList<>());
+    private final List<WebSocketSession> sessions = Collections.synchronizedList(new ArrayList<>());
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws InterruptedException, IOException {
