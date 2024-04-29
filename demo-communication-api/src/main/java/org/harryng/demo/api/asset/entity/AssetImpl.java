@@ -5,7 +5,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-//import org.harryng.demo.impl.asset.validator.AssetConstraint;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -1,4 +1,4 @@
-package org.harryng.demo.impl.auth.persistence;
+package org.harryng.demo.api.auth.persistence;
 
 import org.harryng.demo.api.auth.entity.ResourceActionImpl;
 import org.harryng.demo.api.base.persistence.BaseSearchablePersistence;

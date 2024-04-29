@@ -1,4 +1,4 @@
-package org.harryng.demo.impl.base.persistence;
+package org.harryng.demo.api.base.persistence;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;

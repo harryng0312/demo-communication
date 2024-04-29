@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.harryng.demo.api.base.entity.AbstractStatedModel;
 import org.harryng.demo.api.base.entity.BaseResourceModel;
+import org.harryng.demo.api.base.validator.TreePathValidated;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -28,5 +29,6 @@ public abstract class AssetModel extends AbstractStatedModel<Long> implements Ba
     private Long orgId;
     @Basic
     @Column(name = "org_treepath")
+    @TreePathValidated
     private String orgTreepath;
 }

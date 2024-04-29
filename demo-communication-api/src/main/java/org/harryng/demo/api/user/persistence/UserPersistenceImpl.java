@@ -1,4 +1,4 @@
-package org.harryng.demo.impl.user.persistence;
+package org.harryng.demo.api.user.persistence;
 
 //@Repository
 //public abstract class UserPersistenceImpl extends SimpleBaseSearchablePersistence<UserImpl, Long> implements UserPersistence {

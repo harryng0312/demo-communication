@@ -5,7 +5,7 @@ import lombok.NonNull;
 import org.harryng.demo.api.asset.dto.AssetDto;
 import org.harryng.demo.api.asset.service.AssetService;
 import org.harryng.demo.impl.asset.mapper.AssetMapper;
-import org.harryng.demo.impl.asset.persistence.AssetPersistence;
+import org.harryng.demo.api.asset.persistence.AssetPersistence;
 import org.harryng.demo.api.base.dto.SessionHolder;
 import org.harryng.demo.api.asset.entity.AssetImpl;
 import org.harryng.demo.impl.base.service.AbstractSearchableService;

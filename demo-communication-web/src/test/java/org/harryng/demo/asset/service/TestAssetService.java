@@ -68,7 +68,7 @@ public class TestAssetService {
         asset.setCreatedDate(now);
         asset.setModifiedDate(now);
         asset.setOrgId(0L); // pass the field validator
-        asset.setOrgTreepath("/");
+        asset.setOrgTreepath("/123/345");
         asset.setDescription("");
         asset.setStatus(1);
         asset.setName("[assetname]");

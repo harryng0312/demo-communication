@@ -1,4 +1,4 @@
-package org.harryng.demo.impl.user.persistence;
+package org.harryng.demo.api.user.persistence;
 
 import org.harryng.demo.api.base.persistence.BaseSearchablePersistence;
 import org.harryng.demo.api.user.entity.UserImpl;

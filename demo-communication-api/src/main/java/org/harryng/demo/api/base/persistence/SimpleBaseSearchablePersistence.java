@@ -1,8 +1,7 @@
-package org.harryng.demo.impl.base.persistence;
+package org.harryng.demo.api.base.persistence;
 
 import jakarta.persistence.EntityManager;
 import org.harryng.demo.api.base.entity.BaseModel;
-import org.harryng.demo.api.base.persistence.BaseSearchablePersistence;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 
 import java.io.Serializable;

@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = TreePathValidator.class)
 public @interface TreePathValidated {
-    String message() default "{asset.name.invalid}";
+    String message() default "{treepath.invalid}";
 
     Class<?>[] groups() default { };
 

@@ -1,4 +1,4 @@
-package org.harryng.demo.impl.asset.validator;
+package org.harryng.demo.api.asset.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

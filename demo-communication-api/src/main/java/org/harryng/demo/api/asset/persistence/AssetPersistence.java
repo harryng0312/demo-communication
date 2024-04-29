@@ -1,4 +1,4 @@
-package org.harryng.demo.impl.asset.persistence;
+package org.harryng.demo.api.asset.persistence;
 
 import org.harryng.demo.api.base.persistence.BaseSearchablePersistence;
 import org.harryng.demo.api.asset.entity.AssetImpl;
