@@ -3,10 +3,10 @@ package org.harryng.demo.impl.auth.service;
 import jakarta.annotation.Resource;
 import org.harryng.demo.api.auth.dto.AuthenticationInfo;
 import org.harryng.demo.api.auth.service.AuthService;
-import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
 import org.harryng.demo.api.constant.ResponseCode;
 import org.harryng.demo.api.exception.CodedException;
+import org.harryng.demo.api.user.dto.UserDto;
 import org.harryng.demo.api.user.entity.UserImpl;
 import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.api.util.SecurityUtil;
@@ -28,9 +28,9 @@ public class AuthServiceImpl implements AuthService {
         if (password == null || password.isBlank()) {
             throw new CodedException(ResponseCode.AUTH_PASSWD_NOT_MATCH, "Password is empty");
         }
-        final Optional<UserImpl> userOpt = userService.getByUsername(username, Collections.emptyMap());
+        final Optional<UserDto> userOpt = userService.getByUsername(username, Collections.emptyMap());
         if (userOpt.isPresent()) {
-            final UserImpl user = userOpt.get();
+            final UserDto user = userOpt.get();
             if ("plain".equalsIgnoreCase(user.getPasswdEncryptedMethod())) {
                 if (!password.equals(user.getPasswd())) {
                     throw new CodedException(ResponseCode.AUTH_PASSWD_NOT_MATCH, "Username or Password is not matched");

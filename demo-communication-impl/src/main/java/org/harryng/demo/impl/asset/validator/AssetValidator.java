@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.harryng.demo.api.asset.entity.AssetModel;
-import org.harryng.demo.api.organization.persistence.OrganizationPersistence;
+import org.harryng.demo.impl.organization.persistence.OrganizationPersistence;
 
 public class AssetValidator implements ConstraintValidator<AssetConstraint, AssetModel> {
 

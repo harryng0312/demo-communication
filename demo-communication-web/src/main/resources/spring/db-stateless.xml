@@ -12,7 +12,7 @@
     <!--    <tx:annotation-driven transaction-manager="transactionManager" mode="proxy" />-->
     <tx:annotation-driven transaction-manager="txManager" />
 <!--    <tx:jta-transaction-manager/>-->
-    <jpa:repositories base-package="org.harryng.demo.**.persistence"/>
+    <jpa:repositories base-package="org.harryng.demo.impl.organization.persistence"/>
 
     <import resource="classpath:spring/bean/common.xml"/>
     <context:property-placeholder properties-ref="yamlProperties"/>
@@ -64,7 +64,7 @@
             <list>
                 <value>org.harryng.demo.**.pojo.data.model</value>
                 <value>org.harryng.demo.**.pojo.data.entity</value>
-                <value>org.harryng.demo.**.persistence</value>
+                <value>org.harryng.demo.impl.organization.persistence</value>
             </list>
         </property>
         <property name="jpaVendorAdapter">

@@ -6,9 +6,8 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.harryng.demo.api.base.entity.AbstractStatedModel;
-import org.harryng.demo.api.base.entity.BaseHierarchyModel;
 import org.harryng.demo.api.base.entity.BaseResourceModel;
+import org.harryng.demo.api.base.entity.AbstractStatedModel;
 
 import java.time.LocalDate;
 

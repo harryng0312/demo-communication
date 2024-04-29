@@ -5,7 +5,7 @@ import jakarta.validation.*;
 import jakarta.validation.executable.ExecutableValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.Application;
-import org.harryng.demo.impl.asset.entity.AssetImpl;
+import org.harryng.demo.api.asset.entity.AssetImpl;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 import org.junit.jupiter.api.Test;

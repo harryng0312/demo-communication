@@ -4,7 +4,8 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.base.dto.ResponseWrapper;
 import org.harryng.demo.api.base.dto.SessionHolder;
-import org.harryng.demo.api.user.persistence.UserPersistence;
+import org.harryng.demo.api.user.dto.UserDto;
+import org.harryng.demo.impl.user.persistence.UserPersistence;
 import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.Application;
 import org.harryng.demo.impl.user.mapper.UserMapper;
@@ -42,18 +43,18 @@ public class TestUserService {
     @Test
     public void testAddUser() throws Exception {
         final LocalDateTime now = LocalDateTime.now();
-        final UserImpl user = new UserImpl();
-        user.setId(1L);
-        user.setUsername("username01");
-        user.setPasswd("passwd01");
-        user.setScreenName("screen01");
-        user.setDob(now.toLocalDate());
-        user.setPasswdEncryptedMethod("plain");
+        final UserDto userDto = new UserDto();
+        userDto.setId(1L);
+        userDto.setUsername("username01");
+        userDto.setPasswd("passwd01");
+        userDto.setScreenName("screen01");
+        userDto.setDob(now.toLocalDate());
+        userDto.setPasswdEncryptedMethod("plain");
 
-        user.setCreatedDate(now);
-        user.setModifiedDate(now);
-        user.setStatus(1);
-        final UserImpl rs = userService.add(SessionHolder.builder().build(), user, Collections.emptyMap());
+        userDto.setCreatedDate(now);
+        userDto.setModifiedDate(now);
+        userDto.setStatus(1);
+        final UserDto rs = userService.add(SessionHolder.builder().build(), userDto, Collections.emptyMap());
         log.info("Add {} record(s)", rs);
     }
 
@@ -67,7 +68,7 @@ public class TestUserService {
 //                while (!xService.isTerminated() && !xService.isShutdown()) {
 //                final UserImpl userDefault = new UserImpl();
                 try (var executorService = Executors.newVirtualThreadPerTaskExecutor()) {
-                    final var futures = new ArrayList<Future<Optional<UserImpl>>>(noOfReq);
+                    final var futures = new ArrayList<Future<Optional<UserDto>>>(noOfReq);
                     for (var i = 0; i < noOfReq; i++) {
                         final var fut = executorService.submit(() -> {
                             final var userService1 = applicationContext.getBean(UserService.class);
@@ -76,7 +77,7 @@ public class TestUserService {
                             final var user = userService1.getById(SessionHolder.builder().build(), 1L, Collections.emptyMap());
 //                                userService1.getPersistence().getStatelessSession().close();
 //                            user.orElse(userDefault).setScreenName(reqId);
-                            user.ifPresent(value -> log.info("Call {} - User:{}", value.getScreenName(), value.getUsername()));
+                            user.ifPresent(value -> log.info("Call {} - User:{}", value, value.getUsername()));
                             return user;
                         });
                         futures.add(fut);
@@ -126,7 +127,7 @@ public class TestUserService {
 //        final var mapper = applicationContext.getBean(UserMapper.class);
 //        final var userService = applicationContext.getBean(UserService.class);
 //        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 1L, Collections.emptyMap());
-        final Optional<UserImpl> user = userService.getById(SessionHolder.ANONYMOUS, 2L, true, true, true, Map.of());
+        final Optional<UserDto> user = userService.getById(SessionHolder.ANONYMOUS, 2L, true, true, true, Map.of());
 //        user.ifPresent(value -> value.getUsergroupIds().addAll(userPersistence.getUsergroupIds(value.getId())));
         final var userRequest = new UserRequest();
         log.info("DB user entity: {}", user);

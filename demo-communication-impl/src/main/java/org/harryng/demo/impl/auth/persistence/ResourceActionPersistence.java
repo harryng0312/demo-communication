@@ -1,7 +1,6 @@
-package org.harryng.demo.api.auth.persistence;
+package org.harryng.demo.impl.auth.persistence;
 
 import org.harryng.demo.api.auth.entity.ResourceActionImpl;
-import org.harryng.demo.api.auth.entity.ResourcePermissionImpl;
 import org.harryng.demo.api.base.persistence.BaseSearchablePersistence;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

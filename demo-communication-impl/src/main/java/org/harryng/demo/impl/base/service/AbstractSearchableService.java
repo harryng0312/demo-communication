@@ -1,12 +1,14 @@
 package org.harryng.demo.impl.base.service;
 
 import org.harryng.demo.api.base.entity.BaseModel;
+import org.harryng.demo.api.base.persistence.BasePersistence;
 import org.harryng.demo.api.base.service.BaseSearchableAuthenticatedService;
+import org.harryng.demo.impl.base.mapper.BaseMapper;
 
 import java.io.Serializable;
 
-public abstract class AbstractSearchableService<T extends BaseModel<Id>, Id extends Serializable>
-        extends AbstractService<T, Id> implements BaseSearchableAuthenticatedService<T, Id> {
+public abstract class AbstractSearchableService<T extends BaseModel<Id>, Et extends BaseModel<Id>, Id extends Serializable>
+        extends AbstractService<T, Et, Id> implements BaseSearchableAuthenticatedService<T, Et, Id> {
 
 //    @Override
 //    public abstract BaseSearchablePersistence<T, Id> getPersistence();
