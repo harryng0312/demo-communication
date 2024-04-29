@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
 public interface UserPersistence extends BaseSearchablePersistence<UserImpl, Long> {
     @Query("select u.usergroupId from UserUserGroupImpl u where u.userId = :userId")
     List<Long> getUsergroupIds(@Param("userId") Long userId);

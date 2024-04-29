@@ -9,7 +9,8 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
     <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj"/>
-    <jpa:repositories base-package="org.harryng.demo.impl.organization.persistence" base-class="org.harryng.demo.impl.base.persistence.SimpleBasePersistence"
+    <jpa:repositories base-package="org.harryng.demo.impl.**.persistence"
+                      base-class="org.harryng.demo.impl.base.persistence.SimpleBasePersistence"
                       transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
     <import resource="classpath:spring/bean/common.xml"/>
 <!--    <context:property-placeholder location="classpath:db.properties"/>-->
@@ -48,8 +49,8 @@
         <property name="packagesToScan">
             <list>
 <!--                <value>org.harryng.demo.**.model</value>-->
-                <value>org.harryng.demo.impl.organization.entity</value>
-                <value>org.harryng.demo.impl.organization.persistence</value>
+                <value>org.harryng.demo.api.**.entity</value>
+                <value>org.harryng.demo.impl.**.persistence</value>
             </list>
         </property>
         <property name="jpaVendorAdapter">
