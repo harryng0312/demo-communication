@@ -2,10 +2,12 @@ package org.harryng.demo.api.base.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.base.validator.annotation.TreePathValidated;
 
 import java.util.regex.Pattern;
 
+@Slf4j
 public class TreePathValidator implements ConstraintValidator<TreePathValidated, String> {
 
     final Pattern pattern;
@@ -22,7 +24,8 @@ public class TreePathValidator implements ConstraintValidator<TreePathValidated,
     @Override
     public boolean isValid(String treepath, ConstraintValidatorContext constraintValidatorContext) {
         boolean result = true;
-//        constraintValidatorContext.disableDefaultConstraintViolation();
+        constraintValidatorContext.disableDefaultConstraintViolation();
+        log.info("===== This is Treepath validator =====");
         if (treepath == null || treepath.isEmpty()) {
             constraintValidatorContext.buildConstraintViolationWithTemplate("{treepath.invalid}")
                     .addConstraintViolation();

@@ -8,7 +8,7 @@ import org.harryng.demo.api.asset.validator.AssetValidator;
 import java.lang.annotation.*;
 
 @Documented
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = AssetValidator.class)
 @NotNull

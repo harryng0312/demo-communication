@@ -26,7 +26,7 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
     }
 
     @Override
-    public @NonNull Dto add(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
+    public Dto add(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
         final Et inputEntity = getMapper().toEntity(obj);
         if(inputEntity == null) {
             throw new NullPointerException("inputEntity is null");
@@ -36,7 +36,7 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
     }
 
     @Override
-    public @NonNull Dto edit(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
+    public Dto edit(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
         final Et inputEntity = getMapper().toEntity(obj);
         if(inputEntity == null) {
             throw new NullPointerException("inputEntity is null");

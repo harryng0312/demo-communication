@@ -7,15 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.Application;
 import org.harryng.demo.api.asset.dto.AssetDto;
 import org.harryng.demo.api.asset.entity.AssetImpl;
+import org.harryng.demo.api.asset.service.AssetService;
+import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.base.validator.group.AddValGroup;
 import org.harryng.demo.api.base.validator.group.DefaultValGroup;
 import org.harryng.demo.api.base.validator.group.EditValGroup;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 
 @SpringBootTest(classes = Application.class)
@@ -25,6 +30,8 @@ public class TestAssetService {
 
     @Resource
     private Validator validator;
+    @Resource
+    private AssetService assetService;
 
     @Test
     public void testFieldAndClassValidatorBasic() {
@@ -89,7 +96,7 @@ public class TestAssetService {
     }
 
     @Test
-    public void testFieldAndClassValidatorWithGroups() {
+    public void testFieldAndClassValidatorWithGroups() throws Exception {
         log.info("test validator with groups");
         // Create a ValidatorFactory
         // Set up a custom message interpolator with message bundles
@@ -105,7 +112,7 @@ public class TestAssetService {
         asset.setStatus(1);
         asset.setName("[assetname]");
 
-        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, DefaultValGroup.class, EditValGroup.class);
+        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, DefaultValGroup.class, AddValGroup.class);
         log.info("validation result:{}", violations.size());
         final StringBuilder validationMsg = new StringBuilder();
         for (ConstraintViolation<AssetDto> violation : violations) {
@@ -115,5 +122,39 @@ public class TestAssetService {
                     .append(violation.getMessage());
         }
         log.info("validation detail:{}", validationMsg);
+    }
+
+    @Test
+    public void testFieldAndClassValidatorAnnotation() throws Exception {
+        log.info("test validator annotation");
+        // Create a ValidatorFactory
+        // Set up a custom message interpolator with message bundles
+        // Use the custom message interpolator when creating the validator
+        final var now = LocalDateTime.now();
+        final AssetDto asset = new AssetDto();
+        asset.setId(0L);
+        asset.setCreatedDate(now);
+        asset.setModifiedDate(now);
+        asset.setOrgId(null); // pass the field validator
+        asset.setOrgTreepath("/123/345");
+        asset.setDescription("");
+        asset.setStatus(1);
+        asset.setName("[assetname]");
+
+        assetService.add(SessionHolder.ANONYMOUS, asset, Map.of());
+
+//        final Set<ConstraintViolation<AssetDto>> defaultViolations = validator.validate(asset);
+//        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, DefaultValGroup.class, AddValGroup.class);
+//        log.info("validation result:{}", violations.size());
+//        final StringBuilder validationMsg = new StringBuilder();
+//        defaultViolations.forEach(violation -> validationMsg.append("\n[")
+//                .append(violation.getPropertyPath().toString())
+//                .append("]:")
+//                .append(violation.getMessage()));
+//        violations.forEach(violation -> validationMsg.append("\n[")
+//                .append(violation.getPropertyPath().toString())
+//                .append("]:")
+//                .append(violation.getMessage()));
+//        log.info("validation detail:{}", validationMsg);
     }
 }
