@@ -29,6 +29,5 @@ public abstract class AssetModel extends AbstractStatedModel<Long> implements Ba
     private Long orgId;
     @Basic
     @Column(name = "org_treepath")
-    @TreePathValidated
     private String orgTreepath;
 }
