@@ -5,17 +5,17 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.asset.dto.AssetDto;
-import org.harryng.demo.api.asset.validator.annotation.AssetValidated;
+import org.harryng.demo.api.asset.validator.annotation.AssetDefaultValidated;
 import org.harryng.demo.api.organization.persistence.OrganizationPersistence;
 
 @Slf4j
-public class AssetValidator implements ConstraintValidator<AssetValidated, AssetDto> {
+public class AssetValidator implements ConstraintValidator<AssetDefaultValidated, AssetDto> {
 
     @Resource
     private OrganizationPersistence organizationPersistence;
 
     @Override
-    public void initialize(AssetValidated constraintAnnotation) {
+    public void initialize(AssetDefaultValidated constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

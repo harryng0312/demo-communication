@@ -1,7 +1,8 @@
-package org.harryng.demo.api.base.validator;
+package org.harryng.demo.api.base.validator.annotation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.harryng.demo.api.base.validator.TreePathValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.Application;
 import org.harryng.demo.api.asset.dto.AssetDto;
 import org.harryng.demo.api.asset.entity.AssetImpl;
-import org.harryng.demo.api.asset.validator.AssetAddGroup;
-import org.harryng.demo.api.asset.validator.AssetEditGroup;
+import org.harryng.demo.api.base.validator.group.DefaultValGroup;
+import org.harryng.demo.api.base.validator.group.EditValGroup;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 import org.junit.jupiter.api.Test;
@@ -105,7 +105,7 @@ public class TestAssetService {
         asset.setStatus(1);
         asset.setName("[assetname]");
 
-        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, AssetAddGroup.class);
+        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, DefaultValGroup.class, EditValGroup.class);
         log.info("validation result:{}", violations.size());
         final StringBuilder validationMsg = new StringBuilder();
         for (ConstraintViolation<AssetDto> violation : violations) {

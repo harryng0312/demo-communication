@@ -5,7 +5,6 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.asset.dto.AssetDto;
-import org.harryng.demo.api.asset.entity.AssetModel;
 import org.harryng.demo.api.asset.validator.annotation.AssetAddValidated;
 import org.harryng.demo.api.organization.persistence.OrganizationPersistence;
 

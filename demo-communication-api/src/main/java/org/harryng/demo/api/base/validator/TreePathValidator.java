@@ -2,6 +2,7 @@ package org.harryng.demo.api.base.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.harryng.demo.api.base.validator.annotation.TreePathValidated;
 
 import java.util.regex.Pattern;
 
