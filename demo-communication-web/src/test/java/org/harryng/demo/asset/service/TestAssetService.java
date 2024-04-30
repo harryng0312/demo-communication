@@ -5,7 +5,10 @@ import jakarta.validation.*;
 import jakarta.validation.executable.ExecutableValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.Application;
+import org.harryng.demo.api.asset.dto.AssetDto;
 import org.harryng.demo.api.asset.entity.AssetImpl;
+import org.harryng.demo.api.asset.validator.AssetAddGroup;
+import org.harryng.demo.api.asset.validator.AssetEditGroup;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 import org.junit.jupiter.api.Test;
@@ -24,7 +27,7 @@ public class TestAssetService {
     private Validator validator;
 
     @Test
-    public void testFieldAndClassHibernateValidatorBasic() {
+    public void testFieldAndClassValidatorBasic() {
         log.info("test validator basic");
         // Create a ValidatorFactory
         final MessageInterpolator interpolator = new ResourceBundleMessageInterpolator(
@@ -57,7 +60,7 @@ public class TestAssetService {
     }
 
     @Test
-    public void testFieldAndClassValidatorSpring() {
+    public void testFieldAndClassValidator() {
         log.info("test validator spring");
         // Create a ValidatorFactory
         // Set up a custom message interpolator with message bundles
@@ -77,6 +80,35 @@ public class TestAssetService {
         log.info("validation result:{}", violations.size());
         final StringBuilder validationMsg = new StringBuilder();
         for (ConstraintViolation<AssetImpl> violation : violations) {
+            validationMsg.append("\n[")
+                    .append(violation.getPropertyPath().toString())
+                    .append("]:")
+                    .append(violation.getMessage());
+        }
+        log.info("validation detail:{}", validationMsg);
+    }
+
+    @Test
+    public void testFieldAndClassValidatorWithGroups() {
+        log.info("test validator with groups");
+        // Create a ValidatorFactory
+        // Set up a custom message interpolator with message bundles
+        // Use the custom message interpolator when creating the validator
+        final var now = LocalDateTime.now();
+        final AssetDto asset = new AssetDto();
+        asset.setId(0L);
+        asset.setCreatedDate(now);
+        asset.setModifiedDate(now);
+        asset.setOrgId(0L); // pass the field validator
+        asset.setOrgTreepath("/123/345");
+        asset.setDescription("");
+        asset.setStatus(1);
+        asset.setName("[assetname]");
+
+        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, AssetAddGroup.class);
+        log.info("validation result:{}", violations.size());
+        final StringBuilder validationMsg = new StringBuilder();
+        for (ConstraintViolation<AssetDto> violation : violations) {
             validationMsg.append("\n[")
                     .append(violation.getPropertyPath().toString())
                     .append("]:")

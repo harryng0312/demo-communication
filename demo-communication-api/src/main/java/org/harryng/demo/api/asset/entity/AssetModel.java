@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.harryng.demo.api.base.entity.AbstractStatedModel;
 import org.harryng.demo.api.base.entity.BaseResourceModel;
-import org.harryng.demo.api.base.validator.TreePathValidated;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
