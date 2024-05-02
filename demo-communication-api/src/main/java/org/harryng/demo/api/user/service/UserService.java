@@ -1,6 +1,6 @@
 package org.harryng.demo.api.user.service;
 
-import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.base.service.BaseSearchableAuthenticatedService;
 import org.harryng.demo.api.user.dto.UserDto;
 import org.harryng.demo.api.user.entity.UserImpl;

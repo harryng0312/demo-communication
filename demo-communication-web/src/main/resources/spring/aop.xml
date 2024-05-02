@@ -91,10 +91,10 @@
                 expression="execution(public * org.harryng.demo..persistence.*.*(..)) &amp;&amp; !execution(public * getEntityManager(..)) &amp;&amp; !execution(public * getEntityClass())"/>
 <!--        <aop:pointcut-->
 <!--                id="serviceOperation"-->
-<!--                expression="execution(public * org.harryng.demo..service.*.*(org.harryng.demo.api.base.dto.SessionHolder,..)) &amp;&amp; !execution(public * getPersistence(..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>-->
+<!--                expression="execution(public * org.harryng.demo..service.*.*(org.harryng.demo.api.util.SessionHolder,..)) &amp;&amp; !execution(public * getPersistence(..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>-->
         <aop:pointcut
                 id="serviceOperation"
-                expression="execution(public * org.harryng.demo..service.*.*(org.harryng.demo.api.base.dto.SessionHolder,..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
+                expression="execution(public * org.harryng.demo..service.*.*(org.harryng.demo.api.util.SessionHolder,..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
 
         <aop:pointcut
                 id="controllerOperation"

@@ -1,18 +1,30 @@
 package org.harryng.demo.impl.base.service;
 
+import jakarta.annotation.Resource;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import lombok.NonNull;
-import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.util.ExtraParam;
+import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.base.entity.BaseModel;
 import org.harryng.demo.api.base.persistence.BasePersistence;
 import org.harryng.demo.api.base.service.BaseAuthenticatedService;
+import org.harryng.demo.api.util.ValidationError;
+import org.harryng.demo.api.util.ValidationResult;
 import org.harryng.demo.impl.base.mapper.BaseMapper;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
 
 public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends BaseModel<Id>, Id extends Serializable>
         implements BaseAuthenticatedService<Dto, Et, Id> {
+
+    @Resource
+    protected Validator validator;
 
     @Override
     public abstract BasePersistence<Et, Id> getPersistence();
@@ -26,27 +38,63 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
     }
 
     @Override
-    public Dto add(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
-        final Et inputEntity = getMapper().toEntity(obj);
-        if(inputEntity == null) {
-            throw new NullPointerException("inputEntity is null");
+    public ValidationResult<Dto> add(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
+        final Set<ConstraintViolation<Dto>> validationResult = validator.validate(obj);
+//        final Function<Dto, Set<ConstraintViolation<Dto>>> validateFunc = (Function<Dto, Set<ConstraintViolation<Dto>>>) extra.get(ExtraParam.VALIDATE_FUNC);
+//        if(validateFunc != null) {
+//            final Set<ConstraintViolation<Dto>> subValResult = validateFunc.apply(obj);
+//            validationResult.addAll(subValResult);
+//        }
+        if (validationResult.isEmpty()) {
+            final Et inputEntity = getMapper().toEntity(obj);
+            if (inputEntity == null) {
+                throw new NullPointerException("inputEntity is null");
+            }
+            final Et entity = getPersistence().save(inputEntity);
+            final Dto outputDto = getMapper().toDto(entity);
+            return ValidationResult.<Dto>builder().value(outputDto).build();
+        } else {
+            final List<ValidationError> validationErrors = validationResult.stream()
+                    .map(dtoConstraintViolation -> ValidationError.of(
+                            dtoConstraintViolation.getPropertyPath().toString(),
+                            dtoConstraintViolation.getMessage(),
+                            dtoConstraintViolation.getInvalidValue()))
+                    .toList();
+            return ValidationResult.<Dto>builder()
+                    .value(obj)
+                    .validationErrors(validationErrors)
+                    .build();
         }
-        final Et entity = getPersistence().save(inputEntity);
-        return getMapper().toDto(entity);
     }
 
     @Override
-    public Dto edit(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
-        final Et inputEntity = getMapper().toEntity(obj);
-        if(inputEntity == null) {
-            throw new NullPointerException("inputEntity is null");
+    public ValidationResult<Dto> edit(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
+        final Set<ConstraintViolation<Dto>> validationResult = validator.validate(obj);
+        if (validationResult.isEmpty()) {
+            final Et inputEntity = getMapper().toEntity(obj);
+            if (inputEntity == null) {
+                throw new NullPointerException("inputEntity is null");
+            }
+            final Et entity = getPersistence().save(inputEntity);
+            final Dto outputDto = getMapper().toDto(entity);
+            return ValidationResult.<Dto>builder().value(outputDto).build();
+        } else {
+            final List<ValidationError> validationErrors = validationResult.stream()
+                    .map(dtoConstraintViolation -> ValidationError.of(
+                            dtoConstraintViolation.getPropertyPath().toString(),
+                            dtoConstraintViolation.getMessage(),
+                            dtoConstraintViolation.getInvalidValue()))
+                    .toList();
+            return ValidationResult.<Dto>builder()
+                    .value(obj)
+                    .validationErrors(validationErrors)
+                    .build();
         }
-        final Et entity = getPersistence().save(inputEntity);
-        return getMapper().toDto(entity);
     }
 
     @Override
-    public void remove(@NonNull SessionHolder sessionHolder, @NonNull Id id, @NonNull Map<String, Object> extra) throws Exception {
+    public ValidationResult<Id> remove(@NonNull SessionHolder sessionHolder, @NonNull Id id, @NonNull Map<String, Object> extra) throws Exception {
         getPersistence().deleteById(id);
+        return ValidationResult.<Id>builder().value(id).build();
     }
 }

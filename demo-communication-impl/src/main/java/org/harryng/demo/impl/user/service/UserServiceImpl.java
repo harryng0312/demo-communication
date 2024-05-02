@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.user.dto.UserDto;
 import org.harryng.demo.api.user.entity.UserImpl;
 import org.harryng.demo.api.user.service.UserService;

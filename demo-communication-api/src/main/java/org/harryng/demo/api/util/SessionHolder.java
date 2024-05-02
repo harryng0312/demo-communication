@@ -1,4 +1,4 @@
-package org.harryng.demo.api.base.dto;
+package org.harryng.demo.api.util;
 
 import lombok.Builder;
 import lombok.Data;

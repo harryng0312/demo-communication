@@ -8,18 +8,18 @@ import org.harryng.demo.Application;
 import org.harryng.demo.api.asset.dto.AssetDto;
 import org.harryng.demo.api.asset.entity.AssetImpl;
 import org.harryng.demo.api.asset.service.AssetService;
-import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.base.validator.group.AddValGroup;
 import org.harryng.demo.api.base.validator.group.DefaultValGroup;
-import org.harryng.demo.api.base.validator.group.EditValGroup;
+import org.harryng.demo.api.util.ValidationResult;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -141,7 +141,8 @@ public class TestAssetService {
         asset.setStatus(1);
         asset.setName("[assetname]");
 
-        assetService.add(SessionHolder.ANONYMOUS, asset, Map.of());
+        final ValidationResult<AssetDto> validationResult = assetService.add(SessionHolder.ANONYMOUS, asset, new LinkedHashMap<>());
+        log.info("validation result:{}\n{}", validationResult.isValid(), validationResult);
 
 //        final Set<ConstraintViolation<AssetDto>> defaultViolations = validator.validate(asset);
 //        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, DefaultValGroup.class, AddValGroup.class);

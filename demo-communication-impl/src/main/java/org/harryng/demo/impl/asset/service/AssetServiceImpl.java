@@ -1,5 +1,6 @@
 package org.harryng.demo.impl.asset.service;
 
+import jakarta.validation.ConstraintViolation;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,13 +8,18 @@ import org.harryng.demo.api.asset.dto.AssetDto;
 import org.harryng.demo.api.asset.entity.AssetImpl;
 import org.harryng.demo.api.asset.persistence.AssetPersistence;
 import org.harryng.demo.api.asset.service.AssetService;
-import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.base.validator.group.AddValGroup;
+import org.harryng.demo.api.util.ExtraParam;
+import org.harryng.demo.api.util.SessionHolder;
+import org.harryng.demo.api.util.ValidationResult;
 import org.harryng.demo.impl.asset.mapper.AssetMapper;
 import org.harryng.demo.impl.base.service.AbstractSearchableService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Service
@@ -35,11 +41,19 @@ public class AssetServiceImpl extends AbstractSearchableService<AssetDto, AssetI
 
     @Override
 //    @NotNull(groups = {AddValGroup.class})
-    public AssetDto add(
+    public ValidationResult<AssetDto> add(
             @NonNull SessionHolder sessionHolder,
             @NonNull AssetDto asset, Map<String, Object> extras) throws Exception {
-        log.info("===== Insert successfully =====");
-        return asset;
-//        return super.add(sessionHolder, asset, extras);
+//        final ValidationResult<AssetDto> result = super.add(sessionHolder, asset, extras);
+        final Set<ConstraintViolation<AssetDto>> validationResult = validator.validate(asset, AddValGroup.class);
+//        final Function<AssetDto, Set<ConstraintViolation<AssetDto>>> valFunc =
+//                assetDto -> validator.validate(assetDto, AddValGroup.class);
+//        extras.put(ExtraParam.VALIDATE_FUNC, valFunc);
+        if (validationResult.isEmpty()) {
+            return super.add(sessionHolder, asset, extras);
+        }
+        return ValidationResult.<AssetDto>builder()
+                .value(asset)
+                .validationErrors(ValidationResult.toValidationErrors(validationResult)).build();
     }
 }

@@ -9,7 +9,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.constant.ResponseCode;
 import org.harryng.demo.api.base.dto.ResponseWrapper;
-import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.impl.util.SessionUtil;
 
 import java.util.UUID;

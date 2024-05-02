@@ -3,11 +3,12 @@ package org.harryng.demo.user.service;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.base.dto.ResponseWrapper;
-import org.harryng.demo.api.base.dto.SessionHolder;
+import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.user.dto.UserDto;
 import org.harryng.demo.api.user.persistence.UserPersistence;
 import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.Application;
+import org.harryng.demo.api.util.ValidationResult;
 import org.harryng.demo.impl.user.mapper.UserMapper;
 import org.harryng.demo.api.user.dto.UserRequest;
 import org.harryng.demo.api.user.dto.UserResponse;
@@ -53,7 +54,7 @@ public class TestUserService {
         userDto.setCreatedDate(now);
         userDto.setModifiedDate(now);
         userDto.setStatus(1);
-        final UserDto rs = userService.add(SessionHolder.builder().build(), userDto, Collections.emptyMap());
+        final ValidationResult<UserDto> rs = userService.add(SessionHolder.builder().build(), userDto, Collections.emptyMap());
         log.info("Add {} record(s)", rs);
     }
 
