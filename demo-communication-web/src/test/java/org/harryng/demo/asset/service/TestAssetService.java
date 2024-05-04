@@ -8,9 +8,9 @@ import org.harryng.demo.Application;
 import org.harryng.demo.api.asset.dto.AssetDto;
 import org.harryng.demo.api.asset.entity.AssetImpl;
 import org.harryng.demo.api.asset.service.AssetService;
-import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.base.validator.group.AddValGroup;
 import org.harryng.demo.api.base.validator.group.DefaultValGroup;
+import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.util.ValidationResult;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Import;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
 
 @SpringBootTest(classes = Application.class)
@@ -125,8 +124,8 @@ public class TestAssetService {
     }
 
     @Test
-    public void testFieldAndClassValidatorAnnotation() throws Exception {
-        log.info("test validator annotation");
+    public void testFieldAndClassValidatorInheritance() throws Exception {
+        log.info("test validator inheritance");
         // Create a ValidatorFactory
         // Set up a custom message interpolator with message bundles
         // Use the custom message interpolator when creating the validator

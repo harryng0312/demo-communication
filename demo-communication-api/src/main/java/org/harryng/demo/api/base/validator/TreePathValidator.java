@@ -26,11 +26,7 @@ public class TreePathValidator implements ConstraintValidator<TreePathValidated,
         boolean result = true;
         constraintValidatorContext.disableDefaultConstraintViolation();
         log.info("===== This is Treepath validator =====");
-        if (treepath == null || treepath.isEmpty()) {
-            constraintValidatorContext.buildConstraintViolationWithTemplate("{treepath.invalid}")
-                    .addConstraintViolation();
-            result = false;
-        } else {
+        if (treepath !=null && !treepath.isBlank()) {
             treepath = treepath.trim();
             if (!pattern.matcher(treepath).matches()) {
                 constraintValidatorContext.buildConstraintViolationWithTemplate("{treepath.invalid}")
