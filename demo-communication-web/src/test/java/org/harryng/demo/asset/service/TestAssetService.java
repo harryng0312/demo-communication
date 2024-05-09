@@ -130,7 +130,7 @@ public class TestAssetService {
         // Set up a custom message interpolator with message bundles
         // Use the custom message interpolator when creating the validator
         final var now = LocalDateTime.now();
-        final AssetDto asset = new AssetDto();
+        final var asset = new AssetDto();
         asset.setId(0L);
         asset.setCreatedDate(now);
         asset.setModifiedDate(now);
@@ -141,7 +141,7 @@ public class TestAssetService {
         asset.setName("[assetname]");
 
         final ValidationResult<AssetDto> validationResult = assetService.add(SessionHolder.ANONYMOUS, asset, new LinkedHashMap<>());
-        log.info("validation result:{}\n{}", validationResult.isValid(), validationResult);
+        log.info("validation result:{}\n{}", validationResult.isValid(), validationResult.getValidationErrors());
 
 //        final Set<ConstraintViolation<AssetDto>> defaultViolations = validator.validate(asset);
 //        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, DefaultValGroup.class, AddValGroup.class);

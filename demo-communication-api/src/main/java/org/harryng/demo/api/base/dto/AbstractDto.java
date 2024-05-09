@@ -8,6 +8,6 @@ import java.io.Serializable;
 
 @Data
 public abstract class AbstractDto<Idt extends Serializable> implements BaseModel<Idt> {
-    @NotNull(message = "{id.invalid}")
+    @NotNull
     private Idt id;
 }

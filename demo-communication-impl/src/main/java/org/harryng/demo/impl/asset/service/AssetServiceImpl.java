@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Service
-@Validated
+//@Validated
 @Slf4j
 public class AssetServiceImpl extends AbstractSearchableService<AssetDto, AssetImpl, Long> implements AssetService {
     private final AssetPersistence assetPersistence;
@@ -40,15 +40,10 @@ public class AssetServiceImpl extends AbstractSearchableService<AssetDto, AssetI
     }
 
     @Override
-//    @NotNull(groups = {AddValGroup.class})
     public ValidationResult<AssetDto> add(
             @NonNull SessionHolder sessionHolder,
             @NonNull AssetDto asset, Map<String, Object> extras) throws Exception {
-//        final ValidationResult<AssetDto> result = super.add(sessionHolder, asset, extras);
         final Set<ConstraintViolation<AssetDto>> validationResult = validator.validate(asset, AddValGroup.class);
-//        final Function<AssetDto, Set<ConstraintViolation<AssetDto>>> valFunc =
-//                assetDto -> validator.validate(assetDto, AddValGroup.class);
-//        extras.put(ExtraParam.VALIDATE_FUNC, valFunc);
         if (validationResult.isEmpty()) {
             return super.add(sessionHolder, asset, extras);
         }
