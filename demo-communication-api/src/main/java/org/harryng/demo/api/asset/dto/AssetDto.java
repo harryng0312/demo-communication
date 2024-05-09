@@ -2,9 +2,9 @@ package org.harryng.demo.api.asset.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.harryng.demo.api.asset.validator.annotation.AssetAddValidated;
-import org.harryng.demo.api.asset.validator.annotation.AssetDefaultValidated;
-import org.harryng.demo.api.asset.validator.annotation.AssetEditValidated;
+import org.harryng.demo.api.asset.validator.AssetAddValidated;
+import org.harryng.demo.api.asset.validator.AssetDefaultValidated;
+import org.harryng.demo.api.asset.validator.AssetEditValidated;
 import org.harryng.demo.api.base.dto.AbstractStatedDto;
 import org.harryng.demo.api.base.entity.BaseResourceModel;
 import org.harryng.demo.api.base.validator.annotation.TreePathValidated;

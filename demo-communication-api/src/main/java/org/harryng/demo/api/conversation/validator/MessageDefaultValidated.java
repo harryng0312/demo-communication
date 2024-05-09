@@ -1,18 +1,17 @@
-package org.harryng.demo.api.asset.validator.annotation;
+package org.harryng.demo.api.conversation.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.constraints.NotNull;
-import org.harryng.demo.api.asset.validator.AssetAddValidator;
 
 import java.lang.annotation.*;
 
 @Documented
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = AssetAddValidator.class)
+@Constraint(validatedBy = MessageDefaultValidator.class)
 @NotNull
-public @interface AssetAddValidated {
+public @interface MessageDefaultValidated {
     String message() default "{asset.invalid}";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
