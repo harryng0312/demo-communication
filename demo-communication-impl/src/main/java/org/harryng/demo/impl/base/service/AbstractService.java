@@ -39,6 +39,7 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
 
     @Override
     public ValidationResult<Dto> add(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
+        final var result = new ValidationResult<Dto>();
         final Set<ConstraintViolation<Dto>> validationResult = validator.validate(obj);
 //        final Function<Dto, Set<ConstraintViolation<Dto>>> validateFunc = (Function<Dto, Set<ConstraintViolation<Dto>>>) extra.get(ExtraParam.VALIDATE_FUNC);
 //        if(validateFunc != null) {
@@ -52,7 +53,7 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
             }
             final Et entity = getPersistence().save(inputEntity);
             final Dto outputDto = getMapper().toDto(entity);
-            return ValidationResult.<Dto>builder().value(outputDto).build();
+            result.setValue(outputDto);
         } else {
             final List<ValidationError> validationErrors = validationResult.stream()
                     .map(dtoConstraintViolation -> ValidationError.of(
@@ -60,15 +61,15 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
                             dtoConstraintViolation.getMessage(),
                             dtoConstraintViolation.getInvalidValue()))
                     .toList();
-            return ValidationResult.<Dto>builder()
-                    .value(obj)
-                    .validationErrors(validationErrors)
-                    .build();
+            result.setValue(obj);
+            result.getValidationErrors().addAll(validationErrors);
         }
+        return result;
     }
 
     @Override
     public ValidationResult<Dto> edit(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
+        final var result = new ValidationResult<Dto>();
         final Set<ConstraintViolation<Dto>> validationResult = validator.validate(obj);
         if (validationResult.isEmpty()) {
             final Et inputEntity = getMapper().toEntity(obj);
@@ -77,7 +78,7 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
             }
             final Et entity = getPersistence().save(inputEntity);
             final Dto outputDto = getMapper().toDto(entity);
-            return ValidationResult.<Dto>builder().value(outputDto).build();
+            result.setValue(outputDto);
         } else {
             final List<ValidationError> validationErrors = validationResult.stream()
                     .map(dtoConstraintViolation -> ValidationError.of(
@@ -85,16 +86,15 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
                             dtoConstraintViolation.getMessage(),
                             dtoConstraintViolation.getInvalidValue()))
                     .toList();
-            return ValidationResult.<Dto>builder()
-                    .value(obj)
-                    .validationErrors(validationErrors)
-                    .build();
+            result.setValue(obj);
+            result.getValidationErrors().addAll(validationErrors);
         }
+        return result;
     }
 
     @Override
     public ValidationResult<Id> remove(@NonNull SessionHolder sessionHolder, @NonNull Id id, @NonNull Map<String, Object> extra) throws Exception {
         getPersistence().deleteById(id);
-        return ValidationResult.<Id>builder().value(id).build();
+        return new ValidationResult<>(id);
     }
 }

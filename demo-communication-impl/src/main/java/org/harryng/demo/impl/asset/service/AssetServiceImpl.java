@@ -43,12 +43,13 @@ public class AssetServiceImpl extends AbstractSearchableService<AssetDto, AssetI
     public ValidationResult<AssetDto> add(
             @NonNull SessionHolder sessionHolder,
             @NonNull AssetDto asset, Map<String, Object> extras) throws Exception {
+        final var result = new ValidationResult<AssetDto>();
         final Set<ConstraintViolation<AssetDto>> validationResult = validator.validate(asset, AddValGroup.class);
         if (validationResult.isEmpty()) {
             return super.add(sessionHolder, asset, extras);
         }
-        return ValidationResult.<AssetDto>builder()
-                .value(asset)
-                .validationErrors(ValidationResult.toValidationErrors(validationResult)).build();
+        result.setValue(asset);
+        result.addValidationErrors(validationResult);
+        return result;
     }
 }

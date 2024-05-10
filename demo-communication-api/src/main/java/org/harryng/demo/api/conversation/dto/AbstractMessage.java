@@ -11,8 +11,7 @@ import java.time.Instant;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MessageDefaultValidated
-@Builder
-public class AbstractMessage extends AbstractDto<String> {
+public abstract class AbstractMessage extends AbstractDto<String> {
     public static final int TYPE_MSG_TEXT = 1;
     public static final int TYPE_MSG_BIN = 2;
     public static final int TYPE_MSG_PART = 3;
@@ -33,12 +32,8 @@ public class AbstractMessage extends AbstractDto<String> {
     private String senderId;
     @NotNull
     private String recipientId;
-    @Builder.Default
     private int recipientType = TYPE_RECIPIENT_IND;
-    @Builder.Default
     private Instant sendTime = Instant.MIN;
-    @Builder.Default
     private Instant receivedTime = Instant.MIN;
-    @Builder.Default
     private int status = STATUS_WILL_SEND;
 }

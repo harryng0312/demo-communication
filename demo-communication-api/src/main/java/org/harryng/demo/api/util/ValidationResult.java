@@ -1,10 +1,7 @@
 package org.harryng.demo.api.util;
 
 import jakarta.validation.ConstraintViolation;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
-import lombok.Singular;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,28 +9,23 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ValidationResult<T> implements Serializable {
-    @NonNull
-    @Singular
+    private T value;
 //    @Builder.Default
-    private List<ValidationError> validationErrors;
-    @NonNull
-    @Builder.Default
-    private T value = null;
+    private final List<ValidationError> validationErrors = new ArrayList<>();
 
     public boolean isValid() {
         return validationErrors.isEmpty();
     }
 
-    public static <T> List<ValidationError> toValidationErrors(@NonNull Set<ConstraintViolation<T>> constraintViolations) {
-        final List<ValidationError> errors = new ArrayList<>();
+    public void addValidationErrors(@NonNull Set<ConstraintViolation<T>> constraintViolations) {
         for (ConstraintViolation<T> constraintViolation : constraintViolations) {
-            errors.add(ValidationError.of(
+            getValidationErrors().add(ValidationError.of(
                     constraintViolation.getPropertyPath().toString(),
                     constraintViolation.getMessage(),
                     constraintViolation.getInvalidValue()));
         }
-        return errors;
     }
 }
