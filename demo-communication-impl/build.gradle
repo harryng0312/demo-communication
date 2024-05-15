@@ -14,6 +14,7 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${mapstructVer}"
     implementation "org.springframework.boot:spring-boot-starter"
     implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "commons-validator:commons-validator:${commonValidatorVer}"
     implementation "org.infinispan:infinispan-core-jakarta"
     implementation "com.auth0:java-jwt:${javaJwtVer}"

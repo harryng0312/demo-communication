@@ -27,5 +27,7 @@
         <xi:include href="classpath:cache/local-cache.xml"/>
         <xi:include href="classpath:cache/dist-cache.xml"/>
         <xi:include href="classpath:cache/repl-cache.xml"/>
+
+        <xi:include href="classpath:cache/session-cache.xml"/>
     </cache-container>
 </infinispan>

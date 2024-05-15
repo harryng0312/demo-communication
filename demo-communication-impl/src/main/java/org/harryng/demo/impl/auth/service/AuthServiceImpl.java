@@ -10,6 +10,7 @@ import org.harryng.demo.api.user.dto.UserDto;
 import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.api.util.SecurityUtil;
 import org.harryng.demo.impl.util.SessionUtil;
+import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class AuthServiceImpl implements AuthService {
 
     @Resource

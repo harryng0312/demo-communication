@@ -42,7 +42,6 @@ public class ChatEndpoint {
         this.session = session;
         chatEndpoints.add(this);
         users.put(session.getId(), username);
-
         ChatMessage message = new ChatMessage();
         message.setFrom(username);
         message.setContent("Connected!");

@@ -8,6 +8,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.constant.SystemKey;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -103,5 +104,11 @@ public class SessionUtil {
 
     public static boolean isAnonymous(SessionHolder sessionHolder) {
         return SessionHolder.ANONYMOUS.getUserId().equals(sessionHolder.getUserId());
+    }
+
+    public static SessionHolder getSessionHolder(WebSocketSession session) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        final var authHeader = session.getHandshakeHeaders().getFirst(RequestParams.HEADER_AUTHORIZATION);
+        final var authParam = (String) session.getAttributes().getOrDefault(RequestParams.PARAM_ACCESS_TOKEN, "");
+        return getSessionHolderFromAccessToken(authHeader, authParam);
     }
 }
