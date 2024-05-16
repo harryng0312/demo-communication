@@ -3,8 +3,11 @@
        xmlns:websocket="http://www.springframework.org/schema/websocket"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
+    http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 <!--    <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint"/>-->
 <!--    <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>-->
@@ -14,8 +17,8 @@
 <!--    <bean id="conversationHandler" class="org.harryng.demo.endpoint.handler.TextChatHandler" />-->
 <!--    <bean id="conversationInterceptor" class="org.harryng.demo.endpoint.interceptor.ConversationInterceptor" />-->
     <context:component-scan base-package="org.harryng.demo.endpoint"/>
-    <websocket:handlers>
-        <websocket:mapping path="ws/chat-handler" handler="textChatHandler"/>
+    <websocket:handlers order="1000">
+        <websocket:mapping path="/ws/chat-handler" handler="textChatHandler"/>
         <websocket:handshake-interceptors>
             <ref bean="conversationInterceptor"/>
         </websocket:handshake-interceptors>
@@ -24,7 +27,7 @@
 <!--        <websocket:mapping path="ws/socket" handler="webRtcChatHandler" />-->
 <!--    </websocket:handlers>-->
 
-    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user" >
+    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">
         <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*"/>
         <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*">
             <websocket:sockjs websocket-enabled="true" heartbeat-time="20000"/>
