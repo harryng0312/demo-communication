@@ -9,8 +9,6 @@ import org.harryng.demo.api.util.TextUtil;
 import org.harryng.demo.endpoint.event.ConversionMessageEvent;
 import org.harryng.demo.impl.cache.CacheManager;
 import org.harryng.demo.impl.util.SessionUtil;
-import org.harryng.demo.model.ChatMessageDecoder;
-import org.harryng.demo.model.ChatMessageEncoder;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -46,7 +44,7 @@ public class TextChatHandler extends TextWebSocketHandler {
             // send signal to sender
             final var strSentMsg = TextUtil.objToJson(sentMsg);
             final var signalMsg = new org.harryng.demo.api.conversation.dto.TextMessage();
-            signalMsg.setSenderId("");
+            signalMsg.setSenderId("0");
             signalMsg.setRecipientId(String.valueOf(sessionHolder.getUserId()));
             signalMsg.setRecipientType(AbstractMessage.TYPE_RECIPIENT_IND);
             signalMsg.setType(AbstractMessage.TYPE_MSG_SIGNAL);
