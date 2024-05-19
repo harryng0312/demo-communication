@@ -52,4 +52,10 @@
     <!--                      expression="execution(* com.videabiz.badgechain.publisher.user.service.UserServiceImpl.add(..))"/>-->
     <!--        <aop:advisor pointcut-ref="userServiceOperation" advice-ref="requiredTxAdvice" order="100"/>-->
     <!--    </aop:config>-->
+
+<!--    <bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">-->
+<!--        <property name="taskExecutor">-->
+<!--            <bean class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>-->
+<!--        </property>-->
+<!--    </bean>-->
 </beans>

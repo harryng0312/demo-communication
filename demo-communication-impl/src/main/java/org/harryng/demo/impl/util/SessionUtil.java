@@ -5,9 +5,12 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import jakarta.servlet.http.HttpServletRequest;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.constant.SystemKey;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.security.KeyFactory;
@@ -40,7 +43,7 @@ public class SessionUtil {
         return KeyFactory.getInstance("EC").generatePublic(pubKeySpec);
     }
 
-    public static String getJwtToken(SessionHolder sessionHolder, boolean isNew, int sessionDurationInSecond, String jwtId) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static String createJwtToken(SessionHolder sessionHolder, boolean isNew, int sessionDurationInSecond, String jwtId) throws NoSuchAlgorithmException, InvalidKeySpecException {
         final JWTCreator.Builder jwtBuilder = JWT.create();
         if (isNew) {
             final Instant now = Instant.now();
@@ -58,15 +61,7 @@ public class SessionUtil {
         return jwtBuilder.sign(algorithm);
     }
 
-    public static SessionHolder getSessionHolderFromAccessToken(String headerAuth, String paramAccessToken) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final String jwt;
-        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
-            jwt = headerAuth.substring(7);
-        } else if (paramAccessToken != null && !paramAccessToken.isBlank()) {
-            jwt = paramAccessToken;
-        } else {
-            jwt = "";
-        }
+    public static SessionHolder getSessionHolderFromAccessToken(String jwt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         if (!jwt.isBlank()) {
             final Algorithm algorithm = Algorithm.ECDSA256((ECKey) getPublicKey());
             final JWTVerifier jwtVerifier = JWT.require(algorithm)
@@ -102,13 +97,57 @@ public class SessionUtil {
         return SessionHolder.ANONYMOUS;
     }
 
+    public static String getToken(ServerHttpRequest request) {
+        final String headerAuth = request.getHeaders().getFirst(RequestParams.HEADER_AUTHORIZATION);
+        final String paramAccessToken = request.getHeaders().getFirst(RequestParams.PARAM_ACCESS_TOKEN);
+        final String jwt;
+        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+            jwt = headerAuth.substring(7);
+        } else if (paramAccessToken != null && !paramAccessToken.isBlank()) {
+            jwt = paramAccessToken;
+        } else {
+            jwt = "";
+        }
+        return jwt;
+    }
+
+    public static String getToken(HttpServletRequest httpServletRequest) {
+        final String headerAuth = httpServletRequest.getHeader(RequestParams.HEADER_AUTHORIZATION);
+        final String paramAccessToken = httpServletRequest.getParameter(RequestParams.PARAM_ACCESS_TOKEN);
+        final String jwt;
+        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+            jwt = headerAuth.substring(7);
+        } else if (paramAccessToken != null && !paramAccessToken.isBlank()) {
+            jwt = paramAccessToken;
+        } else {
+            jwt = "";
+        }
+        return jwt;
+    }
+
+    public static String getToken(HttpHeaders httpHeaders) {
+        final String headerAuth = httpHeaders.getFirst(RequestParams.HEADER_AUTHORIZATION);
+        final String paramAccessToken = httpHeaders.getFirst(RequestParams.PARAM_ACCESS_TOKEN);
+        final String jwt;
+        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+            jwt = headerAuth.substring(7);
+        } else if (paramAccessToken != null && !paramAccessToken.isBlank()) {
+            jwt = paramAccessToken;
+        } else {
+            jwt = "";
+        }
+        return jwt;
+    }
+
     public static boolean isAnonymous(SessionHolder sessionHolder) {
+        if(sessionHolder == null){
+            return true;
+        }
         return SessionHolder.ANONYMOUS.getUserId().equals(sessionHolder.getUserId());
     }
 
     public static SessionHolder getSessionHolder(WebSocketSession session) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final var authHeader = session.getHandshakeHeaders().getFirst(RequestParams.HEADER_AUTHORIZATION);
-        final var authParam = (String) session.getAttributes().getOrDefault(RequestParams.PARAM_ACCESS_TOKEN, "");
-        return getSessionHolderFromAccessToken(authHeader, authParam);
+        final var token = getToken(session.getHandshakeHeaders());
+        return getSessionHolderFromAccessToken(token);
     }
 }

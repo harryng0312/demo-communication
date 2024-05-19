@@ -6,6 +6,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.Application;
+import org.harryng.demo.api.constant.RequestParams;
+import org.harryng.demo.api.constant.SystemKey;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -65,14 +67,18 @@ public class TestJwt {
 //                .signWith(privKey)
 //                .compact();
 
+        final String sessionId = UUID.randomUUID().toString();
         final Algorithm algorithm = Algorithm.ECDSA256(privKey);
         final String jwt = JWT.create()
                 .withJWTId(id)
-                .withIssuer("demo-comm")
+                .withIssuer(SystemKey.COMPANY_ID)
                 .withIssuedAt(now)
-                .withSubject("username")
+                .withSubject("username 01")
                 .withNotBefore(now)
                 .withExpiresAt(expiration)
+                .withClaim(RequestParams.HEADER_SESSION_ID, sessionId)
+                .withClaim(RequestParams.HEADER_USER_ID, 1L)
+                .withClaim(RequestParams.PARAM_LOCALE, "en")
                 .sign(algorithm);
         log.info("JWT:{}", jwt);
     }
@@ -97,7 +103,7 @@ public class TestJwt {
         final Algorithm algorithm = Algorithm.ECDSA256(pubKey);
         final JWTVerifier verifier = JWT.require(algorithm)
                 .acceptLeeway(skewSeconds)
-                .withIssuer("demo-comm")
+                .withIssuer(SystemKey.COMPANY_ID)
                 .build();
         final DecodedJWT decodedJwt = verifier.verify(jwt);
         log.info("DecodedJWT:{}.{}.{}",

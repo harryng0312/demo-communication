@@ -24,10 +24,8 @@ public class SessionWrapperAspect {
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         if (jp.getArgs().length > 1 && jp.getArgs()[0] instanceof SessionHolder) {
 //            log.info("request:{}", request.getQueryString());
-            final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(
-                    request.getHeader(RequestParams.HEADER_AUTHORIZATION),
-                    request.getParameter(RequestParams.PARAM_ACCESS_TOKEN)
-            );
+            final String token = SessionUtil.getToken(request);
+            final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
 //            sessionHolder.setUserId();
             jp.getArgs()[0] = sessionHolder;
             log.info("----- wrapper {}.{} -----", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
@@ -36,7 +34,7 @@ public class SessionWrapperAspect {
             final String jwt;
             if (jp.getArgs()[0] != null && jp.getArgs()[0] instanceof SessionHolder sessionHolderRes) {
                 final UUID uuid = UUID.randomUUID();
-                jwt = SessionUtil.getJwtToken(sessionHolderRes, false, 900, uuid.toString());
+                jwt = SessionUtil.createJwtToken(sessionHolderRes, false, 900, uuid.toString());
                 final Cookie cookie = new Cookie(RequestParams.PARAM_ACCESS_TOKEN, jwt);
                 cookie.setHttpOnly(true);
 //                cookie.setSecure(true);

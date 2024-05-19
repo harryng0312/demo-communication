@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
                     .validity(now.plusSeconds(durationInSecond))
                     .build();
 
-            final String token = SessionUtil.getJwtToken(sessionHolder, true, durationInSecond, UUID.randomUUID().toString());
+            final String token = SessionUtil.createJwtToken(sessionHolder, true, durationInSecond, UUID.randomUUID().toString());
             final AuthenticationInfo authenticationInfo = new AuthenticationInfo();
             authenticationInfo.setId(sessionHolder.getSessionId());
             authenticationInfo.setUsername(user.getUsername());

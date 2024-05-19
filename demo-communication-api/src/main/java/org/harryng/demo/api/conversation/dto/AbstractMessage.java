@@ -2,7 +2,9 @@ package org.harryng.demo.api.conversation.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.harryng.demo.api.base.dto.AbstractDto;
+import org.harryng.demo.api.base.entity.BaseModel;
 import org.harryng.demo.api.conversation.validator.MessageDefaultValidated;
 
 import java.time.Instant;
@@ -29,9 +31,12 @@ public abstract class AbstractMessage extends AbstractDto<String> {
     public static final int STATUS_READ_ON = 6;
 
     @NotNull
-    private String senderId;
+    private String id = "";
     @NotNull
-    private String recipientId;
+    private String senderId = "";
+    @NotNull
+    private String recipientId = "";
+    private int type = TYPE_MSG_TEXT;
     private int recipientType = TYPE_RECIPIENT_IND;
     private Instant sendTime = Instant.MIN;
     private Instant receivedTime = Instant.MIN;
