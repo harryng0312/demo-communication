@@ -1,6 +1,7 @@
 package org.harryng.demo.controller;
 
 import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
 import org.harryng.demo.Application;
@@ -22,16 +23,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @Import(Application.class)
 @AutoConfigureMockMvc
 @AutoConfigureWebTestClient
+@RequiredArgsConstructor
 @Slf4j
 //@WebMvcTest(AuthController.class)
 public class TestAuthController {
 //    @Resource
 //    private AuthController authController;
 
-    @Resource
-    private MockMvc mockMvc;
-    @Resource
-    private WebTestClient webClient;
+    private final MockMvc mockMvc;
+    private final WebTestClient webClient;
 
     @Test
     public void testGetLogin() throws Exception {

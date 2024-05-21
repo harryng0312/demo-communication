@@ -1,13 +1,14 @@
 package org.harryng.demo.endpoint.handler;
 
 import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.constant.RequestParams;
-import org.harryng.demo.impl.conversation.dto.AbstractMessage;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.util.TextUtil;
 import org.harryng.demo.endpoint.event.ConversionMessageEvent;
-import org.harryng.demo.impl.cache.CacheManager;
+import org.harryng.demo.impl.cache.CachesManager;
+import org.harryng.demo.impl.conversation.dto.AbstractMessage;
 import org.harryng.demo.impl.util.SessionUtil;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -19,16 +20,14 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.text.MessageFormat;
 
 @Component("textChatHandler")
+@RequiredArgsConstructor
 @Slf4j
 public class TextChatHandler extends TextWebSocketHandler {
 //    private final ChatMessageDecoder decoder = new ChatMessageDecoder();
 //    private final ChatMessageEncoder encoder = new ChatMessageEncoder();
 
-    @Resource
-    private ApplicationEventPublisher appEventPublisher;
-
-    @Resource
-    private CacheManager cacheManager;
+    private final ApplicationEventPublisher appEventPublisher;
+    private final CachesManager cachesManager;
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -69,7 +68,7 @@ public class TextChatHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         // User exit, remove cache
         final SessionHolder sessionHolder = SessionUtil.getSessionHolder(session);
-        final var sessionCache = cacheManager.getCache(CacheManager.CACHE_SESSION);
+        final var sessionCache = cachesManager.getCache(CachesManager.CACHE_SESSION);
         sessionCache.remove(sessionHolder.getUserId());
         log.info("----- {} disconnected from server by session:{} -----", sessionHolder.getUserId(), sessionHolder.getSessionId());
     }

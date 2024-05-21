@@ -3,7 +3,6 @@ package org.harryng.demo.endpoint.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.endpoint.event.ConversionMessageEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
 
 //@Component
 @Slf4j

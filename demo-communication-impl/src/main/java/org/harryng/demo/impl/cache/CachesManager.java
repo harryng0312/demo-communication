@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CacheManager {
+public class CachesManager {
 
     public static String CACHE_SESSION = "session-cache";
 
