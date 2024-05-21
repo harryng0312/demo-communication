@@ -1,7 +1,7 @@
 id_,name_,description,status_,code_
-1,Super Administrator,,1,SUPER_ADMIN
-2,Administrator,,1,ADMIN
-3,Moderate,,1,MODERATE
-4,User,,1,USER
-5,Inputter,,1,INPUTTER
-6,Approver,,1,APPROVER
+10002,Administrator,,1,ADMIN
+10006,Approver,,1,APPROVER
+10004,User,,1,USER
+10001,Super Administrator,,1,SUPER_ADMIN
+10005,Inputter,,1,INPUTTER
+10003,Manager,,1,MANAGER

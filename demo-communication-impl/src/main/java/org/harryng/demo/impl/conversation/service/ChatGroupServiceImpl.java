@@ -1,7 +1,6 @@
 package org.harryng.demo.impl.conversation.service;
 
-import org.harryng.demo.api.conversation.dto.ChatGroup;
-import org.harryng.demo.api.conversation.service.ChatGroupService;
+import org.harryng.demo.impl.conversation.dto.ChatGroup;
 import org.harryng.demo.api.util.SessionHolder;
 import org.springframework.stereotype.Service;
 

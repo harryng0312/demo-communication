@@ -2,7 +2,7 @@ package org.harryng.demo.controller;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
-import org.harryng.demo.api.auth.service.AuthService;
+import org.harryng.demo.impl.auth.service.AuthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

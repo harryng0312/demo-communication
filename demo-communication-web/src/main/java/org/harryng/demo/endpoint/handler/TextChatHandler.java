@@ -3,7 +3,7 @@ package org.harryng.demo.endpoint.handler;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.constant.RequestParams;
-import org.harryng.demo.api.conversation.dto.AbstractMessage;
+import org.harryng.demo.impl.conversation.dto.AbstractMessage;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.util.TextUtil;
 import org.harryng.demo.endpoint.event.ConversionMessageEvent;
@@ -39,11 +39,11 @@ public class TextChatHandler extends TextWebSocketHandler {
 //            final UUID msgId = UUID.randomUUID();
 //            final String token = SessionUtil.getToken(session.getHandshakeHeaders());
 //            log.info("server Receive:{}", payload);
-            final var sentMsg = TextUtil.jsonToObj(org.harryng.demo.api.conversation.dto.TextMessage.class, payload);
+            final var sentMsg = TextUtil.jsonToObj(org.harryng.demo.impl.conversation.dto.TextMessage.class, payload);
             log.info("===== Server received:{}", sentMsg);
             // send signal to sender
             final var strSentMsg = TextUtil.objToJson(sentMsg);
-            final var signalMsg = new org.harryng.demo.api.conversation.dto.TextMessage();
+            final var signalMsg = new org.harryng.demo.impl.conversation.dto.TextMessage();
             signalMsg.setSenderId("0");
             signalMsg.setRecipientId(String.valueOf(sessionHolder.getUserId()));
             signalMsg.setRecipientType(AbstractMessage.TYPE_RECIPIENT_IND);

@@ -1,7 +1,7 @@
 package org.harryng.demo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.api.base.dto.ResponseWrapper;
+import org.harryng.demo.impl.base.dto.ResponseWrapper;
 import org.harryng.demo.api.util.TextUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;

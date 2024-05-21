@@ -1,6 +1,6 @@
 package org.harryng.demo.impl.auth.mapper;
 
-import org.harryng.demo.api.auth.dto.AuthenticationInfo;
+import org.harryng.demo.impl.auth.dto.AuthenticationInfo;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.impl.base.mapper.DtoEntityMapperConfig;
 import org.mapstruct.InheritInverseConfiguration;

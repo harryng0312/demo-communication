@@ -1,21 +1,20 @@
 package org.harryng.demo.impl.conversation.service;
 
-import jakarta.annotation.Resource;
-import org.harryng.demo.api.conversation.dto.TextMessage;
-import org.harryng.demo.api.conversation.service.TextMessageService;
+import lombok.RequiredArgsConstructor;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.util.ValidationError;
 import org.harryng.demo.api.util.ValidationResult;
 import org.harryng.demo.impl.cache.CacheManager;
+import org.harryng.demo.impl.conversation.dto.TextMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class TextMessageServiceImpl implements TextMessageService {
 
-    @Resource
-    private CacheManager cacheManager;
+    private final CacheManager cacheManager;
 
     @Override
     public ValidationResult<String> sendMessage(SessionHolder sessionHolder, TextMessage message, Map<String, Object> extras) throws Exception {

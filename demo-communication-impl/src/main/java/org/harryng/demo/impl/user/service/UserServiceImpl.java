@@ -1,20 +1,19 @@
 package org.harryng.demo.impl.user.service;
 
-import jakarta.annotation.Resource;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import lombok.RequiredArgsConstructor;
 import org.harryng.demo.api.util.SessionHolder;
-import org.harryng.demo.api.user.dto.UserDto;
-import org.harryng.demo.api.user.entity.UserImpl;
-import org.harryng.demo.api.user.service.UserService;
-import org.harryng.demo.api.auth.persistence.ResourceActionPersistence;
-import org.harryng.demo.api.auth.persistence.ResourcePermissionPersistence;
-import org.harryng.demo.api.auth.persistence.RolePersistence;
+import org.harryng.demo.impl.auth.persistence.ResourceActionPersistence;
+import org.harryng.demo.impl.auth.persistence.ResourcePermissionPersistence;
+import org.harryng.demo.impl.auth.persistence.RolePersistence;
 import org.harryng.demo.impl.base.service.AbstractSearchableService;
+import org.harryng.demo.impl.user.dto.UserDto;
+import org.harryng.demo.impl.user.entity.UserImpl;
 import org.harryng.demo.impl.user.mapper.UserMapper;
-import org.harryng.demo.api.user.persistence.UserGroupPersistence;
-import org.harryng.demo.api.user.persistence.UserPersistence;
+import org.harryng.demo.impl.user.persistence.UserGroupPersistence;
+import org.harryng.demo.impl.user.persistence.UserPersistence;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,20 +23,15 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends AbstractSearchableService<UserDto, UserImpl, Long> implements UserService {
 
-    @Resource
-    private UserPersistence userPersistence;
-    @Resource
-    private UserGroupPersistence userGroupPersistence;
-    @Resource
-    private RolePersistence rolePersistence;
-    @Resource
-    private ResourcePermissionPersistence resourcePermissionPersistence;
-    @Resource
-    private ResourceActionPersistence resourceActionPersistence;
-    @Resource
-    private UserMapper userMapper;
+    private final UserPersistence userPersistence;
+    private final UserGroupPersistence userGroupPersistence;
+    private final RolePersistence rolePersistence;
+    private final ResourcePermissionPersistence resourcePermissionPersistence;
+    private final ResourceActionPersistence resourceActionPersistence;
+    private final UserMapper userMapper;
 
     @Override
     public UserPersistence getPersistence() {

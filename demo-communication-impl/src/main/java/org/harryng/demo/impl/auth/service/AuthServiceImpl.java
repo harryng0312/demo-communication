@@ -1,14 +1,13 @@
 package org.harryng.demo.impl.auth.service;
 
-import jakarta.annotation.Resource;
-import org.harryng.demo.api.auth.dto.AuthenticationInfo;
-import org.harryng.demo.api.auth.service.AuthService;
-import org.harryng.demo.api.util.SessionHolder;
+import lombok.RequiredArgsConstructor;
 import org.harryng.demo.api.constant.ResponseCode;
 import org.harryng.demo.api.exception.CodedException;
-import org.harryng.demo.api.user.dto.UserDto;
-import org.harryng.demo.api.user.service.UserService;
 import org.harryng.demo.api.util.SecurityUtil;
+import org.harryng.demo.api.util.SessionHolder;
+import org.harryng.demo.impl.auth.dto.AuthenticationInfo;
+import org.harryng.demo.impl.user.dto.UserDto;
+import org.harryng.demo.impl.user.service.UserService;
 import org.harryng.demo.impl.util.SessionUtil;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +18,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    @Resource
-    private UserService userService;
+    private final UserService userService;
 
     @Override
     public AuthenticationInfo loginByUsernamePassword(String username, String password) throws Exception {

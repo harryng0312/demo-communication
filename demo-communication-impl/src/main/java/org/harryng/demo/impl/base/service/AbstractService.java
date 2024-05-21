@@ -4,11 +4,9 @@ import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.NonNull;
-import org.harryng.demo.api.util.ExtraParam;
 import org.harryng.demo.api.util.SessionHolder;
-import org.harryng.demo.api.base.entity.BaseModel;
-import org.harryng.demo.api.base.persistence.BasePersistence;
-import org.harryng.demo.api.base.service.BaseAuthenticatedService;
+import org.harryng.demo.impl.base.entity.BaseModel;
+import org.harryng.demo.impl.base.persistence.BasePersistence;
 import org.harryng.demo.api.util.ValidationError;
 import org.harryng.demo.api.util.ValidationResult;
 import org.harryng.demo.impl.base.mapper.BaseMapper;
@@ -18,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 
 public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends BaseModel<Id>, Id extends Serializable>
         implements BaseAuthenticatedService<Dto, Et, Id> {

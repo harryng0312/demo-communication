@@ -1,20 +1,18 @@
 package org.harryng.demo.impl.organization.service;
 
-import jakarta.annotation.Resource;
-import org.harryng.demo.api.organization.dto.OrganizationDto;
-import org.harryng.demo.api.organization.entity.OrganizationImpl;
-import org.harryng.demo.api.organization.persistence.OrganizationPersistence;
-import org.harryng.demo.api.organization.service.OrganizationService;
+import lombok.RequiredArgsConstructor;
 import org.harryng.demo.impl.base.service.AbstractSearchableService;
+import org.harryng.demo.impl.organization.dto.OrganizationDto;
+import org.harryng.demo.impl.organization.entity.OrganizationImpl;
 import org.harryng.demo.impl.organization.mapper.OrganizationMapper;
+import org.harryng.demo.impl.organization.persistence.OrganizationPersistence;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class OrganizationServiceImpl extends AbstractSearchableService<OrganizationDto, OrganizationImpl, Long> implements OrganizationService {
-    @Resource
-    private OrganizationPersistence organizationPersistence;
-    @Resource
-    private OrganizationMapper organizationMapper;
+    private final OrganizationPersistence organizationPersistence;
+    private final OrganizationMapper organizationMapper;
 
     @Override
     public OrganizationPersistence getPersistence() {

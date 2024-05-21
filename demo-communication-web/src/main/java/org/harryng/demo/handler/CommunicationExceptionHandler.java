@@ -1,7 +1,7 @@
 package org.harryng.demo.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.api.base.dto.ResponseWrapper;
+import org.harryng.demo.impl.base.dto.ResponseWrapper;
 import org.harryng.demo.api.constant.ResponseCode;
 import org.harryng.demo.api.exception.CodedException;
 import org.springframework.http.HttpStatusCode;
