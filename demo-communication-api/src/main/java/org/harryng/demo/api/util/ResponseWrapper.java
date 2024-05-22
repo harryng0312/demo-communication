@@ -1,4 +1,4 @@
-package org.harryng.demo.impl.base.dto;
+package org.harryng.demo.api.util;
 
 import lombok.*;
 import org.harryng.demo.api.constant.ResponseCode;

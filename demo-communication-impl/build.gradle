@@ -10,7 +10,6 @@ dependencies {
     implementation project(":demo-communication-api")
     implementation "org.springframework.boot:spring-boot-starter"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.springframework.boot:spring-boot-starter-websocket"
 
     implementation "org.infinispan:infinispan-core-jakarta"
     implementation "com.fasterxml.jackson.core:jackson-databind"
@@ -21,7 +20,8 @@ dependencies {
     implementation "com.auth0:java-jwt:${javaJwtVer}"
 
 //    compileOnly "org.springframework.boot:spring-boot-starter-web"
-    compileOnly "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 //    implementation "org.hibernate.validator:hibernate-validator"
 //    implementation "org.hibernate.validator:hibernate-validator-annotation-processor"
 

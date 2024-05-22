@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration scan="true"
+               xmlns="http://ch.qos.logback/xml/ns/logback"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
+
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %p: %msg%n</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and when the file reaches 1 GigaBytes -->
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!--            <maxFileSize>50MB</maxFileSize>-->
+            <maxHistory>5000</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!--    <appender name="transLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--        <file>${LOG_PATH}/translog/${LOG_FILE}-transaction.log</file>-->
+    <!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+    <!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %p: %msg%n</pattern>-->
+    <!--        </encoder>-->
+    <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+    <!--            &lt;!&ndash; rollover daily and when the file reaches 1 GigaBytes &ndash;&gt;-->
+    <!--            <fileNamePattern>${LOG_PATH}/translog/${LOG_FILE}-transaction-%d{yyyy-MM-dd}-%i.log</fileNamePattern>-->
+    <!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+    <!--                <maxFileSize>50MB</maxFileSize>-->
+    <!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+    <!--            &lt;!&ndash;            <maxFileSize>50MB</maxFileSize>&ndash;&gt;-->
+    <!--            <maxHistory>5000</maxHistory>-->
+    <!--        </rollingPolicy>-->
+    <!--    </appender>-->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd/HH:mm:ss.SSS/zzz} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--    <logger name="phillip.poems.mobile" level="INFO"/>-->
+    <!--    <logger name="phillip.poems.mobile.server.client.futfx" level="OFF"/>-->
+    <!--    <logger name="PMobileLog.transaction" level="DEBUG">-->
+    <!--        <appender-ref ref="transLogFile"/>-->
+    <!--    </logger>-->
+
+    <logger name="org.apache.http" level="INFO"/>
+    <logger name="org.springframework.web.client.RestTemplate" level="INFO"/>
+    <logger name="org.springframework.transaction" level="INFO"/>
+    <logger name="org.springframework.data" level="INFO"/>
+    <logger name="org.springframework.integration.handler.LoggingHandler" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <!--        <appender-ref ref="rollingFile"/>-->
+
+    </root>
+
+</configuration>

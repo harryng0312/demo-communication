@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<distributed-cache
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:infinispan:config:14.0 https://infinispan.org/schemas/infinispan-config-fragment-14.0.xsd"
+        xmlns="urn:infinispan:config:14.0"
+        configuration="dist-cache-templ" name="dist-cache" mode="SYNC" owners="2" statistics="true">
+    <locking isolation="REPEATABLE_READ" />
+    <transaction mode="FULL_XA" locking="PESSIMISTIC" auto-commit="true"/>
+</distributed-cache>

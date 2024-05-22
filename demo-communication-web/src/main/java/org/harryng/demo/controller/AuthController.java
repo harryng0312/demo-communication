@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.aop.AuthenticationAspect;
 import org.harryng.demo.impl.auth.dto.AuthenticationInfo;
 import org.harryng.demo.impl.auth.service.AuthService;
-import org.harryng.demo.impl.base.dto.ResponseWrapper;
+import org.harryng.demo.api.util.ResponseWrapper;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.impl.user.service.UserService;

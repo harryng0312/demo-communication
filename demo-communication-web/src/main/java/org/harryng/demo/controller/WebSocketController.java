@@ -42,7 +42,7 @@ public class WebSocketController {
     @Resource
     protected AuthService authService;
 
-    @Resource
+//    @Resource
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @RequestMapping(value = {"", "/", "/ws-basic"}, method = RequestMethod.GET)

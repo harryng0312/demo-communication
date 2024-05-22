@@ -1,6 +1,5 @@
 package org.harryng.demo.endpoint.handler;
 
-import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.constant.RequestParams;
@@ -9,7 +8,7 @@ import org.harryng.demo.api.util.TextUtil;
 import org.harryng.demo.endpoint.event.ConversionMessageEvent;
 import org.harryng.demo.impl.cache.CachesManager;
 import org.harryng.demo.impl.conversation.dto.AbstractMessage;
-import org.harryng.demo.impl.util.SessionUtil;
+import org.harryng.demo.api.util.SessionUtil;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;

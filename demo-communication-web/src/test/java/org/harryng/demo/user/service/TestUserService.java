@@ -2,7 +2,7 @@ package org.harryng.demo.user.service;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.impl.base.dto.ResponseWrapper;
+import org.harryng.demo.api.util.ResponseWrapper;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.impl.user.dto.UserDto;
 import org.harryng.demo.impl.user.persistence.UserPersistence;

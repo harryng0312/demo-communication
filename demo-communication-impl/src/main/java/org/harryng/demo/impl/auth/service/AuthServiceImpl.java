@@ -8,7 +8,7 @@ import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.impl.auth.dto.AuthenticationInfo;
 import org.harryng.demo.impl.user.dto.UserDto;
 import org.harryng.demo.impl.user.service.UserService;
-import org.harryng.demo.impl.util.SessionUtil;
+import org.harryng.demo.api.util.SessionUtil;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;

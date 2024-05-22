@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<distributed-cache
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:infinispan:config:14.0 https://infinispan.org/schemas/infinispan-config-fragment-14.0.xsd"
+        xmlns="urn:infinispan:config:14.0"
+        name="session-cache" mode="SYNC" owners="2" statistics="true">
+    <encoding media-type="application/x-protostream"/>
+    <locking isolation="READ_COMMITTED"/>
+    <transaction mode="FULL_XA" locking="PESSIMISTIC"
+                 transaction-manager-lookup="org.infinispan.transaction.lookup.EmbeddedTransactionManagerLookup"/>
+    <expiration lifespan="1200" max-idle="1200"/>
+    <!--            <persistence passivation="false">-->
+    <!--                <file-store shared="false" purge="false" path="./dist-cache">-->
+    <!--&lt;!&ndash;                    <write-behind modification-queue-size="2048"/>&ndash;&gt;-->
+    <!--                    <index path="../cache/index"/>-->
+    <!--                    <data path="../cache/data"/>-->
+    <!--                </file-store>-->
+    <!--            </persistence>-->
+
+    <!--            <memory when-full="REMOVE"/>-->
+    <groups enabled="true"/>
+</distributed-cache>

@@ -1,0 +1,54 @@
+# logging
+logging:
+  config: "classpath:logback.xml"
+  file:
+    name: demo-communication-ws.log
+
+# server
+server:
+  port: 18080
+  address: 0.0.0.0
+  servlet:
+    context-path: /ws
+  error:
+    whitelabel:
+      enabled: false
+# spring:
+spring:
+  main:
+    allow-bean-definition-overriding: true
+#  mvc:
+#    view:
+#      prefix: template/pages/
+#      suffix: .html
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+#      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration
+#  jpa:
+#    open-in-view: false
+  profiles:
+    active: ${env:"dev"}
+  threads:
+    virtual:
+      enabled: true
+#  thymeleaf:
+#    cache: true
+
+# management:
+#management:
+#  server:
+#    port: 9090
+#  endpoints:
+#    enabled-by-default: true
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      enabled: true
+#    shutdown:
+#      enabled: true

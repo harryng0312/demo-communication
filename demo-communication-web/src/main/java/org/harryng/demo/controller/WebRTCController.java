@@ -21,7 +21,7 @@ public class WebRTCController {
     @Resource
     protected AuthService authService;
 
-    @Resource
+//    @Resource
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @RequestMapping(value = {"/rtc-web/{index}"}, method = RequestMethod.GET)
