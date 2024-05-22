@@ -10,14 +10,13 @@
         <property name="resources">
             <array>
                 <value>classpath:application.yml</value>
-                <value>classpath:db.yml</value>
             </array>
         </property>
     </bean>
     <context:property-placeholder properties-ref="yamlProperties"/>
 
-    <bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager" destroy-method="close">
-        <constructor-arg name="configurationFile" value="cache/infinispan.xml"/>
-    </bean>
+<!--    <bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager" destroy-method="close">-->
+<!--        <constructor-arg name="configurationFile" value="cache/infinispan.xml"/>-->
+<!--    </bean>-->
 
 </beans>
