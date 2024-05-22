@@ -8,11 +8,11 @@ logging:
 server:
   port: 18080
   address: 0.0.0.0
-  servlet:
-    context-path: /ws
-  error:
-    whitelabel:
-      enabled: false
+#  servlet:
+#    context-path: /ws
+#  error:
+#    whitelabel:
+#      enabled: false
 # spring:
 spring:
   main:
@@ -21,13 +21,13 @@ spring:
 #    view:
 #      prefix: template/pages/
 #      suffix: .html
-#  autoconfigure:
-#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
-#      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
-#      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
-#      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
-#      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, \
-#      org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
+      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
+      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, \
+      org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration
 #  jpa:
 #    open-in-view: false
   profiles:

@@ -5,10 +5,10 @@ logging:
     path: ~/app-log/demo-communication/log
 
 # server
-server:
-  error:
-    whitelabel:
-      enabled: false
+#server:
+#  error:
+#    whitelabel:
+#      enabled: false
 
 # management:
 #management:
@@ -25,9 +25,6 @@ server:
 #    shutdown:
 #      enabled: false
 # config
-test-array:
-  - id1
-  - id2
-spring:
-  thymeleaf:
-    cache: true
+#spring:
+#  thymeleaf:
+#    cache: true

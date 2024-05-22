@@ -14,7 +14,7 @@ bootJar { enabled = false }
 jar { enabled = true}
 
 dependencies {
-    compileOnly "jakarta.persistence:jakarta.persistence-api"
+//    compileOnly "jakarta.persistence:jakarta.persistence-api"
     compileOnly "org.springframework.boot:spring-boot-starter-validation"
     compileOnly "com.fasterxml.jackson.core:jackson-databind"
     compileOnly 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'

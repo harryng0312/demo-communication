@@ -5,10 +5,10 @@ logging:
     path: ./log
 
 # server
-server:
-  error:
-    whitelabel:
-      enabled: true
+#server:
+#  error:
+#    whitelabel:
+#      enabled: true
 
 # management:
 #management:
@@ -27,15 +27,15 @@ server:
 
 # config
 
-spring:
-  thymeleaf:
-    cache: false
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
-      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
-      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
-      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
-      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#spring:
+#  thymeleaf:
+#    cache: false
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+#      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 #  docker:
 #    compose:
 #      enabled: true

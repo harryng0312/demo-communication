@@ -16,53 +16,23 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot"
     implementation "org.springframework.boot:spring-boot-starter"
+//    implementation "org.springframework.boot:spring-boot-autoconfigure"
 //    implementation "org.springframework.boot:spring-boot-starter-actuator"
 //    implementation "org.springframework.boot:spring-boot-starter-data-jdbc"
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+//    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-starter-integration"
-    implementation "org.springframework.boot:spring-boot-starter-web"
+//    implementation "org.springframework.boot:spring-boot-starter-web"
 //    implementation "org.springframework.boot:spring-boot-starter-jersey"
+//    implementation "org.springframework.boot:spring-boot-starter-web-services"
+//    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
 
-    implementation "org.springframework.boot:spring-boot-starter-web-services"
-    implementation "org.springframework.boot:spring-boot-starter-security"
-
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.session:spring-session-core'
 
-//    implementation "org.hibernate.validator:hibernate-validator"
-
-//    implementation "org.springframework.boot:spring-boot-docker-compose"
-
-//    implementation "org.springframework.security:spring-security-web:${springVersion}"
-//    implementation "org.springframework.security:spring-security-config:${springVersion}"
-
-    implementation "org.apache.commons:commons-dbcp2:${apacheCommonVersion}"
-    implementation "org.apache.commons:commons-pool2:${apacheCommonVersion}"
-
-//    implementation "javax.servlet:jstl:${jstlVersion}"
-//    implementation "org.aspectj:aspectjrt:${aspectjVersion}"
-//    implementation "org.aspectj:aspectjweaver:${aspectjVersion}"
-
-    implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
-//    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
-//    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-//    implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
-//    implementation "io.jsonwebtoken:jjwt-api:${jjwtVer}"
-//    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVer}"
-//    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVer}"
-//    implementation "com.auth0:java-jwt:${javaJwtVer}"
-
-    implementation "com.h2database:h2:${h2Version}"
-    implementation "org.postgresql:postgresql:${pgsqlVersion}"
-    implementation 'com.microsoft.sqlserver:mssql-jdbc:12.6.1.jre11'
-//    implementation "net.sourceforge.jtds:jtds:1.3.1"
     implementation "org.infinispan:infinispan-core-jakarta"
-//    providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
-//    providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-//    providedRuntime "org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}"
-//    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
@@ -71,12 +41,6 @@ dependencies {
     testImplementation "org.assertj:assertj-core"
     testImplementation "com.auth0:java-jwt:${javaJwtVer}"
     testImplementation "org.springframework.boot:spring-boot-starter-webflux"
-//    testImplementation "org.springframework.boot:spring-boot-starter-validation"
-//    testImplementation "org.hibernate.validator:hibernate-validator"
-//    testImplementation "org.hibernate.validator:hibernate-validator-annotation-processor"
-//    testImplementation "org.springframework.integration:spring-integration-test:${springbootVersion}"
-
-//    testCompile "junit":junit:${junitVersion}"
 }
 
 test {
