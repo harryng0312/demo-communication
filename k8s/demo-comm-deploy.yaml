@@ -8,17 +8,17 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-comm-deploy
+      app: demo-comm-con
   strategy:
     type: Recreate
   template:
     metadata:
-      name: demo-comm-deploy
+      name: demo-comm-con
       labels:
-        app: demo-comm-deploy
+        app: demo-comm-con
     spec:
       containers:
-        - name: demo-comm-deploy
+        - name: demo-comm-con
           image: nginx
           imagePullPolicy: IfNotPresent
           ports:
