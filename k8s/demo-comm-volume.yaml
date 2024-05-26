@@ -13,7 +13,7 @@ spec:
   capacity:
     storage: 2Gi
   local:
-    path: ~/Working/training/java/demo-communication/data
+    path: /Users/hiepnq/Working/training/java/demo-communication/data
   nodeAffinity:
      required:
        nodeSelectorTerms:

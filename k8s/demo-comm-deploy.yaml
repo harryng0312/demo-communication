@@ -17,14 +17,33 @@ spec:
       labels:
         app: demo-comm-con
     spec:
+      volumes:
+        - name: demo-comm-vol
+          persistentVolumeClaim:
+            claimName: demo-comm-pvc
+      restartPolicy: Always
       containers:
         - name: demo-comm-con
           image: nginx
           imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 80
-              protocol: TCP
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: "0.2"
           env:
             - name: TZ
               value: Asia/Ho_Chi_Minh
-      restartPolicy: Always
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+          volumeMounts:
+            - mountPath: /usr/share/nginx
+              name: demo-comm-vol
+          ports:
+            - containerPort: 80
+              protocol: TCP
