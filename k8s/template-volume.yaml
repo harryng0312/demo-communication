@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nginx-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  # storageClassName: local-storage
+  
+  # hostPath:
+  #   path: /Users/hiepnq/Working/training/k8s/kustomize-1/data/nginx
+  #   type: Directory
+  local:
+    path: /Users/hiepnq/Working/training/k8s/kustomize-1/data/nginx
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - docker-desktop
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-pvc
+spec:
+  # storageClassName: manual
+  storageClassName: standard
+  volumeName: nginx-pv
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  # selector:
+  #   matchLabels:
+  #     type: local
+  
+  

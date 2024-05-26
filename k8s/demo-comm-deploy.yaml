@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-comm-deploy
+  labels:
+    app: demo-comm-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-comm-deploy
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: demo-comm-deploy
+      labels:
+        app: demo-comm-deploy
+    spec:
+      containers:
+        - name: demo-comm-deploy
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
+      restartPolicy: Always

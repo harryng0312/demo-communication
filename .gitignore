@@ -4,4 +4,5 @@
 build
 /**/build
 /db/**
+/data/**
 .DS_Store
