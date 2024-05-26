@@ -31,10 +31,9 @@ spec:
             memory: "64Mi"
             cpu: "0.2"
         volumeMounts:
-        - mountPath: /usr/share/nginx
-          # subPath: html
-          # mountPropagation: Bidirectional
-          name: nginx-vol
+          - mountPath: /usr/share/nginx/html
+            name: demo-comm-vol
+            subPath: html
         ports:
         - containerPort: 80 # internal port
 

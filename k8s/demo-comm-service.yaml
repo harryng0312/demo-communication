@@ -9,7 +9,7 @@ spec:
     app: demo-comm-con
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 80
+      port: 18080
+      targetPort: 18080
   type: ClusterIP
   

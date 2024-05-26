@@ -2,7 +2,8 @@
 logging:
   config: "classpath:logback.xml"
   file:
-    name: demo-communication-web.log
+    name: demo-communication-web_${POD_NAME:''}.log
+    path: /opt/log
 
 # server
 server:
