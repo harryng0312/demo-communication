@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: demo-communication
+  name: demo-comm-ws
+  labels:
+    app: demo-comm-ws
+spec:
+  serviceName: demo-comm-ws-svc
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-comm-ws-con
+  template:
+    metadata:
+      name: demo-comm-ws-con
+      labels:
+        app: demo-comm-ws-con
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: demo-comm-vol
+          persistentVolumeClaim:
+            claimName: demo-comm-pvc
+      containers:
+        - name: demo-comm-ws-con
+          image: openjdk:21-ea-jdk-slim
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.2"
+            limits:
+              memory: "256Mi"
+              cpu: "0.5"
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+            - name: LOG_PATH
+              value: "/mnt/data/log/${POD_NAME}"
+            - name: LOG_FILE
+              value: demo-communication-ws
+          volumeMounts:
+            - mountPath: /mnt/data
+              name: demo-comm-vol
+          ports:
+            - containerPort: 18080
+              protocol: TCP
+          workingDir: /mnt/data/java
+#          command: ["tail", "-f", "/dev/null"]
+          command: ["java", "-jar", "demo-communication-ws-test-1.0.0.jar"]
