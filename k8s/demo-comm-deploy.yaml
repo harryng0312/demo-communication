@@ -45,7 +45,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.uid
             - name: LOG_PATH
-              value: /mnt/data/log/${POD_NAME}
+              value: "/mnt/data/log"
             - name: LOG_FILE
               value: demo-communication-ws
           volumeMounts:
