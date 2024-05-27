@@ -4,21 +4,13 @@ metadata:
   name: demo-comm-ing
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-#    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-#    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-#    nginx.org/proxy-connect-timeout: "20s"
-#    nginx.org/proxy-read-timeout: "30s"
-#    nginx.org/client-max-body-size: "4m"
-#    nginx.ingress.kubernetes.io/configuration-snippet: |
-#      proxy_http_version 1.1;
-#      proxy_set_header Upgrade "websocket";
-#      proxy_set_header Connection "Upgrade";
 #    kubernetes.io/ingress.class: "nginx"
 #    certmanager.k8s.io/cluster-issuer: core-prod
     nginx.ingress.kubernetes.io/proxy-body-size: 600m
-    nginx.org/client-max-body-size: "10m"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+    nginx.org/client-max-body-size: "4m"
+    nginx.org/proxy-connect-timeout: "30s"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "30s"
 #    nginx.ingress.kubernetes.io/secure-backends: "false"
 #    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/websocket-services: demo-comm-svc
@@ -26,8 +18,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: harryng-mbp
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix

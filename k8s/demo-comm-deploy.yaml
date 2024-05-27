@@ -25,10 +25,13 @@ spec:
       containers:
         - name: demo-comm-con
           image: openjdk:21-ea-jdk-slim
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           resources:
+            requests:
+              memory: "62Mi"
+              cpu: "0.2"
             limits:
-              memory: "512Mi"
+              memory: "128Mi"
               cpu: "0.5"
           env:
             - name: TZ
@@ -52,4 +55,4 @@ spec:
               protocol: TCP
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
-          command: ["java", "-jar", "demo-communication-ws-dev-1.0.0.jar"]
+          command: ["java", "-jar", "demo-communication-ws-test-1.0.0.jar"]
