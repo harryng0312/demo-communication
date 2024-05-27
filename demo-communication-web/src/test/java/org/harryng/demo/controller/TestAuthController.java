@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -27,11 +28,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @Slf4j
 //@WebMvcTest(AuthController.class)
 public class TestAuthController {
-//    @Resource
+    //    @Resource
 //    private AuthController authController;
-
-    private final MockMvc mockMvc;
-    private final WebTestClient webClient;
+    @LocalServerPort
+    private int randomServerPort;
+    @Resource
+    private MockMvc mockMvc;
+    @Resource
+    private WebTestClient webClient;
 
     @Test
     public void testGetLogin() throws Exception {
