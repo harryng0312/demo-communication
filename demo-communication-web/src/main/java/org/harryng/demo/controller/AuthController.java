@@ -1,16 +1,15 @@
 package org.harryng.demo.controller;
 
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.aop.AuthenticationAspect;
-import org.harryng.demo.impl.auth.dto.AuthenticationInfo;
-import org.harryng.demo.impl.auth.service.AuthService;
+import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.util.ResponseWrapper;
 import org.harryng.demo.api.util.SessionHolder;
-import org.harryng.demo.api.constant.RequestParams;
-import org.harryng.demo.impl.user.service.UserService;
 import org.harryng.demo.api.util.TextUtil;
+import org.harryng.demo.impl.auth.dto.AuthenticationInfo;
+import org.harryng.demo.impl.auth.service.AuthService;
+import org.harryng.demo.impl.user.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,18 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 @Controller
-//@Path("")
+@RequiredArgsConstructor
 @Slf4j
 public class AuthController {
 
-    @Resource
-    protected HttpServletRequest request;
-    @Resource
-    protected AuthService authService;
-    @Resource(name = "auth")
-    private AuthenticationAspect auth;
-    @Resource
-    private UserService userService;
+    protected final HttpServletRequest request;
+    protected final AuthService authService;
+    protected final UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
 //    @GET

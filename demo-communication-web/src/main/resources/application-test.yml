@@ -1,9 +1,6 @@
 logging:
   level:
     root: info
-  file:
-    name: demo-communication-web.log
-    path: ./log
 
 # server
 server:

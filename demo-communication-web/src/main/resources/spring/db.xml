@@ -19,7 +19,7 @@
 <!--        &lt;!&ndash;        <property name="resources" value="classpath:application.yml"/>&ndash;&gt;-->
 <!--        <property name="resources">-->
 <!--            <array>-->
-<!--                <value>classpath:db.yml</value>-->
+<!--                <value>classpath:db-dev.yml</value>-->
 <!--            </array>-->
 <!--        </property>-->
 <!--    </bean>-->
