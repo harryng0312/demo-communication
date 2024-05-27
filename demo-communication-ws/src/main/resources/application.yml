@@ -1,9 +1,6 @@
 # logging
 logging:
   config: "classpath:logback.xml"
-  file:
-    name: demo-communication-ws
-    path: /mnt/data/log
 
 # server
 server:
