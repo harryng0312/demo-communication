@@ -1,4 +1,8 @@
 logging:
+  config: "classpath:logback.xml"
+  file:
+    name: demo-communication-ws
+    path: ./data/log
   level:
     root: info
 #  file:
