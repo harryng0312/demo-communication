@@ -1,6 +1,6 @@
-<mxfile host="drawio-plugin" modified="2024-05-21T15:27:09.221Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="ffkHnL5GGBJcag_LfsYm" version="22.1.22" type="embed" pages="2">
+<mxfile host="drawio-plugin" modified="2024-05-27T14:08:01.481Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="gJ8_v013fKMutFvqghrl" version="22.1.22" type="embed" pages="2">
   <diagram name="permission" id="rA5hb-6E7y7WdHE_mPKE">
-    <mxGraphModel dx="989" dy="775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+    <mxGraphModel dx="874" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -163,8 +163,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="p54I5-O6BR5-U4j9Xp1x" name="architecture">
-    <mxGraphModel dx="989" dy="775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <diagram id="p54I5-O6BR5-U4j9Xp1x" name="k8s">
+    <mxGraphModel dx="874" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />

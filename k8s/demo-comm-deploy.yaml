@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-comm-deploy
+  namespace: demo-communication
+  name: demo-comm-ws
   labels:
-    app: demo-comm-deploy
+    app: demo-comm-ws
 spec:
   replicas: 1
   selector:

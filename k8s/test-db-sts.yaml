@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: demo-communication
+  name: test-db-sts
+  labels:
+    app: test-db-sts
+spec:
+  serviceName: test-db-svc
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test-db-con
+  template:
+    metadata:
+      name: test-db-con
+      labels:
+        app: test-db-con
+    spec:
+      volumes:
+        - name: test-db-vol
+          persistentVolumeClaim:
+            claimName: test-db-pvc
+      containers:
+        - name: test-db-con
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_DB
+              value: "test_db"
+            - name: POSTGRES_USER
+              value: "test_db"
+            - name: POSTGRES_PASSWORD
+              value: "test_db"
+          volumeMounts:
+            - name: test-db-vol
+              mountPath: /var/lib/postgresql/data
+          ports:
+            - containerPort: 5432
+              name: postgresql-port
+              protocol: TCP
+      restartPolicy: Always
