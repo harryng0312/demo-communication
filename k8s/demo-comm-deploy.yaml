@@ -28,10 +28,10 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              memory: "62Mi"
+              memory: "128Mi"
               cpu: "0.2"
             limits:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "0.5"
           env:
             - name: TZ
@@ -45,9 +45,6 @@ spec:
                 fieldRef:
                   fieldPath: metadata.uid
           volumeMounts:
-#            - mountPath: /usr/share/nginx/html
-#              name: demo-comm-vol
-#              subPath: html
             - mountPath: /mnt/data
               name: demo-comm-vol
           ports:
