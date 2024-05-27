@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 //buildscript {
 //    dependencies {
 //        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springbootPluginVer}")
@@ -50,7 +52,7 @@ test {
 }
 //final def env = "${System.getProperty('spring.profiles.active')}"
 //final def env = "${project.getProperties().get('env')}"
-final def env = "${System.getProperty('env')}"
+final def env = "${System.getProperty('env', '')}"
 processResources {
 //    filesMatching('*.yml') {
 //        expand(project.properties)

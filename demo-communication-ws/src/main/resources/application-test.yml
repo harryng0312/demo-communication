@@ -1,4 +1,7 @@
 logging:
+#  file:
+#    name: demo-communication-ws
+#    path: /mnt/data/log
   level:
     root: info
 
