@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: demo-communication
-  name: demo-comm-ws
+  name: demo-comm-ws-deploy
   labels:
-    app: demo-comm-ws
+    app: demo-comm-ws-deploy
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: demo-comm-con
+      app: demo-comm-ws-con
   strategy:
     type: RollingUpdate
   template:
     metadata:
-      name: demo-comm-con
+      name: demo-comm-ws-con
       labels:
-        app: demo-comm-con
+        app: demo-comm-ws-con
     spec:
       restartPolicy: Always
 #      activeDeadlineSeconds: 300 # only for Pod config
@@ -25,7 +25,7 @@ spec:
           persistentVolumeClaim:
             claimName: demo-comm-pvc
       containers:
-        - name: demo-comm-con
+        - name: demo-comm-ws-con
           image: openjdk:21-ea-jdk-slim
           imagePullPolicy: IfNotPresent
           resources:

@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   namespace: demo-communication
-  name: demo-comm-ws
+  name: demo-comm-ws-sts
   labels:
-    app: demo-comm-ws
+    app: demo-comm-ws-sts
 spec:
   serviceName: demo-comm-ws-svc
   replicas: 2
@@ -17,6 +17,10 @@ spec:
       labels:
         app: demo-comm-ws-con
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsGroup: 1001
+        runAsUser: 1001
       restartPolicy: Always
 #      activeDeadlineSeconds: 300
       volumes:
@@ -29,10 +33,10 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              memory: "128Mi"
+              memory: "192Mi"
               cpu: "0.1"
             limits:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "0.3"
           env:
             - name: TZ
@@ -57,16 +61,16 @@ spec:
               protocol: TCP
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
-          command: ["java", "-jar", "-Xms64m", "-Xmx64m", "demo-communication-ws-test-1.0.0.jar"]
-#          startupProbe:
+          command: ["java", "-jar", "-Xms192m", "-Xmx192m", "demo-communication-ws-test-1.0.0.jar"]
+          startupProbe:
 #            httpGet:
 #              path: /healthz
 #              port: 5000
-#              exec:
-#                command: ["date"]
-#              initialDelaySeconds: 15
-#              periodSeconds: 15
-#              failureThreshold: 3
+            exec:
+              command: ["date"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
 #          livenessProbe:
 #            httpGet:
 #              port: 18080
