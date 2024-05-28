@@ -6,7 +6,7 @@ metadata:
   labels:
     app: demo-comm-ws
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: demo-comm-con
@@ -19,6 +19,7 @@ spec:
         app: demo-comm-con
     spec:
       restartPolicy: Always
+#      activeDeadlineSeconds: 300 # only for Pod config
       volumes:
         - name: demo-comm-vol
           persistentVolumeClaim:
@@ -29,11 +30,11 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "0.2"
+              memory: "192Mi"
+              cpu: "0.1"
             limits:
-              memory: "256Mi"
-              cpu: "0.5"
+              memory: "192Mi"
+              cpu: "0.3"
           env:
             - name: TZ
               value: Asia/Ho_Chi_Minh
@@ -57,4 +58,26 @@ spec:
               protocol: TCP
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
-          command: ["java", "-jar", "demo-communication-ws-test-1.0.0.jar"]
+          command: ["java", "-jar", "-Xms128m", "-Xmx128m", "demo-communication-ws-test-1.0.0.jar"]
+#          startupProbe:
+#            httpGet:
+#              path: /healthz
+#              port: 5000
+#              exec:
+#                command: ["date"]
+#              initialDelaySeconds: 15
+#              periodSeconds: 15
+#              failureThreshold: 3
+#          livenessProbe:
+#            httpGet:
+#              port: 18080
+#              path: /healthz
+#            initialDelaySeconds: 10 # wait before start checking
+#            periodSeconds: 15
+#            failureThreshold: 3
+#          readinessProbe:
+#            httpGet:
+#              path: /ready
+#              port: 8080
+#            initialDelaySeconds: 5
+#            periodSeconds: 10

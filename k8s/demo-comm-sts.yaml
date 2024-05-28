@@ -18,6 +18,7 @@ spec:
         app: demo-comm-ws-con
     spec:
       restartPolicy: Always
+#      activeDeadlineSeconds: 300
       volumes:
         - name: demo-comm-vol
           persistentVolumeClaim:
@@ -29,10 +30,10 @@ spec:
           resources:
             requests:
               memory: "128Mi"
-              cpu: "0.2"
+              cpu: "0.1"
             limits:
-              memory: "256Mi"
-              cpu: "0.5"
+              memory: "128Mi"
+              cpu: "0.3"
           env:
             - name: TZ
               value: Asia/Ho_Chi_Minh
@@ -56,4 +57,26 @@ spec:
               protocol: TCP
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
-          command: ["java", "-jar", "demo-communication-ws-test-1.0.0.jar"]
+          command: ["java", "-jar", "-Xms64m", "-Xmx64m", "demo-communication-ws-test-1.0.0.jar"]
+#          startupProbe:
+#            httpGet:
+#              path: /healthz
+#              port: 5000
+#              exec:
+#                command: ["date"]
+#              initialDelaySeconds: 15
+#              periodSeconds: 15
+#              failureThreshold: 3
+#          livenessProbe:
+#            httpGet:
+#              port: 18080
+#              path: /healthz
+#            initialDelaySeconds: 10 # wait before start checking
+#            periodSeconds: 15
+#            failureThreshold: 3
+#          readinessProbe:
+#            httpGet:
+#              path: /ready
+#              port: 8080
+#            initialDelaySeconds: 5
+#            periodSeconds: 10
