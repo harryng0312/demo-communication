@@ -1,7 +1,9 @@
 syntax = "proto3";
 
+package org.harryng.demo.controller;
 option java_package = "org.harryng.demo.controller.grpc.generated";
 option java_multiple_files = true;
+
 //option java_outer_classname = "HelloServiceProto";
 
 message HelloWorldRequest {

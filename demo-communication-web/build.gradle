@@ -40,6 +40,7 @@ dependencies {
 //    implementation "io.grpc:grpc-netty:${grpcProtobufVer}"
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcProtobufVer}"
     implementation "com.google.protobuf:protobuf-java:${protobufProtocVer}"
+//    runtimeOnly "com.google.protobuf:protobuf-java:3.25.3"
     implementation "net.devh:grpc-server-spring-boot-starter:${grpcServerVer}"
 
 //    implementation "org.hibernate.validator:hibernate-validator"
