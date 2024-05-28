@@ -1,4 +1,4 @@
-package org.harryng.demo.controller;
+package org.harryng.demo.controller.rs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.util.ResponseWrapper;

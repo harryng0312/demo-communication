@@ -8,12 +8,17 @@ plugins {
 //    id "war"
     id "org.springframework.boot" version "${springbootVersion}"
     id "io.spring.dependency-management" version "${springDependencyVer}"
+
+    id 'com.google.protobuf' version "0.9.4"
+//    id "idea"
 }
 
 dependencies {
     implementation project(":demo-communication-api")
     implementation project(":demo-communication-impl")
 
+//    implementation "jakarta.annotation:jakarta.annotation-api:3.0.0"
+    compileOnly 'javax.annotation:javax.annotation-api:1.3.2'
     implementation "org.springframework.boot:spring-boot"
     implementation "org.springframework.boot:spring-boot-starter"
 //    implementation "org.springframework.boot:spring-boot-starter-actuator"
@@ -29,6 +34,12 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.session:spring-session-core'
+
+    implementation "io.grpc:grpc-protobuf:${grpcProtobufVer}"
+    implementation "io.grpc:grpc-stub:${grpcProtobufVer}"
+//    implementation "io.grpc:grpc-netty:${grpcProtobufVer}"
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcProtobufVer}"
+    implementation "com.google.protobuf:protobuf-java:${protobufProtocVer}"
     implementation "net.devh:grpc-server-spring-boot-starter:${grpcServerVer}"
 
 //    implementation "org.hibernate.validator:hibernate-validator"
@@ -47,18 +58,10 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
-//    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
-//    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-//    implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseVersion}"
-//    implementation "io.jsonwebtoken:jjwt-api:${jjwtVer}"
-//    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVer}"
-//    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVer}"
-//    implementation "com.auth0:java-jwt:${javaJwtVer}"
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
     implementation 'com.microsoft.sqlserver:mssql-jdbc:12.6.1.jre11'
-//    implementation "net.sourceforge.jtds:jtds:1.3.1"
     implementation "org.infinispan:infinispan-core-jakarta"
 //    providedRuntime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
 //    providedRuntime "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
@@ -94,8 +97,55 @@ processResources {
         expand(System.properties)
     }
 }
-//bootJar { archiveFileName = "${archiveBaseName.get()}-${project.getProperties().get('env')}-${appVersion}.${archiveExtension.get()}" }
-//bootWar { archiveFileName = "${archiveBaseName.get()}-${project.getProperties().get('env')}-${appVersion}.${archiveExtension.get()}" }
 
 bootJar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
 //bootWar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
+
+//protobuf {
+//    protoc {
+//        artifact = "com.google.protobuf:protoc:${protobufProtocVer}"
+//    }
+////    generatedFilesBaseDir = "$projectDir/src/generated"
+//    plugins {
+//        grpc {
+//            artifact = "io.grpc:protoc-gen-grpc-java:${grpcProtobufVer}"
+//        }
+//    }
+////    generateProtoTasks {
+////        all()*.plugins {
+////            grpc {}
+////        }
+////    }
+//    generateProtoTasks {
+//        all().each { task ->
+//            task.builtins { java {} }
+//            task.plugins { grpc {} }
+//        }
+//    }
+//}
+//sourceSets {
+//    main {
+//        proto {
+//            srcDirs += 'src/main/proto'
+//        }
+//        java {
+//            srcDirs += 'build/generated/source/proto/main/grpc'
+//            srcDirs += 'build/generated/source/proto/main/java'
+//        }
+//    }
+//}
+sourceSets {
+//    generated {
+//        java {
+//            srcDirs += "$projectDir/src/generated/main/java"
+//            srcDirs += "$projectDir/src/generated/main/grpc"
+//        }
+//    }
+    main {
+        java {
+            srcDirs += "src/generated/main/java"
+            srcDirs += "src/generated/main/grpc"
+        }
+    }
+}
+//compileJava.dependsOn generateProto

@@ -1,4 +1,4 @@
-package org.harryng.demo.controller;
+package org.harryng.demo.controller.rs;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
