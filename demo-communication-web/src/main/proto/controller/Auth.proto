@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package controller;
+
+import "dto/auth/LoginReq.proto";
+import "dto/auth/LoginRes.proto";
+
+option java_package = "org.harryng.demo.controller.grpc";
+option java_multiple_files = true;
+
+service AuthController {
+  rpc Login(dto.auth.LoginReq) returns (dto.auth.LoginRes);
+}

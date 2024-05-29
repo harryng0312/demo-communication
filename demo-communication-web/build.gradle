@@ -102,47 +102,33 @@ processResources {
 bootJar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
 //bootWar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
 
-//protobuf {
-//    protoc {
-//        artifact = "com.google.protobuf:protoc:${protobufProtocVer}"
-//    }
-////    generatedFilesBaseDir = "$projectDir/src/generated"
-//    plugins {
-//        grpc {
-//            artifact = "io.grpc:protoc-gen-grpc-java:${grpcProtobufVer}"
-//        }
-//    }
-////    generateProtoTasks {
-////        all()*.plugins {
-////            grpc {}
-////        }
-////    }
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufProtocVer}"
+    }
+    generatedFilesBaseDir = "$projectDir/src/generated"
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcProtobufVer}"
+        }
+    }
 //    generateProtoTasks {
-//        all().each { task ->
-//            task.builtins { java {} }
-//            task.plugins { grpc {} }
+//        all()*.plugins {
+//            grpc {}
 //        }
 //    }
-//}
-//sourceSets {
-//    main {
-//        proto {
-//            srcDirs += 'src/main/proto'
-//        }
-//        java {
-//            srcDirs += 'build/generated/source/proto/main/grpc'
-//            srcDirs += 'build/generated/source/proto/main/java'
-//        }
-//    }
-//}
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins { java {} }
+            task.plugins { grpc {} }
+        }
+    }
+}
 sourceSets {
-//    generated {
-//        java {
-//            srcDirs += "$projectDir/src/generated/main/java"
-//            srcDirs += "$projectDir/src/generated/main/grpc"
-//        }
-//    }
     main {
+        proto {
+            srcDirs += "src/main/proto"
+        }
         java {
             srcDirs += "src/generated/main/java"
             srcDirs += "src/generated/main/grpc"

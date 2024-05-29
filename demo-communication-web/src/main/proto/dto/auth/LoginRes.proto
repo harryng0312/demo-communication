@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package dto.auth;
+import "dto/common/CommonRes.proto";
+import "google/protobuf/timestamp.proto"; // Import file timestamp.proto
+option java_package = "org.harryng.demo.controller.grpc.auth.dto";
+option java_multiple_files = true;
+//option java_outer_classname = "HelloServiceProto";
+
+message LoginRes {
+  common.CommonRes header = 1;
+  string id = 2;
+  string username = 3;
+  google.protobuf.Timestamp requestTime = 4;
+  string token = 5;
+}
+

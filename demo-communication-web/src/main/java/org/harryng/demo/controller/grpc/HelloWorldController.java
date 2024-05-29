@@ -3,9 +3,6 @@ package org.harryng.demo.controller.grpc;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.harryng.demo.controller.grpc.generated.HelloWorldRequest;
-import org.harryng.demo.controller.grpc.generated.HelloWorldResponse;
-import org.harryng.demo.controller.grpc.generated.HelloWorldServiceGrpc;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;

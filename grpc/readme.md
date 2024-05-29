@@ -14,13 +14,13 @@ $ ./gradlew build
 $ protoc \
 --plugin=protoc-gen-grpc-java=/Users/hiepnq/Working/tools/grpc-java-1.64.0 \
 --grpc-java_out=./out \
---proto_path=./ auth.proto
+--proto_path=./ helloworld.proto
 ```
 ```shell
 $ protoc --plugin=protoc-gen-grpc-java=/Users/hiepnq/Working/tools/protoc-gen-grpc-java-1.64.0-osx-aarch_64.exe \
 --grpc-java_out=../demo-communication-web/src/generated/main/grpc \
 --java_out=../demo-communication-web/src/generated/main/java \
--I./ auth.proto
+-I./ helloworld.proto
 ```
 
 ## 3. Gradle config:
