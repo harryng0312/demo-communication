@@ -2,8 +2,16 @@ syntax = "proto3";
 package common;
 option java_package = "org.harryng.demo.controller.grpc.common.dto";
 option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option java_generic_services = true;
 //option java_outer_classname = "HelloServiceProto";
 
 message CommonReq {
   string correlationId = 1;
+}
+
+message CommonRes {
+  string correlationId = 1;
+  int32 code = 2;
+  string msg = 3;
 }
