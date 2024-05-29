@@ -24,6 +24,16 @@ public final class Auth {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_controller_LoginReq_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_controller_LoginReq_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_controller_LoginRes_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_controller_LoginRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -33,21 +43,42 @@ public final class Auth {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025controller/Auth.proto\022\ncontroller\032\027dto" +
-      "/auth/LoginReq.proto\032\027dto/auth/LoginRes." +
-      "proto2A\n\016AuthController\022/\n\005Login\022\022.dto.a" +
-      "uth.LoginReq\032\022.dto.auth.LoginResB$\n org." +
-      "harryng.demo.controller.grpcP\001b\006proto3"
+      "\n\025controller/Auth.proto\022\ncontroller\032\026com" +
+      "mon/CommonReq.proto\032\026common/CommonRes.pr" +
+      "oto\032\037google/protobuf/timestamp.proto\"Q\n\010" +
+      "LoginReq\022!\n\006header\030\001 \001(\0132\021.common.Common" +
+      "Req\022\020\n\010username\030\003 \001(\t\022\020\n\010password\030\004 \001(\t\"" +
+      "\213\001\n\010LoginRes\022!\n\006header\030\001 \001(\0132\021.common.Co" +
+      "mmonRes\022\n\n\002id\030\002 \001(\t\022\020\n\010username\030\003 \001(\t\022/\n" +
+      "\013requestTime\030\004 \001(\0132\032.google.protobuf.Tim" +
+      "estamp\022\r\n\005token\030\005 \001(\t2E\n\016AuthController\022" +
+      "3\n\005Login\022\024.controller.LoginReq\032\024.control" +
+      "ler.LoginResB$\n org.harryng.demo.control" +
+      "ler.grpcP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          org.harryng.demo.controller.grpc.auth.dto.LoginReqOuterClass.getDescriptor(),
-          org.harryng.demo.controller.grpc.auth.dto.LoginResOuterClass.getDescriptor(),
+          org.harryng.demo.controller.grpc.common.dto.CommonReqOuterClass.getDescriptor(),
+          org.harryng.demo.controller.grpc.common.dto.CommonResOuterClass.getDescriptor(),
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
+    internal_static_controller_LoginReq_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_controller_LoginReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_controller_LoginReq_descriptor,
+        new java.lang.String[] { "Header", "Username", "Password", });
+    internal_static_controller_LoginRes_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_controller_LoginRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_controller_LoginRes_descriptor,
+        new java.lang.String[] { "Header", "Id", "Username", "RequestTime", "Token", });
     descriptor.resolveAllFeaturesImmutable();
-    org.harryng.demo.controller.grpc.auth.dto.LoginReqOuterClass.getDescriptor();
-    org.harryng.demo.controller.grpc.auth.dto.LoginResOuterClass.getDescriptor();
+    org.harryng.demo.controller.grpc.common.dto.CommonReqOuterClass.getDescriptor();
+    org.harryng.demo.controller.grpc.common.dto.CommonResOuterClass.getDescriptor();
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

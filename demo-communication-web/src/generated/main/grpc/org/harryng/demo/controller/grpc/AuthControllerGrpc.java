@@ -15,29 +15,29 @@ public final class AuthControllerGrpc {
   public static final java.lang.String SERVICE_NAME = "controller.AuthController";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<org.harryng.demo.controller.grpc.auth.dto.LoginReq,
-      org.harryng.demo.controller.grpc.auth.dto.LoginRes> getLoginMethod;
+  private static volatile io.grpc.MethodDescriptor<org.harryng.demo.controller.grpc.LoginReq,
+      org.harryng.demo.controller.grpc.LoginRes> getLoginMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Login",
-      requestType = org.harryng.demo.controller.grpc.auth.dto.LoginReq.class,
-      responseType = org.harryng.demo.controller.grpc.auth.dto.LoginRes.class,
+      requestType = org.harryng.demo.controller.grpc.LoginReq.class,
+      responseType = org.harryng.demo.controller.grpc.LoginRes.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<org.harryng.demo.controller.grpc.auth.dto.LoginReq,
-      org.harryng.demo.controller.grpc.auth.dto.LoginRes> getLoginMethod() {
-    io.grpc.MethodDescriptor<org.harryng.demo.controller.grpc.auth.dto.LoginReq, org.harryng.demo.controller.grpc.auth.dto.LoginRes> getLoginMethod;
+  public static io.grpc.MethodDescriptor<org.harryng.demo.controller.grpc.LoginReq,
+      org.harryng.demo.controller.grpc.LoginRes> getLoginMethod() {
+    io.grpc.MethodDescriptor<org.harryng.demo.controller.grpc.LoginReq, org.harryng.demo.controller.grpc.LoginRes> getLoginMethod;
     if ((getLoginMethod = AuthControllerGrpc.getLoginMethod) == null) {
       synchronized (AuthControllerGrpc.class) {
         if ((getLoginMethod = AuthControllerGrpc.getLoginMethod) == null) {
           AuthControllerGrpc.getLoginMethod = getLoginMethod =
-              io.grpc.MethodDescriptor.<org.harryng.demo.controller.grpc.auth.dto.LoginReq, org.harryng.demo.controller.grpc.auth.dto.LoginRes>newBuilder()
+              io.grpc.MethodDescriptor.<org.harryng.demo.controller.grpc.LoginReq, org.harryng.demo.controller.grpc.LoginRes>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Login"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.harryng.demo.controller.grpc.auth.dto.LoginReq.getDefaultInstance()))
+                  org.harryng.demo.controller.grpc.LoginReq.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.harryng.demo.controller.grpc.auth.dto.LoginRes.getDefaultInstance()))
+                  org.harryng.demo.controller.grpc.LoginRes.getDefaultInstance()))
               .setSchemaDescriptor(new AuthControllerMethodDescriptorSupplier("Login"))
               .build();
         }
@@ -96,8 +96,8 @@ public final class AuthControllerGrpc {
 
     /**
      */
-    default void login(org.harryng.demo.controller.grpc.auth.dto.LoginReq request,
-        io.grpc.stub.StreamObserver<org.harryng.demo.controller.grpc.auth.dto.LoginRes> responseObserver) {
+    default void login(org.harryng.demo.controller.grpc.LoginReq request,
+        io.grpc.stub.StreamObserver<org.harryng.demo.controller.grpc.LoginRes> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getLoginMethod(), responseObserver);
     }
   }
@@ -131,8 +131,8 @@ public final class AuthControllerGrpc {
 
     /**
      */
-    public void login(org.harryng.demo.controller.grpc.auth.dto.LoginReq request,
-        io.grpc.stub.StreamObserver<org.harryng.demo.controller.grpc.auth.dto.LoginRes> responseObserver) {
+    public void login(org.harryng.demo.controller.grpc.LoginReq request,
+        io.grpc.stub.StreamObserver<org.harryng.demo.controller.grpc.LoginRes> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getLoginMethod(), getCallOptions()), request, responseObserver);
     }
@@ -156,7 +156,7 @@ public final class AuthControllerGrpc {
 
     /**
      */
-    public org.harryng.demo.controller.grpc.auth.dto.LoginRes login(org.harryng.demo.controller.grpc.auth.dto.LoginReq request) {
+    public org.harryng.demo.controller.grpc.LoginRes login(org.harryng.demo.controller.grpc.LoginReq request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getLoginMethod(), getCallOptions(), request);
     }
@@ -180,8 +180,8 @@ public final class AuthControllerGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<org.harryng.demo.controller.grpc.auth.dto.LoginRes> login(
-        org.harryng.demo.controller.grpc.auth.dto.LoginReq request) {
+    public com.google.common.util.concurrent.ListenableFuture<org.harryng.demo.controller.grpc.LoginRes> login(
+        org.harryng.demo.controller.grpc.LoginReq request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getLoginMethod(), getCallOptions()), request);
     }
@@ -207,8 +207,8 @@ public final class AuthControllerGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_LOGIN:
-          serviceImpl.login((org.harryng.demo.controller.grpc.auth.dto.LoginReq) request,
-              (io.grpc.stub.StreamObserver<org.harryng.demo.controller.grpc.auth.dto.LoginRes>) responseObserver);
+          serviceImpl.login((org.harryng.demo.controller.grpc.LoginReq) request,
+              (io.grpc.stub.StreamObserver<org.harryng.demo.controller.grpc.LoginRes>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -232,8 +232,8 @@ public final class AuthControllerGrpc {
           getLoginMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              org.harryng.demo.controller.grpc.auth.dto.LoginReq,
-              org.harryng.demo.controller.grpc.auth.dto.LoginRes>(
+              org.harryng.demo.controller.grpc.LoginReq,
+              org.harryng.demo.controller.grpc.LoginRes>(
                 service, METHODID_LOGIN)))
         .build();
   }
