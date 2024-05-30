@@ -13,7 +13,7 @@ option java_generic_services = true;
 
 message AssetReq {
   common.CommonReq header = 1;
-  AssetDtoGrpc asset = 2;
+  AssetDtoGrpc asset = 16;
 }
 
 message AssetRes {

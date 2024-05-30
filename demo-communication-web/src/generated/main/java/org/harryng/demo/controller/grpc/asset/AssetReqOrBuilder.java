@@ -24,17 +24,17 @@ public interface AssetReqOrBuilder extends
   org.harryng.demo.controller.grpc.common.dto.CommonReqOrBuilder getHeaderOrBuilder();
 
   /**
-   * <code>.controller.AssetDtoGrpc asset = 2;</code>
+   * <code>.controller.AssetDtoGrpc asset = 16;</code>
    * @return Whether the asset field is set.
    */
   boolean hasAsset();
   /**
-   * <code>.controller.AssetDtoGrpc asset = 2;</code>
+   * <code>.controller.AssetDtoGrpc asset = 16;</code>
    * @return The asset.
    */
   org.harryng.demo.controller.grpc.asset.AssetDtoGrpc getAsset();
   /**
-   * <code>.controller.AssetDtoGrpc asset = 2;</code>
+   * <code>.controller.AssetDtoGrpc asset = 16;</code>
    */
   org.harryng.demo.controller.grpc.asset.AssetDtoGrpcOrBuilder getAssetOrBuilder();
 }

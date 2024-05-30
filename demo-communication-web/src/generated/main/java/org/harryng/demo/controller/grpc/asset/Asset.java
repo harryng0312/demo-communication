@@ -67,7 +67,7 @@ public final class Asset {
       "mmon/CommonReqRes.proto\032\035common/Validati" +
       "onResult.proto\032\037google/protobuf/timestam" +
       "p.proto\"V\n\010AssetReq\022!\n\006header\030\001 \001(\0132\021.co" +
-      "mmon.CommonReq\022\'\n\005asset\030\002 \001(\0132\030.controll" +
+      "mmon.CommonReq\022\'\n\005asset\030\020 \001(\0132\030.controll" +
       "er.AssetDtoGrpc\"a\n\010AssetRes\022!\n\006header\030\001 " +
       "\001(\0132\021.common.CommonRes\0222\n\020validationResu" +
       "lt\030\002 \001(\0132\030.common.ValidationResult\"\\\n\016As" +

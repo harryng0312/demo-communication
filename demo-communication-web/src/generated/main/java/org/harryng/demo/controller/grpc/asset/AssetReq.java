@@ -68,10 +68,10 @@ private static final long serialVersionUID = 0L;
     return header_ == null ? org.harryng.demo.controller.grpc.common.dto.CommonReq.getDefaultInstance() : header_;
   }
 
-  public static final int ASSET_FIELD_NUMBER = 2;
+  public static final int ASSET_FIELD_NUMBER = 16;
   private org.harryng.demo.controller.grpc.asset.AssetDtoGrpc asset_;
   /**
-   * <code>.controller.AssetDtoGrpc asset = 2;</code>
+   * <code>.controller.AssetDtoGrpc asset = 16;</code>
    * @return Whether the asset field is set.
    */
   @java.lang.Override
@@ -79,7 +79,7 @@ private static final long serialVersionUID = 0L;
     return ((bitField0_ & 0x00000002) != 0);
   }
   /**
-   * <code>.controller.AssetDtoGrpc asset = 2;</code>
+   * <code>.controller.AssetDtoGrpc asset = 16;</code>
    * @return The asset.
    */
   @java.lang.Override
@@ -87,7 +87,7 @@ private static final long serialVersionUID = 0L;
     return asset_ == null ? org.harryng.demo.controller.grpc.asset.AssetDtoGrpc.getDefaultInstance() : asset_;
   }
   /**
-   * <code>.controller.AssetDtoGrpc asset = 2;</code>
+   * <code>.controller.AssetDtoGrpc asset = 16;</code>
    */
   @java.lang.Override
   public org.harryng.demo.controller.grpc.asset.AssetDtoGrpcOrBuilder getAssetOrBuilder() {
@@ -112,7 +112,7 @@ private static final long serialVersionUID = 0L;
       output.writeMessage(1, getHeader());
     }
     if (((bitField0_ & 0x00000002) != 0)) {
-      output.writeMessage(2, getAsset());
+      output.writeMessage(16, getAsset());
     }
     getUnknownFields().writeTo(output);
   }
@@ -129,7 +129,7 @@ private static final long serialVersionUID = 0L;
     }
     if (((bitField0_ & 0x00000002) != 0)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(2, getAsset());
+        .computeMessageSize(16, getAsset());
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -423,13 +423,13 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000001;
               break;
             } // case 10
-            case 18: {
+            case 130: {
               input.readMessage(
                   getAssetFieldBuilder().getBuilder(),
                   extensionRegistry);
               bitField0_ |= 0x00000002;
               break;
-            } // case 18
+            } // case 130
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -572,14 +572,14 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilder<
         org.harryng.demo.controller.grpc.asset.AssetDtoGrpc, org.harryng.demo.controller.grpc.asset.AssetDtoGrpc.Builder, org.harryng.demo.controller.grpc.asset.AssetDtoGrpcOrBuilder> assetBuilder_;
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      * @return Whether the asset field is set.
      */
     public boolean hasAsset() {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      * @return The asset.
      */
     public org.harryng.demo.controller.grpc.asset.AssetDtoGrpc getAsset() {
@@ -590,7 +590,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      */
     public Builder setAsset(org.harryng.demo.controller.grpc.asset.AssetDtoGrpc value) {
       if (assetBuilder_ == null) {
@@ -606,7 +606,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      */
     public Builder setAsset(
         org.harryng.demo.controller.grpc.asset.AssetDtoGrpc.Builder builderForValue) {
@@ -620,7 +620,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      */
     public Builder mergeAsset(org.harryng.demo.controller.grpc.asset.AssetDtoGrpc value) {
       if (assetBuilder_ == null) {
@@ -641,7 +641,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      */
     public Builder clearAsset() {
       bitField0_ = (bitField0_ & ~0x00000002);
@@ -654,7 +654,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      */
     public org.harryng.demo.controller.grpc.asset.AssetDtoGrpc.Builder getAssetBuilder() {
       bitField0_ |= 0x00000002;
@@ -662,7 +662,7 @@ private static final long serialVersionUID = 0L;
       return getAssetFieldBuilder().getBuilder();
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      */
     public org.harryng.demo.controller.grpc.asset.AssetDtoGrpcOrBuilder getAssetOrBuilder() {
       if (assetBuilder_ != null) {
@@ -673,7 +673,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.controller.AssetDtoGrpc asset = 2;</code>
+     * <code>.controller.AssetDtoGrpc asset = 16;</code>
      */
     private com.google.protobuf.SingleFieldBuilder<
         org.harryng.demo.controller.grpc.asset.AssetDtoGrpc, org.harryng.demo.controller.grpc.asset.AssetDtoGrpc.Builder, org.harryng.demo.controller.grpc.asset.AssetDtoGrpcOrBuilder> 
