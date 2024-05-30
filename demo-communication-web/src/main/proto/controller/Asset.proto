@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package controller;
+
+import "common/CommonReqRes.proto";
+import "common/ValidationResult.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_package = "org.harryng.demo.controller.grpc.asset";
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option java_generic_services = true;
+
+message AssetReq {
+  common.CommonReq header = 1;
+  AssetDtoGrpc asset = 2;
+}
+
+message AssetRes {
+  common.CommonRes header = 1;
+  common.ValidationResult validationResult = 2;
+}
+
+message AssetResultRes {
+  common.CommonRes header = 1;
+  repeated AssetDtoGrpc asset = 2;
+}
+
+message AssetIdReq {
+  common.CommonReq header = 1;
+  int64 id = 2;
+}
+
+message AssetNameReq {
+  common.CommonReq header = 1;
+  string name = 2;
+}
+
+message AssetDtoGrpc {
+  int64 id = 1;
+  int64 orgId = 2;
+  string orgTreepath = 3;
+  string name = 4;
+  optional string description = 5;
+}
+
+service AssetController {
+  rpc findById(AssetIdReq) returns (AssetResultRes);
+  rpc add(AssetReq) returns (AssetRes);
+  rpc edit(AssetReq) returns (AssetRes);
+  rpc remove(AssetIdReq) returns (AssetRes);
+
+  rpc findByName(AssetNameReq) returns (AssetResultRes);
+
+}

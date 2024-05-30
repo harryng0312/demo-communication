@@ -103,7 +103,7 @@ bootJar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${arc
 //bootWar { archiveFileName = "${archiveBaseName.get()}-${env}-${appVersion}.${archiveExtension.get()}" }
 
 protobuf {
-//    generatedFilesBaseDir = "$projectDir/src/generated"
+    generatedFilesBaseDir = "${projectDir}/src/generated"
     protoc {
         artifact = "com.google.protobuf:protoc:${protobufProtocVer}"
     }
@@ -117,24 +117,30 @@ protobuf {
 //            grpc {}
 //        }
 //    }
+//    generateProtoTasks {
+//        all().each { task ->
+//            task.builtins { java {outputSubDir="java"} }
+//            task.plugins { grpc {outputSubDir="grpc"} }
+//        }
+//    }
     generateProtoTasks {
         all().each { task ->
-            task.builtins { java {outputSubDir="java"} }
-            task.plugins { grpc {outputSubDir="grpc"} }
+            task.builtins { java { } }
+            task.plugins { grpc { } }
         }
     }
 }
 sourceSets {
     main {
         proto {
-            srcDirs += "src/main/proto"
+//            srcDirs += "src/main/proto"
         }
         java {
-//            srcDirs += "src/generated/main/java"
-//            srcDirs += "src/generated/main/grpc"
-//            srcDirs -= "build/generated/main/grpc"
-            srcDirs += "build/generated/source/proto/main/java";
-            srcDirs += "build/generated/source/proto/main/grpc";
+            srcDirs += "src/generated/main/java"
+            srcDirs += "src/generated/main/grpc"
+            srcDirs -= file("build/generated/source/proto/main/java")
+//            srcDirs += "build/generated/source/proto/main/java";
+//            srcDirs += "build/generated/source/proto/main/grpc";
         }
     }
 }

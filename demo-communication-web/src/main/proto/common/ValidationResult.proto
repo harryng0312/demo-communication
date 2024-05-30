@@ -1,0 +1,17 @@
+syntax = "proto3";
+package common;
+option java_package = "org.harryng.demo.controller.grpc.common.dto";
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option java_generic_services = true;
+
+message ValidationError {
+  int64 id = 1;
+  string field = 2;
+  string msg = 3;
+}
+
+message ValidationResult {
+  bool valid = 1;
+  repeated ValidationError validationError = 2;
+}

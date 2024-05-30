@@ -21,7 +21,7 @@ public class ValidationResult<T> implements Serializable {
     }
 
     public void addValidationErrors(@NonNull Set<ConstraintViolation<T>> constraintViolations) {
-        for (ConstraintViolation<T> constraintViolation : constraintViolations) {
+        for (ConstraintViolation<?> constraintViolation : constraintViolations) {
             getValidationErrors().add(ValidationError.of(
                     constraintViolation.getPropertyPath().toString(),
                     constraintViolation.getMessage(),

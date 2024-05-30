@@ -60,22 +60,15 @@ protobuf {
 }
 compileJava.dependsOn generateProto
 // option:
-//sourceSets{
-//    main{
-//        proto{
-//            srcDirs += 'src/main/proto'
-//        }
-//        java{
-//            srcDirs += 'build/generated/source/proto/main/grpc'
-//            srcDirs += 'build/generated/source/proto/main/java'
-//        }
-//    }
-//}
 sourceSets {
-    generated {
+    main {
+        proto {
+//            srcDirs += "src/main/proto"
+        }
         java {
-            srcDirs += "$projectDir/src/generated/main/java"
-            srcDirs += "$projectDir/src/generated/main/grpc"
+            srcDirs += "src/generated/main/java"
+            srcDirs += "src/generated/main/grpc"
+            srcDirs -= file("build/generated/source/proto/main/java")
         }
     }
 }
