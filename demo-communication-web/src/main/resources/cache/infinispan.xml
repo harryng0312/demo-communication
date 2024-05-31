@@ -7,27 +7,27 @@
         xmlns:server="urn:infinispan:server:14.0"
         xmlns:xi="http://www.w3.org/2001/XInclude">
 
-    <jgroups>
-        <!--        <stack-file name="my-stack" path="jgroups-udp.xml" />-->
-        <stack name="my-stack" extends="udp">
-            <relay.RELAY2 xmlns="urn:org:jgroups"
-                          site="my-site"
-                          max_site_masters="1000"/>
-            <!-- inter communication between nodes of sites -->
-            <remote-sites default-stack="tcp">
-                <remote-site name="my-site"/>
-            </remote-sites>
-        </stack>
+<!--    <jgroups>-->
+<!--        &lt;!&ndash;        <stack-file name="my-stack" path="jgroups-udp.xml" />&ndash;&gt;-->
+<!--        <stack name="my-stack" extends="udp">-->
+<!--            <relay.RELAY2 xmlns="urn:org:jgroups"-->
+<!--                          site="my-site"-->
+<!--                          max_site_masters="1000"/>-->
+<!--            &lt;!&ndash; inter communication between nodes of sites &ndash;&gt;-->
+<!--            <remote-sites default-stack="tcp">-->
+<!--                <remote-site name="my-site"/>-->
+<!--            </remote-sites>-->
+<!--        </stack>-->
 
-    </jgroups>
+<!--    </jgroups>-->
     <cache-container default-cache="local-cache" statistics="true">
-        <transport cluster="my-cluster" stack="my-stack"/>
+<!--        <transport cluster="my-cluster" stack="my-stack"/>-->
 
         <xi:include href="classpath:cache/cache-config-templ.xml" xpointer="xpointer(/{urn:infinispan:config:14.0}:infinispan/{urn:infinispan:config:14.0}:cache-container/)"/>
         <xi:include href="classpath:cache/local-cache.xml"/>
-        <xi:include href="classpath:cache/dist-cache.xml"/>
-        <xi:include href="classpath:cache/repl-cache.xml"/>
+<!--        <xi:include href="classpath:cache/dist-cache.xml"/>-->
+<!--        <xi:include href="classpath:cache/repl-cache.xml"/>-->
 
-        <xi:include href="classpath:cache/session-cache.xml"/>
+<!--        <xi:include href="classpath:cache/session-cache.xml"/>-->
     </cache-container>
 </infinispan>

@@ -130,5 +130,5 @@
     </aop:config>
     <bean id="logging" class="org.harryng.demo.aop.LoggingAspect"/>
     <bean id="auth" class="org.harryng.demo.aop.AuthenticationAspect"/>
-    <bean id="sessionWrapper" class="org.harryng.demo.aop.SessionWrapperAspect"/>
+    <bean id="sessionWrapper" class="org.harryng.demo.aop.HttpSessionWrapperAspect"/>
 </beans>

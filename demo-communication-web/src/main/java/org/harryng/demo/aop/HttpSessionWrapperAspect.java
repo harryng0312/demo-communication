@@ -15,7 +15,7 @@ import org.harryng.demo.api.util.SessionUtil;
 import java.util.UUID;
 
 @Slf4j
-public class SessionWrapperAspect {
+public class HttpSessionWrapperAspect {
     @Resource
     private HttpServletRequest request;
     @Resource

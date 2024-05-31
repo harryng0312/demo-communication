@@ -3,6 +3,7 @@ package org.harryng.demo.controller.grpc;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.devh.boot.grpc.server.service.GrpcService;
 import org.harryng.demo.aop.GrpcHeaderServerInterceptor;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.controller.grpc.asset.*;
@@ -18,6 +19,7 @@ import static org.harryng.demo.controller.grpc.asset.AssetControllerGrpc.*;
 
 @Component
 @RequiredArgsConstructor
+@GrpcService
 @Slf4j
 public class AssetGrpcController extends AssetControllerGrpc.AssetControllerImplBase {
 

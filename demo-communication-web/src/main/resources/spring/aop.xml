@@ -98,7 +98,7 @@
 
         <aop:pointcut
                 id="controllerOperation"
-                expression="execution(public * org.harryng.demo.controller.rs.*.*(..)) &amp;&amp; !execution(public * org.harryng.demo.controller.rs.AuthController.*(..))"/>
+                expression="execution(public * org.harryng.demo.controller.rs.*.*(org.harryng.demo.api.util.SessionHolder,..))"/>
         <aop:advisor
                 id="persistenceAdvisor" pointcut-ref="persistenceOperation"
                 advice-ref="requiredTxAdvicePersistence" order="1000"/>
@@ -115,20 +115,20 @@
             <aop:around method="around" pointcut-ref="controllerOperation"/>
         </aop:aspect>
 
-<!--        <aop:aspect ref="sessionWrapper" order="20">-->
-<!--            <aop:around method="around" pointcut-ref="controllerOperation"/>-->
-<!--        </aop:aspect>-->
-<!--        <aop:aspect ref="auth" order="50">-->
-<!--            <aop:around method="around" pointcut-ref="controllerOperation"/>-->
-<!--        </aop:aspect>-->
-        <aop:aspect ref="sessionWrapper" order="20">
-            <aop:around method="around" pointcut-ref="serviceOperation"/>
+        <aop:aspect ref="httpSessionWrapper" order="20">
+            <aop:around method="around" pointcut-ref="controllerOperation"/>
         </aop:aspect>
         <aop:aspect ref="auth" order="50">
-            <aop:around method="around" pointcut-ref="serviceOperation"/>
+            <aop:around method="around" pointcut-ref="controllerOperation"/>
         </aop:aspect>
+<!--        <aop:aspect ref="httpSessionWrapper" order="20">-->
+<!--            <aop:around method="around" pointcut-ref="serviceOperation"/>-->
+<!--        </aop:aspect>-->
+<!--        <aop:aspect ref="auth" order="50">-->
+<!--            <aop:around method="around" pointcut-ref="serviceOperation"/>-->
+<!--        </aop:aspect>-->
     </aop:config>
     <bean id="logging" class="org.harryng.demo.aop.LoggingAspect"/>
     <bean id="auth" class="org.harryng.demo.aop.AuthenticationAspect"/>
-    <bean id="sessionWrapper" class="org.harryng.demo.aop.SessionWrapperAspect"/>
+    <bean id="httpSessionWrapper" class="org.harryng.demo.aop.HttpSessionWrapperAspect"/>
 </beans>
