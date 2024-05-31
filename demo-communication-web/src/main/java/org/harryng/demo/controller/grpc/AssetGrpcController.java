@@ -4,8 +4,9 @@ import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.harryng.demo.aop.GrpcHeaderServerInterceptor;
+import org.harryng.demo.aop.AuthenticationGrpcInterceptor;
 import org.harryng.demo.api.util.SessionHolder;
+import org.harryng.demo.api.util.SessionUtil;
 import org.harryng.demo.controller.grpc.asset.*;
 import org.harryng.demo.impl.asset.dto.AssetDto;
 import org.harryng.demo.impl.asset.service.AssetService;
@@ -28,10 +29,11 @@ public class AssetGrpcController extends AssetControllerGrpc.AssetControllerImpl
     @Override
     public void findById(AssetIdReq request, StreamObserver<AssetResultRes> responseObserver) {
 //        io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getFindByIdMethod(), responseObserver);
-        final String token = GrpcHeaderServerInterceptor.HEADER_AUTHORIZATION.get();
-        log.info("token:{}", token);
+        final String token = AuthenticationGrpcInterceptor.HEADER_AUTHORIZATION.get();
         try {
-            final SessionHolder sessionHolder = SessionHolder.ANONYMOUS;
+            final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
+//            log.info("sessionHolder:{}", sessionHolder);
+//            log.info("request:{}", request.getAllFields());
             final Optional<AssetDto> oAssetDto = assetService.getById(sessionHolder, request.getId(), new LinkedHashMap<>());
             final AssetResultRes res;
             if (oAssetDto.isPresent()) {

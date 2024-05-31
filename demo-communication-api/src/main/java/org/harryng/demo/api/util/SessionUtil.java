@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import io.grpc.Metadata;
 import jakarta.servlet.http.HttpServletRequest;
 import org.harryng.demo.api.constant.RequestParams;
 import org.harryng.demo.api.constant.SystemKey;
@@ -132,6 +133,17 @@ public class SessionUtil {
             jwt = headerAuth.substring(7);
         } else if (paramAccessToken != null && !paramAccessToken.isBlank()) {
             jwt = paramAccessToken;
+        } else {
+            jwt = "";
+        }
+        return jwt;
+    }
+
+    public static String getToken(Metadata headers) {
+        final String headerAuth = headers.get(Metadata.Key.of(RequestParams.HEADER_AUTHORIZATION, Metadata.ASCII_STRING_MARSHALLER));
+        final String jwt;
+        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+            jwt = headerAuth.substring(7);
         } else {
             jwt = "";
         }

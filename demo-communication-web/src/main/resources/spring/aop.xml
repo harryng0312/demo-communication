@@ -97,8 +97,11 @@
                 expression="execution(public * org.harryng.demo..service.*.*(org.harryng.demo.api.util.SessionHolder,..)) &amp;&amp; !@annotation(org.springframework.transaction.annotation.Transactional)"/>
 
         <aop:pointcut
-                id="controllerOperation"
+                id="rsControllerOperation"
                 expression="execution(public * org.harryng.demo.controller.rs.*.*(org.harryng.demo.api.util.SessionHolder,..))"/>
+        <aop:pointcut
+                id="grpcControllerOperation"
+                expression="execution(public * org.harryng.demo.controller.grpc.*.*(..))"/>
         <aop:advisor
                 id="persistenceAdvisor" pointcut-ref="persistenceOperation"
                 advice-ref="requiredTxAdvicePersistence" order="1000"/>
@@ -112,14 +115,17 @@
         </aop:aspect>
 
         <aop:aspect ref="logging" order="10">
-            <aop:around method="around" pointcut-ref="controllerOperation"/>
+            <aop:around method="around" pointcut-ref="rsControllerOperation"/>
+        </aop:aspect>
+        <aop:aspect ref="logging" order="10">
+            <aop:around method="around" pointcut-ref="grpcControllerOperation"/>
         </aop:aspect>
 
         <aop:aspect ref="httpSessionWrapper" order="20">
-            <aop:around method="around" pointcut-ref="controllerOperation"/>
+            <aop:around method="around" pointcut-ref="rsControllerOperation"/>
         </aop:aspect>
         <aop:aspect ref="auth" order="50">
-            <aop:around method="around" pointcut-ref="controllerOperation"/>
+            <aop:around method="around" pointcut-ref="rsControllerOperation"/>
         </aop:aspect>
 <!--        <aop:aspect ref="httpSessionWrapper" order="20">-->
 <!--            <aop:around method="around" pointcut-ref="serviceOperation"/>-->

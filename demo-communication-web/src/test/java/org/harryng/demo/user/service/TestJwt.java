@@ -21,7 +21,7 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.UUID;
 
-@SpringBootTest(classes = Application.class)
+//@SpringBootTest(classes = Application.class)
 @Import(Application.class)
 @Slf4j
 public class TestJwt {

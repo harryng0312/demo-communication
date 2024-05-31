@@ -23,4 +23,5 @@ dependencies {
     compileOnly "org.springframework.boot:spring-boot-starter-web"
     compileOnly "org.springframework.boot:spring-boot-starter-websocket"
     compileOnly "com.auth0:java-jwt:${javaJwtVer}"
+    compileOnly "io.grpc:grpc-protobuf:${grpcProtobufVer}"
 }
