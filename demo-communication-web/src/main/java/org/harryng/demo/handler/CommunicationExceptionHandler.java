@@ -38,11 +38,11 @@ public class CommunicationExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseWrapper<String>> handleException(final Exception exception){
-//        log.error(exception.getMessage(), exception);
-        final StringBuilder sb = Arrays.stream(exception.getStackTrace())
-                .map(StackTraceElement::toString)
-                .reduce(new StringBuilder(), (strBuilder, s) -> strBuilder.append(s).append("\n"), StringBuilder::append);
-        log.error(sb.toString());
+        log.error(exception.getMessage(), exception);
+//        final StringBuilder sb = Arrays.stream(exception.getStackTrace())
+//                .map(StackTraceElement::toString)
+//                .reduce(new StringBuilder(), (strBuilder, s) -> strBuilder.append(s).append("\n"), StringBuilder::append);
+//        log.error(sb.toString());
         final ResponseWrapper<String> responseWrapper = ResponseWrapper.<String>builder()
                 .code(ResponseCode.COMMON_ERROR)
                 .msg(exception.getMessage())
