@@ -21,7 +21,7 @@ public class ConversationInterceptor implements HandshakeInterceptor {
         final String token = SessionUtil.getToken(request);
         final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
         log.info("+++++beforeHandshake:{}+++++", sessionHolder);
-        if(!SessionUtil.isAnonymous(sessionHolder)){
+        if(SessionUtil.isAuthenticated(sessionHolder)){
             attributes.put(RequestParams.HEADER_SESSION_HOLDER, sessionHolder);
             return true;
         }

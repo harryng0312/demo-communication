@@ -12,8 +12,8 @@ import java.text.MessageFormat;
 @RestController
 @Slf4j
 public class HelloController {
-    @Value("test-value")
-    private String[] testValues;
+//    @Value("test-value")
+//    private String[] testValues;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     @ResponseBody
@@ -21,7 +21,7 @@ public class HelloController {
         log.info("into /hello:{}", name);
 //        return "Hello " + name+ " " + testValues.length;
         return TextUtil.objToJson(ResponseWrapper.<String>builder()
-                .data(MessageFormat.format("Hello {0} {1}", name, testValues.length))
+                .data(MessageFormat.format("Hello {0}", name))
                 .build());
     }
 

@@ -2,7 +2,7 @@ logging:
   level:
     root: info
   file:
-    name: demo-communication-web.log
+    name: demo-communication-web
     path: ./log
 
 # server

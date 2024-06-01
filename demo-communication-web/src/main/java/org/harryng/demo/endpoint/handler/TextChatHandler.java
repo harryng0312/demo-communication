@@ -33,7 +33,7 @@ public class TextChatHandler extends TextWebSocketHandler {
         // Get messages from clients
         final String payload = message.getPayload();
         final SessionHolder sessionHolder = (SessionHolder) session.getAttributes().getOrDefault(RequestParams.HEADER_SESSION_HOLDER, SessionHolder.ANONYMOUS);
-        if (!SessionUtil.isAnonymous(sessionHolder)) {
+        if (SessionUtil.isAuthenticated(sessionHolder)) {
 //            final UUID msgId = UUID.randomUUID();
 //            final String token = SessionUtil.getToken(session.getHandshakeHeaders());
 //            log.info("server Receive:{}", payload);

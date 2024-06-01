@@ -37,13 +37,14 @@ dependencies {
     implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
     implementation "org.infinispan:infinispan-core-jakarta"
     implementation "com.auth0:java-jwt:${javaJwtVer}"
+    implementation "io.grpc:grpc-protobuf:${grpcProtobufVer}"
 
 //    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.infinispan:infinispan-commons-jakarta"
     testImplementation "org.assertj:assertj-core"
-    testImplementation "com.auth0:java-jwt:${javaJwtVer}"
+//    testImplementation "com.auth0:java-jwt:${javaJwtVer}"
     testImplementation "org.springframework.boot:spring-boot-starter-webflux"
 }
 

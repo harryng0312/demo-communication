@@ -150,11 +150,11 @@ public class SessionUtil {
         return jwt;
     }
 
-    public static boolean isAnonymous(SessionHolder sessionHolder) {
+    public static boolean isAuthenticated(SessionHolder sessionHolder) {
         if(sessionHolder == null){
-            return true;
+            return false;
         }
-        return SessionHolder.ANONYMOUS.getUserId().equals(sessionHolder.getUserId());
+        return !SessionHolder.ANONYMOUS.getUserId().equals(sessionHolder.getUserId());
     }
 
     public static SessionHolder getSessionHolder(WebSocketSession session) throws NoSuchAlgorithmException, InvalidKeySpecException {

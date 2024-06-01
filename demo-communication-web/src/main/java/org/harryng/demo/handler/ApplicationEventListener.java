@@ -32,7 +32,6 @@ public class ApplicationEventListener {
 
     @EventListener(ContextClosedEvent.class)
     public void onContextClosed(ContextClosedEvent event) {
-        // todo: close/move all of Session before closed
         log.info("Context is Closed!!!");
     }
 

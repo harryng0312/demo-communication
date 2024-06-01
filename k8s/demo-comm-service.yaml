@@ -13,4 +13,26 @@ spec:
       port: 18080
       targetPort: 18080
   type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-communication
+  name: demo-comm-web-svc
+  labels:
+    app: demo-comm-web-svc
+spec:
+  selector:
+    app: demo-comm-web-con
+  ports:
+    - name: rs
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: grpc
+      protocol: TCP
+      port: 19090
+      targetPort: 19090
+  type: ClusterIP
   

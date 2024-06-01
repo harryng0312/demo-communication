@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demo-communication
+  name: demo-comm-web-deploy
+  labels:
+    app: demo-comm-web-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-comm-web-con
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      name: demo-comm-web-con
+      labels:
+        app: demo-comm-web-con
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: demo-comm-vol
+          persistentVolumeClaim:
+            claimName: demo-comm-pvc
+      containers:
+        - name: demo-comm-web-con
+          image: openjdk:21-ea-jdk-slim
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "10m"
+            limits:
+              memory: "384Mi"
+              cpu: "500m"
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+            - name: LOG_PATH
+              value: "/mnt/data/log/${POD_NAME}"
+            - name: LOG_FILE
+              value: demo-communication-web
+          volumeMounts:
+            - mountPath: /mnt/data
+              name: demo-comm-vol
+          ports:
+            - containerPort: 18080
+              protocol: TCP
+          workingDir: /mnt/data/java
+#          command: ["tail", "-f", "/dev/null"]
+          command: ["java", "-jar", "-Xms256m", "-Xmx256m", "demo-communication-web-test-1.0.0.jar"]
+          startupProbe:
+            exec:
+              command: ["date"]
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            failureThreshold: 3
+#          livenessProbe:
+#            httpGet:
+#              port: 18080
+#              path: /healthz
+#            initialDelaySeconds: 10 # wait before start checking
+#            periodSeconds: 15
+#            failureThreshold: 3
+#          readinessProbe:
+#            httpGet:
+#              path: /ready
+#              port: 8080
+#            initialDelaySeconds: 5
+#            periodSeconds: 10

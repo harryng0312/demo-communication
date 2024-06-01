@@ -17,7 +17,7 @@
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>50MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
-            <!--            <maxFileSize>50MB</maxFileSize>-->
+            <!--<maxFileSize>50MB</maxFileSize>-->
             <maxHistory>5000</maxHistory>
         </rollingPolicy>
     </appender>
@@ -56,9 +56,8 @@
     <logger name="org.springframework.integration.handler.LoggingHandler" level="INFO"/>
 
     <root level="INFO">
-        <appender-ref ref="STDOUT"/>
-        <!--        <appender-ref ref="rollingFile"/>-->
-
+        <!--        <appender-ref ref="STDOUT"/>-->
+        <appender-ref ref="rollingFile"/>
     </root>
 
 </configuration>
