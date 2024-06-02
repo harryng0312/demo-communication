@@ -107,12 +107,12 @@
                 advice-ref="requiredTxAdvicePersistence" order="1000"/>
         <aop:advisor id="serviceAdvisor" pointcut-ref="serviceOperation" advice-ref="notSupportTxAdvice" order="1000"/>
 
-        <aop:aspect ref="logging" order="10">
-            <aop:around method="around" pointcut-ref="serviceOperation"/>
-        </aop:aspect>
-        <aop:aspect ref="logging" order="10">
-            <aop:around method="around" pointcut-ref="persistenceOperation"/>
-        </aop:aspect>
+<!--        <aop:aspect ref="logging" order="10">-->
+<!--            <aop:around method="around" pointcut-ref="serviceOperation"/>-->
+<!--        </aop:aspect>-->
+<!--        <aop:aspect ref="logging" order="10">-->
+<!--            <aop:around method="around" pointcut-ref="persistenceOperation"/>-->
+<!--        </aop:aspect>-->
 
         <aop:aspect ref="logging" order="10">
             <aop:around method="around" pointcut-ref="rsControllerOperation"/>

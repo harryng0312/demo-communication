@@ -60,3 +60,19 @@ spec:
 #  type: ClusterIP
   type: LoadBalancer
   sessionAffinity: None
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-communication
+  name: local-ext-svc
+spec:
+  type: ExternalName
+  externalName: host.docker.internal  # use this for docker-desktop
+#  externalName: hiepnq-mbp
+#  externalName: localhost
+#  ports:
+#    - port: 5432
+#      protocol: TCP
+#      nodePort: 5432

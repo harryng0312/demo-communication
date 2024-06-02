@@ -41,7 +41,8 @@ spring:
 
 db:
   driver: "org.postgresql.Driver"
-  url: "jdbc:postgresql://localhost:5432/test_db"
+  url: "jdbc:postgresql://local-ext-svc.demo-communication.svc.cluster.local:5432/test_db"
+#  url: "jdbc:postgresql://hiepnq-mbp:5432/test_db"
   username: test_db
   password: test_db
   minPoolSize: 1
