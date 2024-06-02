@@ -19,9 +19,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: demo-communication
-  name: demo-comm-web-svc
+  name: demo-comm-web-rs-svc
   labels:
-    app: demo-comm-web-svc
+    app: demo-comm-web-rs-svc
 spec:
   selector:
     app: demo-comm-web-con
@@ -30,9 +30,33 @@ spec:
       protocol: TCP
       port: 8080
       targetPort: 8080
+#    - name: grpc
+#      protocol: TCP
+#      port: 19090
+#      targetPort: 19090
+  type: ClusterIP
+#  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-communication
+  name: demo-comm-web-grpc-svc
+  labels:
+    app: demo-comm-web-grpc-svc
+spec:
+  selector:
+    app: demo-comm-web-con
+  ports:
+#    - name: rs
+#      protocol: TCP
+#      port: 8080
+#      targetPort: 8080
     - name: grpc
       protocol: TCP
       port: 19090
       targetPort: 19090
-  type: ClusterIP
-  
+#  type: ClusterIP
+  type: LoadBalancer
+  sessionAffinity: None

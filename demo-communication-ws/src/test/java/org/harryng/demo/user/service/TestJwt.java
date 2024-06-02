@@ -41,7 +41,7 @@ public class TestJwt {
 
     @Test
     public void createJwt() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final var durationInSecond = 10_000;
+        final var durationInSecond = 1_000_000;
         final var id = UUID.randomUUID().toString();
         final var now = Instant.now();
         final var expiration = now.plusSeconds(durationInSecond);
