@@ -17,12 +17,12 @@ public class LoggingAspect {
     }
 
     public Object around(ProceedingJoinPoint jp) throws Throwable{
-        final LocalDateTime start = LocalDateTime.now();
+        final long start = System.currentTimeMillis();
         log.info("----- {}.{}({})", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
         final Object result = jp.proceed();
-        final LocalDateTime finish = LocalDateTime.now();
+        final long finish = System.currentTimeMillis();
         log.info("+++++ {}.{} in {} ms", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
-                start.until(finish, ChronoUnit.MILLIS));
+                (finish - start));
         return result;
     }
 }

@@ -9,24 +9,27 @@ import java.util.UUID;
 
 @Slf4j
 public class LoggingAspect {
-    public void before(){
+    public void before() {
         log.info("+++++");
     }
 
-    public void after(){
+    public void after() {
         log.info("-----");
     }
 
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         final UUID uuid = UUID.randomUUID();
-        final LocalDateTime start = LocalDateTime.now();
+        final long start = System.currentTimeMillis();
         log.info("+++++ [REQUEST][{}]:{}.{}({})", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
         try {
-            return jp.proceed();
-        } finally {
-            final LocalDateTime finish = LocalDateTime.now();
-            log.info("----- [RESPONSE][{}]: {}.{} in {} millisecond(s)", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
-                    start.until(finish, ChronoUnit.MILLIS));
+            final Object result = jp.proceed();
+            final long finish = System.currentTimeMillis();
+            log.info("----- [RESPONSE][{}]:{} in {} millisecond(s)", uuid, result, (finish - start));
+            return result;
+        } catch (Exception e){
+            final long finish = System.currentTimeMillis();
+            log.info("----- [RESPONSE][{}]:{} in {} millisecond(s)", uuid, e.getMessage(), (finish - start));
+            throw e;
         }
     }
 }

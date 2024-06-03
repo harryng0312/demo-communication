@@ -16,12 +16,20 @@ server:
       enabled: false
 # spring:
 spring:
+  jackson:
+    date-format: "yyyy-MM-dd'T'HH:mm:ss"
+    serialization:
+      write-dates-as-timestamps: false
   main:
     allow-bean-definition-overriding: true
   mvc:
     view:
       prefix: template/pages/
       suffix: .html
+#    format:
+#      date-time: iso
+#      time: iso
+#      date: iso
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
       org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \

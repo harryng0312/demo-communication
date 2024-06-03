@@ -11,8 +11,8 @@ public class LoggingGrpcInterceptor implements ServerInterceptor {
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
             ServerCall<ReqT, RespT> call, Metadata headers, ServerCallHandler<ReqT, RespT> next) {
-        final long startTime = System.currentTimeMillis();
         final UUID uuid = UUID.randomUUID();
+        final long startTime = System.currentTimeMillis();
         log.info("+++++ Start: {}", uuid);
         final var result = next.startCall(call, headers);
         final long endTime = System.currentTimeMillis();
