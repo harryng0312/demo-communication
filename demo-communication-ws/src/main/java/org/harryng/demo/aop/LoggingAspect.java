@@ -18,10 +18,10 @@ public class LoggingAspect {
 
     public Object around(ProceedingJoinPoint jp) throws Throwable{
         final LocalDateTime start = LocalDateTime.now();
-        log.info("----- {}.{}[{}] -----", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
+        log.info("----- {}.{}({})", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
         final Object result = jp.proceed();
         final LocalDateTime finish = LocalDateTime.now();
-        log.info("+++++ {}.{} +++++ {} millisecond(s)", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
+        log.info("+++++ {}.{} in {} ms", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
                 start.until(finish, ChronoUnit.MILLIS));
         return result;
     }

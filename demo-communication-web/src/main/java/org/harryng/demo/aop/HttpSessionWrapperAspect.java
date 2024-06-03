@@ -28,9 +28,9 @@ public class HttpSessionWrapperAspect {
             final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
 //            sessionHolder.setUserId();
             jp.getArgs()[0] = sessionHolder;
-            log.info("+++++ wrapper {}.{} +++++", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
+            log.info("+++++ wrapper {}.{}", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
             final Object result = jp.proceed(jp.getArgs());
-            log.info("----- wrapper {}.{} -----", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
+            log.info("----- wrapper {}.{}", jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName());
             final String jwt;
             if (jp.getArgs()[0] != null && jp.getArgs()[0] instanceof SessionHolder sessionHolderRes) {
                 final UUID uuid = UUID.randomUUID();

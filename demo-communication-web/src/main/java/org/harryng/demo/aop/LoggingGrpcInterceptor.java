@@ -13,10 +13,10 @@ public class LoggingGrpcInterceptor implements ServerInterceptor {
             ServerCall<ReqT, RespT> call, Metadata headers, ServerCallHandler<ReqT, RespT> next) {
         final long startTime = System.currentTimeMillis();
         final UUID uuid = UUID.randomUUID();
-        log.info("+++++ Start: {} +++++", uuid);
+        log.info("+++++ Start: {}", uuid);
         final var result = next.startCall(call, headers);
         final long endTime = System.currentTimeMillis();
-        log.info("----- End: {} ----- in: {} ms", uuid, (endTime - startTime));
+        log.info("----- End: {} in: {} ms", uuid, (endTime - startTime));
         return result;
     }
 }

@@ -20,7 +20,7 @@ public class AuthenticationGrpcInterceptor implements ServerInterceptor {
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
             ServerCall<ReqT, RespT> call, Metadata headers, ServerCallHandler<ReqT, RespT> next) {
         final long startTime = System.currentTimeMillis();
-        log.info("+++++ Auth start: {} +++++", call.getMethodDescriptor().getBareMethodName());
+        log.info("+++++ Auth start: {}", call.getMethodDescriptor().getBareMethodName());
         final String token = SessionUtil.getToken(headers);
         ServerCall.Listener<ReqT> result;
         try {
@@ -41,7 +41,7 @@ public class AuthenticationGrpcInterceptor implements ServerInterceptor {
             log.error(e.getMessage(), e);
         }
         final long endTime = System.currentTimeMillis();
-        log.info("----- Auth end: {} ----- in: {} ms", call.getMethodDescriptor().getBareMethodName(), (endTime - startTime));
+        log.info("----- Auth end: {} in: {} ms", call.getMethodDescriptor().getBareMethodName(), (endTime - startTime));
         return result;
     }
 }

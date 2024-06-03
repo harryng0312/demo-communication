@@ -20,12 +20,12 @@ public class LoggingAspect {
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         final UUID uuid = UUID.randomUUID();
         final LocalDateTime start = LocalDateTime.now();
-        log.info("+++++ [REQUEST][{}]:{}.{}({}) +++++", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
+        log.info("+++++ [REQUEST][{}]:{}.{}({})", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
         try {
             return jp.proceed();
         } finally {
             final LocalDateTime finish = LocalDateTime.now();
-            log.info("----- [RESPONSE][{}]: {}.{} ----- {} millisecond(s)", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
+            log.info("----- [RESPONSE][{}]: {}.{} in {} millisecond(s)", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(),
                     start.until(finish, ChronoUnit.MILLIS));
         }
     }
