@@ -23,16 +23,12 @@ create table public.asset
     id_           bigint             not null
         constraint asset_pk
             primary key,
-    name_         integer            not null,
+    name_         varchar(50)            not null,
     description   varchar(150),
     created_date  timestamp          not null,
     modified_date timestamp          not null,
-    org_id        bigint             not null
-        constraint asset_resource_id_unq
-            unique,
-    org_treepath  varchar(260)       not null
-        constraint asset_resource_tree_path_unq
-            unique,
+    org_id        bigint             not null,
+    org_treepath  varchar(260)       not null,
     status_       smallint default 1 not null
 );
 

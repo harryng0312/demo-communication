@@ -29,10 +29,10 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              memory: "256Mi"
+              memory: "384Mi"
               cpu: "10m"
             limits:
-              memory: "384Mi"
+              memory: "512Mi"
               cpu: "500m"
           env:
             - name: TZ
@@ -57,7 +57,7 @@ spec:
               protocol: TCP
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
-          command: ["java", "-jar", "-Xms256m", "-Xmx256m", "demo-communication-web-test-1.0.0.jar"]
+          command: ["java", "-jar", "-Xms384m", "-Xmx384m", "demo-communication-web-test-1.0.0.jar"]
           startupProbe:
             exec:
               command: ["date"]
