@@ -22,7 +22,7 @@
     <!-- transaction aspect -->
     <!-- aspectj -->
     <!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) -->
-    <tx:advice id="requiredTxAdvicePersistence" transaction-manager="transactionManager">
+    <tx:advice id="requiredTxAdvicePersistence" transaction-manager="primaryTransactionManager">
         <!-- the transactional semantics... -->
         <tx:attributes>
             <!-- all methods starting with 'get' are read-only -->
@@ -37,7 +37,7 @@
                        propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
-    <tx:advice id="requiredTxAdvice" transaction-manager="transactionManager">
+    <tx:advice id="requiredTxAdvice" transaction-manager="primaryTransactionManager">
         <!-- the transactional semantics... -->
         <tx:attributes>
             <!-- all methods starting with 'get' are read-only -->
@@ -52,7 +52,7 @@
                        propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
-    <tx:advice id="supportTxAdvice" transaction-manager="transactionManager">
+    <tx:advice id="supportTxAdvice" transaction-manager="primaryTransactionManager">
         <!-- the transactional semantics... -->
         <tx:attributes>
             <!-- all methods starting with 'get' are read-only -->
@@ -68,7 +68,7 @@
         </tx:attributes>
     </tx:advice>
 
-    <tx:advice id="notSupportTxAdvice" transaction-manager="transactionManager">
+    <tx:advice id="notSupportTxAdvice" transaction-manager="primaryTransactionManager">
         <!-- the transactional semantics... -->
         <tx:attributes>
             <!-- all methods starting with 'get' are read-only -->

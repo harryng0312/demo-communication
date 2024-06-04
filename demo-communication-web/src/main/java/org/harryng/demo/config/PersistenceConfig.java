@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {"org.harryng.demo.impl"},
+        basePackages = {"org.harryng.demo"},
         repositoryBaseClass = SimpleBasePersistence.class,
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager"
@@ -32,11 +32,22 @@ public class PersistenceConfig {
 
     @Value("${spring.datasource.url}")
     private String dsUrl;
+    @Value("${spring.datasource.dbcp2.initial-size}")
+    private int initialSize;
+    @Value("${spring.datasource.dbcp2.max-total}")
+    private int maxTotal;
+    @Value("${spring.datasource.dbcp2.min-idle}")
+    private int minIdle;
+    @Value("${spring.datasource.dbcp2.max-idle}")
+    private int maxIdle;
+
 
     @Primary
-    @Bean(name = "entityManagerFactory")
+    @Bean(name = "primaryEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean primaryEntityManager(@Autowired DataSource dataSource) {
-        log.info("db_url:{}", dsUrl);
+        log.info("db_url: {}", dsUrl);
+        log.info("initialSize: {}, maxTotal: {}", initialSize, maxTotal);
+        log.info("minIdle: {}, maxIdle: {}", minIdle, maxIdle);
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPersistenceUnitName("primary");
@@ -49,12 +60,13 @@ public class PersistenceConfig {
     }
 
     @Primary
-    @Bean(name = "transactionManager")
-    public PlatformTransactionManager primaryTransactionManager(@Qualifier("entityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-        final JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-        jpaTransactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
-        jpaTransactionManager.setNestedTransactionAllowed(true);
-        jpaTransactionManager.setJpaDialect(new HibernateJpaDialect());
-        return jpaTransactionManager;
+    @Bean(name = "primaryTransactionManager")
+    public PlatformTransactionManager primaryTransactionManager(@Qualifier("primaryEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+        final JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
+        transactionManager.setNestedTransactionAllowed(true);
+        transactionManager.setJpaDialect(new HibernateJpaDialect());
+        transactionManager.setRollbackOnCommitFailure(true);
+        return transactionManager;
     }
 }
