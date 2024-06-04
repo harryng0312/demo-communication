@@ -23,8 +23,8 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         basePackages = {"org.harryng.demo"},
         repositoryBaseClass = SimpleBasePersistence.class,
-        entityManagerFactoryRef = "entityManagerFactory",
-        transactionManagerRef = "transactionManager"
+        entityManagerFactoryRef = "primaryEntityManagerFactory",
+        transactionManagerRef = "primaryTransactionManager"
 )
 public class PersistenceConfig {
 
@@ -40,7 +40,6 @@ public class PersistenceConfig {
     private int minIdle;
     @Value("${spring.datasource.dbcp2.max-idle}")
     private int maxIdle;
-
 
     @Primary
     @Bean(name = "primaryEntityManagerFactory")
