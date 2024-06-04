@@ -48,7 +48,7 @@ spring:
     show-sql: true
     open-in-view: false
   profiles:
-    active: ${env != null? env:'dev'}
+    active: "${env != null? env:'dev'}"
   threads:
     virtual:
       enabled: true

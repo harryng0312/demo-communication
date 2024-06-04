@@ -1,6 +1,9 @@
 logging:
   level:
     root: info
+    org:
+      hibernate:
+        SQL: debug
 
 # server
 server:
@@ -37,11 +40,16 @@ spring:
 #    compose:
 #      enabled: true
 #      host: ./docker/docker-compose-dev.xml
+#  datasource:
+#    url: jdbc:sqlserver://local-ext-svc.demo-communication.svc.cluster.local:1433;databaseName=test_db;integratedSecurity=false;\
+#      encrypt=false;trustServerCertificate=false
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    username: sa
+#    password: 123456
+
   datasource:
     url: jdbc:sqlserver://local-ext-svc.demo-communication.svc.cluster.local:1433;databaseName=test_db;integratedSecurity=false;\
       encrypt=false;trustServerCertificate=false
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
     password: 123456
-  transaction:
-    rollback-on-commit-failure: true

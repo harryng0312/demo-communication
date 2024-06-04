@@ -47,8 +47,6 @@ spring:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
     password: 123456
-  transaction:
-    rollback-on-commit-failure: true
 
 # grpc server
 grpc:

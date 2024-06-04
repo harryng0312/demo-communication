@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: demo-communication
+  name: demo-comm-web-cm
+  labels:
+    app: demo-comm-web-cm
+data:
+  # system
+  TZ: "Asia/Ho_Chi_Minh"
+  # log
+  LOG_PATH: "/mnt/data/log/${POD_NAME}"
+  LOG_FILE: "demo-communication-web"
+  # db
+  SPRING_DATASOURCE_DRIVER-CLASS-NAME: "org.postgresql.Driver"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://local-ext-svc.demo-communication.svc.cluster.local:5432/test_db"
+  SPRING_DATASOURCE_USERNAME: "test_db"
+  SPRING_DATASOURCE_PASSWORD: "test_db"
+  SPRING_DATASOURCE_DBCP2_INITIAL-SIZE: "1"
+  SPRING_DATASOURCE_DBCP2_MAX-TOTAL: "5"
+  SPRING_DATASOURCE_DBCP2_MIN-IDLE: "1"
+  SPRING_DATASOURCE_DBCP2_MAX-IDLE: "3"
