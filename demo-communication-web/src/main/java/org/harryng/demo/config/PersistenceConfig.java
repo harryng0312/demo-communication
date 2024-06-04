@@ -35,6 +35,7 @@ public class PersistenceConfig {
         em.setPackagesToScan("org.harryng.demo.impl.**.entity", "org.harryng.demo.impl.**.persistence");
 //
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setShowSql(true);
         em.setJpaVendorAdapter(vendorAdapter);
 //        em.setJpaPropertyMap(hibernateProperties());
 
