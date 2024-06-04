@@ -24,7 +24,7 @@ spring:
     allow-bean-definition-overriding: true
   mvc:
     view:
-      prefix: template/pages/
+      prefix: pages/
       suffix: .html
 #    format:
 #      date-time: iso

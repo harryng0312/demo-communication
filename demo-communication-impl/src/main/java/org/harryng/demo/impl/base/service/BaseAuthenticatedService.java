@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface BaseAuthenticatedService<T extends BaseModel<Id>, Et extends BaseModel<Id>, Id extends Serializable> {
     BasePersistence<Et, Id> getPersistence();
 
-    Optional<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra);
+    Optional<T> getById(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception;
     ValidationResult<T> add(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception;
     ValidationResult<T> edit(SessionHolder sessionHolder, T obj, Map<String, Object> extra) throws Exception;
     ValidationResult<Id> remove(SessionHolder sessionHolder, Id id, Map<String, Object> extra) throws Exception;

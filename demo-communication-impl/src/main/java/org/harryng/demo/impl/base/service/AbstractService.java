@@ -29,7 +29,7 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
     public abstract BaseMapper<Dto, Et> getMapper();
 
     @Override
-    public @NonNull Optional<Dto> getById(@NonNull SessionHolder sessionHolder, @NonNull Id id, Map<String, Object> extra) {
+    public @NonNull Optional<Dto> getById(@NonNull SessionHolder sessionHolder, @NonNull Id id, Map<String, Object> extra) throws Exception {
         final var result = getPersistence().findById(id);
         return result.map(et -> getMapper().toDto(et));
     }
