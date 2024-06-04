@@ -24,9 +24,9 @@ server:
 
 # config
 
-#spring:
-#  thymeleaf:
-#    cache: false
+spring:
+  thymeleaf:
+    cache: false
 #  autoconfigure:
 #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
 #      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
@@ -37,27 +37,11 @@ server:
 #    compose:
 #      enabled: true
 #      host: ./docker/docker-compose-dev.xml
-
-db:
-#  driver: "org.postgresql.Driver"
-#  url: "jdbc:postgresql://local-ext-svc.demo-communication.svc.cluster.local:5432/test_db"
-##  url: "jdbc:postgresql://hiepnq-mbp:5432/test_db"
-#  username: test_db
-#  password: test_db
-#  minPoolSize: 1
-#  maxPoolSize: 3
-#  dialect: "org.hibernate.dialect.PostgreSQLDialect"
-
-  driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-  url: "jdbc:sqlserver://local-ext-svc.demo-communication.svc.cluster.local:1433;databaseName=test_db;integratedSecurity=false;\
-    encrypt=false;trustServerCertificate=false"
-  username: sa
-  password: 123456
-  minPoolSize: 1
-  maxPoolSize: 3
-  dialect: "org.hibernate.dialect.SQLServerDialect"
-spring:
-  jackson:
-    date-format: "yyyy-MM-dd'T'HH:mm:ss"
-    serialization:
-      write-dates-as-timestamps: false
+  datasource:
+    url: jdbc:sqlserver://local-ext-svc.demo-communication.svc.cluster.local:1433;databaseName=test_db;integratedSecurity=false;\
+      encrypt=false;trustServerCertificate=false
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: sa
+    password: 123456
+  transaction:
+    rollback-on-commit-failure: true
