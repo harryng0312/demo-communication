@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import lombok.Getter;
 
 import java.util.Base64;
 
@@ -13,6 +14,7 @@ public class TextUtil {
     private static final Base64.Decoder b64Decoder = Base64.getDecoder();
     private static final Base64.Encoder b64UrlEncoder = Base64.getUrlEncoder();
     private static final Base64.Decoder b64UrlDecoder = Base64.getUrlDecoder();
+    @Getter
     private static final ObjectMapper objectMapper;
     static {
         objectMapper = new ObjectMapper();

@@ -20,15 +20,15 @@ public class LoggingAspect {
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         final UUID uuid = UUID.randomUUID();
         final long start = System.currentTimeMillis();
-        log.info("+++++ [REQUEST][{}]:{}.{}({})", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
+        log.info("+++++ [REQUEST:{}]:{}.{}({})", uuid, jp.getTarget().getClass().getSimpleName(), jp.getSignature().getName(), jp.getArgs());
         try {
             final Object result = jp.proceed();
             final long finish = System.currentTimeMillis();
-            log.info("----- [RESPONSE][{}]:{} in {} millisecond(s)", uuid, result, (finish - start));
+            log.info("----- [RESPONSE:{}]:{} in {} millisecond(s)", uuid, result, (finish - start));
             return result;
         } catch (Exception e){
             final long finish = System.currentTimeMillis();
-            log.info("----- [RESPONSE][{}]:{} in {} millisecond(s)", uuid, e.getMessage(), (finish - start));
+            log.info("----- [RESPONSE:{}]:{} in {} millisecond(s)", uuid, e.getMessage(), (finish - start));
             throw e;
         }
     }

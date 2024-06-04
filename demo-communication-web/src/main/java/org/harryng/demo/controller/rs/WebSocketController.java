@@ -14,10 +14,10 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContext;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,9 +84,9 @@ public class WebSocketController {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
         String username = sha.getFirstNativeHeader("user");
         logger.info("User " + username + " connected");
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "", new ArrayList<>());
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authentication);
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "", new ArrayList<>());
+//        SecurityContext securityContext = SecurityContextHolder.getContext();
+//        securityContext.setAuthentication(authentication);
     }
 
     @EventListener(SessionDisconnectEvent.class)

@@ -31,37 +31,45 @@ server:
 spring:
   thymeleaf:
     cache: false
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
-      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
-      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
-      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
-      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+#      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, \
+#      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 #  docker:
 #    compose:
 #      enabled: true
 #      host: ./docker/docker-compose-dev.xml
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=test_db;integratedSecurity=false;\
+      encrypt=false;trustServerCertificate=false
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: sa
+    password: 123456
+  transaction:
+    rollback-on-commit-failure: true
 
 # grpc server
 grpc:
   server:
     port: 29090
 
-db:
-  #  driver: "org.postgresql.Driver"
-  #  url: "jdbc:postgresql://local-ext-svc.demo-communication.svc.cluster.local:5432/test_db"
-  ##  url: "jdbc:postgresql://hiepnq-mbp:5432/test_db"
-  #  username: test_db
-  #  password: test_db
-  #  minPoolSize: 1
-  #  maxPoolSize: 3
-  #  dialect: "org.hibernate.dialect.PostgreSQLDialect"
-
-  driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-  url: "jdbc:sqlserver://localhost:1433;databaseName=test_db;integratedSecurity=false;\
-    encrypt=false;trustServerCertificate=false"
-  username: sa
-  password: 123456
-  minPoolSize: 1
-  maxPoolSize: 3
-  dialect: "org.hibernate.dialect.SQLServerDialect"
+#db:
+#  #  driver: "org.postgresql.Driver"
+#  #  url: "jdbc:postgresql://local-ext-svc.demo-communication.svc.cluster.local:5432/test_db"
+#  ##  url: "jdbc:postgresql://hiepnq-mbp:5432/test_db"
+#  #  username: test_db
+#  #  password: test_db
+#  #  minPoolSize: 1
+#  #  maxPoolSize: 3
+#  #  dialect: "org.hibernate.dialect.PostgreSQLDialect"
+#
+#  driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+#  url: "jdbc:sqlserver://localhost:1433;databaseName=test_db;integratedSecurity=false;\
+#    encrypt=false;trustServerCertificate=false"
+#  username: sa
+#  password: 123456
+#  minPoolSize: 1
+#  maxPoolSize: 3
+#  dialect: "org.hibernate.dialect.SQLServerDialect"

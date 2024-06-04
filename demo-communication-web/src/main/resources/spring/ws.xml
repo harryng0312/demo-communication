@@ -1,0 +1,61 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:websocket="http://www.springframework.org/schema/websocket"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xmlns:context="http://www.springframework.org/schema/context"-->
+<!--       xmlns:security="http://www.springframework.org/schema/security"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd-->
+<!--    http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd-->
+<!--    http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd-->
+<!--    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">-->
+
+<!--&lt;!&ndash;    <bean id="chatEndpoint" class="org.harryng.demo.endpoint.ChatEndpoint"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="httpChatHandler" class="org.harryng.demo.endpoint.HttpChatHandler"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="chatInterceptor" class="org.harryng.demo.endpoint.HttpChatInterceptor"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="webRtcChatHandler" class="org.harryng.demo.endpoint.WebRtcChatHandler"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <bean id="conversationHandler" class="org.harryng.demo.endpoint.handler.TextChatHandler" />&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean id="conversationInterceptor" class="org.harryng.demo.endpoint.interceptor.ConversationInterceptor" />&ndash;&gt;-->
+<!--&lt;!&ndash;    <context:component-scan base-package="org.harryng.demo.endpoint"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <websocket:handlers order="1000">&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:mapping path="/ws/chat-handler" handler="textChatHandler"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:handshake-interceptors>&ndash;&gt;-->
+<!--&lt;!&ndash;            <ref bean="conversationInterceptor"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </websocket:handshake-interceptors>&ndash;&gt;-->
+<!--&lt;!&ndash;    </websocket:handlers>&ndash;&gt;-->
+<!--&lt;!&ndash;    <websocket:handlers allowed-origins="*">&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:mapping path="ws/socket" handler="webRtcChatHandler" />&ndash;&gt;-->
+<!--&lt;!&ndash;    </websocket:handlers>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:stomp-endpoint path="/ws/chat" allowed-origins="*">&ndash;&gt;-->
+<!--&lt;!&ndash;            <websocket:sockjs websocket-enabled="true" heartbeat-time="20000"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </websocket:stomp-endpoint>&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:stomp-endpoint path="/ws/chat/user" allowed-origins="*"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:stomp-endpoint path="/ws/chat/user" allowed-origins="*">&ndash;&gt;-->
+<!--&lt;!&ndash;            <websocket:sockjs websocket-enabled="true" heartbeat-time="20000"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </websocket:stomp-endpoint>&ndash;&gt;-->
+<!--&lt;!&ndash;        <websocket:simple-broker prefix="/topic, /queue"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </websocket:message-broker>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <websocket:message-broker application-destination-prefix="/app" user-destination-prefix="/user">&ndash;&gt;-->
+<!--    &lt;!&ndash;        <websocket:stomp-endpoint path="/portfolio">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <websocket:sockjs websocket-enabled="true" />&ndash;&gt;-->
+<!--    &lt;!&ndash;        </websocket:stomp-endpoint>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <websocket:simple-broker prefix="/topic, /queue"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </websocket:message-broker>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <bean id="webSocketConfig" class="org.harryng.demo.config.WebSocketConfig"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <aop:config>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <aop:pointcut id="userServiceOperation"&ndash;&gt;-->
+<!--    &lt;!&ndash;                      expression="execution(* com.videabiz.badgechain.publisher.user.service.UserServiceImpl.add(..))"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <aop:advisor pointcut-ref="userServiceOperation" advice-ref="requiredTxAdvice" order="100"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </aop:config>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="taskExecutor">&ndash;&gt;-->
+<!--&lt;!&ndash;            <bean class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </property>&ndash;&gt;-->
+<!--&lt;!&ndash;    </bean>&ndash;&gt;-->
+<!--</beans>-->
