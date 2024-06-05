@@ -35,8 +35,6 @@ spec:
               memory: "512Mi"
               cpu: "750m"
           env:
-#            - name: TZ
-#              value: Asia/Ho_Chi_Minh
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -45,10 +43,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.uid
-#            - name: LOG_PATH
-#              value: "/mnt/data/log/${POD_NAME}"
-#            - name: LOG_FILE
-#              value: demo-communication-web
           envFrom:
             - configMapRef:
                 name: demo-comm-web-cm

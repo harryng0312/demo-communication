@@ -6,3 +6,5 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/ma
 ```shell
 $ kubectl apply -f https://raw.githubusercontent.com/envoyproxy/gateway/latest/examples/kubernetes/grpc-routing.yaml
 ```
+### 3. Linkerd:
+- url: *https://github.com/linkerd/linkerd2/releases*
