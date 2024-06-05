@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-communication
+  name: local-ext-svc
+spec:
+  type: ExternalName
+  externalName: host.docker.internal  # use this for docker-desktop
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-communication
+  name: demo-comm-ws-svc
+  labels:
+    app: demo-comm-ws-svc
+spec:
+  selector:
+    app: demo-comm-ws-con
+  ports:
+    - protocol: TCP
+      port: 18080
+      targetPort: 18080
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-communication
+  name: demo-comm-web-rs-svc
+  labels:
+    app: demo-comm-web-rs-svc
+spec:
+  selector:
+    app: demo-comm-web-con
+  ports:
+    - name: rs
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+  sessionAffinity: None
+#  type: LoadBalancer
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  namespace: demo-communication
+#  name: demo-comm-web-grpc-lb-svc
+#  labels:
+#    app: demo-comm-web-grpc-lb-svc
+#spec:
+#  selector:
+#    app: demo-comm-web-con
+#  ports:
+##    - name: rs
+##      protocol: TCP
+##      port: 8080
+##      targetPort: 8080
+#    - name: grpc
+#      protocol: TCP
+#      port: 9090
+#      targetPort: 19090
+##  type: ClusterIP
+#  type: LoadBalancer
+#  sessionAffinity: None
+
