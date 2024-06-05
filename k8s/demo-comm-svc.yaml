@@ -42,27 +42,27 @@ spec:
   type: ClusterIP
   sessionAffinity: None
 #  type: LoadBalancer
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  namespace: demo-communication
-#  name: demo-comm-web-grpc-lb-svc
-#  labels:
-#    app: demo-comm-web-grpc-lb-svc
-#spec:
-#  selector:
-#    app: demo-comm-web-con
-#  ports:
-##    - name: rs
-##      protocol: TCP
-##      port: 8080
-##      targetPort: 8080
-#    - name: grpc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-communication
+  name: demo-comm-web-grpc-lb-svc
+  labels:
+    app: demo-comm-web-grpc-lb-svc
+spec:
+  selector:
+    app: demo-comm-web-con
+  ports:
+#    - name: rs
 #      protocol: TCP
-#      port: 9090
-#      targetPort: 19090
-##  type: ClusterIP
-#  type: LoadBalancer
-#  sessionAffinity: None
+#      port: 8080
+#      targetPort: 8080
+    - name: grpc
+      protocol: TCP
+      port: 9090
+      targetPort: 19090
+#  type: ClusterIP
+  type: LoadBalancer
+  sessionAffinity: None
 
