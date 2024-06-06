@@ -22,7 +22,7 @@ spec:
              - key: kubernetes.io/hostname
                operator: In
                values:
-                 - docker-desktop
+                 - kind-local-cluster
 
 ---
 apiVersion: v1
@@ -30,6 +30,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: demo-communication
   name: demo-comm-pvc
+  labels:
+    app: demo-comm-pvc
 spec:
   storageClassName: standard
   volumeName: demo-comm-pv
