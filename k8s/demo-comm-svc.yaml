@@ -60,7 +60,7 @@ spec:
 #      targetPort: 8080
     - name: grpc
       protocol: TCP
-      port: 9090
+      port: 19090
       targetPort: 19090
 #  type: ClusterIP
   type: LoadBalancer
