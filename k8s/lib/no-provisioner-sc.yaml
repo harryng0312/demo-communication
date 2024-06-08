@@ -1,0 +1,21 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  namespace: demo-communication
+  name: local-storage
+  labels:
+    app: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+#---
+#kind: StorageClass
+#apiVersion: storage.k8s.io/v1
+#metadata:
+#  namespace: demo-communication
+#  name: fast-storage
+#  labels:
+#    app: fast-storage
+#provisioner: kubernetes.io/gce-pd
+#parameters:
+#  type: pd-ssd

@@ -23,6 +23,23 @@ spec:
                operator: In
                values:
                  - kind-local-cluster
+#---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  namespace: demo-communication
+#  name: demo-comm-pv
+#  labels:
+#    app: demo-comm-pv
+#spec:
+#  storageClassName: standard
+#  accessModes:
+#    - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  capacity:
+#    storage: 2Gi
+#  hostPath:
+#    path: /Users/hiepnq/Working/training/java/demo-communication/data
 
 ---
 apiVersion: v1
