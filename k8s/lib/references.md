@@ -45,3 +45,13 @@ $ linkerd multicluster uninstall | kubectl delete -f -
 # Uninstall all
 $ linkerd uninstall | kubectl delete -f -
 ```
+
+- install CSI-NFS:
+```shell
+$ git clone https://github.com/kubernetes-csi/csi-driver-nfs.git
+$ cd csi-driver-nfs
+$ ./deploy/install-driver.sh v4.7.0 local
+# check nfs ver:
+$ rpcinfo localhost | egrep "service|nfs"
+```
+
