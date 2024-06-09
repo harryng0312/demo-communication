@@ -1,0 +1,8 @@
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+nodes:
+  - role: cluster-admin
+  - role: admin
+    extraMounts:
+      - hostPath: /Users/hiepnq/Working/training/java/demo-communication/data
+        containerPath: /mnt/data

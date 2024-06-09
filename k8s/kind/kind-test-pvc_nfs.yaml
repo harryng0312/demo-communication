@@ -16,9 +16,7 @@
 ##  hostPath:
 ##    path: "/Users/hiepnq/Working/training/java/demo-communication/data"
 #  local:
-#    path: "/mnt/data"
-##    path: /kind # for testing
-##    path: "/Users/hiepnq/Working/training/java/demo-communication/data"
+#    path: "/Users/hiepnq/Working/training/java/demo-communication/data"
 ##    fsType: "ext4"
 #  nodeAffinity:
 #    required:
@@ -43,8 +41,8 @@ spec:
   capacity:
     storage: 5Gi
   volumeMode: Filesystem
-  accessModes: [ ReadWriteMany ]
-#  accessModes: [ ReadOnlyMany ]
+#  accessModes: [ ReadWriteMany ]
+  accessModes: [ ReadOnlyMany ]
   persistentVolumeReclaimPolicy: Retain
 #  storageClassName: nfs
   storageClassName: nfs-csi
@@ -57,7 +55,7 @@ spec:
       server: local-ext-svc.demo-communication.svc.cluster.local
       share: /Users/hiepnq/Working/shared-data
 ##      subDir: data
-  mountOptions: ["nfsvers=3", "nolock"]
+  mountOptions: ["nfsvers=3", "nolock", "tcp"]
 #  nfs:
 #    path: /Users/hiepnq/Working/shared-data
 #    server: local-ext-svc.demo-communication.svc.cluster.local
@@ -73,8 +71,8 @@ metadata:
 spec:
 #  volumeName: test-pv
 #  accessModes: [ ReadWriteOnce ]
-  accessModes: [ ReadWriteMany ]
-#  accessModes: [ ReadOnlyMany ]
+#  accessModes: [ ReadWriteMany ]
+  accessModes: [ ReadOnlyMany ]
   volumeMode: Filesystem
   resources:
     requests:
