@@ -1,67 +1,68 @@
-#apiVersion: v1
-#kind: PersistentVolume
-#metadata:
-#  namespace: demo-communication
-#  name: test-pv
-#  labels:
-#    app: test-pv
-#spec:
-#  storageClassName: local-storage
-#  #  storageClassName: fast-storage
-#  volumeMode: Filesystem
-#  accessModes: [ ReadWriteOnce ]
-#  persistentVolumeReclaimPolicy: Retain
-#  capacity:
-#    storage: 2Gi
-##  hostPath:
-##    path: "/Users/hiepnq/Working/training/java/demo-communication/data"
-#  local:
-#    path: "/mnt/data"
-##    path: /kind # for testing
-##    path: "/Users/hiepnq/Working/training/java/demo-communication/data"
-##    fsType: "ext4"
-#  nodeAffinity:
-#    required:
-#      nodeSelectorTerms:
-#        - matchExpressions:
-##            - { key: kubernetes.io/hostname, operator: NotIn, values: [ "" ] }
-#            # kubectl describe node
-##            - { key: kubernetes.io/hostname, operator: In, values: [ "kind-local-cluster", "harryng-mbp", "docker-desktop", "local-cluster-control-plane" ]}
-#          - { key: kubernetes.io/hostname, operator: In, values: [ "local-cluster-control-plane", "kind-local-cluster", "harryng-mbp", "docker-desktop" ]}
-##          - { key: kubernetes.io/hostname, operator: In, values: [ "docker-desktop" ] }
-
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  namespace: demo-communication
   name: test-pv
   labels:
     app: test-pv
-  annotations:
-    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
 spec:
-  capacity:
-    storage: 5Gi
+  storageClassName: local-storage
+  #  storageClassName: fast-storage
   volumeMode: Filesystem
-  accessModes: [ ReadWriteMany ]
-#  accessModes: [ ReadOnlyMany ]
+  accessModes: [ ReadWriteOnce ]
   persistentVolumeReclaimPolicy: Retain
-#  storageClassName: nfs
-  storageClassName: nfs-csi
-  csi:
-    driver: nfs.csi.k8s.io
-    # volumeHandle format: {nfs-server-address}#{sub-dir-name}#{share-name}
-    # make sure this value is unique for every share in the cluster
-    volumeHandle: local-ext-svc.demo-communication.svc.cluster.local/Users/hiepnq/Working/shared-data##
-    volumeAttributes:
-      server: local-ext-svc.demo-communication.svc.cluster.local
-      share: /Users/hiepnq/Working/shared-data
-##      subDir: data
-  mountOptions: ["nfsvers=3", "nolock"]
-#  nfs:
-#    path: /Users/hiepnq/Working/shared-data
-#    server: local-ext-svc.demo-communication.svc.cluster.local
-#    readOnly: false
+  capacity:
+    storage: 2Gi
+#  hostPath:
+#    path: "/Users/hiepnq/Working/training/java/demo-communication/data"
+  local:
+    path: "/mnt/data"
+#    path: /kind # for testing
+#    path: "/Users/hiepnq/Working/training/java/demo-communication/data"
+#    fsType: "ext4"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+#            - { key: kubernetes.io/hostname, operator: NotIn, values: [ "" ] }
+            # kubectl describe node
+#            - { key: kubernetes.io/hostname, operator: In, values: [ "kind-local-cluster", "harryng-mbp", "docker-desktop", "local-cluster-control-plane" ]}
+          - { key: kubernetes.io/hostname, operator: In, values: [ "multi-node-control-plane", "multi-node-worker",
+                                                                   "local-cluster-control-plane", "kind-local-cluster", "harryng-mbp", "docker-desktop",  ]}
+#          - { key: kubernetes.io/hostname, operator: In, values: [ "docker-desktop" ] }
+
+#---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: test-pv
+#  labels:
+#    app: test-pv
+#  annotations:
+#    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+#spec:
+#  capacity:
+#    storage: 5Gi
+#  volumeMode: Filesystem
+#  accessModes: [ ReadWriteMany ]
+##  accessModes: [ ReadOnlyMany ]
+#  persistentVolumeReclaimPolicy: Retain
+##  storageClassName: nfs
+#  storageClassName: nfs-csi
+#  csi:
+#    driver: nfs.csi.k8s.io
+#    # volumeHandle format: {nfs-server-address}#{sub-dir-name}#{share-name}
+#    # make sure this value is unique for every share in the cluster
+#    volumeHandle: local-ext-svc.demo-communication.svc.cluster.local/Users/hiepnq/Working/shared-data##
+#    volumeAttributes:
+#      server: local-ext-svc.demo-communication.svc.cluster.local
+#      share: /Users/hiepnq/Working/shared-data
+###      subDir: data
+#  mountOptions: ["nfsvers=3", "nolock"]
+##  nfs:
+##    path: /Users/hiepnq/Working/shared-data
+##    server: local-ext-svc.demo-communication.svc.cluster.local
+##    readOnly: false
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -72,15 +73,15 @@ metadata:
     app: test-pvc
 spec:
 #  volumeName: test-pv
-#  accessModes: [ ReadWriteOnce ]
-  accessModes: [ ReadWriteMany ]
+  accessModes: [ ReadWriteOnce ]
+#  accessModes: [ ReadWriteMany ]
 #  accessModes: [ ReadOnlyMany ]
   volumeMode: Filesystem
   resources:
     requests:
       storage: 1Gi
 #  storageClassName: nfs
-  storageClassName: nfs-csi
-#  storageClassName: local-storage
+#  storageClassName: nfs-csi
+  storageClassName: local-storage
 #  storageClassName: fast-storage
 #  storageClassName: local-path
