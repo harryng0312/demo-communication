@@ -6,6 +6,7 @@ metadata:
   labels:
     app: test-pv
 spec:
+#  storageClassName: standard
   storageClassName: local-storage
   #  storageClassName: fast-storage
   volumeMode: Filesystem
@@ -80,6 +81,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
+#  storageClassName: standard
 #  storageClassName: nfs
 #  storageClassName: nfs-csi
   storageClassName: local-storage
