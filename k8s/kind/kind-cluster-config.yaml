@@ -1,8 +1,32 @@
 apiVersion: kind.x-k8s.io/v1alpha4
 kind: Cluster
+name: multi-node
 nodes:
-  - role: cluster-admin
-  - role: admin
+  - role: control-plane
     extraMounts:
-      - hostPath: /Users/hiepnq/Working/training/java/demo-communication/data
+      - hostPath: /Users/hiepnq/Working/training/java/demo-communication/data-ctrlplane
         containerPath: /mnt/data
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 80
+        # optional: set the bind address on the host
+        # 0.0.0.0 is the current default
+        listenAddress: 0.0.0.0
+        # optional: set the protocol to one of TCP, UDP, SCTP.
+        # TCP is the default
+        protocol: TCP
+  - role: worker
+    extraMounts:
+      - hostPath: /Users/hiepnq/Working/training/java/demo-communication/data-worker
+        containerPath: /mnt/data
+networking:
+  ipFamily: dual # ipv6
+  apiServerAddress: 0.0.0.0
+  apiServerPort: 6443
+  podSubnet: "10.244.0.0/16"
+  serviceSubnet: "10.96.0.0/12"
+#featureGates:
+  # any feature gate can be enabled here with "Name": true
+  # or disabled here with "Name": false
+  # not all feature gates are tested, however
+#  "CSIMigration": true

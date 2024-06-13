@@ -5,6 +5,8 @@ build
 /**/build
 /db/**
 /data/**
+/data-ctrlplane/**
+/data-worker/**
 **/out
 .DS_Store
 **/LOG_PATH_IS_UNDEFINED/
