@@ -32,5 +32,5 @@ metadata:
   name: local-ext-svc
 spec:
   type: ExternalName
-#  externalName: host.containers.internal
-  externalName: host.docker.internal
+  externalName: host.containers.internal
+#  externalName: host.docker.internal

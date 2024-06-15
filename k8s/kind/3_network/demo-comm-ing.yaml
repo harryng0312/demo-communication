@@ -1,0 +1,89 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: demo-communication
+  name: ws-ing
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /ws/
+    #    kubernetes.io/ingress.class: "nginx"
+    #    certmanager.k8s.io/cluster-issuer: core-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 600m
+    nginx.org/client-max-body-size: "4m"
+    nginx.org/proxy-connect-timeout: "30s"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "30s"
+    #    nginx.ingress.kubernetes.io/secure-backends: "false"
+    #    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/websocket-services: ws-svc
+    nginx.org/websocket-services: ws-svc
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /ws/
+            pathType: Prefix
+            backend:
+              service:
+                name: ws-svc
+                port:
+                  number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: demo-communication
+  name: rs-ing
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /web/
+    kubernetes.io/ingress.class: "nginx"
+    #    certmanager.k8s.io/cluster-issuer: core-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 600m
+    nginx.org/client-max-body-size: "4m"
+    nginx.org/proxy-connect-timeout: "30s"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "30s"
+    nginx.ingress.kubernetes.io/secure-backends: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    #    nginx.ingress.kubernetes.io/websocket-services: rs-svc
+    #    nginx.org/websocket-services: rs-svc
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /web/
+            pathType: Prefix
+            backend:
+              service:
+                name: rs-svc
+                port:
+                  name: rs
+#                  number: 8080
+
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  namespace: demo-communication
+#  name: demo-comm-web-grpc-ing
+#  annotations:
+#    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+##    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+##    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+##    nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
+##    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+#spec:
+##  ingressClassName: kong
+#  ingressClassName: nginx
+#  rules:
+#    - http:
+#        paths:
+#          - path: /
+#            pathType: ImplementationSpecific
+##            pathType: Prefix
+#            backend:
+#              service:
+#                name: demo-comm-web-svc
+#                port:
+#                  name: grpc

@@ -6,7 +6,8 @@ metadata:
   labels:
     app: local-storage
 provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
+#volumeBindingMode: WaitForFirstConsumer
+volumeBindingMode: Immediate
 reclaimPolicy: Retain
 #---
 #apiVersion: storage.k8s.io/v1

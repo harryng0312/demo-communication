@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: demo-communication
+  name: web-cm
+  labels:
+    app: web-cm
+data:
+  # system
+  TZ: "Asia/Ho_Chi_Minh"
+  # log
+  LOG_PATH: "/mnt/data/log/${POD_NAME}"
+  LOG_FILE: "demo-communication-web"
+  # db
+  SPRING_DATASOURCE_DRIVER-CLASS-NAME: "org.postgresql.Driver"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://local-ext-svc.demo-communication.svc.cluster.local:5432/test_db"
+  SPRING_DATASOURCE_USERNAME: "test_db"
+  SPRING_DATASOURCE_PASSWORD: "test_db"
+  SPRING_DATASOURCE_DBCP2_INITIAL-SIZE: "1"
+  SPRING_DATASOURCE_DBCP2_MAX-TOTAL: "5"
+  SPRING_DATASOURCE_DBCP2_MIN-IDLE: "1"
+  SPRING_DATASOURCE_DBCP2_MAX-IDLE: "3"
+
+#  SPRING_DATASOURCE_DRIVER-CLASS-NAME: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+#  SPRING_DATASOURCE_URL: "jdbc:sqlserver://local-ext-svc.demo-communication.svc.cluster.local:1433;databaseName=test_db;integratedSecurity=false;encrypt=false;trustServerCertificate=false"
+#  SPRING_DATASOURCE_USERNAME: "sa"
+#  SPRING_DATASOURCE_PASSWORD: "123456"
+#  SPRING_DATASOURCE_DBCP2_INITIAL-SIZE: "1"
+#  SPRING_DATASOURCE_DBCP2_MAX-TOTAL: "5"
+#  SPRING_DATASOURCE_DBCP2_MIN-IDLE: "1"
+#  SPRING_DATASOURCE_DBCP2_MAX-IDLE: "3"

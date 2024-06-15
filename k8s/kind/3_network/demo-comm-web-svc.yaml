@@ -1,35 +1,18 @@
 ---
 apiVersion: v1
-kind: Endpoints
-metadata:
-  namespace: demo-communication
-  name: local-ext-ep
-subsets:
-  - addresses:
-      - ip: 127.0.0.1 # this is the gateway IP in the "bridge" docker network
----
-apiVersion: v1
 kind: Service
 metadata:
   namespace: demo-communication
-  name: local-ext-svc
-spec:
-  clusterIP: None
----
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: demo-communication
-  name: demo-comm-ws-svc
+  name: ws-svc
   labels:
-    app: demo-comm-ws-svc
+    app: ws-svc
 spec:
   selector:
-    app: demo-comm-ws-con
+    app: ws-con
   ports:
     - protocol: TCP
-      port: 18080
-      targetPort: 18080
+      port: 8080
+      targetPort: 8080
   type: ClusterIP
 
 ---
@@ -37,12 +20,12 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: demo-communication
-  name: demo-comm-web-rs-svc
+  name: rs-svc
   labels:
-    app: demo-comm-web-rs-svc
+    app: rs-svc
 spec:
   selector:
-    app: demo-comm-web-con
+    app: rs-con
   ports:
     - name: rs
       protocol: TCP
@@ -51,17 +34,18 @@ spec:
   type: ClusterIP
   sessionAffinity: None
 #  type: LoadBalancer
+#  type: NodePort
 ---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: demo-communication
-  name: demo-comm-web-grpc-lb-svc
+  name: grpc-lb-svc
   labels:
-    app: demo-comm-web-grpc-lb-svc
+    app: grpc-lb-svc
 spec:
   selector:
-    app: demo-comm-web-con
+    app: rs-con
   ports:
 #    - name: rs
 #      protocol: TCP
@@ -69,8 +53,8 @@ spec:
 #      targetPort: 8080
     - name: grpc
       protocol: TCP
-      port: 19090
-      targetPort: 19090
+      port: 9090
+      targetPort: 9090
 #  type: ClusterIP
   type: LoadBalancer
   sessionAffinity: None

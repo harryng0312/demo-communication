@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: demo-communication
+  name: ws
+  labels:
+    app: ws
+spec:
+  serviceName: ws-svc
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ws-con
+  template:
+    metadata:
+      name: ws-con
+      labels:
+        app: ws-con
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsGroup: 1001
+        runAsUser: 1001
+      restartPolicy: Always
+#      activeDeadlineSeconds: 300
+      volumes:
+        - name: rs-vol
+          persistentVolumeClaim:
+            claimName: rs-pvc
+      containers:
+        - name: ws-con
+          image: openjdk:21-ea-jdk-slim
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "192Mi"
+              cpu: "0.1"
+            limits:
+              memory: "256Mi"
+              cpu: "0.3"
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+            - name: LOG_PATH
+              value: "/mnt/data/log/${POD_NAME}"
+            - name: LOG_FILE
+              value: demo-communication-ws
+          volumeMounts:
+            - mountPath: /mnt/data
+              name: rs-vol
+          ports:
+            - containerPort: 18080
+              protocol: TCP
+          workingDir: /mnt/data/java
+#          command: ["tail", "-f", "/dev/null"]
+          command: ["java", "-jar", "-Xms192m", "-Xmx192m", "demo-communication-ws-test-1.0.0.jar"]
+          startupProbe:
+#            httpGet:
+#              path: /healthz
+#              port: 5000
+            exec:
+              command: ["date"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+#          livenessProbe:
+#            httpGet:
+#              port: 18080
+#              path: /healthz
+#            initialDelaySeconds: 10 # wait before start checking
+#            periodSeconds: 15
+#            failureThreshold: 3
+#          readinessProbe:
+#            httpGet:
+#              path: /ready
+#              port: 8080
+#            initialDelaySeconds: 5
+#            periodSeconds: 10
