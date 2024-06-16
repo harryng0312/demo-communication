@@ -66,10 +66,10 @@ spec:
 #kind: Ingress
 #metadata:
 #  namespace: demo-communication
-#  name: demo-comm-web-grpc-ing
+#  name: grpc-ing
 #  annotations:
 #    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-##    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 ##    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
 ##    nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
 ##    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
@@ -80,10 +80,12 @@ spec:
 #    - http:
 #        paths:
 #          - path: /
-#            pathType: ImplementationSpecific
-##            pathType: Prefix
+##            pathType: ImplementationSpecific
+#            pathType: Prefix
 #            backend:
 #              service:
-#                name: demo-comm-web-svc
+#                name: grpc-lb-svc
 #                port:
 #                  name: grpc
+##  tls:
+##    - hosts: ["localhost"]

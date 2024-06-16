@@ -53,8 +53,8 @@ spec:
 #      targetPort: 8080
     - name: grpc
       protocol: TCP
-      port: 9090
-      targetPort: 9090
+      port: 50051
+      targetPort: 50051
 #  type: ClusterIP
   type: LoadBalancer
   sessionAffinity: None

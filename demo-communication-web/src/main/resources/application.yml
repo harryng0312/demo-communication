@@ -57,7 +57,7 @@ spring:
 # grpc server
 grpc:
   server:
-    port: 19090
+    port: 50051
 
 # management:
 #management:

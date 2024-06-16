@@ -55,6 +55,8 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
+            - containerPort: 50051
+              protocol: TCP
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
           command: ["java", "-jar", "-Xms384m", "-Xmx384m", "demo-communication-web-test-1.0.0.jar"]
