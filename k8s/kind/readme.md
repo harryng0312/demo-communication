@@ -23,6 +23,7 @@ $ kubectl wait --namespace ingress-nginx \
   --selector=app.kubernetes.io/component=controller \
   --timeout=180s
 ```
+
 - taint nodes:
 ```shell
 $ kubectl taint 
@@ -32,4 +33,21 @@ $ kubectl taint
 ```shell
 $ kubectl taint nodes multi-node-control-plane key=value:NoSchedule
 $ kubectl taint nodes multi-node-control-plane key-
+```
+### 2.2. Install Linkerd:
+```shell
+$ linkerd check --pre
+$ linkerd install --crds | kubectl apply -f -
+$ linkerd install | kubectl apply -f -
+$ linkerd inject deployment.yaml| kubectl apply -f -
+$ linkerd check
+$ linkerd viz install | kubectl apply -f -
+```
+- linkerd inject
+```shell
+$ linkerd inject deployment.yaml| kubectl apply -f -
+$ linkerd viz stat deploy
+$ kubectl get -n demo-communication deploy -o yaml \
+  | linkerd inject - \
+  | kubectl apply -f -
 ```
