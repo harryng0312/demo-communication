@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.util.SessionUtil;
+import org.harryng.demo.endpoint.event.ConversionMessageEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -23,31 +24,8 @@ public class TextChatHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        // Get messages from clients
-//        final String payload = message.getPayload();
-//        final SessionHolder sessionHolder = (SessionHolder) session.getAttributes().getOrDefault(RequestParams.HEADER_SESSION_HOLDER, SessionHolder.ANONYMOUS);
-//        if (!SessionUtil.isAnonymous(sessionHolder)) {
-////            final UUID msgId = UUID.randomUUID();
-////            final String token = SessionUtil.getToken(session.getHandshakeHeaders());
-////            log.info("server Receive:{}", payload);
-//            final var sentMsg = TextUtil.jsonToObj(org.harryng.demo.impl.conversation.dto.TextMessage.class, payload);
-//            log.info("===== Server received:{}", sentMsg);
-//            // send signal to sender
-//            final var strSentMsg = TextUtil.objToJson(sentMsg);
-//            final var signalMsg = new org.harryng.demo.impl.conversation.dto.TextMessage();
-//            signalMsg.setSenderId("0");
-//            signalMsg.setRecipientId(String.valueOf(sessionHolder.getUserId()));
-//            signalMsg.setRecipientType(AbstractMessage.TYPE_RECIPIENT_IND);
-//            signalMsg.setType(AbstractMessage.TYPE_MSG_SIGNAL);
-//            signalMsg.setContent(MessageFormat.format("Message {0} is sent", sentMsg.getId()));
-//            final var strSignal = TextUtil.objToJson(signalMsg);
-//            // send msg to recipient
-//            appEventPublisher.publishEvent(new ConversionMessageEvent(this, strSentMsg));
-//            // resend signal to sender
-//            session.sendMessage(new TextMessage(strSignal));
-//        } else {
-//            log.info("Drop message {}", payload);
-//        }
+//        log.info("===== Received message: {}", message.getPayload());
+        appEventPublisher.publishEvent(new ConversionMessageEvent(session, message.getPayload()));
     }
 
     @Override
@@ -59,9 +37,9 @@ public class TextChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         // User exit, remove cache
-//        final SessionHolder sessionHolder = SessionUtil.getSessionHolder(session);
+        final SessionHolder sessionHolder = SessionUtil.getSessionHolder(session);
 //        final var sessionCache = cachesManager.getCache(CachesManager.CACHE_SESSION);
 //        sessionCache.remove(sessionHolder.getUserId());
-//        log.info("----- {} disconnected from server by session:{} -----", sessionHolder.getUserId(), sessionHolder.getSessionId());
+        log.info("----- {} disconnected from server by session:{} -----", sessionHolder.getUserId(), sessionHolder.getSessionId());
     }
 }

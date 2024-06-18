@@ -24,6 +24,7 @@ public class AuthenticationGrpcInterceptor implements ServerInterceptor {
         final String token = SessionUtil.getToken(headers);
         ServerCall.Listener<ReqT> result;
         try {
+//            log.info("+++++ token:{}", token);
             final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
             if (authService.isValidSession(sessionHolder.getUserId(), sessionHolder.getSessionId())) {
                 final Context context = Context.current().withValue(HEADER_AUTHORIZATION, token);
@@ -35,9 +36,8 @@ public class AuthenticationGrpcInterceptor implements ServerInterceptor {
                 };
             }
         } catch (Exception e) {
+            result = new ServerCall.Listener<>() { };
             call.close(Status.UNAUTHENTICATED.withDescription("Invalid or missing token"), new Metadata());
-            result = new ServerCall.Listener<>() {
-            };
             log.error(e.getMessage(), e);
         }
 //        final long endTime = System.currentTimeMillis();

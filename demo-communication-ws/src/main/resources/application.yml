@@ -50,3 +50,8 @@ spring:
 #      enabled: true
 #    shutdown:
 #      enabled: true
+
+chat-msg-grpc:
+  server:
+    addr: "grpc-lb-svc.demo-communication.svc.cluster.local"
+    port: 50051

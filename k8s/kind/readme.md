@@ -51,3 +51,11 @@ $ kubectl get -n demo-communication deploy -o yaml \
   | linkerd inject - \
   | kubectl apply -f -
 ```
+- restart:
+```shell
+$ kubectl rollout restart sts/ws -n demo-communication
+$ kubectl wait --namespace demo-communication \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=180s
+```

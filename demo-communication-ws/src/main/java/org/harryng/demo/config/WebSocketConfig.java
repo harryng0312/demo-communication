@@ -24,4 +24,13 @@ public class WebSocketConfig implements WebSocketConfigurer {
                 .setAllowedOrigins("*");
 //        org.springframework.beans.factory.
     }
+
+//    @Bean
+//    public DefaultHandshakeHandler handshakeHandler() {
+//        final WebSocketPolicy policy = new WebSocketPolicy(WebSocketBehavior.SERVER);
+//        policy.setInputBufferSize(8192);
+//        policy.setIdleTimeout(600000);
+//        return new DefaultHandshakeHandler(
+//                new JettyRequestUpgradeStrategy(new WebSocketServerFactory(policy)));
+//    }
 }
