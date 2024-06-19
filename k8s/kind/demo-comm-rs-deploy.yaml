@@ -18,6 +18,10 @@ spec:
       labels:
         app: rs-con
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsGroup: 1001
+        runAsUser: 1001
       restartPolicy: Always
 #      nodeSelector:
 #        nodePool: cluster
@@ -60,12 +64,12 @@ spec:
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
           command: ["java", "-jar", "-Xms384m", "-Xmx384m", "demo-communication-web-test-1.0.0.jar"]
-          startupProbe:
-            exec:
-              command: ["date"]
-            initialDelaySeconds: 15
-            periodSeconds: 15
-            failureThreshold: 3
+#          startupProbe:
+#            exec:
+#              command: ["date"]
+#            initialDelaySeconds: 15
+#            periodSeconds: 15
+#            failureThreshold: 3
 #          livenessProbe:
 #            httpGet:
 #              port: 18080

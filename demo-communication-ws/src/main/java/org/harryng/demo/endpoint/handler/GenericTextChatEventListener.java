@@ -67,8 +67,8 @@ public class GenericTextChatEventListener {
                             "\"description\":\"" + assetDtoGrpc.getDescription() + "\"" + "," +
                             "\"orgId\":" + assetDtoGrpc.getOrgId() +
                             "}";
-                    final var assetJson = new TextNode(resStrBuilder);
-                    final var msg = new TextMessage(TextUtil.objToJson(assetJson));
+//                    final var assetJson = new TextNode(resStrBuilder);
+                    final var msg = new TextMessage(resStrBuilder);
                     session.sendMessage(msg);
                 }
             }

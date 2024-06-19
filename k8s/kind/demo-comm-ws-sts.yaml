@@ -62,15 +62,15 @@ spec:
           workingDir: /mnt/data/java
 #          command: ["tail", "-f", "/dev/null"]
           command: ["java", "-jar", "-Xms192m", "-Xmx192m", "demo-communication-ws-test-1.0.0.jar"]
-          startupProbe:
+#          startupProbe:
 #            httpGet:
 #              path: /healthz
 #              port: 5000
-            exec:
-              command: ["date"]
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            failureThreshold: 3
+#            exec:
+#              command: ["date"]
+#            initialDelaySeconds: 10
+#            periodSeconds: 10
+#            failureThreshold: 3
 #          livenessProbe:
 #            httpGet:
 #              port: 18080

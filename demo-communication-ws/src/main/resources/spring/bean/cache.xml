@@ -5,15 +5,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">
-        <!--        <property name="resources" value="classpath:application.yml"/>-->
-        <property name="resources">
-            <array>
-                <value>classpath:application.yml</value>
-            </array>
-        </property>
-    </bean>
-    <context:property-placeholder properties-ref="yamlProperties"/>
+<!--    <bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">-->
+<!--        &lt;!&ndash;        <property name="resources" value="classpath:application.yml"/>&ndash;&gt;-->
+<!--        <property name="resources">-->
+<!--            <array>-->
+<!--                <value>classpath:application.yml</value>-->
+<!--            </array>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    <context:property-placeholder properties-ref="yamlProperties"/>-->
+        <import resource="common.xml"/>
 
 <!--    <bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager" destroy-method="close">-->
 <!--        <constructor-arg name="configurationFile" value="cache/infinispan.xml"/>-->
