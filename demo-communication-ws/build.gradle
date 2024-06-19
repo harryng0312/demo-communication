@@ -36,16 +36,21 @@ dependencies {
 
 //    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.session:spring-session-core'
+    implementation "org.mapstruct:mapstruct:${mapstructVer}"
 
     implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
     implementation "org.infinispan:infinispan-core-jakarta"
     implementation "com.auth0:java-jwt:${javaJwtVer}"
-    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcProtobufVer}"
+
     implementation "io.grpc:grpc-protobuf:${grpcProtobufVer}"
     implementation "io.grpc:grpc-stub:${grpcProtobufVer}"
     implementation "com.google.protobuf:protobuf-java:${protobufProtocVer}"
+//    implementation "com.google.protobuf:protobuf-java-util:${protobufProtocVer}"
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcProtobufVer}"
 
 //    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVer}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.infinispan:infinispan-commons-jakarta"

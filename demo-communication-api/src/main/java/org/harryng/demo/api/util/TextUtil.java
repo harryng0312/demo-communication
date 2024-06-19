@@ -5,8 +5,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.protobuf.Message;
+import com.google.protobuf.MessageOrBuilder;
+import com.google.protobuf.Struct;
+import com.google.protobuf.util.JsonFormat;
 import lombok.Getter;
 
+import java.io.IOException;
 import java.util.Base64;
 
 public class TextUtil {
@@ -57,5 +62,16 @@ public class TextUtil {
 
     public static String noteToJson(JsonNode obj) throws JsonProcessingException {
         return objectMapper.writeValueAsString(obj);
+    }
+
+    public static Message jsonToGrpcMsg(String json) throws IOException {
+        final Struct.Builder structBuilder = Struct.newBuilder();
+        JsonFormat.parser().ignoringUnknownFields().merge(json, structBuilder);
+//        msg.toBuilder().build()
+        return structBuilder.build();
+    }
+
+    public static String grpcMsgToJson(MessageOrBuilder messageOrBuilder) throws IOException {
+        return JsonFormat.printer().print(messageOrBuilder);
     }
 }

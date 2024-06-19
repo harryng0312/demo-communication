@@ -1,8 +1,6 @@
 package org.harryng.demo.endpoint.handler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Metadata;
@@ -13,17 +11,12 @@ import org.harryng.demo.api.util.TextUtil;
 import org.harryng.demo.controller.grpc.asset.*;
 import org.harryng.demo.endpoint.event.ConversionMessageEvent;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Objects;
 
 @Component
 @Slf4j
@@ -57,19 +50,24 @@ public class GenericTextChatEventListener {
                     final AssetIdReq request = AssetIdReq.newBuilder()
                             .setId(id)
                             .build();
+//                    final AssetIdReq request = AssetIdReq.newBuilder().set
+//                    .mergeFrom(TextUtil.jsonToGrpcMsg(reqStr)).build();
                     final AssetResultRes response = stub.findById(request);
-//                    log.info("AssetResultRes: {}", response);
+                    // log.info("AssetResultRes: {}", response);
                     // response
-                    final AssetDtoGrpc assetDtoGrpc = response.getAsset(0);
-                    final String resStrBuilder = "{" +
-                            "\"id\":" + assetDtoGrpc.getId() + "," +
-                            "\"name\":\"" + assetDtoGrpc.getName() + "\"" + "," +
-                            "\"description\":\"" + assetDtoGrpc.getDescription() + "\"" + "," +
-                            "\"orgId\":" + assetDtoGrpc.getOrgId() +
-                            "}";
+                    if(response.getAssetCount() > 0) {
+                        final AssetDtoGrpc assetDtoGrpc = response.getAsset(0);
+//                    final String resStrBuilder = "{" +
+//                            "\"id\":" + assetDtoGrpc.getId() + "," +
+//                            "\"name\":\"" + assetDtoGrpc.getName() + "\"" + "," +
+//                            "\"description\":\"" + assetDtoGrpc.getDescription() + "\"" + "," +
+//                            "\"orgId\":" + assetDtoGrpc.getOrgId() +
+//                            "}";
 //                    final var assetJson = new TextNode(resStrBuilder);
-                    final var msg = new TextMessage(resStrBuilder);
-                    session.sendMessage(msg);
+                        final var resStrBuilder = TextUtil.grpcMsgToJson(assetDtoGrpc);
+                        final var msg = new TextMessage(resStrBuilder);
+                        session.sendMessage(msg);
+                    }
                 }
             }
         } catch (IOException e) {

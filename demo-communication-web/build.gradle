@@ -61,6 +61,7 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-starter-websocket"
     implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
+    implementation "org.mapstruct:mapstruct:${mapstructVer}"
 
     implementation "com.h2database:h2:${h2Version}"
     implementation "org.postgresql:postgresql:${pgsqlVersion}"
@@ -73,6 +74,7 @@ dependencies {
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVer}"
 
     testImplementation "org.infinispan:infinispan-commons-jakarta"
     testImplementation "org.assertj:assertj-core"
