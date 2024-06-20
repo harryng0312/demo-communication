@@ -29,7 +29,6 @@ public class GenericTextChatEventListener {
 
     @EventListener(value = ConversionMessageEvent.class)
     public void handleSuccessful(ConversionMessageEvent event) {
-//        log.info("Handling generic event: {} from source:{}", event.getMessage(), event.getSource());
         // send to gRPC
         ManagedChannel channel = null;
         try {
@@ -50,20 +49,9 @@ public class GenericTextChatEventListener {
                     final AssetIdReq request = AssetIdReq.newBuilder()
                             .setId(id)
                             .build();
-//                    final AssetIdReq request = AssetIdReq.newBuilder().set
-//                    .mergeFrom(TextUtil.jsonToGrpcMsg(reqStr)).build();
                     final AssetResultRes response = stub.findById(request);
-                    // log.info("AssetResultRes: {}", response);
-                    // response
                     if(response.getAssetCount() > 0) {
                         final AssetDtoGrpc assetDtoGrpc = response.getAsset(0);
-//                    final String resStrBuilder = "{" +
-//                            "\"id\":" + assetDtoGrpc.getId() + "," +
-//                            "\"name\":\"" + assetDtoGrpc.getName() + "\"" + "," +
-//                            "\"description\":\"" + assetDtoGrpc.getDescription() + "\"" + "," +
-//                            "\"orgId\":" + assetDtoGrpc.getOrgId() +
-//                            "}";
-//                    final var assetJson = new TextNode(resStrBuilder);
                         final var resStrBuilder = TextUtil.grpcMsgToJson(assetDtoGrpc);
                         final var msg = new TextMessage(resStrBuilder);
                         session.sendMessage(msg);

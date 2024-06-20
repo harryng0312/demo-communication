@@ -1,16 +1,16 @@
 logging:
   file:
     name: demo-communication-ws
-    path: ./data/log
+    path: ./log
 #  file:
 #    path: ./log
 
 # server
-#server:
-#  error:
-#    whitelabel:
-#      enabled: true
-
+server:
+  error:
+    whitelabel:
+      enabled: true
+  port: 18080
 # management:
 #management:
 #  server:
@@ -41,3 +41,8 @@ logging:
 #    compose:
 #      enabled: true
 #      host: ./docker/docker-compose-dev.xml
+
+chat-msg-grpc:
+  server:
+    addr: "harryng-mbp"
+    port: 29090

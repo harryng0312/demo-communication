@@ -1,13 +1,9 @@
 logging:
   level:
     root: info
-    org:
-      hibernate:
+    org.hibernate:
         SQL: debug
-        type:
-          descriptor:
-            sql:
-              BasicBinder: trace
+        type.descriptor.sql.BasicBinder: trace
   file:
     name: demo-communication-web
     path: ./log
@@ -17,6 +13,7 @@ server:
   error:
     whitelabel:
       enabled: true
+  port: 28080
 
 # management:
 #management:
@@ -49,11 +46,10 @@ spring:
 #      enabled: true
 #      host: ./docker/docker-compose-dev.xml
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=test_db;integratedSecurity=false;\
-      encrypt=false;trustServerCertificate=false
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    username: sa
-    password: 123456
+    url: "jdbc:postgresql://hiepnq-mbp:5432/test_db"
+    driver-class-name: org.postgresql.Driver
+    username: test_db
+    password: test_db
 
 # grpc server
 grpc:
