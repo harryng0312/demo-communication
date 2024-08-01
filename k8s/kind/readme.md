@@ -2,6 +2,7 @@
 - ref [kind-config.xml](https://kind.sigs.k8s.io/docs/user/configuration)
 ```sh
 $ kind create cluster --name multi-node --config=kind-config.yaml
+$ kind create cluster --name multi-node --config=kind-cluster-config.yaml
 ```
 - install nginx-ingress-controller:
 ```shell
