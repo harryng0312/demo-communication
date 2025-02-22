@@ -39,10 +39,10 @@ public class AssetResolver {
         return assetService.getById(sessionHolder, id, Map.of());
     }
 
-    @MutationMapping
-    public ValidationResult<AssetRes> addAsset(@Argument AssetReq assetReq) throws Exception {
+    @MutationMapping()
+    public ValidationResult<AssetRes> addAsset(@Argument AssetReq asset) throws Exception {
         final String token = SessionUtil.getToken(httpServletRequest);
         final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
-        return assetService.add(sessionHolder, assetReq, Map.of());
+        return assetService.add(sessionHolder, asset, Map.of());
     }
 }

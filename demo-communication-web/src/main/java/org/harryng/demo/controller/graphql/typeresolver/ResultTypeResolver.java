@@ -20,11 +20,6 @@ public class ResultTypeResolver implements TypeResolver {
     @Override
     public GraphQLObjectType getType(TypeResolutionEnvironment env) {
         final Object object = env.getObject();
-//        if (object instanceof AssetRes) {
-//            return env.getSchema().getObjectType("Asset");
-//        } else if (object instanceof OrganizationDto) {
-//            return env.getSchema().getObjectType("Organization");
-//        }
         final String objectName = resultTypeMap.get(object.getClass());
         if (StringUtils.isNoneBlank(objectName)) {
             return env.getSchema().getObjectType(objectName);

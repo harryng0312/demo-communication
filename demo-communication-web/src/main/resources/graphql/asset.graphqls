@@ -17,7 +17,7 @@ type Asset {
     orgId: Int!
 }
 
-input AssetInput {
+input AssetAdd{
     name: String!
     description: String
     orgId: Int!
@@ -29,5 +29,5 @@ type Query {
 }
 
 type Mutation {
-    addAsset(asset: AssetInput!): ValidationResult!
+    addAsset(asset: AssetAdd!): ValidationResult!
 }

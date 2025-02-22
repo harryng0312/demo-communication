@@ -15,10 +15,10 @@ public class ValidationError implements Serializable {
     private String field = "";
     @NonNull @Builder.Default
     private String message = "";
-    @NonNull @Builder.Default
+    @Builder.Default
     private Object rejectedValue = "";
 
-    public static ValidationError of(@NonNull String field, @NonNull String message, @NonNull Object rejectedValue) {
+    public static ValidationError of(@NonNull String field, @NonNull String message, Object rejectedValue) {
         return ValidationError.builder().field(field).message(message).rejectedValue(rejectedValue).build();
     }
 }

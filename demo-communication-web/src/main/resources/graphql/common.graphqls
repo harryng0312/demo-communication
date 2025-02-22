@@ -15,7 +15,9 @@ type ValidationError {
     rejectedValue: String
 }
 
-union Result = Asset # | User
+union Result =
+    Asset
+#    | User
 
 type PageResult {
     pageNo: Int!
@@ -24,7 +26,7 @@ type PageResult {
 }
 
 type ValidationResult {
-    isValid: Boolean!
+    valid: Boolean!
     validationErrors: [ValidationError!]!
     value: Result
 }

@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class ValidationResult<T> implements Serializable {
     private T value;
-//    @Builder.Default
+    //    @Builder.Default
     private final List<ValidationError> validationErrors = new ArrayList<>();
 
     public boolean isValid() {
@@ -30,5 +30,18 @@ public class ValidationResult<T> implements Serializable {
                     constraintViolation.getMessage(),
                     constraintViolation.getInvalidValue()));
         }
+    }
+
+    public static <Src, Desc> ValidationResult<Desc> fromConstraintViolation(Set<ConstraintViolation<Src>> validationResult) {
+        final List<ValidationError> validationErrors = validationResult.stream()
+                .map(dtoConstraintViolation -> ValidationError.of(
+                        dtoConstraintViolation.getPropertyPath().toString(),
+                        dtoConstraintViolation.getMessage(),
+                        dtoConstraintViolation.getInvalidValue()))
+                .toList();
+        final var result = new ValidationResult<Desc>();
+        result.setValue(null);
+        result.getValidationErrors().addAll(validationErrors);
+        return result;
     }
 }
