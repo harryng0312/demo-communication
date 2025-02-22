@@ -1,6 +1,7 @@
 package org.harryng.demo.config;
 
 import jakarta.persistence.ValidationMode;
+import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.impl.base.persistence.SimpleBasePersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +27,10 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "primaryEntityManagerFactory",
         transactionManagerRef = "primaryTransactionManager"
 )
+@Slf4j
 public class PersistenceConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(PersistenceConfig.class);
+//    private static final Logger log = LoggerFactory.getLogger(PersistenceConfig.class);
 
     @Value("${spring.datasource.url}")
     private String dsUrl;

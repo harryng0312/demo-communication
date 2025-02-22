@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends AbstractSearchableService<UserDto, UserImpl, Long> implements UserService {
+public class UserServiceImpl extends AbstractSearchableService<UserImpl, UserDto, UserDto, UserDto, Long> implements UserService {
 
     private final UserPersistence userPersistence;
     private final UserGroupPersistence userGroupPersistence;
@@ -56,15 +56,16 @@ public class UserServiceImpl extends AbstractSearchableService<UserDto, UserImpl
         final Pageable pageable = PageRequest.of(0, 1);
         final Page<UserImpl> page = getPersistence().searchByUsername(username, pageable);
         if (!page.isEmpty()) {
-            result = Optional.of(getMapper().toDto(page.getContent().getFirst()));
+            result = Optional.of(getMapper().convertEntToGetDto(page.getContent().getFirst()));
         }
         return result;
     }
+
     @Override
     public Optional<UserDto> getByMyId(SessionHolder sessionHolder, Map<String, Object> extra) throws Exception {
         final Optional<UserImpl> optUser = getPersistence().findById(sessionHolder.getUserId());
-        if(optUser.isPresent()){
-            final UserDto userDto = getMapper().toDto(optUser.get());
+        if (optUser.isPresent()) {
+            final UserDto userDto = getMapper().convertEntToGetDto(optUser.get());
             return Optional.of(userDto);
         }
         return Optional.empty();
@@ -75,7 +76,7 @@ public class UserServiceImpl extends AbstractSearchableService<UserDto, UserImpl
             SessionHolder sessionHolder, Long id, boolean loadUsergroup, boolean loadRole,
             boolean loadPermission, Map<String, Object> extra) throws Exception {
         final Optional<UserImpl> optUserImpl = getPersistence().findById(id);
-        final Optional<UserDto> optUserDto = optUserImpl.map(user -> getMapper().toDto(user));
+        final Optional<UserDto> optUserDto = optUserImpl.map(user -> getMapper().convertEntToGetDto(user));
         if (optUserDto.isPresent()) {
             final var user = optUserDto.get();
             if (loadUsergroup) {

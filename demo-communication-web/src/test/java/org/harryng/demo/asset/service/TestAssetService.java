@@ -5,7 +5,7 @@ import jakarta.validation.*;
 import jakarta.validation.executable.ExecutableValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.Application;
-import org.harryng.demo.impl.asset.dto.AssetDto;
+import org.harryng.demo.impl.asset.dto.AssetRes;
 import org.harryng.demo.impl.asset.entity.AssetImpl;
 import org.harryng.demo.impl.asset.service.AssetService;
 import org.harryng.demo.impl.base.validator.group.AddValGroup;
@@ -101,7 +101,7 @@ public class TestAssetService {
         // Set up a custom message interpolator with message bundles
         // Use the custom message interpolator when creating the validator
         final var now = LocalDateTime.now();
-        final AssetDto asset = new AssetDto();
+        final AssetRes asset = new AssetRes();
         asset.setId(0L);
         asset.setCreatedDate(now);
         asset.setModifiedDate(now);
@@ -111,10 +111,10 @@ public class TestAssetService {
         asset.setStatus(1);
         asset.setName("[assetname]");
 
-        final Set<ConstraintViolation<AssetDto>> violations = validator.validate(asset, DefaultValGroup.class, AddValGroup.class);
+        final Set<ConstraintViolation<AssetRes>> violations = validator.validate(asset, DefaultValGroup.class, AddValGroup.class);
         log.info("validation result:{}", violations.size());
         final StringBuilder validationMsg = new StringBuilder();
-        for (ConstraintViolation<AssetDto> violation : violations) {
+        for (ConstraintViolation<AssetRes> violation : violations) {
             validationMsg.append("\n[")
                     .append(violation.getPropertyPath().toString())
                     .append("]:")
@@ -130,7 +130,7 @@ public class TestAssetService {
         // Set up a custom message interpolator with message bundles
         // Use the custom message interpolator when creating the validator
         final var now = LocalDateTime.now();
-        final var asset = new AssetDto();
+        final var asset = new AssetRes();
         asset.setId(0L);
         asset.setCreatedDate(now);
         asset.setModifiedDate(now);
@@ -140,7 +140,7 @@ public class TestAssetService {
         asset.setStatus(1);
         asset.setName("[assetname]");
 
-        final ValidationResult<AssetDto> validationResult = assetService.add(SessionHolder.ANONYMOUS, asset, new LinkedHashMap<>());
+        final ValidationResult<AssetRes> validationResult = assetService.add(SessionHolder.ANONYMOUS, asset, new LinkedHashMap<>());
         log.info("validation result:{}\n{}", validationResult.isValid(), validationResult.getValidationErrors());
 
 //        final Set<ConstraintViolation<AssetDto>> defaultViolations = validator.validate(asset);

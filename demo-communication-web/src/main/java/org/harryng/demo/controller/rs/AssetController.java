@@ -3,14 +3,11 @@ package org.harryng.demo.controller.rs;
 import lombok.RequiredArgsConstructor;
 import org.harryng.demo.api.util.ResponseWrapper;
 import org.harryng.demo.api.util.SessionHolder;
-import org.harryng.demo.api.util.TextUtil;
-import org.harryng.demo.impl.asset.dto.AssetDto;
+import org.harryng.demo.impl.asset.dto.AssetRes;
 import org.harryng.demo.impl.asset.service.AssetService;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
@@ -35,13 +32,13 @@ public class AssetController {
 //    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseWrapper<AssetDto> getById(SessionHolder sessionHolder, @RequestParam long id) throws Exception {
-        final Optional<AssetDto> assetDto = assetService.getById(sessionHolder, id, new LinkedHashMap<>());
-        final ResponseWrapper<AssetDto> result;
+    public ResponseWrapper<AssetRes> getById(SessionHolder sessionHolder, @RequestParam long id) throws Exception {
+        final Optional<AssetRes> assetDto = assetService.getById(sessionHolder, id, new LinkedHashMap<>());
+        final ResponseWrapper<AssetRes> result;
         if (assetDto.isPresent()) {
-            result = ResponseWrapper.<AssetDto>builder().data(assetDto.get()).build();
+            result = ResponseWrapper.<AssetRes>builder().data(assetDto.get()).build();
         } else {
-            result = ResponseWrapper.<AssetDto>builder().build();
+            result = ResponseWrapper.<AssetRes>builder().build();
         }
         return result;
     }

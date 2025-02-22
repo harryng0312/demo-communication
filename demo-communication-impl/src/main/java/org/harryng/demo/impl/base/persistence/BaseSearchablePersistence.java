@@ -8,8 +8,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.io.Serializable;
 
 @NoRepositoryBean
-public interface BaseSearchablePersistence<T extends BaseModel<Id>, Id extends Serializable>
-        extends BasePersistence<T, Id>, JpaRepository<T, Id> {
+public interface BaseSearchablePersistence<Ent extends BaseModel<Id>, Id extends Serializable>
+        extends BasePersistence<Ent, Id>, JpaRepository<Ent, Id> {
 //    PageResult<T> selectByConditions(PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws Exception;
 //    PageResult<T> selectByConditions(PageInfo pageInfo, Class<T> domainClass, String queryStr) throws Exception;
 }

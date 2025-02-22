@@ -1,0 +1,33 @@
+#type AssetPageResult {
+#    pageNo: Int!
+#    pageSize: Int!
+#    results: [Asset!]!
+#}
+#
+#type AssetValidationResult {
+#    isValid: Boolean!
+#    validationErrors: [ValidationError!]!
+#    value: Asset
+#}
+
+type Asset {
+    id: ID!
+    name: String!
+    description: String
+    orgId: Int!
+}
+
+input AssetInput {
+    name: String!
+    description: String
+    orgId: Int!
+}
+
+type Query {
+    searchAssetByName(keyword: String!, pageInfo: PageInfo!): PageResult!
+    getAssetById(id: ID!): Asset
+}
+
+type Mutation {
+    addAsset(asset: AssetInput!): ValidationResult!
+}

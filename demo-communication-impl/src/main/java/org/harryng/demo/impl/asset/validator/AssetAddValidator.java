@@ -4,11 +4,11 @@ import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.impl.asset.dto.AssetDto;
+import org.harryng.demo.impl.asset.dto.AssetRes;
 import org.harryng.demo.impl.organization.persistence.OrganizationPersistence;
 
 @Slf4j
-public class AssetAddValidator implements ConstraintValidator<AssetAddValidated, AssetDto> {
+public class AssetAddValidator implements ConstraintValidator<AssetAddValidated, AssetRes> {
 
     @Resource
     private OrganizationPersistence organizationPersistence;
@@ -19,7 +19,7 @@ public class AssetAddValidator implements ConstraintValidator<AssetAddValidated,
     }
 
     @Override
-    public boolean isValid(AssetDto asset, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(AssetRes asset, ConstraintValidatorContext constraintValidatorContext) {
         boolean result = true;
         constraintValidatorContext.disableDefaultConstraintViolation();
         log.info("===== This is Add validator for asset =====");

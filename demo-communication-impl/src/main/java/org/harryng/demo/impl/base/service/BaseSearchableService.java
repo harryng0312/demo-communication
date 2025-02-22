@@ -7,7 +7,12 @@ import org.harryng.demo.api.util.PageResult;
 
 import java.io.Serializable;
 
-public interface BaseSearchableService<T extends BaseModel<Id>, Id extends Serializable> extends BaseService<T, Id> {
-    PageResult<T> findByConditions(PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws Exception;
-    PageResult<T> findByConditions(PageInfo pageInfo, Class<T> entityClass, String queryStr) throws Exception;
+public interface BaseSearchableService<
+        Ent extends BaseModel<Id>,
+        Dget extends BaseModel<Id>,
+        Dadd extends BaseModel<Id>,
+        Dedit extends BaseModel<Id>,
+        Id extends Serializable> extends BaseService<Ent, Dget, Dadd, Dedit, Id> {
+    PageResult<Ent> findByConditions(PageInfo pageInfo, CriteriaQuery<Ent> criteriaQuery) throws Exception;
+    PageResult<Ent> findByConditions(PageInfo pageInfo, Class<Ent> entityClass, String queryStr) throws Exception;
 }

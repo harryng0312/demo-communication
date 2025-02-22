@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrganizationServiceImpl extends AbstractSearchableService<OrganizationDto, OrganizationImpl, Long> implements OrganizationService {
+public class OrganizationServiceImpl extends AbstractSearchableService<OrganizationImpl, OrganizationDto, OrganizationDto, OrganizationDto, Long> implements OrganizationService {
     private final OrganizationPersistence organizationPersistence;
     private final OrganizationMapper organizationMapper;
 

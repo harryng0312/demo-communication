@@ -1,23 +1,44 @@
 package org.harryng.demo.api.util;
 
+import lombok.*;
+import org.springframework.data.domain.Page;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 
-public class PageResult<T extends Object> extends PageInfo {
-    private List<T> results = null;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class PageResult<R> extends PageInfo {
+    @Setter(AccessLevel.NONE)
+    private List<R> results = new ArrayList<>();
 
     public PageResult(PageInfo pageInfo) {
-        super(pageInfo.getStartPageIndex(), pageInfo.getPageSize());
+        super(pageInfo.getPageNo(), pageInfo.getPageSize());
     }
 
     public PageResult(int startPageIndex, int pageSize) {
         super(startPageIndex, pageSize);
     }
 
-    public List<T> getResults() {
-        if (results == null) {
-            results = new ArrayList<>();
+    public void fromPage(Page<R> page) {
+        if (Objects.nonNull(page)) {
+            this.setPageNo(page.getNumber());
+            this.setPageSize(page.getSize());
+            this.getResults().addAll(page.getContent());
         }
-        return results;
+    }
+
+    public <T> void fromPage(Page<T> page, Function<? super T, ? extends R> convertFunc) {
+        if (Objects.nonNull(page)) {
+            this.setPageNo(page.getNumber());
+            this.setPageSize(page.getSize());
+            if (Objects.nonNull(convertFunc)) {
+                this.getResults().addAll(page.get().map(convertFunc).toList());
+            }
+        }
     }
 }

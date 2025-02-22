@@ -20,6 +20,9 @@ spring:
 #    date-format: "yyyy-MM-dd'T'HH:mm:ss"
 #    serialization:
 #      write-dates-as-timestamps: true
+  profiles:
+    active: "${env:'dev'}"
+#    active: "${env}"
   main:
     allow-bean-definition-overriding: true
   mvc:
@@ -44,8 +47,7 @@ spring:
       max-total: 1
       max-idle: 1
       min-idle: 0
-  profiles:
-    active: "${env != null? env:'dev'}"
+
   threads:
     virtual:
       enabled: true

@@ -19,12 +19,12 @@ import java.io.Serializable;
 //    int delete(Id id) throws Exception;
 //}
 @NoRepositoryBean
-public interface BasePersistence<T extends BaseModel<Id>, Id extends Serializable> extends CrudRepository<T, Id> {
+public interface BasePersistence<Ent extends BaseModel<Id>, Id extends Serializable> extends CrudRepository<Ent, Id> {
 //    @PersistenceContext(name = "entityManagerFactory")
     EntityManager getEntityManager();
 //    EntityManager getEntityManager(String entityManagerName);
 //    Class<T> getEntityClass();
-    Class<T> getDomainClass();
+    Class<Ent> getDomainClass();
 
 //    default int delete(Id id) {
 //        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();

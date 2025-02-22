@@ -17,39 +17,44 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends BaseModel<Id>, Id extends Serializable>
-        implements BaseAuthenticatedService<Dto, Et, Id> {
+public abstract class AbstractService<
+        Ent extends BaseModel<Id>,
+        Dget extends BaseModel<Id>,
+        Dadd extends BaseModel<Id>,
+        Dedit extends BaseModel<Id>,
+        Id extends Serializable>
+        implements BaseValidatedService<Ent, Dget, Dadd, Dedit, Id> {
 
     @Resource
     protected Validator validator;
 
     @Override
-    public abstract BasePersistence<Et, Id> getPersistence();
+    public abstract BasePersistence<Ent, Id> getPersistence();
 
-    public abstract BaseMapper<Dto, Et> getMapper();
+    public abstract BaseMapper<Ent, Dget, Dadd, Dedit> getMapper();
 
     @Override
-    public @NonNull Optional<Dto> getById(@NonNull SessionHolder sessionHolder, @NonNull Id id, Map<String, Object> extra) throws Exception {
+    public @NonNull Optional<Dget> getById(@NonNull SessionHolder sessionHolder, @NonNull Id id, Map<String, Object> extra) throws Exception {
         final var result = getPersistence().findById(id);
-        return result.map(et -> getMapper().toDto(et));
+        return result.map(et -> getMapper().convertEntToGetDto(et));
     }
 
     @Override
-    public ValidationResult<Dto> add(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
-        final var result = new ValidationResult<Dto>();
-        final Set<ConstraintViolation<Dto>> validationResult = validator.validate(obj);
+    public ValidationResult<Dget> add(@NonNull SessionHolder sessionHolder, @NonNull Dadd obj, Map<String, Object> extra) throws Exception {
+        final var result = new ValidationResult<Dget>();
+        final Set<ConstraintViolation<Dadd>> validationResult = validator.validate(obj);
 //        final Function<Dto, Set<ConstraintViolation<Dto>>> validateFunc = (Function<Dto, Set<ConstraintViolation<Dto>>>) extra.get(ExtraParam.VALIDATE_FUNC);
 //        if(validateFunc != null) {
 //            final Set<ConstraintViolation<Dto>> subValResult = validateFunc.apply(obj);
 //            validationResult.addAll(subValResult);
 //        }
         if (validationResult.isEmpty()) {
-            final Et inputEntity = getMapper().toEntity(obj);
+            final Ent inputEntity = getMapper().convertAddDtoToEnt(obj);
             if (inputEntity == null) {
                 throw new NullPointerException("inputEntity is null");
             }
-            final Et entity = getPersistence().save(inputEntity);
-            final Dto outputDto = getMapper().toDto(entity);
+            final Ent entity = getPersistence().save(inputEntity);
+            final Dget outputDto = getMapper().convertEntToGetDto(entity);
             result.setValue(outputDto);
         } else {
             final List<ValidationError> validationErrors = validationResult.stream()
@@ -58,23 +63,23 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
                             dtoConstraintViolation.getMessage(),
                             dtoConstraintViolation.getInvalidValue()))
                     .toList();
-            result.setValue(obj);
+            result.setValue(null);
             result.getValidationErrors().addAll(validationErrors);
         }
         return result;
     }
 
     @Override
-    public ValidationResult<Dto> edit(@NonNull SessionHolder sessionHolder, @NonNull Dto obj, Map<String, Object> extra) throws Exception {
-        final var result = new ValidationResult<Dto>();
-        final Set<ConstraintViolation<Dto>> validationResult = validator.validate(obj);
+    public ValidationResult<Dget> edit(@NonNull SessionHolder sessionHolder, @NonNull Dedit obj, Map<String, Object> extra) throws Exception {
+        final var result = new ValidationResult<Dget>();
+        final Set<ConstraintViolation<Dedit>> validationResult = validator.validate(obj);
         if (validationResult.isEmpty()) {
-            final Et inputEntity = getMapper().toEntity(obj);
+            final Ent inputEntity = getMapper().convertEditDtoToEnt(obj);
             if (inputEntity == null) {
                 throw new NullPointerException("inputEntity is null");
             }
-            final Et entity = getPersistence().save(inputEntity);
-            final Dto outputDto = getMapper().toDto(entity);
+            final Ent entity = getPersistence().save(inputEntity);
+            final Dget outputDto = getMapper().convertEntToGetDto(entity);
             result.setValue(outputDto);
         } else {
             final List<ValidationError> validationErrors = validationResult.stream()
@@ -83,7 +88,7 @@ public abstract class AbstractService<Dto extends BaseModel<Id>, Et extends Base
                             dtoConstraintViolation.getMessage(),
                             dtoConstraintViolation.getInvalidValue()))
                     .toList();
-            result.setValue(obj);
+            result.setValue(null);
             result.getValidationErrors().addAll(validationErrors);
         }
         return result;

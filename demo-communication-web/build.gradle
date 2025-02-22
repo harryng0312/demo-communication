@@ -35,6 +35,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.session:spring-session-core'
 
+    implementation "org.springframework.boot:spring-boot-starter-graphql"
+    implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:${graphqlVer}"
+//    implementation "com.graphql-java-kickstart:graphql-java-tools:${graphqlVer}"
+//    implementation "com.graphql-java-kickstart:altair-spring-boot-starter:${graphqlVer}"
+
+
     implementation "io.grpc:grpc-protobuf:${grpcProtobufVer}"
     implementation "io.grpc:grpc-stub:${grpcProtobufVer}"
 //    implementation "io.grpc:grpc-netty:${grpcProtobufVer}"

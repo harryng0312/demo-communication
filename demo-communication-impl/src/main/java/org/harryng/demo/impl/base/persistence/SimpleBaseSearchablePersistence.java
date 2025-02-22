@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 
 import java.io.Serializable;
 
-public class SimpleBaseSearchablePersistence<T extends BaseModel<Id>, Id extends Serializable>
-        extends SimpleBasePersistence<T, Id> implements BaseSearchablePersistence<T, Id> {
+public class SimpleBaseSearchablePersistence<Ent extends BaseModel<Id>, Id extends Serializable>
+        extends SimpleBasePersistence<Ent, Id> implements BaseSearchablePersistence<Ent, Id> {
 
-    public SimpleBaseSearchablePersistence(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+    public SimpleBaseSearchablePersistence(JpaEntityInformation<Ent, ?> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
     }
 
-    public SimpleBaseSearchablePersistence(Class<T> domainClass, EntityManager entityManager) {
+    public SimpleBaseSearchablePersistence(Class<Ent> domainClass, EntityManager entityManager) {
         super(domainClass, entityManager);
     }
 

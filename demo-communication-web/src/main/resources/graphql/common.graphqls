@@ -1,0 +1,30 @@
+interface IPageInfo{
+    pageNo: Int!
+    pageSize: Int!
+}
+
+input PageInfo {
+    pageNo: Int!
+    pageSize: Int!
+}
+
+type ValidationError {
+    id: Int!
+    field: String!
+    message: String!
+    rejectedValue: String
+}
+
+union Result = Asset # | User
+
+type PageResult {
+    pageNo: Int!
+    pageSize: Int!
+    results: [Result!]!
+}
+
+type ValidationResult {
+    isValid: Boolean!
+    validationErrors: [ValidationError!]!
+    value: Result
+}

@@ -10,10 +10,11 @@ import org.harryng.demo.impl.user.dto.UserResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(config = DtoEntityMapperConfig.class)
-public interface UserMapper extends BaseMapper<UserDto, UserImpl> {
+public interface UserMapper extends BaseMapper<UserImpl, UserDto, UserDto, UserDto> {
 
     UserImpl map(UserRequest src);
-//
+
+    //
     UserResponse map(UserModel src);
 
     UserResponse map(UserDto src);

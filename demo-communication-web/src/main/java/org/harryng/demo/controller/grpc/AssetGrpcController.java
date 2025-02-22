@@ -8,7 +8,6 @@ import org.harryng.demo.aop.AuthenticationGrpcInterceptor;
 import org.harryng.demo.api.util.SessionHolder;
 import org.harryng.demo.api.util.SessionUtil;
 import org.harryng.demo.controller.grpc.asset.*;
-import org.harryng.demo.impl.asset.dto.AssetDto;
 import org.harryng.demo.impl.asset.service.AssetService;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +33,7 @@ public class AssetGrpcController extends AssetControllerGrpc.AssetControllerImpl
             final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
 //            log.info("sessionHolder:{}", sessionHolder);
 //            log.info("request:{}", request.getAllFields());
-            final Optional<AssetDto> oAssetDto = assetService.getById(sessionHolder, request.getId(), new LinkedHashMap<>());
+            final Optional<org.harryng.demo.impl.asset.dto.AssetRes> oAssetDto = assetService.getById(sessionHolder, request.getId(), new LinkedHashMap<>());
             final AssetResultRes res;
             if (oAssetDto.isPresent()) {
                 final AssetDtoGrpc assetDtoGrpc = AssetDtoGrpc.newBuilder()
@@ -58,17 +57,17 @@ public class AssetGrpcController extends AssetControllerGrpc.AssetControllerImpl
     }
 
     @Override
-    public void add(AssetReq request, StreamObserver<AssetRes> responseObserver) {
+    public void add(AssetReq request, StreamObserver<org.harryng.demo.controller.grpc.asset.AssetRes> responseObserver) {
         io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAddMethod(), responseObserver);
     }
 
     @Override
-    public void edit(AssetReq request, StreamObserver<AssetRes> responseObserver) {
+    public void edit(AssetReq request, StreamObserver<org.harryng.demo.controller.grpc.asset.AssetRes> responseObserver) {
         io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getEditMethod(), responseObserver);
     }
 
     @Override
-    public void remove(AssetIdReq request, StreamObserver<AssetRes> responseObserver) {
+    public void remove(AssetIdReq request, StreamObserver<org.harryng.demo.controller.grpc.asset.AssetRes> responseObserver) {
         io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRemoveMethod(), responseObserver);
     }
 
