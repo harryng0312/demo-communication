@@ -5,17 +5,17 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.NonNull;
 import org.harryng.demo.api.util.SessionHolder;
+import org.harryng.demo.impl.base.entity.BaseCodedModel;
 import org.harryng.demo.impl.base.entity.BaseModel;
+import org.harryng.demo.impl.base.entity.BaseModifiedModel;
 import org.harryng.demo.impl.base.persistence.BasePersistence;
 import org.harryng.demo.api.util.ValidationError;
 import org.harryng.demo.api.util.ValidationResult;
 import org.harryng.demo.impl.base.mapper.BaseMapper;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public abstract class AbstractService<
         Ent extends BaseModel<Id>,
@@ -41,30 +41,37 @@ public abstract class AbstractService<
 
     @Override
     public ValidationResult<Dget> add(@NonNull SessionHolder sessionHolder, @NonNull Dadd obj, Map<String, Object> extra) throws Exception {
-        final var result = new ValidationResult<Dget>();
+        final ValidationResult<Dget> result;
         final Set<ConstraintViolation<Dadd>> validationResult = validator.validate(obj);
 //        final Function<Dto, Set<ConstraintViolation<Dto>>> validateFunc = (Function<Dto, Set<ConstraintViolation<Dto>>>) extra.get(ExtraParam.VALIDATE_FUNC);
 //        if(validateFunc != null) {
 //            final Set<ConstraintViolation<Dto>> subValResult = validateFunc.apply(obj);
 //            validationResult.addAll(subValResult);
 //        }
+        result = ValidationResult.fromConstraintViolation(validationResult);
         if (validationResult.isEmpty()) {
             final Ent inputEntity = getMapper().convertAddDtoToEnt(obj);
-            if (inputEntity == null) {
-                throw new NullPointerException("inputEntity is null");
+            if (Objects.isNull(inputEntity)) {
+                return ValidationResult.fromConstraintViolation(validationResult);
+            }
+            if (inputEntity instanceof BaseModifiedModel modifiedModel) {
+                final var now = LocalDateTime.now();
+                modifiedModel.setCreatedDate(now);
+                modifiedModel.setModifiedDate(now);
             }
             final Ent entity = getPersistence().save(inputEntity);
             final Dget outputDto = getMapper().convertEntToGetDto(entity);
             result.setValue(outputDto);
-        } else {
-            final List<ValidationError> validationErrors = validationResult.stream()
-                    .map(dtoConstraintViolation -> ValidationError.of(
-                            dtoConstraintViolation.getPropertyPath().toString(),
-                            dtoConstraintViolation.getMessage(),
-                            dtoConstraintViolation.getInvalidValue()))
-                    .toList();
-            result.setValue(null);
-            result.getValidationErrors().addAll(validationErrors);
+//        } else {
+//            final List<ValidationError> validationErrors = validationResult.stream()
+//                    .map(dtoConstraintViolation -> ValidationError.of(
+//                            dtoConstraintViolation.getPropertyPath().toString(),
+//                            dtoConstraintViolation.getMessage(),
+//                            dtoConstraintViolation.getInvalidValue()))
+//                    .toList();
+//            result.setValue(null);
+//            result.getValidationErrors().addAll(validationErrors);
+//            result = ValidationResult.fromConstraintViolation(validationResult);
         }
         return result;
     }
@@ -75,8 +82,12 @@ public abstract class AbstractService<
         final Set<ConstraintViolation<Dedit>> validationResult = validator.validate(obj);
         if (validationResult.isEmpty()) {
             final Ent inputEntity = getMapper().convertEditDtoToEnt(obj);
-            if (inputEntity == null) {
-                throw new NullPointerException("inputEntity is null");
+            if (Objects.isNull(inputEntity)) {
+                return ValidationResult.fromConstraintViolation(validationResult);
+            }
+            if (inputEntity instanceof BaseModifiedModel modifiedModel) {
+                final var now = LocalDateTime.now();
+                modifiedModel.setModifiedDate(now);
             }
             final Ent entity = getPersistence().save(inputEntity);
             final Dget outputDto = getMapper().convertEntToGetDto(entity);

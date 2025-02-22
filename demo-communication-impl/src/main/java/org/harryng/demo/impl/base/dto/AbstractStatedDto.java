@@ -16,11 +16,11 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @MappedSuperclass
-public abstract class AbstractStatedDto<Idt extends Serializable> extends AbstractDto<Idt> implements BaseModifiedModel, BaseStatusModel {
-    @NotNull
-    private LocalDateTime createdDate;
-    @NotNull
-    private LocalDateTime modifiedDate;
+public abstract class AbstractStatedDto<Idt extends Serializable> extends AbstractDto<Idt> implements BaseStatusModel {
+//    @NotNull
+//    private LocalDateTime createdDate;
+//    @NotNull
+//    private LocalDateTime modifiedDate;
     @Range(min = 0, max = 100)
     private int status;
 }

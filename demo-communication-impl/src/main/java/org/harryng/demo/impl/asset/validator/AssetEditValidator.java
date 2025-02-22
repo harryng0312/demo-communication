@@ -4,11 +4,11 @@ import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
-import org.harryng.demo.impl.asset.dto.AssetRes;
+import org.harryng.demo.impl.asset.dto.AssetReq;
 import org.harryng.demo.impl.organization.persistence.OrganizationPersistence;
 
 @Slf4j
-public class AssetEditValidator implements ConstraintValidator<AssetEditValidated, AssetRes> {
+public class AssetEditValidator implements ConstraintValidator<AssetEditValidated, AssetReq> {
 
     @Resource
     private OrganizationPersistence organizationPersistence;
@@ -19,17 +19,16 @@ public class AssetEditValidator implements ConstraintValidator<AssetEditValidate
     }
 
     @Override
-    public boolean isValid(AssetRes asset, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(AssetReq asset, ConstraintValidatorContext constraintValidatorContext) {
         boolean result = true;
         constraintValidatorContext.disableDefaultConstraintViolation();
         log.info("===== This is Edit validator for asset =====");
-        if (asset.getOrgId() == null) {
-            constraintValidatorContext.buildConstraintViolationWithTemplate("{asset.orgId.empty}")
-                    .addPropertyNode("org")
+        if (asset.getId() == null) {
+            constraintValidatorContext.buildConstraintViolationWithTemplate("{id.invalid}")
                     .addPropertyNode("id")
                     .addConstraintViolation();
             result = false;
-        } else {
+        } else if (asset.getOrgId() == null) {
             final var orgExisted = organizationPersistence.existsById(asset.getOrgId());
             if (!orgExisted) {
                 constraintValidatorContext.buildConstraintViolationWithTemplate("{asset.orgId.invalid}")

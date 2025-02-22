@@ -14,6 +14,7 @@ import org.harryng.demo.impl.base.service.AbstractSearchableService;
 import org.harryng.demo.impl.base.validator.group.AddValGroup;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,18 +42,19 @@ public class AssetServiceImpl extends AbstractSearchableService<AssetImpl, Asset
     public ValidationResult<AssetRes> add(
             @NonNull SessionHolder sessionHolder,
             @NonNull AssetReq assetReq, Map<String, Object> extras) throws Exception {
-        final var result = new ValidationResult<AssetRes>();
         final Set<ConstraintViolation<AssetReq>> validationResult = validator.validate(assetReq, AddValGroup.class);
+        final ValidationResult<AssetRes> result = ValidationResult.fromConstraintViolation(validationResult);
         if (validationResult.isEmpty()) {
-            return super.add(sessionHolder, assetReq, extras);
-        } else {
-            final List<ValidationError> validationErrors = validationResult.stream()
-                    .map(dtoConstraintViolation -> ValidationError.of(
-                            dtoConstraintViolation.getPropertyPath().toString(),
-                            dtoConstraintViolation.getMessage(),
-                            dtoConstraintViolation.getInvalidValue()))
-                    .toList();
-            result.getValidationErrors().addAll(validationErrors);
+            assetReq.setId(getPersistence().count() + 1);
+            final var assetEnt = getMapper().convertAddDtoToEnt(assetReq);
+            final var now = LocalDateTime.now();
+            assetEnt.setCreatedDate(now);
+            assetEnt.setModifiedDate(now);
+            assetEnt.setOrgTreepath("/<fake>");
+            assetEnt.setStatus(1);
+            final var resEnt = getPersistence().save(assetEnt);
+            final AssetRes assetRes = getMapper().convertEntToGetDto(resEnt);
+            result.setValue(assetRes);
         }
         return result;
     }
