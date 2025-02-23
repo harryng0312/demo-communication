@@ -1,6 +1,6 @@
 package org.harryng.demo.config;
 
-import org.harryng.demo.controller.graphql.typeresolver.ResultTypeResolver;
+import org.harryng.demo.config.typeresolver.ResultTypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.graphql.execution.RuntimeWiringConfigurer;

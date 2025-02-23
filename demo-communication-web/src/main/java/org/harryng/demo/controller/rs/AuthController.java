@@ -44,7 +44,7 @@ public class AuthController {
 //    @Produces(MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String doLogin(@RequestParam("username") String username, @RequestParam("password") String password) throws Exception {
 //    public Response doLogin(@FormParam("username") String username, @FormParam("password") String password) throws Exception {
-        final AuthenticationInfo authenticationInfo = authService.loginByUsernamePassword(username, password);
+        final AuthenticationInfo authenticationInfo = authService.loginByUsernamePassword(username, password).getValue();
         final ResponseWrapper<AuthenticationInfo> res = ResponseWrapper.<AuthenticationInfo>builder().data(authenticationInfo).build();
         return TextUtil.objToJson(res);
 //        return Response.ok().entity(TextUtil.objToJson(res)).build();

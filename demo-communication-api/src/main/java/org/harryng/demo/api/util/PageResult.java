@@ -24,21 +24,37 @@ public class PageResult<R> extends PageInfo {
         super(startPageIndex, pageSize);
     }
 
-    public void fromPage(Page<R> page) {
+    public static <T> PageResult<T> fromPage(Page<T> page) {
+        final var result = new PageResult<T>(0, 1);
         if (Objects.nonNull(page)) {
-            this.setPageNo(page.getNumber());
-            this.setPageSize(page.getSize());
-            this.getResults().addAll(page.getContent());
+            result.setPageNo(page.getNumber());
+            result.setPageSize(page.getSize());
+            result.getResults().addAll(page.getContent());
         }
+        return result;
     }
 
-    public <T> void fromPage(Page<T> page, Function<? super T, ? extends R> convertFunc) {
+    public static <Src, Dest> PageResult<Dest> fromPage(Page<Src> page, Function<? super Src, ? extends Dest> convertFunc) {
+        final var result = new PageResult<Dest>(0, 1);
         if (Objects.nonNull(page)) {
-            this.setPageNo(page.getNumber());
-            this.setPageSize(page.getSize());
+            result.setPageNo(page.getNumber());
+            result.setPageSize(page.getSize());
             if (Objects.nonNull(convertFunc)) {
-                this.getResults().addAll(page.get().map(convertFunc).toList());
+                result.getResults().addAll(page.get().map(convertFunc).toList());
             }
         }
+        return result;
+    }
+
+    public static <Src, Dest> PageResult<Dest> fromPageResult(PageResult<Src> pageResult, Function<? super Src, ? extends Dest> convertFunc) {
+        final var result = new PageResult<Dest>(0, 1);
+        if (Objects.nonNull(pageResult)) {
+            result.setPageNo(pageResult.getPageNo());
+            result.setPageSize(pageResult.getPageSize());
+            if (Objects.nonNull(convertFunc)) {
+                result.getResults().addAll(pageResult.getResults().stream().map(convertFunc).toList());
+            }
+        }
+        return result;
     }
 }

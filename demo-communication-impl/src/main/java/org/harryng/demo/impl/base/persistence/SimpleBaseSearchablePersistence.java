@@ -1,6 +1,10 @@
 package org.harryng.demo.impl.base.persistence;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaQuery;
+import org.harryng.demo.api.util.PageInfo;
+import org.harryng.demo.api.util.PageResult;
+import org.harryng.demo.api.util.persistence.PersistenceUtil;
 import org.harryng.demo.impl.base.entity.BaseModel;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 
@@ -17,13 +21,13 @@ public class SimpleBaseSearchablePersistence<Ent extends BaseModel<Id>, Id exten
         super(domainClass, entityManager);
     }
 
-//    @Override
-//    public PageResult<T> selectByConditions(PageInfo pageInfo, CriteriaQuery<T> criteriaQuery) throws Exception {
-//        return PersistenceUtil.selectObjectByCriteria(getEntityManager(), pageInfo, criteriaQuery);
-//    }
-//
-//    @Override
-//    public PageResult<T> selectByConditions(PageInfo pageInfo, Class<T> entityClass, String queryStr) throws Exception {
-//        return PersistenceUtil.selectObjectByQuery(getEntityManager(), pageInfo, getDomainClass(), queryStr);
-//    }
+    @Override
+    public PageResult<Ent> selectByConditions(PageInfo pageInfo, CriteriaQuery<Ent> criteriaQuery) throws Exception {
+        return PersistenceUtil.selectObjectByCriteria(getEntityManager(), pageInfo, criteriaQuery);
+    }
+
+    @Override
+    public PageResult<Ent> selectByConditions(PageInfo pageInfo, Class<Ent> entityClass, String queryStr) throws Exception {
+        return PersistenceUtil.selectObjectByQuery(getEntityManager(), pageInfo, getDomainClass(), queryStr);
+    }
 }

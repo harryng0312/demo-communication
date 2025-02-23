@@ -1,0 +1,9 @@
+
+type Query {
+    searchAssetByName(keyword: String!, pageInfo: PageInfo!): PageResult!
+    getAssetById(id: ID!): Asset
+}
+
+type Mutation {
+    login(username: String, password: String): ValidationResult!
+}

@@ -5,7 +5,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.NonNull;
 import org.harryng.demo.api.util.SessionHolder;
-import org.harryng.demo.impl.base.entity.BaseCodedModel;
 import org.harryng.demo.impl.base.entity.BaseModel;
 import org.harryng.demo.impl.base.entity.BaseModifiedModel;
 import org.harryng.demo.impl.base.persistence.BasePersistence;

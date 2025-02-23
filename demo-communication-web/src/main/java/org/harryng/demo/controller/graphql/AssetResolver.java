@@ -2,6 +2,7 @@ package org.harryng.demo.controller.graphql;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.harryng.demo.api.util.*;
 import org.harryng.demo.impl.asset.dto.AssetReq;
 import org.harryng.demo.impl.asset.dto.AssetRes;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 public class AssetResolver {
     private final AssetService assetService;
 
@@ -29,6 +31,7 @@ public class AssetResolver {
     public PageResult<AssetRes> searchAssetByName(@Argument String keyword, @Argument PageInfo pageInfo) throws Exception {
         final String token = SessionUtil.getToken(httpServletRequest);
         final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
+
         return assetService.searchByName(sessionHolder, keyword, pageInfo, Map.of());
     }
 
@@ -36,6 +39,7 @@ public class AssetResolver {
     public Optional<AssetRes> getAssetById(@Argument long id) throws Exception {
         final String token = SessionUtil.getToken(httpServletRequest);
         final SessionHolder sessionHolder = SessionUtil.getSessionHolderFromAccessToken(token);
+        log.info("httpServletRequest: {}", httpServletRequest);
         return assetService.getById(sessionHolder, id, Map.of());
     }
 

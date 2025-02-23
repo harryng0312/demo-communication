@@ -1,4 +1,4 @@
-package org.harryng.demo.controller.graphql.typeresolver;
+package org.harryng.demo.config.typeresolver;
 
 import graphql.TypeResolutionEnvironment;
 import graphql.schema.GraphQLObjectType;

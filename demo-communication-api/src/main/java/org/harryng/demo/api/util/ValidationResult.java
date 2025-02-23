@@ -32,8 +32,21 @@ public class ValidationResult<T> implements Serializable {
         }
     }
 
-    public static <Src, Desc> ValidationResult<Desc> fromConstraintViolation(Set<ConstraintViolation<Src>> validationResult) {
-        final List<ValidationError> validationErrors = validationResult.stream()
+    public static <Desc> ValidationResult<Desc> fromValidationErrors(Set<ValidationError> validationErrors, Desc value) {
+//        final List<ValidationError> validationErrors = constraintViolations.stream()
+//                .map(dtoConstraintViolation -> ValidationError.of(
+//                        dtoConstraintViolation.getPropertyPath().toString(),
+//                        dtoConstraintViolation.getMessage(),
+//                        dtoConstraintViolation.getInvalidValue()))
+//                .toList();
+        final var result = new ValidationResult<Desc>();
+        result.setValue(value);
+        result.getValidationErrors().addAll(validationErrors);
+        return result;
+    }
+
+    public static <Src, Desc> ValidationResult<Desc> fromConstraintViolation(Set<ConstraintViolation<Src>> constraintViolations) {
+        final List<ValidationError> validationErrors = constraintViolations.stream()
                 .map(dtoConstraintViolation -> ValidationError.of(
                         dtoConstraintViolation.getPropertyPath().toString(),
                         dtoConstraintViolation.getMessage(),
@@ -42,6 +55,13 @@ public class ValidationResult<T> implements Serializable {
         final var result = new ValidationResult<Desc>();
         result.setValue(null);
         result.getValidationErrors().addAll(validationErrors);
+        return result;
+    }
+
+    public static <Src, Desc> ValidationResult<Desc> fromValidationResult(ValidationResult<Src> validationResult, Desc desc) {
+        final var result = new ValidationResult<Desc>();
+        result.setValue(desc);
+        result.getValidationErrors().addAll(validationResult.getValidationErrors());
         return result;
     }
 }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.harryng.demo.api.util.ResponseWrapper;
+import org.harryng.demo.api.util.ValidationResult;
 import org.harryng.demo.controller.grpc.auth.AuthControllerGrpc;
 import org.harryng.demo.controller.grpc.auth.LoginReq;
 import org.harryng.demo.controller.grpc.auth.LoginRes;
@@ -25,8 +26,8 @@ public class AuthGrpcController extends AuthControllerGrpc.AuthControllerImplBas
     @Override
     public void login(LoginReq request, StreamObserver<LoginRes> responseObserver) {
         try {
-            final AuthenticationInfo authenticationInfo = authService.loginByUsernamePassword(request.getUsername(), request.getPassword());
-            final ResponseWrapper<AuthenticationInfo> res = ResponseWrapper.<AuthenticationInfo>builder().data(authenticationInfo).build();
+            final ValidationResult<AuthenticationInfo> authenticationInfo = authService.loginByUsernamePassword(request.getUsername(), request.getPassword());
+            final ResponseWrapper<AuthenticationInfo> res = ResponseWrapper.<AuthenticationInfo>builder().data(authenticationInfo.getValue()).build();
 //        return TextUtil.objToJson(res);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
