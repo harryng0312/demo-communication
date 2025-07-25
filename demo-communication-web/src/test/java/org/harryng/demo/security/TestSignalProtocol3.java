@@ -48,7 +48,7 @@ public class TestSignalProtocol3 {
             this.receivingMessageCounter = 0;
             generateIdentityKeyPair();
             generateSignedPrekey();
-            generateOneTimePrekey();
+//            generateOneTimePrekey();
         }
 
         void generateIdentityKeyPair() {
@@ -111,12 +111,13 @@ public class TestSignalProtocol3 {
         byte[] dh1 = dhExchange(alice.identityPrivateKey, bob.signedPrekeyPublic);
         byte[] dh2 = dhExchange(alice.ephemeralPrivateKey, bob.identityPublicKey);
         byte[] dh3 = dhExchange(alice.ephemeralPrivateKey, bob.signedPrekeyPublic);
-        byte[] dh4 = dhExchange(alice.ephemeralPrivateKey, bob.oneTimePrekeyPublic);
-        byte[] combined = new byte[dh1.length + dh2.length + dh3.length + dh4.length];
+//        byte[] dh4 = dhExchange(alice.ephemeralPrivateKey, bob.oneTimePrekeyPublic);
+        byte[] combined = new byte[dh1.length + dh2.length + dh3.length];
+//        byte[] combined = new byte[dh1.length + dh2.length + dh3.length + dh4.length];
         System.arraycopy(dh1, 0, combined, 0, dh1.length);
         System.arraycopy(dh2, 0, combined, dh1.length, dh2.length);
         System.arraycopy(dh3, 0, combined, dh1.length + dh2.length, dh3.length);
-        System.arraycopy(dh4, 0, combined, dh1.length + dh2.length + dh3.length, dh4.length);
+//        System.arraycopy(dh4, 0, combined, dh1.length + dh2.length + dh3.length, dh4.length);
         alice.rootKey = hkdf(combined, HKDF_INFO);
         bob.rootKey = alice.rootKey;
         alice.sendingChainKey = hkdf(alice.rootKey, "ChainKey".getBytes());
