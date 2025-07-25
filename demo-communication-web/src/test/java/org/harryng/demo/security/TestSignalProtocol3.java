@@ -285,6 +285,7 @@ public class TestSignalProtocol3 {
 
         // Step 6: Alice receives and decrypts Bob's first reply
         X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage2);
+//        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage3);// is ok
         dhRatchet(alice, bob, bobPublicKey, true);
         keys = symmetricRatchet(alice.receivingChainKey);
         alice.receivingChainKey = keys[1];
