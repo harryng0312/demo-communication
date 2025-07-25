@@ -250,24 +250,24 @@ public class TestSignalProtocol3 {
         User alice = new User();
         User bob = new User();
 
-        // Step 1: Perform X3DH with Signed Prekey and One-Time Prekey
+        // Step 0: Perform X3DH with Signed Prekey and One-Time Prekey
         performX3DH(alice, bob);
-        log.info("X3DH completed with Signed Prekey and One-Time Prekey. Root Key established.");
+        log.info("[Step 0] X3DH completed with Signed Prekey and One-Time Prekey. Root Key established.");
 
-        // Step 2: Alice sends initial message to Bob
+        // Step 1: Alice sends initial message to Bob
         String message1 = "Hello, Bob!";
         byte[][] keys = symmetricRatchet(alice.sendingChainKey);
         alice.sendingChainKey = keys[1];
         byte[] encryptedMessage1 = encryptMessage(keys[0], message1, alice.sendingMessageCounter++, alice.ephemeralPublicKey);
-        log.info("Alice sends initial encrypted message: " + getHex(encryptedMessage1));
+        log.info("[Step 1] Alice sends initial encrypted message: " + getHex(encryptedMessage1));
 
-        // Step 3: Bob receives and decrypts the initial message
+        // Step 2: Bob receives and decrypts the initial message
         keys = symmetricRatchet(bob.receivingChainKey);
         bob.receivingChainKey = keys[1];
         String decryptedMessage1 = decryptMessage(keys[0], encryptedMessage1, bob.receivingMessageCounter++);
-        log.info("Bob received and decrypted initial message: " + decryptedMessage1);
+        log.info("[Step 2] Bob received and decrypted initial message: " + decryptedMessage1);
 
-        // Step 4: Bob performs DH Ratchet and sends first reply to Alice
+        // Step 3: Bob performs DH Ratchet and sends first reply to Alice
 //        X25519PublicKeyParameters alicePublicKey = extractEphemeralPublicKey(encryptedMessage1);
 //        dhRatchet(bob, alice, alicePublicKey, true);
         dhRatchet(bob, alice, alice.ephemeralPublicKey, true);
@@ -275,16 +275,16 @@ public class TestSignalProtocol3 {
         keys = symmetricRatchet(bob.sendingChainKey);
         bob.sendingChainKey = keys[1];
         byte[] encryptedMessage2 = encryptMessage(keys[0], message2, bob.sendingMessageCounter++, bob.ephemeralPublicKey);
-        log.info("Bob sends first encrypted reply: " + getHex(encryptedMessage2));
+        log.info("[Step 3] Bob sends first encrypted reply: " + getHex(encryptedMessage2));
 
-        // Step 5: Bob sends second reply to Alice
+        // Step 4: Bob sends second reply to Alice
         String message3 = "Good to hear from you!";
         keys = symmetricRatchet(bob.sendingChainKey);
         bob.sendingChainKey = keys[1];
         byte[] encryptedMessage3 = encryptMessage(keys[0], message3, bob.sendingMessageCounter++, bob.ephemeralPublicKey);
-        log.info("Bob sends second encrypted reply: " + getHex(encryptedMessage3));
+        log.info("[Step 4] Bob sends second encrypted reply: " + getHex(encryptedMessage3));
 
-        // Step 6: Alice receives and decrypts Bob's first reply
+        // Step 5: Alice receives and decrypts Bob's first reply
 //        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage2);
 //        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage3);// is ok
 //        dhRatchet(alice, bob, bobPublicKey, false);
@@ -292,12 +292,12 @@ public class TestSignalProtocol3 {
         keys = symmetricRatchet(alice.receivingChainKey);
         alice.receivingChainKey = keys[1];
         String decryptedMessage2 = decryptMessage(keys[0], encryptedMessage2, alice.receivingMessageCounter++);
-        log.info("Alice received and decrypted Bob's first reply: " + decryptedMessage2);
+        log.info("[Step 5] Alice received and decrypted Bob's first reply: " + decryptedMessage2);
 
-        // Step 7: Alice receives and decrypts Bob's second reply
+        // Step 6: Alice receives and decrypts Bob's second reply
         keys = symmetricRatchet(alice.receivingChainKey);
         alice.receivingChainKey = keys[1];
         String decryptedMessage3 = decryptMessage(keys[0], encryptedMessage3, alice.receivingMessageCounter++);
-        log.info("Alice received and decrypted Bob's second reply: " + decryptedMessage3);
+        log.info("[Step 6] Alice received and decrypted Bob's second reply: " + decryptedMessage3);
     }
 }
