@@ -186,6 +186,8 @@ public class TestSignalProtocol3 {
 
     /**
      * Encrypt message using AES-GCM
+     *
+     * @return none + cipherMessage + ephemeralPublicKey
      * */
     private static byte[] encryptMessage(byte[] messageKey, String message, int counter, X25519PublicKeyParameters ephemeralPublicKey) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
@@ -225,8 +227,8 @@ public class TestSignalProtocol3 {
      *
      * @param encryptedMessage
      * <ul>
-     *     <li>first 32 bits: encrypted message</li>
-     *     <li>last 32 bits: Ephemeral Public Key</li>
+     *     <li>first len(encryptedMessage)-32 bytes: encrypted message</li>
+     *     <li>last 32 bytes: Ephemeral Public Key</li>
      * </ul>
      * */
     private static X25519PublicKeyParameters extractEphemeralPublicKey(byte[] encryptedMessage) {
