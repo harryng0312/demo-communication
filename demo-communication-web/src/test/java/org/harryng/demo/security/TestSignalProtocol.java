@@ -28,6 +28,7 @@ public class TestSignalProtocol {
     private static final int GCM_NONCE_LENGTH = 12; // 96 bits
     private static final int GCM_TAG_LENGTH = 128; // 128-bit authentication tag
     private static final byte[] HKDF_INFO = "SignalProtocol".getBytes(StandardCharsets.UTF_8);
+    private static final int X25519KEY_LEN = 256;
 
     // Key storage for Alice and Bob
     static class User {
@@ -45,7 +46,7 @@ public class TestSignalProtocol {
         }
 
         void generateIdentityKeyPair() {
-            final KeyGenerationParameters keyGenerationParameters = new KeyGenerationParameters(new SecureRandom(), 256);
+            final KeyGenerationParameters keyGenerationParameters = new KeyGenerationParameters(new SecureRandom(), X25519KEY_LEN);
             final X25519KeyPairGenerator keyGen = new X25519KeyPairGenerator();
             keyGen.init(keyGenerationParameters);
             final AsymmetricCipherKeyPair keyPair = keyGen.generateKeyPair();
@@ -54,7 +55,7 @@ public class TestSignalProtocol {
         }
 
         void generateEphemeralKeyPair() {
-            final KeyGenerationParameters keyGenerationParameters = new KeyGenerationParameters(new SecureRandom(), 256);
+            final KeyGenerationParameters keyGenerationParameters = new KeyGenerationParameters(new SecureRandom(), X25519KEY_LEN);
             final X25519KeyPairGenerator keyGen = new X25519KeyPairGenerator();
             keyGen.init(keyGenerationParameters);
             final AsymmetricCipherKeyPair keyPair = keyGen.generateKeyPair();
