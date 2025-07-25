@@ -98,14 +98,28 @@ public class TestSignalProtocol3 {
         return output;
     }
 
-    // Perform Diffie-Hellman key exchange
+    //
+    /**
+     * Perform Diffie-Hellman key exchange
+     * @param privateKey A's private key
+     * @param publicKey B's public key
+     * */
     private static byte[] dhExchange(X25519PrivateKeyParameters privateKey, X25519PublicKeyParameters publicKey) {
         byte[] sharedSecret = new byte[32];
         privateKey.generateSecret(publicKey, sharedSecret, 0);
         return sharedSecret;
     }
 
-    // X3DH key agreement with Signed Prekey and One-Time Prekey
+    /**
+     * X3DH key agreement with Signed Prekey and One-Time Prekey
+     * <ul>
+     *     <li>Create X3DH key: combinedKey= DH(IK<sub>A</sub>, SPK<sub>B</sub>)
+     *     + DH(EK<sub>A</sub>, IK<sub>B</sub>)
+     *     + DH(EK<sub>A</sub>, SPK<sub>B</sub>) </li>
+     *     <li>rootKey = A's Root key = B's Root key = HKDF(combinedKey, HKDF_RANDOM)</li>
+     *     <li>A's SendingChainKey = B's ReceivingChainKey = HKDF(rootKey, CHAIN_KEY_RANDOM)</li>
+     * </ul>
+     * */
     private static void performX3DH(User alice, User bob) {
         alice.generateEphemeralKeyPair();
         byte[] dh1 = dhExchange(alice.identityPrivateKey, bob.signedPrekeyPublic);
@@ -127,6 +141,16 @@ public class TestSignalProtocol3 {
     }
 
     // Symmetric Ratchet
+    /**
+     * Symetric Ratchet
+     *
+     * @param chainKey
+     * @return
+     * <ul>
+     *     <li>messageKey</li>
+     *     <li>nextChainKey</li>
+     * </ul>
+     * */
     private static byte[][] symmetricRatchet(byte[] chainKey) {
         byte[] messageKey = hkdf(chainKey, "MessageKey".getBytes());
         byte[] nextChainKey = hkdf(chainKey, "NextChainKey".getBytes());
@@ -134,6 +158,14 @@ public class TestSignalProtocol3 {
     }
 
     // DH Ratchet
+    /**
+     * DH Ratchet:
+     * <ul>
+     * <li>Gen new Sender's Ephemeral KeyPair</li>
+     * <li>Gen new RootKey for both</li>
+     * <li>Update Sender's SendingChainKey and Receiver's ReceivingChainKey = HKDF(rootKey, CHAIN_KEY_RANDOM)</li>
+     * </ul>
+     * */
     private static void dhRatchet(User sender, User receiver, X25519PublicKeyParameters receiverPublicKey, boolean isSender) {
         if (isSender) {
             sender.generateEphemeralKeyPair();
@@ -181,7 +213,18 @@ public class TestSignalProtocol3 {
         return new String(plaintext, StandardCharsets.UTF_8);
     }
 
-    // Extract ephemeral public key
+    /**
+     * Extract ephemeral public key
+     * <p>
+     *     Get Ephemeral Public Key
+     * </p>
+     *
+     * @param encryptedMessage
+     * <ul>
+     *     <li>first 32 bits: encrypted message</li>
+     *     <li>last 32 bits: Ephemeral Public Key</li>
+     * </ul>
+     * */
     private static X25519PublicKeyParameters extractEphemeralPublicKey(byte[] encryptedMessage) {
         byte[] pubKeyBytes = Arrays.copyOfRange(encryptedMessage, encryptedMessage.length - 32, encryptedMessage.length);
         return new X25519PublicKeyParameters(pubKeyBytes, 0);
