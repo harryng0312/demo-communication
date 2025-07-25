@@ -164,7 +164,7 @@ public class TestSignalProtocol3 {
      * DH Ratchet
      * <ul>
      * <li>Gen new Sender's Ephemeral KeyPair</li>
-     * <li>Gen new RootKey for both</li>
+     * <li>Gen new RootKey for both = HKDF(rootKey, DH(senderEphemeralKey, receiverPublicKey))</li>
      * <li>Update Sender's SendingChainKey and Receiver's ReceivingChainKey = HKDF(rootKey, CHAIN_KEY_RANDOM)</li>
      * </ul>
      * */
