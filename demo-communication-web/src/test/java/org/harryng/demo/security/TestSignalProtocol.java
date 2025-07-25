@@ -186,7 +186,9 @@ public class TestSignalProtocol {
         keys = symmetricRatchet(bob.chainKey);
         bob.chainKey = keys[1]; // Update chain key
         String decryptedMessage1 = decryptMessage(keys[0], encryptedMessage1, bob.messageCounter++);
-        log.info("Bob received and decrypted: " + decryptedMessage1);
+        log.info("Bob received and decrypted 1: " + decryptedMessage1);
+//        decryptedMessage1 = decryptMessage(keys[1], encryptedMessage1, bob.messageCounter++);
+//        log.info("Bob received and decrypted 2: " + decryptedMessage1);
 
         // Step 4: Perform DH Ratchet (new session)
         dhRatchet(bob, alice);
