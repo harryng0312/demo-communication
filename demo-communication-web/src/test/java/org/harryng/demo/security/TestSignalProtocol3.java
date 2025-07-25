@@ -88,7 +88,12 @@ public class TestSignalProtocol3 {
         }
     }
 
-    // Simulate HKDF
+    /**
+     * Simulate HKDF by HMAC
+     *
+     * @param inputKey secret
+     * @param info data
+     * */
     private static byte[] hkdf(byte[] inputKey, byte[] info) {
         HMac hMac = new HMac(new SHA256Digest());
         hMac.init(new KeyParameter(inputKey));
@@ -98,7 +103,6 @@ public class TestSignalProtocol3 {
         return output;
     }
 
-    //
     /**
      * Perform Diffie-Hellman key exchange
      * @param privateKey A's private key
@@ -140,9 +144,8 @@ public class TestSignalProtocol3 {
         alice.receivingChainKey = bob.sendingChainKey;
     }
 
-    // Symmetric Ratchet
     /**
-     * Symetric Ratchet
+     * Symmetric Ratchet
      *
      * @param chainKey
      * @return
@@ -157,9 +160,8 @@ public class TestSignalProtocol3 {
         return new byte[][] {messageKey, nextChainKey};
     }
 
-    // DH Ratchet
     /**
-     * DH Ratchet:
+     * DH Ratchet
      * <ul>
      * <li>Gen new Sender's Ephemeral KeyPair</li>
      * <li>Gen new RootKey for both</li>
@@ -182,7 +184,9 @@ public class TestSignalProtocol3 {
         }
     }
 
-    // Encrypt message using AES-GCM
+    /**
+     * Encrypt message using AES-GCM
+     * */
     private static byte[] encryptMessage(byte[] messageKey, String message, int counter, X25519PublicKeyParameters ephemeralPublicKey) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         byte[] nonce = new byte[GCM_NONCE_LENGTH];
