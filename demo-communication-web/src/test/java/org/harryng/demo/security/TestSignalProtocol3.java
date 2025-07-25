@@ -150,8 +150,8 @@ public class TestSignalProtocol3 {
      * @param chainKey
      * @return
      * <ul>
-     *     <li>messageKey</li>
-     *     <li>nextChainKey</li>
+     *     <li>messageKey = HKDF(chainKey, MESSAGE_KEY_RANDOM)</li>
+     *     <li>nextChainKey = HKDF(chainKey, NEXT_MESSAGE_KEY_RANDOM)</li>
      * </ul>
      * */
     private static byte[][] symmetricRatchet(byte[] chainKey) {
