@@ -268,8 +268,9 @@ public class TestSignalProtocol3 {
         log.info("Bob received and decrypted initial message: " + decryptedMessage1);
 
         // Step 4: Bob performs DH Ratchet and sends first reply to Alice
-        X25519PublicKeyParameters alicePublicKey = extractEphemeralPublicKey(encryptedMessage1);
-        dhRatchet(bob, alice, alicePublicKey, true);
+//        X25519PublicKeyParameters alicePublicKey = extractEphemeralPublicKey(encryptedMessage1);
+//        dhRatchet(bob, alice, alicePublicKey, true);
+        dhRatchet(bob, alice, alice.ephemeralPublicKey, true);
         String message2 = "Hi, Alice!";
         keys = symmetricRatchet(bob.sendingChainKey);
         bob.sendingChainKey = keys[1];
@@ -284,9 +285,10 @@ public class TestSignalProtocol3 {
         log.info("Bob sends second encrypted reply: " + getHex(encryptedMessage3));
 
         // Step 6: Alice receives and decrypts Bob's first reply
-        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage2);
+//        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage2);
 //        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage3);// is ok
-        dhRatchet(alice, bob, bobPublicKey, true);
+//        dhRatchet(alice, bob, bobPublicKey, false);
+        dhRatchet(bob, alice, alice.ephemeralPublicKey, false);
         keys = symmetricRatchet(alice.receivingChainKey);
         alice.receivingChainKey = keys[1];
         String decryptedMessage2 = decryptMessage(keys[0], encryptedMessage2, alice.receivingMessageCounter++);
