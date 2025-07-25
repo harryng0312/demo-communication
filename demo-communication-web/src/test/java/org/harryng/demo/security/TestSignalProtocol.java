@@ -166,7 +166,7 @@ public class TestSignalProtocol {
     }
 
     @Test
-    public void testDoubleRachet() throws Exception {
+    public void testDoubleRatchet() throws Exception {
         // Initialize Alice and Bob
         final User alice = new User();
         final User bob = new User();
@@ -180,31 +180,40 @@ public class TestSignalProtocol {
         byte[][] keys = symmetricRatchet(alice.chainKey);
         alice.chainKey = keys[1]; // Update chain key
         byte[] encryptedMessage1 = encryptMessage(keys[0], message1, alice.messageCounter++);
-        log.info("Alice sends encrypted message: " + Arrays.toString(encryptedMessage1));
+        log.info("Alice sends encrypted message 1: " + Arrays.toString(encryptedMessage1));
+
+        String message2 = "How are you? Bob";
+        keys = symmetricRatchet(alice.chainKey);
+        alice.chainKey = keys[1]; // Update chain key
+        byte[] encryptedMessage2 = encryptMessage(keys[0], message2, alice.messageCounter++);
+        log.info("Alice sends encrypted message 2: " + Arrays.toString(encryptedMessage2));
 
         // Step 3: Bob receives and decrypts the message
         keys = symmetricRatchet(bob.chainKey);
         bob.chainKey = keys[1]; // Update chain key
         String decryptedMessage1 = decryptMessage(keys[0], encryptedMessage1, bob.messageCounter++);
         log.info("Bob received and decrypted 1: " + decryptedMessage1);
-//        decryptedMessage1 = decryptMessage(keys[1], encryptedMessage1, bob.messageCounter++);
-//        log.info("Bob received and decrypted 2: " + decryptedMessage1);
+
+        keys = symmetricRatchet(bob.chainKey);
+        bob.chainKey = keys[1]; // Update chain key
+        String decryptedMessage2 = decryptMessage(keys[0], encryptedMessage2, bob.messageCounter++);
+        log.info("Bob received and decrypted 2: " + decryptedMessage2);
 
         // Step 4: Perform DH Ratchet (new session)
         dhRatchet(bob, alice);
         log.info("DH Ratchet performed. New root and chain keys established.");
 
         // Step 5: Bob sends a reply to Alice
-        String message2 = "Hi, Alice!";
+        String message3 = "Hi, Alice!";
         keys = symmetricRatchet(bob.chainKey);
         bob.chainKey = keys[1];
-        byte[] encryptedMessage2 = encryptMessage(keys[0], message2, bob.messageCounter++);
-        log.info("Bob sends encrypted message: " + Arrays.toString(encryptedMessage2));
+        byte[] encryptedMessage3 = encryptMessage(keys[0], message3, bob.messageCounter++);
+        log.info("Bob sends encrypted message: " + Arrays.toString(encryptedMessage3));
 
         // Step 6: Alice receives and decrypts the message
         keys = symmetricRatchet(alice.chainKey);
         alice.chainKey = keys[1];
-        String decryptedMessage2 = decryptMessage(keys[0], encryptedMessage2, alice.messageCounter++);
-        log.info("Alice received and decrypted: " + decryptedMessage2);
+        String decryptedMessage3 = decryptMessage(keys[0], encryptedMessage3, alice.messageCounter++);
+        log.info("Alice received and decrypted: " + decryptedMessage3);
     }
 }

@@ -19,7 +19,7 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 
 @Slf4j
-public class TestSignalProtocol2 {
+public class TestSignalProtocol3 {
     // Constants
     private static final int AES_KEY_LENGTH = 32; // 256 bits
     private static final int GCM_NONCE_LENGTH = 12; // 96 bits
@@ -88,7 +88,7 @@ public class TestSignalProtocol2 {
         }
     }
 
-    // Simulate HKDF (simplified for demo)
+    // Simulate HKDF
     private static byte[] hkdf(byte[] inputKey, byte[] info) {
         HMac hMac = new HMac(new SHA256Digest());
         hMac.init(new KeyParameter(inputKey));
@@ -107,51 +107,39 @@ public class TestSignalProtocol2 {
 
     // X3DH key agreement with Signed Prekey and One-Time Prekey
     private static void performX3DH(User alice, User bob) {
-        // Alice generates ephemeral key pair
         alice.generateEphemeralKeyPair();
-
-        // Alice uses Bob's identity key, signed prekey, and one-time prekey
-        byte[] dh1 = dhExchange(alice.identityPrivateKey, bob.signedPrekeyPublic); // DH1: Alice Identity + Bob Signed Prekey
-        byte[] dh2 = dhExchange(alice.ephemeralPrivateKey, bob.identityPublicKey); // DH2: Alice Ephemeral + Bob Identity
-        byte[] dh3 = dhExchange(alice.ephemeralPrivateKey, bob.signedPrekeyPublic); // DH3: Alice Ephemeral + Bob Signed Prekey
-        byte[] dh4 = dhExchange(alice.ephemeralPrivateKey, bob.oneTimePrekeyPublic); // DH4: Alice Ephemeral + Bob One-Time Prekey
-
-        // Combine DH outputs
+        byte[] dh1 = dhExchange(alice.identityPrivateKey, bob.signedPrekeyPublic);
+        byte[] dh2 = dhExchange(alice.ephemeralPrivateKey, bob.identityPublicKey);
+        byte[] dh3 = dhExchange(alice.ephemeralPrivateKey, bob.signedPrekeyPublic);
+        byte[] dh4 = dhExchange(alice.ephemeralPrivateKey, bob.oneTimePrekeyPublic);
         byte[] combined = new byte[dh1.length + dh2.length + dh3.length + dh4.length];
         System.arraycopy(dh1, 0, combined, 0, dh1.length);
         System.arraycopy(dh2, 0, combined, dh1.length, dh2.length);
         System.arraycopy(dh3, 0, combined, dh1.length + dh2.length, dh3.length);
         System.arraycopy(dh4, 0, combined, dh1.length + dh2.length + dh3.length, dh4.length);
-
-        // Derive root key and initial chain keys
         alice.rootKey = hkdf(combined, HKDF_INFO);
-        bob.rootKey = alice.rootKey; // Bob will perform same calculation when receiving
+        bob.rootKey = alice.rootKey;
         alice.sendingChainKey = hkdf(alice.rootKey, "ChainKey".getBytes());
         bob.receivingChainKey = alice.sendingChainKey;
         bob.sendingChainKey = hkdf(bob.rootKey, "ChainKey".getBytes());
         alice.receivingChainKey = bob.sendingChainKey;
     }
 
-    // Symmetric Ratchet: Derive message key and update chain key
+    // Symmetric Ratchet
     private static byte[][] symmetricRatchet(byte[] chainKey) {
         byte[] messageKey = hkdf(chainKey, "MessageKey".getBytes());
         byte[] nextChainKey = hkdf(chainKey, "NextChainKey".getBytes());
         return new byte[][] {messageKey, nextChainKey};
     }
 
-    // DH Ratchet: Update root key and chain key for sender and receiver
+    // DH Ratchet
     private static void dhRatchet(User sender, User receiver, X25519PublicKeyParameters receiverPublicKey, boolean isSender) {
-        // Sender generates new ephemeral key pair if sending
         if (isSender) {
             sender.generateEphemeralKeyPair();
         }
-
-        // Perform DH with receiver's public key
         byte[] sharedSecret = dhExchange(sender.ephemeralPrivateKey, receiverPublicKey);
         sender.rootKey = hkdf(sender.rootKey, sharedSecret);
         receiver.rootKey = sender.rootKey;
-
-        // Update chain keys: sender updates sending chain, receiver updates receiving chain
         if (isSender) {
             sender.sendingChainKey = hkdf(sender.rootKey, "ChainKey".getBytes());
             receiver.receivingChainKey = sender.sendingChainKey;
@@ -167,15 +155,11 @@ public class TestSignalProtocol2 {
         byte[] nonce = new byte[GCM_NONCE_LENGTH];
         SecureRandom random = new SecureRandom();
         random.nextBytes(nonce);
-
         SecretKeySpec keySpec = new SecretKeySpec(messageKey, "AES");
         GCMParameterSpec gcmSpec = new GCMParameterSpec(GCM_TAG_LENGTH, nonce);
         cipher.init(Cipher.ENCRYPT_MODE, keySpec, gcmSpec);
-
         byte[] plaintext = message.getBytes(StandardCharsets.UTF_8);
         byte[] ciphertext = cipher.doFinal(plaintext);
-
-        // Combine nonce, ciphertext, and ephemeral public key
         byte[] pubKeyBytes = ephemeralPublicKey.getEncoded();
         byte[] result = new byte[nonce.length + ciphertext.length + pubKeyBytes.length];
         System.arraycopy(nonce, 0, result, 0, nonce.length);
@@ -188,16 +172,15 @@ public class TestSignalProtocol2 {
     private static String decryptMessage(byte[] messageKey, byte[] encryptedMessage, int counter) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         byte[] nonce = Arrays.copyOfRange(encryptedMessage, 0, GCM_NONCE_LENGTH);
-        byte[] ciphertext = Arrays.copyOfRange(encryptedMessage, GCM_NONCE_LENGTH, encryptedMessage.length - 32); // 32 bytes for public key
+        byte[] ciphertext = Arrays.copyOfRange(encryptedMessage, GCM_NONCE_LENGTH, encryptedMessage.length - 32);
         SecretKeySpec keySpec = new SecretKeySpec(messageKey, "AES");
         GCMParameterSpec gcmSpec = new GCMParameterSpec(GCM_TAG_LENGTH, nonce);
         cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmSpec);
-
         byte[] plaintext = cipher.doFinal(ciphertext);
         return new String(plaintext, StandardCharsets.UTF_8);
     }
 
-    // Extract ephemeral public key from message
+    // Extract ephemeral public key
     private static X25519PublicKeyParameters extractEphemeralPublicKey(byte[] encryptedMessage) {
         byte[] pubKeyBytes = Arrays.copyOfRange(encryptedMessage, encryptedMessage.length - 32, encryptedMessage.length);
         return new X25519PublicKeyParameters(pubKeyBytes, 0);
@@ -221,47 +204,47 @@ public class TestSignalProtocol2 {
         performX3DH(alice, bob);
         log.info("X3DH completed with Signed Prekey and One-Time Prekey. Root Key established.");
 
-        // Step 2: Alice sends first message to Bob
+        // Step 2: Alice sends initial message to Bob
         String message1 = "Hello, Bob!";
         byte[][] keys = symmetricRatchet(alice.sendingChainKey);
-        alice.sendingChainKey = keys[1]; // Update sending chain key
+        alice.sendingChainKey = keys[1];
         byte[] encryptedMessage1 = encryptMessage(keys[0], message1, alice.sendingMessageCounter++, alice.ephemeralPublicKey);
-        log.info("[Step 2] Alice sends first encrypted message: " + getHex(encryptedMessage1));
+        log.info("Alice sends initial encrypted message: " + getHex(encryptedMessage1));
 
-        // Step 3: Alice sends second message to Bob
-        String message2 = "How are you?";
-        keys = symmetricRatchet(alice.sendingChainKey);
-        alice.sendingChainKey = keys[1]; // Update sending chain key
-        byte[] encryptedMessage2 = encryptMessage(keys[0], message2, alice.sendingMessageCounter++, alice.ephemeralPublicKey);
-        log.info("[Step 3] Alice sends second encrypted message: " + getHex(encryptedMessage2));
-
-        // Step 4: Bob receives and decrypts the first message
+        // Step 3: Bob receives and decrypts the initial message
         keys = symmetricRatchet(bob.receivingChainKey);
-        bob.receivingChainKey = keys[1]; // Update receiving chain key
+        bob.receivingChainKey = keys[1];
         String decryptedMessage1 = decryptMessage(keys[0], encryptedMessage1, bob.receivingMessageCounter++);
-        log.info("[Step 4] Bob received and decrypted first message: " + decryptedMessage1);
+        log.info("Bob received and decrypted initial message: " + decryptedMessage1);
 
-        // Step 5: Bob receives and decrypts the second message
-        keys = symmetricRatchet(bob.receivingChainKey);
-        bob.receivingChainKey = keys[1]; // Update receiving chain key
-        String decryptedMessage2 = decryptMessage(keys[0], encryptedMessage2, bob.receivingMessageCounter++);
-        log.info("[Step 5] Bob received and decrypted second message: " + decryptedMessage2);
-
-        // Step 6: Bob performs DH Ratchet and sends a reply to Alice
-        X25519PublicKeyParameters alicePublicKey = extractEphemeralPublicKey(encryptedMessage1); // Use Alice's public key from message
-        dhRatchet(bob, alice, alicePublicKey, true); // Bob is sender
-        String message3 = "Hi, Alice!";
+        // Step 4: Bob performs DH Ratchet and sends first reply to Alice
+        X25519PublicKeyParameters alicePublicKey = extractEphemeralPublicKey(encryptedMessage1);
+        dhRatchet(bob, alice, alicePublicKey, true);
+        String message2 = "Hi, Alice!";
         keys = symmetricRatchet(bob.sendingChainKey);
-        bob.sendingChainKey = keys[1]; // Update sending chain key
-        byte[] encryptedMessage3 = encryptMessage(keys[0], message3, bob.sendingMessageCounter++, bob.ephemeralPublicKey);
-        log.info("[Step 6] Bob sends encrypted reply: " + getHex(encryptedMessage3));
+        bob.sendingChainKey = keys[1];
+        byte[] encryptedMessage2 = encryptMessage(keys[0], message2, bob.sendingMessageCounter++, bob.ephemeralPublicKey);
+        log.info("Bob sends first encrypted reply: " + getHex(encryptedMessage2));
 
-        // Step 7: Alice receives and decrypts Bob's reply
-        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage3); // Get Bob's new ephemeral public key
-        dhRatchet(alice, bob, bobPublicKey, true); // Alice is receiver
+        // Step 5: Bob sends second reply to Alice
+        String message3 = "Good to hear from you!";
+        keys = symmetricRatchet(bob.sendingChainKey);
+        bob.sendingChainKey = keys[1];
+        byte[] encryptedMessage3 = encryptMessage(keys[0], message3, bob.sendingMessageCounter++, bob.ephemeralPublicKey);
+        log.info("Bob sends second encrypted reply: " + getHex(encryptedMessage3));
+
+        // Step 6: Alice receives and decrypts Bob's first reply
+        X25519PublicKeyParameters bobPublicKey = extractEphemeralPublicKey(encryptedMessage2);
+        dhRatchet(alice, bob, bobPublicKey, true);
         keys = symmetricRatchet(alice.receivingChainKey);
-        alice.receivingChainKey = keys[1]; // Update receiving chain key
+        alice.receivingChainKey = keys[1];
+        String decryptedMessage2 = decryptMessage(keys[0], encryptedMessage2, alice.receivingMessageCounter++);
+        log.info("Alice received and decrypted Bob's first reply: " + decryptedMessage2);
+
+        // Step 7: Alice receives and decrypts Bob's second reply
+        keys = symmetricRatchet(alice.receivingChainKey);
+        alice.receivingChainKey = keys[1];
         String decryptedMessage3 = decryptMessage(keys[0], encryptedMessage3, alice.receivingMessageCounter++);
-        log.info("[Step 7] Alice received and decrypted Bob's reply: " + decryptedMessage3);
+        log.info("Alice received and decrypted Bob's second reply: " + decryptedMessage3);
     }
 }
