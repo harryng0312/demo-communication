@@ -51,8 +51,8 @@ public class TestUserService {
         userDto.setDob(now.toLocalDate());
         userDto.setPasswdEncryptedMethod("plain");
 
-        userDto.setCreatedDate(now);
-        userDto.setModifiedDate(now);
+//        userDto.setCreatedDate(now);
+//        userDto.setModifiedDate(now);
         userDto.setStatus(1);
         final ValidationResult<UserDto> rs = userService.add(SessionHolder.builder().build(), userDto, Collections.emptyMap());
         log.info("Add {} record(s)", rs);

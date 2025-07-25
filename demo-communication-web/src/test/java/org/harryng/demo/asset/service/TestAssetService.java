@@ -103,8 +103,8 @@ public class TestAssetService {
         final var now = LocalDateTime.now();
         final AssetRes asset = new AssetRes();
         asset.setId(0L);
-        asset.setCreatedDate(now);
-        asset.setModifiedDate(now);
+//        asset.setCreatedDate(now);
+//        asset.setModifiedDate(now);
         asset.setOrgId(0L); // pass the field validator
         asset.setOrgTreepath("/123/345");
         asset.setDescription("");
@@ -132,8 +132,8 @@ public class TestAssetService {
         final var now = LocalDateTime.now();
         final var asset = new AssetRes();
         asset.setId(0L);
-        asset.setCreatedDate(now);
-        asset.setModifiedDate(now);
+//        asset.setCreatedDate(now);
+//        asset.setModifiedDate(now);
         asset.setOrgId(null); // pass the field validator
         asset.setOrgTreepath("/123/345");
         asset.setDescription("");
