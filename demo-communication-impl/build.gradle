@@ -24,6 +24,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 //    implementation "org.hibernate.validator:hibernate-validator"
 //    implementation "org.hibernate.validator:hibernate-validator-annotation-processor"
+    implementation "org.whispersystems:signal-protocol-java:${signalProtocolVer}"
 
     // for Test sources set
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVer}"
